@@ -18,19 +18,19 @@ var paused = false;
 var debugMode = false;
 
 var isMouseDragging = false;
-	
+
 window.onload = function(){
-			
+
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-	for (var i = 0; i < 8; i++) {  		
+	for (var i = 0; i < 8; i++) {
 		addVehicle();
-	} 			
+	}
 	loadImages();
-	initInput();	
-	for (var i = 0; i < vehicleList.length; i++) {  		
+	initInput();
+	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset();
-	} 	
+	}
 }
 
 function imageLoadingDoneSoStartGame(){
@@ -39,10 +39,10 @@ function imageLoadingDoneSoStartGame(){
 		moveEverything();
 		drawEverything();
 	}, 1000/framesPerSecond);
-	for (var i = 0; i < vehicleList.length; i++) {  		
+	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
-	} 
-	
+	}
+
 	loadLevel(levelOne);
 }
 
@@ -50,25 +50,25 @@ function addVehicle(){
 	var tempVehicle = new carClass();
 	vehicleList.push(tempVehicle);
 }
-	
+
 function moveEverything() {
 	if(titleScreen){
-		colorRect(0,0,canvas.width,canvas.height, 'green');	
+		colorRect(0,0,canvas.width,canvas.height, 'green');
 	} else if (levelEditor) {
 		//Intentionally left empty - no movement
 	} else if (winScreen){
 		winScreenTimer();
 	} else if (carUpgradeScreen){
-		//Intentionally left empty - no movement		
+		//Intentionally left empty - no movement
 	} else {
-		for (var i = 0; i < vehicleList.length; i++) {		
+		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].movement();
-		} 
-		for (var i = 0; i < vehicleList.length; i++) {  
-			for (var ii = i+1; ii < vehicleList.length; ii++) {  		
+		}
+		for (var i = 0; i < vehicleList.length; i++) {
+			for (var ii = i+1; ii < vehicleList.length; ii++) {
 				vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
-			} 	
-		} 
+			}
+		}
 	updateTime();
 	}
 }
@@ -76,7 +76,7 @@ function moveEverything() {
 function updateTime(){
 	now = new Date();
 }
-			
+
 function calculateMousePos(evt) {
 	var rect = canvas.getBoundingClientRect(), root = document.documentElement;
 	mouseX = evt.clientX - rect.left - root.scrollLeft;
@@ -93,7 +93,13 @@ function drawLapOneTime(){
 	var playerOne = vehicleList[0];
 	colorText(playerOne.lapMinuteTensSpot.toString() + playerOne.lapMinute.toString() + ':' + playerOne.lapSecondTensSpot.toString() + playerOne.lapSecond.toString() +':'+playerOne.lapTenthSecond.toString(), 700, 30, 'black');
 }
-			
+
+function drawFuelPercentage(){
+	var playerOne = vehicleList[0];
+	var percentFuelLeft = Math.round(playerOne.fuelInTank / playerOne.fuelCapacity * 100);
+	colorText("P1-Fuel: " +percentFuelLeft.toString()+ "%", 50, 30, 'black')
+}
+
 function drawEverything() {
 	if(titleScreen){
 		drawTitleScreen();
@@ -103,14 +109,15 @@ function drawEverything() {
 		drawWinScreen();
 	} else if (carUpgradeScreen){
 		drawCarUpgradeScreen();
-	} else {	
-		colorRect(0,0,canvas.width,canvas.height, 'black');			
+	} else {
+		colorRect(0,0,canvas.width,canvas.height, 'black');
 		drawTracks();
 		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].drawCar();
-		} 
+		}
 		drawClock();
 		drawLapOneTime();
+		drawFuelPercentage();
 	}
 }
 

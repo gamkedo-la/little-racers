@@ -9,7 +9,7 @@ function carClass() {
     this.y = 60;
 	this.z = 0;
 	this.zVel = 0;
-	
+
 	this.turn_rate = 0.03;
     this.keyHeld_Gas = false;
     this.keyHeld_Reverse = false;
@@ -25,6 +25,9 @@ function carClass() {
 	this.height = 50;
 	this.cash = 0;
 	this.placedPosition = false;
+    this.fuelCapacity = 100
+    this.fuelConsumptionRate = 0.15
+    this.fuelInTank = this.fuelCapacity
 
     this.carPic = document.createElement("img");
 
@@ -89,14 +92,14 @@ function carClass() {
 		this.wayPoint = true;
 		this.width = 50;
 		this.height = 50;
-		this.wayPointX = [110, 680, 680, 150]; 
+		this.wayPointX = [110, 680, 680, 150];
 		this.wayPointY = [110, 100, 500, 500];
 		this.level = 0;
 		this.stuckTime = 0;
 		this.randomMovementsTimer = 0;
 		this.placedPosition;
     }
-	
+
 	this.tryNitroBoost = function(){
 		if(this.nitroBoostAmount > 0){
 			this.speed += 2;
@@ -107,7 +110,7 @@ function carClass() {
 		this.turn_rate = 0.03;
 		this.nitroboost = false;
 	}
-	
+
 	this.randomMovements = function(){
 		var chanceToMoveForward = Math.round(Math.random() * 10);
 		this.randomMovementsTimer++
@@ -128,7 +131,7 @@ function carClass() {
 		} else {
 			this.keyHeld_TurnRight = false;
 			this.keyHeld_TurnLeft = false;
-		}	
+		}
 		var chanceToUseNitro = Math.round(Math.random() * 100);
 		if (chanceToUseNitro <= 1){
 			this.controlKeyForNitro = true;
@@ -139,7 +142,7 @@ function carClass() {
 			this.wayPoint = true;
 		}
 	}
-	
+
 	this.updateWayPoints = function(){
 		this.level = this.level + 1;
 		this.wayPointNumber = 0;
@@ -148,16 +151,16 @@ function carClass() {
 		this.checkPointB = false;
 		this.checkPointC = false;
 		if(this.level == 0){
-			this.wayPointX = [110, 680, 680, 150]; 
+			this.wayPointX = [110, 680, 680, 150];
 			this.wayPointY = [110, 100, 500, 500];
 		} else if (this.level == 1){
-			this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150]; 
+			this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150];
 			this.wayPointY = [110, 106, 266, 277,  86, 100, 500, 500];
 		} else if (this.level == 2){
-			this.wayPointX = [ 71, 164, 218, 332, 327, 450, 454, 725, 721, 640, 738,  66]; 
-			this.wayPointY = [243, 167,  76, 134, 411, 355,  96, 104, 246, 313, 508, 512]; 
+			this.wayPointX = [ 71, 164, 218, 332, 327, 450, 454, 725, 721, 640, 738,  66];
+			this.wayPointY = [243, 167,  76, 134, 411, 355,  96, 104, 246, 313, 508, 512];
 		} else if (this.level == 3){
-			this.wayPointX = [110, 680, 680, 150]; 
+			this.wayPointX = [110, 680, 680, 150];
 			this.wayPointY = [110, 100, 500, 500];
 		}
 	}
@@ -168,7 +171,7 @@ function carClass() {
 		var carVectorX = Math.cos(this.ang - Math.PI/2);
 		var carVectorY = Math.sin(this.ang - Math.PI/2);
 		var dotProduct = wayPointVectorX * carVectorX + wayPointVectorY * carVectorY;
-		
+
 		if(dotProduct < 0){
 			this.keyHeld_TurnRight = true;
 			this.keyHeld_TurnLeft = false;
@@ -176,7 +179,7 @@ function carClass() {
 			this.keyHeld_TurnRight = false;
 			this.keyHeld_TurnLeft = true;
 		}
-		
+
 		if(dist(this.x, this.y, toX, toY) < 20){
 			this.wayPointNumber++;
 			if(this.wayPointNumber >= this.wayPointX.length) {
@@ -184,7 +187,7 @@ function carClass() {
 			}
 		}
 	}
-	
+
 	this.checkIfStuck = function(){
 		if(this.speed < 1){
 			this.stuckTime++;
@@ -195,18 +198,26 @@ function carClass() {
 			}
 		}
 	}
-	
-	this.carControls = function() {			
+
+	this.carControls = function() {
         this.speed *= GROUNDSPEED_DECAY_MULT;
 
         if (this.keyHeld_Gas && !this.airborne) {
-            this.speed += DRIVE_POWER;
+            if (this.fuelInTank > 0) {
+                this.speed += DRIVE_POWER;
+                this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
+                this.checkForEmptyTank()
+            }
 			if(this.keyHeld_Nitro){
 				this.tryNitroBoost();
 			}
         }
         if (this.keyHeld_Reverse && !this.airborne) {
-            this.speed -= REVERSE_POWER;
+            if (this.fuelInTank > 0) {
+                this.speed -= REVERSE_POWER;
+                this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
+                this.checkForEmptyTank()
+            }
         }
         if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
             if (this.keyHeld_TurnLeft && this.turnable) {
@@ -217,12 +228,18 @@ function carClass() {
             }
         }
 	}
-	
+
+    this.checkForEmptyTank = function() {
+        if (this.fuelInTank < 0) {
+            this.fuelInTank = 0
+        }
+    }
+
     this.movement = function() {
-		
+
 		var nextX = this.x + Math.cos(this.ang) * this.speed;
         var nextY = this.y + Math.sin(this.ang) * this.speed;
-				
+
 		if(this.computerPlayer){
 			if(this.aiRandomMovements){
 				this.randomMovements();
@@ -233,15 +250,15 @@ function carClass() {
 				this.keyHeld_Reverse = false;
 				this.checkIfStuck();
 			}
-		} 
+		}
 
 		this.carControls();
-		
+
 		this.z += this.zVel;
-		if(this.z > 0){	
+		if(this.z > 0){
 			this.zVel -= 0.4;
 		} else {
-			this.z = 0;	
+			this.z = 0;
 			this.zVel = 0;
 		}
 
@@ -286,11 +303,11 @@ function carClass() {
 					} else {
 						whichPlace(this.myName, this.cash, this.placedPosition);
 					}
-				} 
+				}
 				this.x = nextX;
                 this.y = nextY;
                 this.turnable = true;
-				break;	
+				break;
             case TRACK_OIL_SLICK:
                 this.x = nextX;
                 this.y = nextY;
@@ -313,13 +330,13 @@ function carClass() {
         }
 		this.trackTime();
     }
-	
+
 	this.getAirTime = function(){  // WIP:  Need to gradually increase shadow while in air.
 		if(this.z <= 0){
 			this.zVel = 5;
 		}
 	}
-	
+
 	this.recordALap = function(){
 		this.lapNumber += 1;
 		this.lapTenthSecond = this.tenthSecond;
@@ -328,10 +345,10 @@ function carClass() {
 		this.lapMinute = this.minute;
 		this.lapMinuteTensSpot = this.minuteTensSpot;
 	}
-	
+
 	this.trackTime = function(){
 		this.runTime = now - this.startTime;                  // 00:00:0  Minutes : Seconds : MiliSeconds
-		if(this.runTime >= 1000){ 
+		if(this.runTime >= 1000){
 			this.runTime = 0;
 			this.tenthSecond += 1;
 		}
@@ -350,22 +367,22 @@ function carClass() {
 		if(this.minute >= 10){
 			this.minute = 0;
 			this.minuteTensSpot += 1;
-		}	
+		}
 	}
-	
+
 	this.isOverLappingPoint = function(testX, testY){
 		var deltaX = testX - this.x;
 		var deltaY = testY - this.y;
 		var dist = Math.sqrt ((deltaX*deltaX)+(deltaY*deltaY));
 		return(dist <= CAR_COLLISION_RADIUS);
 	}
-	
+
 	this.checkCarCollisionAgainst = function(thisCar){
 		if(thisCar.isOverLappingPoint(this.x,this.y)){
-			this.speed = -0.25 * this.speed; 
+			this.speed = -0.25 * this.speed;
 		}
 	}
-	
+
     this.drawCar = function() {
         drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang);
 		var xOffSet = this.x;
