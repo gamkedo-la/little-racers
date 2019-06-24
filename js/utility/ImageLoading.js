@@ -13,6 +13,8 @@ var arrowPic = document.createElement("img");
 var roadSpriteSheet =  document.createElement("img");
 var trackobstaclesSpriteSheet = document.createElement("img");
 var wallSpriteSheet = document.createElement("img");
+var tireTrackPic = document.createElement("img");
+
 var trackPics = [];
 
 var picsToLoad = 0;
@@ -52,6 +54,7 @@ function loadImages() {
 			{varName: roadSpriteSheet, theFile: "roadSpriteSheet.png"},
 			{varName: trackobstaclesSpriteSheet, theFile: "trackobstaclesSpriteSheet.png"},
 			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"},
+			{varName: tireTrackPic, theFile: "tireTracks.png"},
 				
 		];
 			

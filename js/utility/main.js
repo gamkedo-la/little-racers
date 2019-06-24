@@ -112,6 +112,7 @@ function drawEverything() {
 	} else {
 		colorRect(0,0,canvas.width,canvas.height, 'black');
 		drawTracks();
+		tireTracks.draw();
 		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].drawCar();
 		}

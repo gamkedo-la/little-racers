@@ -237,6 +237,27 @@ function carClass() {
         }
     }
 
+	this.skidMarkHandling = function() { // draw tire tracks / skid marks
+		
+		if (this.airborne) return;
+		console.log(this.speed); // normally in the 160 range
+		var tireTrackAlpha = 0.2; //this.speed / 1600; // 0.1ish
+		var goingSlow = 10; // was 100
+		// at start of race, when we are going slow, we make a lot of marks
+		if (this.speed<goingSlow) // really slow
+		{
+		  tireTrackAlpha += 0.025*(100/this.speed*10); // fade out as we accell
+		}
+		if (this.isTurning) {
+		  tireTrackAlpha = 0.7;
+		}
+		else if (this.isBraking) {
+		  tireTrackAlpha = 0.9;
+		}
+		tireTrackAlpha *= 0.01;
+		tireTracks.add(this.x, this.y, this.angle, tireTrackAlpha);
+	  }
+
     this.movement = function() {
 
 		var nextX = this.x + Math.cos(this.ang) * this.speed;
@@ -331,6 +352,7 @@ function carClass() {
                 this.speed = -.5 * this.speed;
         }
 		this.trackTime();
+		this.skidMarkHandling();
     }
 
 	this.getAirTime = function(){  // WIP:  Need to gradually increase shadow while in air.
