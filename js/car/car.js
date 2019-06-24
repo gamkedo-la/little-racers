@@ -24,6 +24,7 @@ function carClass() {
 	this.width = 50;
 	this.height = 50;
 	this.cash = 0;
+	this.placedPosition = false;
 
     this.carPic = document.createElement("img");
 
@@ -93,6 +94,7 @@ function carClass() {
 		this.level = 0;
 		this.stuckTime = 0;
 		this.randomMovementsTimer = 0;
+		this.placedPosition;
     }
 	
 	this.tryNitroBoost = function(){
@@ -277,13 +279,12 @@ function carClass() {
 				}
 				break;
 			case TRACK_FINISH:
-				console.log('Lap: '+this.lapNumber+' ')
 				if(this.checkPointC){
 					this.checkPointC = false;
 					if(this.lapNumber < 3){
 						this.recordALap();
 					} else {
-						whichPlace(this.myName, this.cash);
+						whichPlace(this.myName, this.cash, this.placedPosition);
 					}
 				} 
 				this.x = nextX;
