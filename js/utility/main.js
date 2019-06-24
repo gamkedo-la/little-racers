@@ -118,6 +118,9 @@ function drawEverything() {
 		drawClock();
 		drawLapOneTime();
 		drawFuelPercentage();
+		if(debugMode){
+			colorText("Debug Mode", 10, canvas.height - 50, "white", font = "14px Arial Black")
+		}
 	}
 }
 

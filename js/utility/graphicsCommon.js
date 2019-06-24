@@ -33,3 +33,4 @@ function colorLine(x1, y1, x2, y2, color){
 	canvasContext.strokeStyle = color;
 	canvasContext.stroke();
 }
+

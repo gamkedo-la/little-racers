@@ -301,7 +301,7 @@ function carClass() {
 					if(this.lapNumber < 3){
 						this.recordALap();
 					} else {
-						whichPlace(this.myName, this.cash, this.placedPosition);
+						whichPlace(this);
 					}
 				}
 				this.x = nextX;

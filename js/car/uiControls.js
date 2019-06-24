@@ -3,6 +3,7 @@ const KEY_S = 83;
 const KEY_A = 65; 
 const KEY_D = 68; 
 const KEY_F = 70;
+const KEY_L = 76;
 
 const KEY_INSERT = 45;
 const KEY_HOME = 36;
@@ -56,6 +57,7 @@ function keyPressed(evt) {
 	var levelEditorKey = KEY_F1;
 	var debugKey = KEY_F2;
 	var pausedKey = KEY_P;
+	var nextLevelKey = KEY_L;
 	
 	setKeyHoldState(evt.keyCode, vehicleList[0], true);
 	setKeyHoldState(evt.keyCode, vehicleList[1], true);
@@ -73,11 +75,17 @@ function keyPressed(evt) {
 			levelEditor = false;
 		} else 
 			levelEditor = true;
-	} else if (debugKey = evt.keyCode){
+	} else if (debugKey == evt.keyCode){
 		if(debugMode){
 			debugMode = false;
 		} else {
 			debugMode = true;
+		}
+	//Debug options
+	} else if (debugMode){
+		if (debugKey = KEY_L){
+			nextLevel();
+			debugMode = false;
 		}
 	}
 }
