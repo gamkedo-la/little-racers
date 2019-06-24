@@ -83,7 +83,7 @@ function keyPressed(evt) {
 		}
 	//Debug options
 	} else if (debugMode){
-		if (debugKey = KEY_L){
+		if (evt.keyCode == nextLevelKey){
 			nextLevel();
 			debugMode = false;
 		}

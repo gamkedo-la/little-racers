@@ -97,7 +97,7 @@ function carClass() {
 		this.level = 0;
 		this.stuckTime = 0;
 		this.randomMovementsTimer = 0;
-		this.placedPosition;
+		this.placedPosition = false;
     }
 
 	this.tryNitroBoost = function(){
@@ -205,7 +205,9 @@ function carClass() {
         if (this.keyHeld_Gas && !this.airborne) {
             if (this.fuelInTank > 0) {
                 this.speed += DRIVE_POWER;
-                this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
+                if(!debugMode){ //don't remove fuel while in debug mode
+					this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
+				}
                 this.checkForEmptyTank()
             }
 			if(this.keyHeld_Nitro){
