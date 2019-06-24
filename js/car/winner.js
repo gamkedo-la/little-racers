@@ -18,54 +18,54 @@ var eigthPlaceFilled = false;
 //check to see if position is filled, if not, fill place position with that care, 
 //mark position as filled, show car as having a position, and award cash.
 function whichPlace(car){	
-	if(!firstPlaceFilled && !this.placedPosition){
-		firstPlace = this.myName;
+	if(!firstPlaceFilled && !car.placedPosition){
+		firstPlace = car.myName;
 		firstPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 1000;
-		console.log("First: " + this.myName + " " + this.cash);
-	} else if(!secondPlaceFilled && !this.placedPosition){
-		secondPlace = this.myName;
+		car.placedPosition = true;
+		car.cash += 1000;
+		console.log("First: " + car.myName + " " + car.cash);
+	} else if(!secondPlaceFilled && !car.placedPosition){
+		secondPlace = car.myName;
 		secondPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 750;
-		console.log("Second: " + this.myName + " " + this.cash);	
-	} else if(!thirdPlaceFilled && !this.placedPosition){
-		thirdPlace = this.myName;
+		car.placedPosition = true;
+		car.cash += 750;
+		console.log("Second: " + car.myName + " " + car.cash);	
+	} else if(!thirdPlaceFilled && !car.placedPosition){
+		thirdPlace = car.myName;
 		thirdPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 500;
-		console.log("Third: " + this.myName + " " + this.cash);
-	} else if(!fourthPlaceFilled && !this.placedPosition){
-		fourthPlace = this.myName;
+		car.placedPosition = true;
+		car.cash += 500;
+		console.log("Third: " + car.myName + " " + car.cash);
+	} else if(!fourthPlaceFilled && !car.placedPosition){
+		fourthPlace = car.myName;
 		fourthPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 250;
-		console.log("Fourth: " + this.myName + " " + this.cash);
-	} else if(!fifthPlaceFilled && !this.placedPosition){
-		fifthPlace = this.myName;
+		car.placedPosition = true;
+		car.cash += 250;
+		console.log("Fourth: " + car.myName + " " + car.cash);
+	} else if(!fifthPlaceFilled && !car.placedPosition){
+		fifthPlace = car.myName;
 		fifthPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 100;
-		console.log("Fifth: " + this.myName + " " + this.cash);
-	} else if(!sixthPlaceFilled && !this.placedPosition){
-		sixthPlace = this.myName;
+		car.placedPosition = true;
+		car.cash += 100;
+		console.log("Fifth: " + car.myName + " " + car.cash);
+	} else if(!sixthPlaceFilled && !car.placedPosition){
+		sixthPlace = car.myName;
 		sixthPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 50;
-		console.log("Sixth: " + this.myName + " " + this.cash);
-	} else if(!seventhPlaceFilled && !this.placedPosition){
-		seventhPlace = this.myName;
+		car.placedPosition = true;
+		car.cash += 50;
+		console.log("Sixth: " + car.myName + " " + car.cash);
+	} else if(!seventhPlaceFilled && !car.placedPosition){
+		seventhPlace = car.myName;
 		seventhPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 25;
-		console.log("Seventh: " + this.myName + " " + this.cash);
-	} else if(!eigthPlaceFilled && !this.placedPosition){
-		eigthPlace = this.myName;
+		car.placedPosition = true;
+		car.cash += 25;
+		console.log("Seventh: " + car.myName + " " + car.cash);
+	} else if(!eigthPlaceFilled && !car.placedPosition){
+		eigthPlace = car.myName;
 		eigthPlaceFilled = true;
-		this.placedPosition = true;
-		this.cash += 10;
-		console.log("Eighth: " + this.myName + " " + this.cash);
+		car.placedPosition = true;
+		car.cash += 10;
+		console.log("Eighth: " + car.myName + " " + car.cash);
 		nextLevel();
 	}
 }
