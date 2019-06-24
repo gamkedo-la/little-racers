@@ -16,40 +16,47 @@ var seventhPlaceFilled = false;
 var eigthPlaceFilled = false;
 
 function whichPlace(whichCar, cash){
+	console.log("In whichPlace");
 	if(!firstPlaceFilled){
 		firstPlace = whichCar;
 		firstPlaceFilled = true;
 		cash = cash + 1000;
+		console.log("First: " + whichCar + " " + cash);
 	} else if(!secondPlaceFilled){
 		secondPlace = whichCar;
 		secondPlaceFilled = true;
 		cash = cash + 750;
+		console.log("Second: " + whichCar + " " + cash);
 	} else if(!thirdPlaceFilled){
 		thirdPlace = whichCar;
-		thirdPlacePlaceFilled = true;
+		thirdPlaceFilled = true;
 		cash = cash + 500;
+		console.log("Third: " + whichCar + " " + cash);
 	} else if(!fourthPlaceFilled){
-		fourthPlacePlace = whichCar;
-		fourthPlacePlaceFilled = true;
+		fourthPlace = whichCar;
+		fourthPlaceFilled = true;
 		cash = cash + 250;
-		console.log(whichCar, cash);
+		console.log("Fourth: " + whichCar + " " + cash);
 	} else if(!fifthPlaceFilled){
-		fifthPlacePlace = whichCar;
-		fifthPlacePlaceFilled = true;
+		fifthPlace = whichCar;
+		fifthPlaceFilled = true;
 		cash = cash + 100;
-	} else if(!sixthPlaceFilled, cash){
+		console.log("Fifth: " + whichCar + " " + cash);
+	} else if(!sixthPlaceFilled){
 		sixthPlace = whichCar;
 		sixthPlaceFilled = true;
 		cash = cash + 50;
-	} else if(!seventhPlaceFilled, cash){
+		console.log("Sixth: " + whichCar + " " + cash);
+	} else if(!seventhPlaceFilled){
 		seventhPlace = whichCar;
 		seventhPlaceFilled = true;
 		cash = cash + 25;
-	} else if(!eigthPlaceFilled, cash){
-		eigthPlacePlace = whichCar;
-		ePlaceFilled = true;
+		console.log("Seventh: " + whichCar + " " + cash);
+	} else if(!eigthPlaceFilled){
+		eigthPlace = whichCar;
+		eigthPlaceFilled = true;
 		cash = cash + 10;
-	} else {
+		console.log("Eighth: " + whichCar + " " + cash);
 		nextLevel();
 	}
 }
