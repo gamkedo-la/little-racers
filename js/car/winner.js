@@ -69,3 +69,23 @@ function whichPlace(car){
 		nextLevel();
 	}
 }
+
+//reset race positions
+function clearRacePositions(){
+	firstPlaceFilled = false;
+	secondPlaceFilled = false;
+	thirdPlaceFilled = false;
+	fourthPlaceFilled = false;
+	fifthPlaceFilled = false;
+	sixthPlaceFilled = false;
+	seventhPlaceFilled = false;
+	eigthPlaceFilled = false;
+	firstPlace = "empty";
+	secondPlace= "empty";
+	thirdPlace = "empty";
+	fourthPlace = "empty";
+	fifthPlace = "empty";
+	sixthPlace = "empty";
+	seventhPlace = "empty";
+	eigthPlace = "empty";
+}

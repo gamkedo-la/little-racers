@@ -19,6 +19,7 @@ function winScreenTimer(){
 		winScreenTime = 0;
 		winScreen = false;
 		carUpgradeScreen = true;
+		clearRacePositions();
 	}
 	
 }
