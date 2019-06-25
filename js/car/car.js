@@ -317,7 +317,7 @@ function carClass() {
 		if (tireTrackAlpha < 0) tireTrackAlpha = 0;
 		if (tireTrackAlpha > 1) tireTrackAlpha = 1;
 
-		console.log("Car speed: " + this.speed.toFixed(1) + " Skid alpha: " + tireTrackAlpha.toFixed(1));
+		//console.log("Car speed: " + this.speed.toFixed(1) + " Skid alpha: " + tireTrackAlpha.toFixed(1));
 
 		if (tireTrackAlpha>0.001) {
 			tireTracks.add(this.x, this.y, this.ang, tireTrackAlpha);
