@@ -12,8 +12,8 @@ function setFormat() {
 function SoundOverlapsClass(filenameWithPath) {
     setFormat();
     var altSoundTurn = false;
-    var mainSound = new Audio(filenameWithPath + audioFormat);
-    var altSound = new Audio(filenameWithPath + audioFormat);
+    var mainSound = new Audio("sound/" + filenameWithPath + audioFormat);
+    var altSound = new Audio("sound/" + filenameWithPath + audioFormat);
     
     this.play = function() {
 		if (altSoundTurn) {

@@ -12,7 +12,7 @@ var computerPlayerOn = true;
 
 //sounds
 var crashIntoConeSound = new SoundOverlapsClass("crashCone");
-
+var engineSound = new SoundOverlapsClass("engine");
 
 //Game States
 var titleScreen = true;
