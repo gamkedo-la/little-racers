@@ -251,26 +251,26 @@ function carClass() {
 	const TURNING_SKIDMARK_OPACITY = 0.1; // darker when cornering
 
 	this.skidMarkHandling = function() { // draw tire tracks / skid marks
-		
+
 		// never leave a trail when flying through the air
-		if (this.airborne) return; 
+		if (this.airborne) return;
 		// nor if we aren't putting our foot on the gas
 		if (!this.keyHeld_Gas) return;
 
 		var tireTrackAlpha = 1.0;
 
 		// when going slow and accellerating, we make a lot of marks
-		if (this.speed > 0 && 
+		if (this.speed > 0 &&
 			this.speed < PEEL_OUT_SPEED &&
-			this.keyHeld_Gas) { 
+			this.keyHeld_Gas) {
 			tireTrackAlpha = PEEL_OUT_OPACITY * (1-(PEEL_OUT_SPEED/this.speed));
 		  }
 
 		// very faint trails on straightaways
 		if (this.speed > MAXSPD_FOR_TRAIL) {
-			tireTrackAlpha = MAXSPD_TRAIL_OPACITY; 
+			tireTrackAlpha = MAXSPD_TRAIL_OPACITY;
 		}
-		
+
 		if (this.keyHeld_TurnRight) {
 		  tireTrackAlpha = TURNING_SKIDMARK_OPACITY;
 		}
@@ -288,7 +288,7 @@ function carClass() {
 		if (tireTrackAlpha > 1) tireTrackAlpha = 1;
 
 		console.log("Car speed: " + this.speed.toFixed(1) + " Skid alpha: " + tireTrackAlpha.toFixed(1));
-		
+
 		if (tireTrackAlpha>0.001) {
 			tireTracks.add(this.x, this.y, this.ang, tireTrackAlpha);
 		}
@@ -457,4 +457,17 @@ function carClass() {
 			colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
 		}
 	}
+
+    this.setFuel = function(setFuelAmount) {
+        if (isNaN(setFuelAmount)) {
+            return;
+        }
+        if (setFuelAmount < 0) {
+            setFuelAmount = 0;
+        }
+        else if (setFuelAmount > this.fuelCapacity) {
+            setFuelAmount = this.fuelCapacity
+        }
+        this.fuelInTank = setFuelAmount
+    }
 }
