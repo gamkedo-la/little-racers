@@ -7,10 +7,12 @@ var now = new Date();
 var time = 0;
 
 var vehicleList = [];
-
 var twoPlayerGame = false;
-
 var computerPlayerOn = true;
+
+//sounds
+var crashIntoConeSound = new SoundOverlapsClass("crashCone");
+
 
 //Game States
 var titleScreen = true;

@@ -424,6 +424,9 @@ function carClass() {
                 this.turnable = false;
 				this.getAirTime();
                 break;
+			case TRACK_WALL:
+				this.speed = -.5 * this.speed;
+				crashIntoConeSound.play();
             default:                                   //Handles collision with solid tiles (interior wall block and track border)
                 this.speed = -.5 * this.speed;
         }
