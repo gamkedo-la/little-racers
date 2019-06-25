@@ -8,6 +8,8 @@ var time = 0;
 
 var vehicleList = [];
 
+var twoPlayerGame = false;
+
 var computerPlayerOn = true;
 
 var titleScreen = true;
@@ -96,8 +98,14 @@ function drawLapOneTime(){
 
 function drawFuelPercentage(){
 	var playerOne = vehicleList[0];
-	var percentFuelLeft = Math.round(playerOne.fuelInTank / playerOne.fuelCapacity * 100);
-	colorText("P1-Fuel: " +percentFuelLeft.toString()+ "%", 50, 30, 'black')
+	var playerTwo = vehicleList[1];
+	var percentFuelLeftP1 = Math.round(playerOne.fuelInTank / playerOne.fuelCapacity * 100);
+	colorText("P1-Fuel: " +percentFuelLeftP1.toString()+ "%", 50, 30, 'black')
+
+	if (!playerTwo.computerPlayer) {
+		var percentFuelLeftP2 = Math.round(playerTwo.fuelInTank / playerTwo.fuelCapacity * 100)
+		colorText("P2-Fuel: " +percentFuelLeftP2.toString()+ "%", 50, 50, 'black')
+	}
 }
 
 function drawEverything() {
