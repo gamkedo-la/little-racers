@@ -271,22 +271,23 @@ function carClass() {
     }
 
 	// tire track constants
-	const OILSLICK_FRAMECOUNT = 16; // leave dark oil track marks for n frames
-	const OILSLICK_OPACITY = 1.0; // very dark when trailing oil
-	const PEEL_OUT_SPEED = 5; // when slow, we leave accelerating tire tracks
-	const PEEL_OUT_OPACITY = 0.5; // when starting, how dark are the tracks
+	const OILSLICK_FRAMECOUNT = 10; // leave dark oil track marks for n frames
+	const OILSLICK_OPACITY = 0.15; // very dark when trailing oil
+	const PEEL_OUT_SPEED = 2; // when slow, we leave accelerating tire tracks
+	const PEEL_OUT_OPACITY = 0.025; // when starting, how dark are the tracks
 	const MAXSPD_FOR_TRAIL = 10; // fade out trail as we approach this speed
-	const MAXSPD_TRAIL_OPACITY = 0.05; // very faint when on straighaways
-	const TURNING_SKIDMARK_OPACITY = 0.1; // darker when cornering
+	const MAXSPD_TRAIL_OPACITY = 0.025; // very faint when on straighaways
+	// FIXME: AI is "always turning"
+	const TURNING_SKIDMARK_OPACITY = 0.025; // darker when cornering
 
 	this.skidMarkHandling = function() { // draw tire tracks / skid marks
 
 		// never leave a trail when flying through the air
 		if (this.airborne) return;
 		// nor if we aren't putting our foot on the gas
-		if (!this.keyHeld_Gas) return;
+		//if (!this.keyHeld_Gas) return;
 
-		var tireTrackAlpha = 1.0;
+		var tireTrackAlpha = 0;
 
 		// when going slow and accellerating, we make a lot of marks
 		if (this.speed > 0 &&

@@ -42,6 +42,10 @@ var decalManager = function() {
 
 	// warning, this function is costly, don't call every frame
 	this.fadeOut = function() {
+
+		/*
+		// this way has to run on a real web browser due to cross-origin security
+		// we aren't allowed to read pixels of images stored locally
 		var myImageData = this.tireTrackCTX.getImageData(0,0,this.tireTrackCanvas.width,this.tireTrackCanvas.height);
 		var data = myImageData.data;
 		for (var i = 0; i < data.length; i += 4) {
@@ -51,6 +55,8 @@ var decalManager = function() {
 		  if (data[i + 3]>1) data[i + 3]--; // alpha gets fainter
 		}
 		this.tireTrackCTX.putImageData(myImageData, 0, 0);
+		*/
+
 	}
 
 	this.draw = function() {
