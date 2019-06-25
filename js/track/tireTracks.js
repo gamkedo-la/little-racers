@@ -2,6 +2,8 @@
 // for infinite scorchmarks, skidmarks, dents, mud, etc
 
 var decalManager = function() {
+	
+	//var img.crossOrigin = "Anonymous";
 
 	this.tireTrackCanvas = document.createElement("canvas");
 	this.tireTrackCanvas.width = gameCanvas.width;
@@ -30,7 +32,11 @@ var decalManager = function() {
 
 		if (this.decalCount % 7 == 0) // every Xth skidmark
 		{
-			// this.fadeOut();   //temporary disabled until bug fixed.
+			if(byPassFadeOut){ 
+				return;
+			} else {
+				this.fadeOut();   
+			}
 		}
 	};
 

@@ -12,12 +12,16 @@ var twoPlayerGame = false;
 
 var computerPlayerOn = true;
 
+//Game States
 var titleScreen = true;
 var levelEditor = false;
 var winScreen = false;
 var carUpgradeScreen = false;
 var paused = false;
+
+//Debug Options
 var debugMode = false;
+var byPassFadeOut = false; //disable if not using a local server
 
 var isMouseDragging = false;
 
