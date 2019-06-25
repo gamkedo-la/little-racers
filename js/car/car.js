@@ -5,6 +5,8 @@ const GROUNDSPEED_DECAY_MULT = 0.94;
 const CAR_COLLISION_RADIUS = 15;
 const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
+const CAR_WIDTH = 28;
+const CAR_HEIGHT = 12;
 
 function carClass() {
     this.x = 60;
@@ -23,8 +25,6 @@ function carClass() {
 	this.runTime = 0.0
 	this.nitroboost = false;
 	this.wayPointNumber = 0;
-	this.width = 50;
-	this.height = 50;
 	this.cash = 0;
 	this.placedPosition = false;
     this.fuelCapacity = 100;
@@ -47,7 +47,8 @@ function carClass() {
 		this.name = whichName;
 		this.myCarPic = whichGraphic;
         this.speed = 0;
-        this.ang = -0.5 * Math.PI;
+        this.ang = -0.5 * Math.PI; //Angle is in radians; this rotates the graphic -90 degrees to point car up.
+                                   //Because the graphics on the sheet are orented pointing to the right.
 
 		for (var i = 0; i < trackGrid.length; i++) {
 			if (trackGrid[i] == TRACK_PLAYER) {
@@ -93,8 +94,6 @@ function carClass() {
 		this.checkPointC = false;
 		this.aiRandomMovements = false;
 		this.wayPoint = true;
-		this.width = 50;
-		this.height = 50;
 		this.wayPointX = [110, 680, 680, 150];
 		this.wayPointY = [110, 100, 500, 500];
 		this.level = 0;
@@ -172,6 +171,8 @@ function carClass() {
 	this.wayPointMovements = function(toX, toY){
 		var wayPointVectorX = toX - this.x;
 		var wayPointVectorY = toY - this.y;
+
+        //Subtract Pi/2 accounts for the car image being rotated 90 degrees.
 		var carVectorX = Math.cos(this.ang - Math.PI/2);
 		var carVectorY = Math.sin(this.ang - Math.PI/2);
 		var dotProduct = wayPointVectorX * carVectorX + wayPointVectorY * carVectorY;
@@ -453,7 +454,8 @@ function carClass() {
 			yOffSet = yOffSet - 10;
 		}
 		drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang);
-		if(debugMode){
+		if (debugMode) {
+		    drawRotatedRect(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH+8, CAR_HEIGHT+8, this.ang);
 			colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
 		}
 	}
