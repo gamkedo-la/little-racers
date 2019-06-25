@@ -9,6 +9,7 @@ var carPic8 = document.createElement("img");
 var carShadowPic = document.createElement("img");
 var clockPic = document.createElement("img");
 //var titlepagePic = document.createElement("img");
+var bodyShopPic = document.createElement("img");
 var arrowPic = document.createElement("img");
 var roadSpriteSheet =  document.createElement("img");
 var trackobstaclesSpriteSheet = document.createElement("img");
@@ -48,14 +49,14 @@ function loadImages() {
 			{varName: carPic6, theFile: "player6.png"},
 			{varName: carPic7, theFile: "player7.png"},
 			{varName: carPic8, theFile: "player8.png"},
+			{varName: bodyShopPic, theFile: "bodyShop.png"},
 			{varName: clockPic, theFile: "system_clock.png"},
 			{varName: carShadowPic, theFile: "car_shadow.png"},
 			{varName: arrowPic, theFile: "leftArrow.png"},
 			{varName: roadSpriteSheet, theFile: "roadSpriteSheet.png"},
 			{varName: trackobstaclesSpriteSheet, theFile: "trackobstaclesSpriteSheet.png"},
 			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"},
-			{varName: tireTrackPic, theFile: "tireTracks.png"},
-				
+			{varName: tireTrackPic, theFile: "tireTracks.png"}			
 		];
 			
 	picsToLoad = imageList.length;
