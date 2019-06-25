@@ -328,6 +328,14 @@ function carClass() {
         switch (drivingIntoTileType) {
 
             case TRACK_ROAD:
+			case TRACK_ROAD_FIRST:
+			case TRACK_ROAD_SECOND:
+			case TRACK_ROAD_THIRD:
+			case TRACK_ROAD_FOURTH:
+			case TRACK_ROAD_FIFTH:
+			case TRACK_ROAD_SIXTH:
+			case TRACK_ROAD_SEVENTH:
+			case TRACK_ROAD_EIGHT:
                 this.x = nextX;
                 this.y = nextY;
                 this.turnable = true;
