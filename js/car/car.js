@@ -3,6 +3,8 @@ const REVERSE_POWER = 0.2;
 const MIN_TURN_SPEED = 0.5;
 const GROUNDSPEED_DECAY_MULT = 0.94;
 const CAR_COLLISION_RADIUS = 15;
+const TURN_RATE_NITRO = 0.01;
+const TURN_RATE_STANDARD = 0.03;
 
 function carClass() {
     this.x = 60;
@@ -10,7 +12,7 @@ function carClass() {
 	this.z = 0;
 	this.zVel = 0;
 
-	this.turn_rate = 0.03;
+	this.turn_rate = TURN_RATE_STANDARD;
     this.keyHeld_Gas = false;
     this.keyHeld_Reverse = false;
     this.keyHeld_TurnLeft = false;
@@ -105,11 +107,11 @@ function carClass() {
 	this.tryNitroBoost = function(){
 		if(this.nitroBoostAmount > 0){
 			this.speed += 2;
-			this.turn_rate = 0.01;
+			this.turn_rate = TURN_RATE_NITRO;
 			this.nitroboost = true;
 		}
 		this.nitroBoostAmount = this.nitroBoostAmount - 1;
-		this.turn_rate = 0.03;
+		this.turn_rate = TURN_RATE_STANDARD;
 		this.nitroboost = false;
 	}
 
@@ -384,7 +386,7 @@ function carClass() {
                 this.turnable = false;
 				this.getAirTime();
                 break;
-            default:
+            default:                                   //Handles collision with solid tiles (interior wall block and track border)
                 this.speed = -.5 * this.speed;
         }
 		this.trackTime();
@@ -437,7 +439,7 @@ function carClass() {
 		return(dist <= CAR_COLLISION_RADIUS);
 	}
 
-	this.checkCarCollisionAgainst = function(thisCar){
+	this.checkCarCollisionAgainst = function(thisCar){  //Handles collisions between cars.
 		if(thisCar.isOverLappingPoint(this.x,this.y)){
 			this.speed = -0.25 * this.speed;
 		}
