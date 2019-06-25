@@ -21,7 +21,7 @@ var paused = false;
 
 //Debug Options
 var debugMode = false;
-var byPassFadeOut = false; //disable if not using a local server
+var byPassFadeOut = true; //disable if not using a local server
 
 var isMouseDragging = false;
 

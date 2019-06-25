@@ -154,8 +154,36 @@ function carClass() {
 		this.checkPointB = false;
 		this.checkPointC = false;
 		if(this.level == 0){
-			this.wayPointX = [110, 680, 680, 150];
-			this.wayPointY = [110, 100, 500, 500];
+			if(!this.placedPosition){ //use these way points while racing
+				this.wayPointX = [55, 60, 160, 180, 180];
+				this.wayPointY = [485, 435, 380, 320, 145];
+			//use these way points when a place is determined
+			} else if(car.myName == firstPlace){ 
+				this.wayPointX = [ 60,  74, 160, 180, 180];
+				this.wayPointY = [500, 420, 380, 300, 140];
+			} else if(car.myName == secondPlace){
+				this.wayPointX = [ 60,  74, 160, 180, 220];
+				this.wayPointY = [500, 420, 380, 300, 140];
+			} else if(car.myName == thirdPlace){
+				this.wayPointX = [ 60,  74, 160, 180, 255];
+				this.wayPointY = [500, 420, 380, 300, 140];
+			} else if(car.myName == fourthPlace){
+				this.wayPointX = [ 60,  74, 160, 180, 180];
+				this.wayPointY = [500, 420, 380, 300, 180];
+			} else if(car.myName == fifthPlace){
+				this.wayPointX = [ 60,  74, 160, 180, 220];
+				this.wayPointY = [500, 420, 380, 300, 180];
+			} else if(car.myName == sixthPlace){
+				this.wayPointX = [ 60,  74, 160, 180, 255];
+				this.wayPointY = [500, 420, 380, 300, 180];
+			} else if(car.myName == seventhPlace){
+				this.wayPointX = [ 60,  74, 160, 180, 180];
+				this.wayPointY = [500, 420, 380, 300, 220];
+			} else if(car.myName == eigthPlace){
+				this.wayPointX = [ 60,  74, 160, 180, 220];
+				this.wayPointY = [500, 420, 380, 300, 220];
+			}
+				
 		} else if (this.level == 1){
 			this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150];
 			this.wayPointY = [110, 106, 266, 277,  86, 100, 500, 500];
@@ -371,6 +399,7 @@ function carClass() {
 						this.recordALap();
 					} else {
 						whichPlace(this);
+						this.updateWayPoints();
 					}
 				}
 				this.x = nextX;
