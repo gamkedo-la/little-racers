@@ -9,14 +9,14 @@ var levelOne =
    100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102, 
    103,  1,  1,  1,  1,  1,  1,  1,  1,  4,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1,  1,  1,  1,  1,  1,  1,  4,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
-   103,  3,  3, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1,107,
-   103,  1,  1, 51, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
-   103,  1,  1, 51, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
-   103, 52, 52, 51, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
-   103, 53, 53, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,  1,  1,107,
-   103,  0,  1, 51, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
-   103,  0,  1, 51, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
-   103,  0,  1, 51, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
+   103,  3,  3, 50,  6,  9, 12, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1,107,
+   103,  1,  1, 51,  7, 10, 13, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
+   103,  1,  1, 51,  8, 11,  1, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
+   103, 52, 52, 51,  1,  1,  1, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
+   103, 53, 53, 50,  1, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,  1,  1,107,
+   103,  0,  1, 51,  1, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
+   103,  0,  1,  1,  1, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
+   103,  0,  1,  1,  1, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1,107,
    103,  0,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1,107,
    103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,  
    103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,	
@@ -71,6 +71,14 @@ const TRACK_FINISH = 2;
 const TRACK_ROAD_AAA = 3;
 const TRACK_ROAD_BBB = 4;
 const TRACK_ROAD_CCC = 5;
+const TRACK_ROAD_FIRST = 6;
+const TRACK_ROAD_SECOND = 7;
+const TRACK_ROAD_THIRD = 8;
+const TRACK_ROAD_FOURTH = 9;
+const TRACK_ROAD_FIFTH = 10;
+const TRACK_ROAD_SIXTH = 11;
+const TRACK_ROAD_SEVENTH = 12;
+const TRACK_ROAD_EIGHT = 13;
 
 // 50 through 99 are dedicated for track obstacles
 const TRACK_WALL = 50;
@@ -138,24 +146,32 @@ function drawTracks(){
 				spriteSheet = roadSpriteSheet;
 				if (trackTypeHere > 9 && trackTypeHere <= 19){
 					imageOffsetY = TRACK_H;
+					trackTypeHere -= 10;
 				} else if (trackTypeHere > 19 && trackTypeHere <= 29){
 					imageOffsetY = TRACK_H * 2;
+					trackTypeHere -= 20;
 				} else if (trackTypeHere > 29 && trackTypeHere <= 39){
 					imageOffsetY = TRACK_H * 3;
+					trackTypeHere -= 30;
 				} else if (trackTypeHere > 39 && trackTypeHere <= 49){
 					imageOffsetY = TRACK_H * 4;
+					trackTypeHere -= 40;
 				}
 			} else if (trackTypeHere >= 50 && trackTypeHere < 100){
 				spriteSheet = trackobstaclesSpriteSheet;
 				var trackTypeHere = trackTypeHere - 50;
 				if (trackTypeHere > 9 && trackTypeHere <= 19){
 					imageOffsetY = TRACK_H;
+					trackTypeHere -= 10;
 				} else if (trackTypeHere > 19 && trackTypeHere <= 29){
 					imageOffsetY = TRACK_H * 2;
+					trackTypeHere -= 20;
 				} else if (trackTypeHere > 29 && trackTypeHere <= 39){
 					imageOffsetY = TRACK_H * 3;
+					trackTypeHere -= 30;
 				} else if (trackTypeHere > 39 && trackTypeHere <= 49){
 					imageOffsetY = TRACK_H * 4;
+					trackTypeHere -= 40;
 				}
 			} else if (trackTypeHere >= 100 && trackTypeHere < 150){
 				spriteSheet = wallSpriteSheet;
@@ -175,11 +191,8 @@ function drawTracks(){
 				canvasContext.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, trackLeftEdgeX, trackTopEdgeY, TRACK_W, TRACK_H);
 			} else if (tileTypeHasgGrassTransparency(transparencyCheckTypeHere)) {
 				canvasContext.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, trackLeftEdgeX, trackTopEdgeY, TRACK_W, TRACK_H);
-			}
-			
+			}			
 			canvasContext.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, trackLeftEdgeX, trackTopEdgeY, TRACK_W, TRACK_H);
-
-			//canvasContext.drawImage(trackPics[trackTypeHere], trackLeftEdgeX, trackTopEdgeY);
 				
 			trackIndex++;
 			trackLeftEdgeX += TRACK_W;
