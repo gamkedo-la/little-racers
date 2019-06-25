@@ -1,10 +1,10 @@
 function titleScreenMouseClick(mousePosX, mousePosY) {
 	console.log(mousePosX, mousePosY);
-	if(mousePosX > 200 && mousePosX < 300 && mousePosY > 400 && mousePosY < 450){
+	if(mousePosX > 200 * scaleWidth && mousePosX < 300 * scaleWidth && mousePosY > 400 * scaleHeight && mousePosY < 450 * scaleHeight){
 		vehicleList[0].computerPlayer = false;
 		vehicleList[1].computerPlayer = true;
 		titleScreen = false;
-	} else if(mousePosX > 500 && mousePosX < 600 && mousePosY > 400 && mousePosY < 450){
+	} else if(mousePosX > 500 * scaleWidth && mousePosX < 600 * scaleWidth && mousePosY > 400 * scaleHeight && mousePosY < 450 * scaleHeight){
 		console.log('2 Players');
 		vehicleList[0].computerPlayer = false;
 		vehicleList[1].computerPlayer = false;

@@ -2,6 +2,8 @@ var canvas;
 var canvasContext;
 var mouseX = 0;
 var mouseY = 0;
+var scaleWidth = 1;
+var scaleHeight = 1;
 
 var now = new Date();
 var time = 0;
@@ -23,21 +25,35 @@ var paused = false;
 
 //Debug Options
 var debugMode = false;
+var allowRescale = true;
 var byPassFadeOut = true; //disable if not using a local server
 
 var isMouseDragging = false;
 
 window.onload = function(){
-
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
+	window.addEventListener("resize", resizeCanvas);
 	for (var i = 0; i < 8; i++) {
 		addVehicle();
+	}
+	if (allowRescale) {
+		resizeCanvas();
 	}
 	loadImages();
 	initInput();
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset();
+	}
+}
+
+function resizeCanvas() {
+	if (allowRescale) {
+	    canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		scaleWidth = canvas.width/800;
+		scaleHeight = canvas.height/600;
+		canvasContext.scale(scaleWidth,scaleHeight);
 	}
 }
 
