@@ -30,7 +30,7 @@ var decalManager = function() {
 
 		if (this.decalCount % 7 == 0) // every Xth skidmark
 		{
-			this.fadeOut();
+			// this.fadeOut();   //temporary disabled until bug fixed.
 		}
 	};
 
