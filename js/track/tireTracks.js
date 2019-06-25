@@ -28,12 +28,13 @@ var decalManager = function() {
 		
 		this.tireTrackCTX.restore()
 
-		if (this.decalCount % 10 == 0) // every Xth skidmark
+		if (this.decalCount % 7 == 0) // every Xth skidmark
 		{
 			this.fadeOut();
 		}
 	};
 
+	// warning, this function is costly, don't call every frame
 	this.fadeOut = function() {
 		var myImageData = this.tireTrackCTX.getImageData(0,0,this.tireTrackCanvas.width,this.tireTrackCanvas.height);
 		var data = myImageData.data;

@@ -25,9 +25,10 @@ function carClass() {
 	this.height = 50;
 	this.cash = 0;
 	this.placedPosition = false;
-    this.fuelCapacity = 100
-    this.fuelConsumptionRate = 0.15
-    this.fuelInTank = this.fuelCapacity
+    this.fuelCapacity = 100;
+    this.fuelConsumptionRate = 0.15;
+	this.fuelInTank = this.fuelCapacity;
+	this.oilslickRemaining = 0;
 
     this.carPic = document.createElement("img");
 
@@ -98,6 +99,7 @@ function carClass() {
 		this.stuckTime = 0;
 		this.randomMovementsTimer = 0;
 		this.placedPosition = false;
+		this.oilslickRemaining = 0;
     }
 
 	this.tryNitroBoost = function(){
@@ -237,25 +239,58 @@ function carClass() {
         }
     }
 
+	// tire track constants
+	const OILSLICK_FRAMECOUNT = 16; // leave dark oil track marks for n frames
+	const OILSLICK_OPACITY = 1.0; // very dark when trailing oil
+	const PEEL_OUT_SPEED = 5; // when slow, we leave accelerating tire tracks
+	const PEEL_OUT_OPACITY = 0.5; // when starting, how dark are the tracks
+	const MAXSPD_FOR_TRAIL = 10; // fade out trail as we approach this speed
+	const MAXSPD_TRAIL_OPACITY = 0.05; // very faint when on straighaways
+	const TURNING_SKIDMARK_OPACITY = 0.1; // darker when cornering
+
 	this.skidMarkHandling = function() { // draw tire tracks / skid marks
 		
-		if (this.airborne) return;
-		console.log(this.speed); // normally in the 160 range
-		var tireTrackAlpha = 0.2; //this.speed / 1600; // 0.1ish
-		var goingSlow = 10; // was 100
-		// at start of race, when we are going slow, we make a lot of marks
-		if (this.speed<goingSlow) // really slow
-		{
-		  tireTrackAlpha += 0.025*(100/this.speed*10); // fade out as we accell
+		// never leave a trail when flying through the air
+		if (this.airborne) return; 
+		// nor if we aren't putting our foot on the gas
+		if (!this.keyHeld_Gas) return;
+
+		var tireTrackAlpha = 1.0;
+
+		// when going slow and accellerating, we make a lot of marks
+		if (this.speed > 0 && 
+			this.speed < PEEL_OUT_SPEED &&
+			this.keyHeld_Gas) { 
+			tireTrackAlpha = PEEL_OUT_OPACITY * (1-(PEEL_OUT_SPEED/this.speed));
+		  }
+
+		// very faint trails on straightaways
+		if (this.speed > MAXSPD_FOR_TRAIL) {
+			tireTrackAlpha = MAXSPD_TRAIL_OPACITY; 
 		}
-		if (this.isTurning) {
-		  tireTrackAlpha = 0.7;
+		
+		if (this.keyHeld_TurnRight) {
+		  tireTrackAlpha = TURNING_SKIDMARK_OPACITY;
 		}
-		else if (this.isBraking) {
-		  tireTrackAlpha = 0.9;
+
+		if (this.keyHeld_TurnLeft) {
+		  tireTrackAlpha = TURNING_SKIDMARK_OPACITY;
 		}
-		tireTrackAlpha *= 0.01;
-		tireTracks.add(this.x, this.y, this.angle, tireTrackAlpha);
+
+		if (this.oilslickRemaining>0) {
+			this.oilslickRemaining--;
+			tireTrackAlpha = OILSLICK_OPACITY; // very dark
+		}
+
+		if (tireTrackAlpha < 0) tireTrackAlpha = 0;
+		if (tireTrackAlpha > 1) tireTrackAlpha = 1;
+
+		console.log("Car speed: " + this.speed.toFixed(1) + " Skid alpha: " + tireTrackAlpha.toFixed(1));
+		
+		if (tireTrackAlpha>0.001) {
+			tireTracks.add(this.x, this.y, this.angle, tireTrackAlpha);
+		}
+
 	  }
 
     this.movement = function() {
@@ -334,7 +369,8 @@ function carClass() {
             case TRACK_OIL_SLICK:
                 this.x = nextX;
                 this.y = nextY;
-                this.turnable = false;
+				this.turnable = false;
+				this.oilslickRemaining = OILSLICK_FRAMECOUNT;
                 break;
             case TRACK_GRASS:
                 this.x = nextX;
