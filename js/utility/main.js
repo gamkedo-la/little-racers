@@ -88,6 +88,7 @@ function moveEverything() {
 		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].movement();
 		}
+		updatedCameraPosition();
 		for (var i = 0; i < vehicleList.length; i++) {
 			for (var ii = i+1; ii < vehicleList.length; ii++) {
 				vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
@@ -140,12 +141,14 @@ function drawEverything() {
 	} else if (carUpgradeScreen){
 		drawCarUpgradeScreen();
 	} else {
-		colorRect(0,0,canvas.width,canvas.height, 'black');
+		colorRect(0,0,canvas.width/scaleWidth,canvas.height/scaleHeight, 'black');
+		shiftForCameraPan();
 		drawTracks();
 		tireTracks.draw();
 		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].drawCar();
 		}
+		finishedCameraPan();
 		drawClock();
 		drawLapOneTime();
 		drawFuelPercentage();

@@ -13,7 +13,7 @@ function titleScreenMouseClick(mousePosX, mousePosY) {
 }
 
 function drawTitleScreen(){
-	colorRect(0,0,canvas.width,canvas.height, 'black');	
+	colorRect(0,0,canvas.width/scaleWidth,canvas.height/scaleHeight, 'black');	
 	colorText("Little Racers", 310, 200, 'white', font = "24px Arial Black");
 	colorRect(200,400,100,50, 'white');	
 	colorRect(500,400,100,50, 'white');	
