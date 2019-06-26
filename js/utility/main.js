@@ -85,16 +85,18 @@ function moveEverything() {
 	} else if (carUpgradeScreen){
 		//Intentionally left empty - no movement
 	} else {
-		for (var i = 0; i < vehicleList.length; i++) {
-			vehicleList[i].movement();
-		}
-		updatedCameraPosition();
-		for (var i = 0; i < vehicleList.length; i++) {
-			for (var ii = i+1; ii < vehicleList.length; ii++) {
-				vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
+		if(!paused){
+			for (var i = 0; i < vehicleList.length; i++) {
+				vehicleList[i].movement();
 			}
+			updatedCameraPosition();
+			for (var i = 0; i < vehicleList.length; i++) {
+				for (var ii = i+1; ii < vehicleList.length; ii++) {
+					vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
+				}
+			}
+			updateTime();
 		}
-	updateTime();
 	}
 }
 
@@ -153,7 +155,10 @@ function drawEverything() {
 		drawLapOneTime();
 		drawFuelPercentage();
 		if(debugMode){
-			colorText("Debug Mode", 10, canvas.height - 50, "white", font = "14px Arial Black")
+			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", font = "14px Arial Black");
+		}
+		if(paused){
+			colorText("PAUSED", 300, canvas.height/scaleHeight - 50, "white", font = "36px Arial Black");
 		}
 	}
 }
