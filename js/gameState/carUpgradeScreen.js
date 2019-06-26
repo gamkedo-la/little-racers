@@ -6,9 +6,11 @@ var exhaustOptions = false;
 
 
 function drawCarUpgradeScreen(){
-	colorRect(0,0,canvas.width,canvas.height, 'white');	
+	colorRect(0,0,canvas.width * scaleWidth,canvas.height * scaleHeight, 'white');
+	colorRect(10,10,400,200,'green');
 	canvasContext.drawImage(bodyShopPic, 0, 0);
-	colorText("Body Shop", 200, 200, 'black', font = "24px Arial Black");
+	colorText("Body Shop", 120, 50, 'black', font = "24px Arial Black");
+	colorText("Cash: $" + vehicleList[0].cash, 50, 100, font = "12px Arial Black");
 	colorRect(60,360,100,50, 'blue'); //transmission	
 	colorRect(60,460,100,50, 'blue');	//tires
 	colorRect(375,290,100,50, 'blue');	//engine
@@ -27,6 +29,8 @@ function drawCarUpgradeScreen(){
 		colorRect(500,175,100,100, 'blue'); 
 		colorRect(500,325,100,100, 'blue'); 
 		colorRect(500,475,100,100, 'blue');
+		colorRect(250,290,30,200, 'red');
+		colorText("Transmission", 62, 390, 'red', font = "12px Arial Black");
 		colorText("Tx Option 1", 505, 50, 'white', font = "12px Arial Black"); // To be replaced with a pic
 		colorText("Tx Option 2", 505, 205, 'white', font = "12px Arial Black"); 
 		colorText("Tx Option 3", 505, 355, 'white', font = "12px Arial Black");
@@ -36,6 +40,11 @@ function drawCarUpgradeScreen(){
 		colorRect(500,175,100,100, 'blue'); 
 		colorRect(500,325,100,100, 'blue'); 
 		colorRect(500,475,100,100, 'blue'); 
+		colorRect(168,283,18,50, 'red'); //left front tire
+		colorRect(338,283,18,50, 'red'); //right front tire
+		colorRect(168,457,18,58, 'red'); // left back tire
+		colorRect(338,457,18,58, 'red'); // right back tire
+		colorText("Tires", 88, 490, 'red', font = "14px Arial Black");
 		colorText("Ti Option 1", 505, 50, 'white', font = "12px Arial Black"); // To be replaced with a pic
 		colorText("Ti Option 2", 505, 205, 'white', font = "12px Arial Black");
 		colorText("Ti Option 3", 505, 355, 'white', font = "12px Arial Black");
@@ -56,6 +65,8 @@ function drawCarUpgradeScreen(){
 		colorRect(500,175,100,100, 'blue'); 
 		colorRect(500,325,100,100, 'blue'); 
 		colorRect(500,475,100,100, 'blue');
+		colorRect(215,320,30,30, 'red');
+		colorText("Nitro", 88, 320, 'red', font = "14px Arial Black");
 		colorText("N Option 1", 505, 50, 'white', font = "12px Arial Black"); // To be replaced with a pic
 		colorText("N Option 2", 505, 205, 'white', font = "12px Arial Black");
 		colorText("N Option 3", 505, 355, 'white', font = "12px Arial Black");
@@ -65,6 +76,9 @@ function drawCarUpgradeScreen(){
 		colorRect(500,175,100,100, 'blue'); 
 		colorRect(500,325,100,100, 'blue'); 
 		colorRect(500,475,100,100, 'blue');
+		colorRect(225,520,20,10, 'red');
+		colorRect(280,520,20,10, 'red');
+		colorText("Exhaust", 390, 540, 'red', font = "14px Arial Black");
 		colorText("Ex Option 1", 505, 50, 'white', font = "12px Arial Black"); // To be replaced with a pic
 		colorText("Ex Option 2", 505, 205, 'white', font = "12px Arial Black");
 		colorText("Ex Option 3", 505, 355, 'white', font = "12px Arial Black");
