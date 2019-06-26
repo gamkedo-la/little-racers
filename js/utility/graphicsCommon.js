@@ -50,13 +50,13 @@ function getRotatedPoint(centerX, centerY, pX, pY, angle)
     var yLen=pY-centerY;
     var hypLength = Math.sqrt(xLen*xLen + yLen*yLen);
     var angleCenterToPoint=Math.atan2(yLen, xLen);
-    console.log(angle);
+//    console.log(angle);
     angle += angleCenterToPoint;
 
     var x=centerX + hypLength*Math.cos(angle);
     var y=centerY + hypLength*Math.sin(angle);
 
-    console.log(x + ":" + y);
+//    console.log(x + ":" + y);
     return {newX:x, newY:y};
 }
 

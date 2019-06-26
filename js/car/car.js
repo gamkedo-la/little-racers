@@ -147,7 +147,7 @@ function carClass() {
 	}
 
 	this.updateWayPoints = function(){
-		this.level = this.level + 1;
+		//this.level = this.level + 1; // this needs to move to a Global
 		this.wayPointNumber = 0;
 		this.lapNumber = 0;
 		this.checkPointA = false;
@@ -159,28 +159,28 @@ function carClass() {
 				this.wayPointX = [55, 60, 160, 180, 180];
 				this.wayPointY = [485, 435, 380, 320, 145];
 			//use these way points when a place is determined
-			} else if(car.myName == firstPlace){ 
+			} else if(this.myName == firstPlace){ 
 				this.wayPointX = [ 60,  74, 160, 180, 180];
 				this.wayPointY = [500, 420, 380, 300, 140];
-			} else if(car.myName == secondPlace){
+			} else if(this.myName == secondPlace){
 				this.wayPointX = [ 60,  74, 160, 180, 220];
 				this.wayPointY = [500, 420, 380, 300, 140];
-			} else if(car.myName == thirdPlace){
+			} else if(this.myName == thirdPlace){
 				this.wayPointX = [ 60,  74, 160, 180, 255];
 				this.wayPointY = [500, 420, 380, 300, 140];
-			} else if(car.myName == fourthPlace){
+			} else if(this.myName == fourthPlace){
 				this.wayPointX = [ 60,  74, 160, 180, 180];
 				this.wayPointY = [500, 420, 380, 300, 180];
-			} else if(car.myName == fifthPlace){
+			} else if(this.myName == fifthPlace){
 				this.wayPointX = [ 60,  74, 160, 180, 220];
 				this.wayPointY = [500, 420, 380, 300, 180];
-			} else if(car.myName == sixthPlace){
+			} else if(this.myName == sixthPlace){
 				this.wayPointX = [ 60,  74, 160, 180, 255];
 				this.wayPointY = [500, 420, 380, 300, 180];
-			} else if(car.myName == seventhPlace){
+			} else if(this.myName == seventhPlace){
 				this.wayPointX = [ 60,  74, 160, 180, 180];
 				this.wayPointY = [500, 420, 380, 300, 220];
-			} else if(car.myName == eigthPlace){
+			} else if(this.myName == eigthPlace){
 				this.wayPointX = [ 60,  74, 160, 180, 220];
 				this.wayPointY = [500, 420, 380, 300, 220];
 			}
