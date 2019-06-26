@@ -60,19 +60,19 @@ function drawCarUpgradeScreen(){
 	
 function carUpgradeScreenMouseClick(mousePosX, mousePosY) {
 	console.log(mousePosX, mousePosY);
-	if(mousePosX > 60 && mousePosX < 160 && mousePosY > 360 && mousePosY < 410){ //Transmission
+	if(mousePosX > 60 * scaleWidth && mousePosX < 160 * scaleWidth && mousePosY > 360 * scaleHeight  && mousePosY < 410 * scaleHeight ){ //Transmission
 		turnOffOtherOptions();
 		transmissionOptions = true;
-	} else if(mousePosX > 60 && mousePosX < 160 && mousePosY > 460 && mousePosY < 510){  // Tires  
+	} else if(mousePosX > 60 * scaleWidth && mousePosX < 160 * scaleWidth && mousePosY > 460 * scaleHeight  && mousePosY < 510 * scaleHeight ){  // Tires  
 		turnOffOtherOptions();
 		tireOptions = true;
-	} else if(mousePosX > 375 && mousePosX < 475 && mousePosY > 290 && mousePosY < 340){ //Engine
+	} else if(mousePosX > 375 * scaleWidth && mousePosX < 475 * scaleWidth && mousePosY > 290 * scaleHeight  && mousePosY < 340 * scaleHeight ){ //Engine
 		turnOffOtherOptions();
 		engineOptions = true;
-	} else if(mousePosX > 88 && mousePosX < 188 && mousePosY > 290 && mousePosY < 340){ //Nitro
+	} else if(mousePosX > 88 * scaleWidth && mousePosX < 188 * scaleWidth && mousePosY > 290 * scaleHeight  && mousePosY < 340 * scaleHeight ){ //Nitro
 		turnOffOtherOptions();
 		nitroOptions = true;
-	} else if(mousePosX > 210 && mousePosX < 310 && mousePosY > 540 && mousePosY < 590){ //Exit the shop
+	} else if(mousePosX > 210 * scaleWidth && mousePosX < 310 * scaleWidth && mousePosY > 540 * scaleHeight  && mousePosY < 590 * scaleHeight ){ //Exit the shop
 		carUpgradeScreen = false;
 	}
 }
