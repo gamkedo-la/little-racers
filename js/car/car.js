@@ -153,6 +153,7 @@ function carClass() {
 		this.checkPointA = false;
 		this.checkPointB = false;
 		this.checkPointC = false;
+		console.log("Finish Line");
 		if(this.level == 0){
 			if(!this.placedPosition){ //use these way points while racing
 				this.wayPointX = [55, 60, 160, 180, 180];
@@ -396,7 +397,7 @@ function carClass() {
 			case TRACK_FINISH:
 				if(this.checkPointC){
 					this.checkPointC = false;
-					if(this.lapNumber < 3){
+					if(this.lapNumber < 0){
 						this.recordALap();
 					} else {
 						whichPlace(this);
@@ -498,6 +499,7 @@ function carClass() {
 		if (debugMode) {
 		    drawRotatedRect(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH+8, CAR_HEIGHT+8, this.ang);
 			colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
+			colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
 		}
 	}
 
