@@ -27,7 +27,7 @@ function initInput(){
 	canvas.addEventListener('mousemove', function(evt) {
 	
 	calculateMousePos(evt);
-	document.getElementById("debugText").innerHTML = "(" +mouseX+ ", " +mouseY+ ")";
+	document.getElementById("debugText").innerHTML = "(" +mouseX/scaleWidth+ ", " +mouseY/scaleHeight+ ")";
 	});
 	
 	document.addEventListener("keydown", keyPressed);

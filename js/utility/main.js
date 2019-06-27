@@ -40,6 +40,12 @@ window.onload = function(){
 	if (allowRescale) {
 		resizeCanvas();
 	}
+	window.addEventListener('focus', function () {
+		paused = false;
+	});
+	window.addEventListener('blur', function () {
+		paused = true;
+	});
 	loadImages();
 	initInput();
 	for (var i = 0; i < vehicleList.length; i++) {
