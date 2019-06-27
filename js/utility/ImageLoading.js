@@ -19,6 +19,7 @@ var tireOptionOnePic = document.createElement("img");
 var tireOptionTwoPic = document.createElement("img");
 var tireOptionThreePic = document.createElement("img");
 var tireOptionFourPic = document.createElement("img");
+var nitrosOptionOnePic = document.createElement("img");
 
 var trackPics = [];
 
@@ -64,7 +65,8 @@ function loadImages() {
 			{varName: tireOptionOnePic, theFile: "tireOptionOne.png"},			
 			{varName: tireOptionTwoPic, theFile: "tireOptionTwo.png"},	
 			{varName: tireOptionThreePic, theFile: "tireOptionThree.png"},	
-			{varName: tireOptionFourPic, theFile: "tireOptionFour.png"}	
+			{varName: tireOptionFourPic, theFile: "tireOptionFour.png"},
+			{varName: nitrosOptionOnePic, theFile: "nitrosOptionOne.png"}			
 		];
 			
 	picsToLoad = imageList.length;

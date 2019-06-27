@@ -80,16 +80,31 @@ function drawCarUpgradeScreen(){
 		colorText("En Option 3", 505, 355, 'white', font = "12px Arial Black");
 		colorText("En Option 4", 505, 505, 'white', font = "12px Arial Black");
 	} else if(nitroOptions){
-		colorRect(500, 20,100,100, 'blue'); 
-		colorRect(500,175,100,100, 'blue'); 
-		colorRect(500,325,100,100, 'blue'); 
-		colorRect(500,475,100,100, 'blue');
-		colorRect(215,320,30,30, 'red');
+		colorRect(optionOneX, optionOneY,100,100, 'blue'); 
+		colorRect(optionTwoX, optionTwoY,100,100, 'blue'); 
+		colorRect(optionThreeX, optionThreeY,100,100, 'blue'); 
+		colorRect(optionFourX, optionFourY,100,100, 'blue'); 
+		colorRect(168,283,18,50, 'red'); //left front tire
+		colorRect(338,283,18,50, 'red'); //right front tire
+		colorRect(168,457,18,58, 'red'); // left back tire
+		colorRect(338,457,18,58, 'red'); // right back tire
 		colorText("Nitro", 88, 320, 'red', font = "14px Arial Black");
-		colorText("N Option 1", 505, 50, 'white', font = "12px Arial Black"); // To be replaced with a pic
-		colorText("N Option 2", 505, 205, 'white', font = "12px Arial Black");
-		colorText("N Option 3", 505, 355, 'white', font = "12px Arial Black");
-		colorText("N Option 5", 505, 505, 'white', font = "12px Arial Black");
+		//Tire Option 1
+		canvasContext.drawImage(nitrosOptionOnePic, optionOneX, optionOneY);
+		colorText("Basic Nitros", optionOneX + 18, optionOneY + 115, 'black', font = "10px Arial Black");
+		colorText("$50", optionOneX + 35, optionOneY + 130, 'black', font = "10px Arial Black");
+		//Tire Option 2
+		//canvasContext.drawImage(nitrosOptionTwoPic, optionTwoX, optionTwoY);
+		colorText("Good Nitros", optionTwoX + 18, optionTwoY + 115, 'black', font = "10px Arial Black");
+		colorText("$100", optionTwoX + 35, optionTwoY + 130, 'black', font = "10px Arial Black");
+		//Tire Option 3
+		//canvasContext.drawImage(nitrosOptionThreePic, optionThreeX, optionThreeY);
+		colorText("Advanced Nitros", optionThreeX + 5, optionThreeY + 115, 'black', font = "10px Arial Black");
+		colorText("$200", optionThreeX + 35, optionThreeY + 130, 'black', font = "10px Arial Black");
+		//Tire Option 4
+		//canvasContext.drawImage(nitrosOptionFourPic, optionFourX, optionFourY);
+		colorText("Premium Nitros", optionFourX + 7, optionFourY + 115, 'black', font = "10px Arial Black");
+		colorText("$500", optionFourX + 35, optionFourY + 130, 'black', font = "10px Arial Black");
 	} else if(exhaustOptions){
 		colorRect(500, 20,100,100, 'blue'); 
 		colorRect(500,175,100,100, 'blue'); 
