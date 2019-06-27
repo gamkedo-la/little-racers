@@ -26,3 +26,8 @@ function normalizeVector(x1, y1)
 
     return { x: newX, y:newY };
 }
+
+function vectorMagnitude(x, y)
+{
+    return Math.sqrt(x * x + y * y);
+}

@@ -488,17 +488,39 @@ function carClass() {
     this.isOverLappingPoint = function(testX, testY) {
         var deltaX = testX - this.x;
         var deltaY = testY - this.y;
-        var dist = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+        var dist = vectorMagnitude(deltaX, deltaY);
         return (dist <= CAR_COLLISION_RADIUS);
     }
 
-    this.checkCarCollisionAgainst = function(thisCar) { //Handles collisions between cars.
-        if (thisCar.isOverLappingPoint(this.x, this.y))
-            //Get vector between vehicles
-            //Push them apart until they're apart by the collision radius.
+    //Handles collisions between cars.
+    //Current approach is to bounce cars away from each other and slow them both down.
+    //Next possiblity: see if they're travelling nearly in the same direction and give the one in
+    //front a slight speed boost while slowing the one behind.
+    this.checkCarCollisionAgainst = function(otherCar) { 
+        if (otherCar.isOverLappingPoint(this.x, this.y))
         {
+            distToMove = CAR_COLLISION_RADIUS / 6;  //Determined empirically; will need tweaking.
+                                                    //Probably will be replaced in a physics-based model?
+
+            var thisToOther = {}; //Vector to the other car.
+            thisToOther.x = otherCar.x - this.x;
+            thisToOther.y = otherCar.y - this.y;
+
+            //Start with unit vector between the cars, but increase its size by actual distance to move.
+            thisToOther = normalizeVector(thisToOther.x, thisToOther.y);
+            thisToOther.x *= distToMove;
+            thisToOther.y *= distToMove;
+
+            //Move each car away from the other.
+            this.x += -thisToOther.x;
+            this.y += -thisToOther.y;
+            otherCar.x += thisToOther.x;
+            otherCar.y += thisToOther.y;
             
-            this.speed = -0.25 * this.speed;
+            //Remove a bit of speed from both cars.
+            this.speed *= 0.75;
+            otherCar.speed *= 0.75;
+
         }
     }
 

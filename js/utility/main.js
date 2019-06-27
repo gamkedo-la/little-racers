@@ -24,7 +24,7 @@ var carUpgradeScreen = false;
 var paused = false;
 
 //Debug Options
-var debugMode = true;
+var debugMode = false;
 var allowRescale = true;
 var byPassFadeOut = true; //disable if not using a local server
 
