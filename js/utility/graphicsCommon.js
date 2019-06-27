@@ -20,7 +20,7 @@ function drawBitmapCenteredAtLocationWithRotation(graphic, atX, atY, withAngle){
 
 //While this function could rotate the context to draw a rotated rect, it's a work in progress being used to determine if
 //calculating the corners of the car graphic is possible for use in collisions.
-function drawRotatedRect(graphic, atX, atY, width, height, angle)
+function drawRotatedRectWithLines(graphic, atX, atY, width, height, angle)
 {
     xOffset=width/2;
     yOffset=height/2;
@@ -43,22 +43,6 @@ function drawRotatedRect(graphic, atX, atY, width, height, angle)
     canvasContext.stroke();
 }
 
-//Work in progress; being used with drawRotatedRect to prove calculation of rotated car bounding box.
-function getRotatedPoint(centerX, centerY, pX, pY, angle)
-{
-    var xLen=pX-centerX;
-    var yLen=pY-centerY;
-    var hypLength = Math.sqrt(xLen*xLen + yLen*yLen);
-    var angleCenterToPoint=Math.atan2(yLen, xLen);
-//    console.log(angle);
-    angle += angleCenterToPoint;
-
-    var x=centerX + hypLength*Math.cos(angle);
-    var y=centerY + hypLength*Math.sin(angle);
-
-//    console.log(x + ":" + y);
-    return {newX:x, newY:y};
-}
 
 function colorText(showWords, textX, textY, fillColor, font = "14px Arial Black") {
   canvasContext.textAlign = "left";

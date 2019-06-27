@@ -210,9 +210,9 @@ function carClass() {
         //Subtract Pi/2 accounts for the car image being rotated 90 degrees.
         var carVectorX = Math.cos(this.ang - Math.PI / 2);
         var carVectorY = Math.sin(this.ang - Math.PI / 2);
-        var dotProduct = wayPointVectorX * carVectorX + wayPointVectorY * carVectorY;
+        var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
 
-        if (dotProduct < 0) {
+        if (dot < 0) {
             this.keyHeld_TurnRight = true;
             this.keyHeld_TurnLeft = false;
         } else {
@@ -407,7 +407,7 @@ function carClass() {
             case TRACK_FINISH:
                 if (this.checkPointC) {
                     this.checkPointC = false;
-                    if (this.lapNumber < 0) {
+                    if (this.lapNumber < 3) {
                         this.recordALap();
                     } else {
                         whichPlace(this);
@@ -493,7 +493,11 @@ function carClass() {
     }
 
     this.checkCarCollisionAgainst = function(thisCar) { //Handles collisions between cars.
-        if (thisCar.isOverLappingPoint(this.x, this.y)) {
+        if (thisCar.isOverLappingPoint(this.x, this.y))
+            //Get vector between vehicles
+            //Push them apart until they're apart by the collision radius.
+        {
+            
             this.speed = -0.25 * this.speed;
         }
     }
@@ -507,7 +511,7 @@ function carClass() {
         }
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang);
         if (debugMode) {
-            drawRotatedRect(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
+            drawRotatedRectWithLines(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
             colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
             colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
         }
