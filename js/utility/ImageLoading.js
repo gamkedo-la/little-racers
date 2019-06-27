@@ -15,6 +15,10 @@ var roadSpriteSheet =  document.createElement("img");
 var trackobstaclesSpriteSheet = document.createElement("img");
 var wallSpriteSheet = document.createElement("img");
 var tireTrackPic = document.createElement("img");
+var tireOptionOnePic = document.createElement("img");
+var tireOptionTwoPic = document.createElement("img");
+var tireOptionThreePic = document.createElement("img");
+var tireOptionFourPic = document.createElement("img");
 
 var trackPics = [];
 
@@ -56,7 +60,11 @@ function loadImages() {
 			{varName: roadSpriteSheet, theFile: "roadSpriteSheet.png"},
 			{varName: trackobstaclesSpriteSheet, theFile: "trackobstaclesSpriteSheet.png"},
 			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"},
-			{varName: tireTrackPic, theFile: "tireTracks.png"}			
+			{varName: tireTrackPic, theFile: "tireTracks.png"},
+			{varName: tireOptionOnePic, theFile: "tireOptionOne.png"},			
+			{varName: tireOptionTwoPic, theFile: "tireOptionTwo.png"},	
+			{varName: tireOptionThreePic, theFile: "tireOptionThree.png"},	
+			{varName: tireOptionFourPic, theFile: "tireOptionFour.png"}	
 		];
 			
 	picsToLoad = imageList.length;
