@@ -84,17 +84,14 @@ function drawCarUpgradeScreen(){
 		colorRect(optionTwoX, optionTwoY,100,100, 'blue'); 
 		colorRect(optionThreeX, optionThreeY,100,100, 'blue'); 
 		colorRect(optionFourX, optionFourY,100,100, 'blue'); 
-		colorRect(168,283,18,50, 'red'); //left front tire
-		colorRect(338,283,18,50, 'red'); //right front tire
-		colorRect(168,457,18,58, 'red'); // left back tire
-		colorRect(338,457,18,58, 'red'); // right back tire
+		colorRect(220,350,20,20, 'red'); 
 		colorText("Nitro", 88, 320, 'red', font = "14px Arial Black");
 		//Tire Option 1
 		canvasContext.drawImage(nitrosOptionOnePic, optionOneX, optionOneY);
 		colorText("Basic Nitros", optionOneX + 18, optionOneY + 115, 'black', font = "10px Arial Black");
 		colorText("$50", optionOneX + 35, optionOneY + 130, 'black', font = "10px Arial Black");
 		//Tire Option 2
-		//canvasContext.drawImage(nitrosOptionTwoPic, optionTwoX, optionTwoY);
+		canvasContext.drawImage(nitrosOptionTwoPic, optionTwoX, optionTwoY);
 		colorText("Good Nitros", optionTwoX + 18, optionTwoY + 115, 'black', font = "10px Arial Black");
 		colorText("$100", optionTwoX + 35, optionTwoY + 130, 'black', font = "10px Arial Black");
 		//Tire Option 3
