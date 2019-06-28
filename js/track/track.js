@@ -1,11 +1,15 @@
 const TRACK_W = 40;
 const TRACK_H = 40;
 const TRACK_GAP = 2;
-const TRACK_COLS = 40;
-const TRACK_ROWS = 30;
 
-var levelOne = 
-	[
+const TRACK_CANVAS = document.createElement("canvas");
+const TRACK_CONTEXT = TRACK_CANVAS.getContext('2d');
+let terrainChanged = true;
+
+var levelOne = {
+	cols:40,
+	rows:30,
+	data:[
    100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,  
    103,  1,  1,  1,  1,  1,  1,  1,  1,  4,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1,  1,  1,  1,  1,  1,  1,  4,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
@@ -36,10 +40,13 @@ var levelOne =
    103,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107, 
    103,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105 
-   ];
+   ]
+};
 	
-var levelTwo = 
-	[
+var levelTwo = {
+	cols:20,
+	rows:15,
+	data:[
    100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102, 
    103,  1,  1,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
@@ -55,10 +62,13 @@ var levelTwo =
    103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,  
    103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,	
    104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105, 
-   ];
+   ]
+};
 	
-var levelThree = 
-	[
+var levelThree = {
+	cols:20,
+	rows:15,
+	data:[
    100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102, 
     50, 51, 51,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
     50, 51, 51,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
@@ -74,7 +84,8 @@ var levelThree =
    103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,  
    103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,	
    104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,
-	];
+	]
+};
 	
 var levelList = [levelOne, levelTwo, levelThree];
 var levelNow = 0;
@@ -120,7 +131,16 @@ const TRACK_BRICK_WALL_BOT_MIDDLE_GRASS = 115;
 const TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS = 116;
 const TRACK_BRICK_WALL_RIGHT_GRASS = 117;
 
+function getCurrentTrackCols() {
+	return levelList[levelNow].cols;
+}
+
+function getCurrentTrackRows() {
+	return levelList[levelNow].rows;
+}
+
 function nextLevel() {
+	terrainChanged = true;
 	levelNow++;
 	if(levelNow >= levelList.length) {
 		levelNow = 0;
@@ -136,23 +156,40 @@ function nextLevel() {
 }
 
 function loadLevel(whichLevel) {	
-	trackGrid = whichLevel.slice();
+	trackGrid = whichLevel.data.slice();
 	for (var i = 0; i < vehicleList.length; i++) {  
 		vehicleList[i].carReset(window['carPic'+(i+1)], 'Car '+(i+1), true);
 	} 	
 }
+
+function drawTrackByCanvas() {
+	canvasContext.drawImage(TRACK_CANVAS, 0, 0);
+}
+
+function drawTracks() {
+	if(terrainChanged) {
+		drawTracksByTile();
+	} else {
+		drawTrackByCanvas();
+	}
+}
 		
-function drawTracks(){
+function drawTracksByTile() {
+	const currentCols = getCurrentTrackCols();
+	const currentRows = getCurrentTrackRows();
+	TRACK_CANVAS.width = TRACK_W * currentCols;
+	TRACK_CANVAS.height = TRACK_H * currentRows;
+
 	var trackIndex = 0;
 	var trackLeftEdgeX = 0;
 	var trackTopEdgeY = 0;
 	var spriteSheet = roadSpriteSheet;
 	
-	for(var eachRow = 0; eachRow<TRACK_ROWS; eachRow++){
+	for(var eachRow = 0; eachRow<currentRows; eachRow++){
 		
 		trackLeftEdgeX = 0;
 		
-		for(var eachCol=0; eachCol<TRACK_COLS; eachCol++) {
+		for(var eachCol=0; eachCol<currentCols; eachCol++) {
 			
 			var trackTypeHere = trackGrid[trackIndex];
 			var transparencyCheckTypeHere = trackGrid[trackIndex]
@@ -203,11 +240,14 @@ function drawTracks(){
 			}
 			
 			if (tileTypeHasRoadTransparency(transparencyCheckTypeHere)) {
-				canvasContext.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
+//				canvasContext.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
+				TRACK_CONTEXT.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
 			} else if (tileTypeHasgGrassTransparency(transparencyCheckTypeHere)) {
-				canvasContext.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
+//				canvasContext.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
+				TRACK_CONTEXT.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
 			}			
-			canvasContext.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
+//			canvasContext.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
+			TRACK_CONTEXT.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
 				
 			trackIndex++;
 			trackLeftEdgeX += TRACK_W;
@@ -217,6 +257,9 @@ function drawTracks(){
 		trackTopEdgeY += TRACK_H;
 		
 	} // end of each row
+
+	terrainChanged = false;
+	drawTrackByCanvas();
 }
 
 function tileTypeHasRoadTransparency(transparencyCheckTypeHere){
@@ -249,12 +292,12 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 
 
 function isWallAtTileCoord(trackTileCol, trackTileRow){
-				var trackIndex = trackTileCol + TRACK_COLS*trackTileRow;
+				var trackIndex = trackTileCol + getCurrentTrackCols()*trackTileRow;
 				return (trackGrid[trackIndex] == TRACK_WALL);
 }
 
 function rowColToArrayIndex(col, row) {
-	return col + TRACK_COLS * row;
+	return col + getCurrentTrackCols() * row;
 }			
 
 			
@@ -265,7 +308,7 @@ function getTrackAtPixelCoord(pixelX,pixelY){
 	tileCol = Math.floor(tileCol);
 	tileRow = Math.floor(tileRow);
 				
-	if(tileCol < 0 || tileCol >= TRACK_COLS || tileRow < 0 || tileRow >= TRACK_ROWS) {
+	if(tileCol < 0 || tileCol >= getCurrentTrackCols() || tileRow < 0 || tileRow >= getCurrentTrackRows()) {
 		return TRACK_WALL; // This returns Track Wall to prevent out of bounds as a wall.
 	}
 				
@@ -275,6 +318,6 @@ function getTrackAtPixelCoord(pixelX,pixelY){
 
 			
 function trackTileToIndex(tileCol, tileRow) {
-	return(tileCol + TRACK_COLS*tileRow);
+	return(tileCol + getCurrentTrackCols()*tileRow);
 }
 			

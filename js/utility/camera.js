@@ -11,8 +11,8 @@ function updatedCameraPosition(){
 		camPanY = 0;
 	}
 	
-	var rightEdgeX = TRACK_W * TRACK_COLS;
-	var bottomEdgeY = TRACK_H * TRACK_ROWS;
+	var rightEdgeX = TRACK_W * getCurrentTrackCols();
+	var bottomEdgeY = TRACK_H * getCurrentTrackRows();
 	
 	if(camPanX >= rightEdgeX - 1 - canvas.width/scaleWidth){
 		camPanX = rightEdgeX - 1 - canvas.width/scaleWidth ;

@@ -52,8 +52,8 @@ function carClass() {
 
         for (var i = 0; i < trackGrid.length; i++) {
             if (trackGrid[i] == TRACK_PLAYER) {
-                var tileRow = Math.floor(i / TRACK_COLS);
-                var tileCol = i % TRACK_COLS;
+                var tileRow = Math.floor(i / getCurrentTrackCols());
+                var tileCol = i % getCurrentTrackCols();
                 this.homeX = tileCol * TRACK_W + 0.5 * TRACK_W;
                 this.homeY = tileRow * TRACK_H + 0.5 * TRACK_H;
                 trackGrid[i] = TRACK_ROAD;
