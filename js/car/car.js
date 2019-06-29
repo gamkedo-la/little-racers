@@ -32,7 +32,11 @@ function carClass() {
     this.fuelInTank = this.fuelCapacity;
     this.oilslickRemaining = 0;
 	this.stopCar = false;
-
+	this.transmissionVersion = 0;
+	this.tireVersion = 0;
+	this.engineVersion = 0;
+	this.nitroVersion = 0;
+	this.exhaustVersion = 0;
     this.carPic = document.createElement("img");
 
     this.setupControls = function(forwardKey, backKey, leftKey, rightKey, nitroKey) {

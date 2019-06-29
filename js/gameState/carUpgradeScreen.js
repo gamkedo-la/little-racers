@@ -17,8 +17,8 @@ var optionThreeX = 500;
 var optionThreeY = 300
 var optionFourX = 500;
 var optionFourY = 450;
-var purchaseBoxX = 20;
-var purchaseBoxY = 150;
+var purchaseBoxX = 300;
+var purchaseBoxY = 0;
 var nitroBoxX = 60;
 var nitroBoxY = 290;
 var exhaustBoxX = 375;
@@ -35,10 +35,14 @@ var purchaseItem;
 
 function drawCarUpgradeScreen(){
 	colorRect(0,0,canvas.width * scaleWidth,canvas.height * scaleHeight, 'white');
-	colorRect(10,10,400,200,'green');
+	canvasContext.drawImage(bodyShopGaragePic, 0, 0);
 	canvasContext.drawImage(bodyShopPic, 0, 0);
-	colorText("Body Shop", 120, 50, 'black', font = "24px Arial Black");
-	colorText("Cash: $" + vehicleList[0].cash, 50, 100, font = "12px Arial Black");
+	colorText("Body Shop", 135, 30, 'black', font = "24px Arial Black");
+	colorText("Cash: $" + vehicleList[0].cash, 5, 16, 'green', font = "12px Arial Black");
+	colorText("Tire Type: " + vehicleList[0].tireVersion, 60, 65, 'black', font = "12px Arial Black");
+	colorText("Engine Type: " + vehicleList[0].engineVersion, 60, 80, 'black', font = "12px Arial Black");
+	colorText("Nitrous Type: " + vehicleList[0].nitroVersion, 60, 95, 'black', font = "12px Arial Black");	
+	colorText("Exhaust Type: " + vehicleList[0].exhaustVersion, 60, 110, 'black', font = "12px Arial Black");	
 	colorRect(transmissionBoxX, transmissionBoxY,100,50, 'blue'); //transmission	
 	colorRect(tireBoxX, tireBoxY,100,50, 'blue');	//tires
 	colorRect(engineBoxX, engineBoxY,100,50, 'blue');	//engine
@@ -74,7 +78,7 @@ function drawCarUpgradeScreen(){
 			colorRect(optionFourX,optionFourY,100,100, 'blue');
 		}
 		if(purchaseBox){
-			colorRect(purchaseBoxX,purchaseBoxY,100,50, 'white');
+			colorRect(purchaseBoxX,purchaseBoxY,100,50, 'green');
 			colorText("Purchase", purchaseBoxX + 20, purchaseBoxY + 20, 'black', font = "10px Arial Black");
 			colorText(purchaseItem, purchaseBoxX + 10, purchaseBoxY + 40, 'black', font = "10px Arial Black");
 		}
