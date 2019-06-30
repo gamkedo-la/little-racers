@@ -1,12 +1,15 @@
 const DRIVE_POWER = 0.5
 const REVERSE_POWER = 0.2;
 const MIN_TURN_SPEED = 0.5;
+const MIN_JUMP_START_SPEED = 4;
 const JUMP_START_ZSPEED = 5;
 const GRAVITY = -0.4;
 const GROUNDSPEED_DECAY_MULT = 0.94;
 const CAR_COLLISION_RADIUS = 15;
 const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
+const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
+const TURN_RATE_MULTIPLIER_OIL = 0.4;
 const CAR_WIDTH = 28;
 const CAR_HEIGHT = 12;
 
@@ -247,37 +250,33 @@ function carClass() {
 
     this.carControls = function() {
         
+        //Handle changes in speed for vehicles on the ground.
+        if (!this.airborne) {
+            this.speed *= GROUNDSPEED_DECAY_MULT;
 
-        if (this.airborne)
-        {
-            return; //Meaning once airborne, speed cannot change until landing.
-                    //Perhaps we want to add a reduced steering rate?
-                    //Or include an airspeed decay multiplier?
-        }
-
-        this.speed *= GROUNDSPEED_DECAY_MULT;
-
-        if (this.keyHeld_Gas) {
-            if (this.fuelInTank > 0) {
-                this.speed += DRIVE_POWER;
-                if (!debugMode) { //don't remove fuel while in debug mode
-                    this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
+            if (this.keyHeld_Gas) {
+                if (this.fuelInTank > 0) {
+                    this.speed += DRIVE_POWER;
+                    if (!debugMode) { //don't remove fuel while in debug mode
+                        this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
+                    }
+                    this.checkForEmptyTank()
                 }
-                this.checkForEmptyTank()
+                if (this.keyHeld_Nitro) {
+                    this.tryNitroBoost();
+                }
             }
-            if (this.keyHeld_Nitro) {
-                this.tryNitroBoost();
+
+            if (this.keyHeld_Reverse) {
+                if (this.fuelInTank > 0) {
+                    this.speed -= REVERSE_POWER;
+                    this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
+                    this.checkForEmptyTank()
+                }
             }
         }
 
-        if (this.keyHeld_Reverse) {
-            if (this.fuelInTank > 0) {
-                this.speed -= REVERSE_POWER;
-                this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
-                this.checkForEmptyTank()
-            }
-        }
-
+        //Even airborne vehicles can steer, if they just believe in themselves.
         if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
             if (this.keyHeld_TurnLeft && this.turnable) {
                 this.ang -= this.turn_rate * Math.PI;
@@ -463,8 +462,11 @@ function carClass() {
             case TRACK_NORTH_RAMP:
                 this.x = nextX;
                 this.y = nextY;
-                this.turnable = false;
-                this.startJump();
+                this.turnable = true; //Can turn on ramp, or even airborne; Let the multiplier take care of it.
+                if (this.speed > MIN_JUMP_START_SPEED)
+                {
+                    this.startJump();
+                }
                 break;
             case TRACK_WALL:
                 this.speed = -.5 * this.speed;
