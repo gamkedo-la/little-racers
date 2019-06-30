@@ -429,11 +429,15 @@ function carClass() {
                 this.oilslickRemaining = OILSLICK_FRAMECOUNT;
                 break;
             case TRACK_GRASS:
-                this.x = nextX;
-                this.y = nextY;
-                this.speed *= 0.5;
-                this.turnable = true;
-                break;
+			    if (this.airborne) {
+					break; 
+				} else {
+					this.x = nextX;
+					this.y = nextY;
+					this.speed *= 0.5;
+					this.turnable = true;
+					break;
+				}
             case TRACK_NORTH_RAMP:
                 this.x = nextX;
                 this.y = nextY;
@@ -534,6 +538,7 @@ function carClass() {
         var yOffSet = this.y;
         if (this.airborne) {
             yOffSet = yOffSet - 10;
+			//TO DO - don't collide with anything except the perimeter wall
         }
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang);
         if (debugMode) {
