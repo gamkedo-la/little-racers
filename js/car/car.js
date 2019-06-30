@@ -22,6 +22,7 @@ function carClass() {
     this.zVel = 0;
 
     this.turn_rate = TURN_RATE_STANDARD;
+    this.turnRateMultiplier = 1;
     this.keyHeld_Gas = false;
     this.keyHeld_Reverse = false;
     this.keyHeld_TurnLeft = false;
@@ -83,7 +84,7 @@ function carClass() {
         this.computerPlayer = computer;
         this.nitroboost = false;
         this.nitroBoostAmount = 1;
-        this.nitroBoostTime = 10;
+        this.nitroBoostTime = 10; //Being measured in frames, so at 30fps this is 1/3 of a second.
         this.airborne = false;
         this.startTime = now;
         this.xOffSet = this.x;
@@ -317,7 +318,7 @@ function carClass() {
             this.doComputerPlayerDriving(); //Determines their steering and throttle.
         }
         this.updateCarSpeedAndTurnRate();
-        this.updateCarPosition();
+        this.updateCarPositionAndAngle();
         this.handleTileEffects();
         this.trackTime();
         this.skidMarkHandling();
@@ -367,26 +368,21 @@ function carClass() {
                 }
             }
         }
+        //Update turn rate based on tile or airborne here.
 
-        //Even airborne vehicles can steer, if they just believe in themselves.
-        if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
-            if (this.keyHeld_TurnLeft && this.turnable) {
-                this.ang -= this.turn_rate * Math.PI;
-            }
-            if (this.keyHeld_TurnRight && this.turnable) {
-                this.ang += this.turn_rate * Math.PI;
-            }
-        }
     }
 
-    this.updateCarPosition = function () {
+    this.updateCarPositionAndAngle = function () {
 
-        this.oldX = this.x; //Preserve previous values for use in tile collisions.
+        //Preserve previous values for use in tile collisions.
+        this.oldX = this.x;
         this.oldY = this.y;
 
+        //Update ground position
         this.x += Math.cos(this.ang) * this.speed;
         this.y += Math.sin(this.ang) * this.speed;
 
+        //Update vertical position.
         if (this.airborne) {
             this.z += this.zVel;
 
@@ -399,6 +395,17 @@ function carClass() {
                 this.zVel = 0;
             }
         }
+
+        //Update steering angle.
+        if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
+            if (this.keyHeld_TurnLeft && this.turnable) {
+                this.ang -= this.turn_rate * Math.PI;
+            }
+            if (this.keyHeld_TurnRight && this.turnable) {
+                this.ang += this.turn_rate * Math.PI;
+            }
+        }
+
     }
 
     this.handleTileEffects = function () {
