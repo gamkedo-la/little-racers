@@ -1,6 +1,8 @@
 const DRIVE_POWER = 0.5
 const REVERSE_POWER = 0.2;
 const MIN_TURN_SPEED = 0.5;
+const JUMP_START_ZSPEED = 5;
+const GRAVITY = -0.4;
 const GROUNDSPEED_DECAY_MULT = 0.94;
 const CAR_COLLISION_RADIUS = 15;
 const TURN_RATE_NITRO = 0.01;
@@ -244,9 +246,18 @@ function carClass() {
     }
 
     this.carControls = function() {
+        
+
+        if (this.airborne)
+        {
+            return; //Meaning once airborne, speed cannot change until landing.
+                    //Perhaps we want to add a reduced steering rate?
+                    //Or include an airspeed decay multiplier?
+        }
+
         this.speed *= GROUNDSPEED_DECAY_MULT;
 
-        if (this.keyHeld_Gas && !this.airborne) {
+        if (this.keyHeld_Gas) {
             if (this.fuelInTank > 0) {
                 this.speed += DRIVE_POWER;
                 if (!debugMode) { //don't remove fuel while in debug mode
@@ -258,13 +269,15 @@ function carClass() {
                 this.tryNitroBoost();
             }
         }
-        if (this.keyHeld_Reverse && !this.airborne) {
+
+        if (this.keyHeld_Reverse) {
             if (this.fuelInTank > 0) {
                 this.speed -= REVERSE_POWER;
                 this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
                 this.checkForEmptyTank()
             }
         }
+
         if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
             if (this.keyHeld_TurnLeft && this.turnable) {
                 this.ang -= this.turn_rate * Math.PI;
@@ -359,12 +372,21 @@ function carClass() {
 
         this.carControls();
 
-        this.z += this.zVel;
-        if (this.z > 0) {
-            this.zVel -= 0.4;
-        } else {
-            this.z = 0;
-            this.zVel = 0;
+        if (this.airborne)
+        {
+            this.z += this.zVel;
+
+            if (this.z > 0)
+            {
+                this.zVel += GRAVITY;
+            }
+            else
+            {
+                this.airborne = false;
+                this.z = 0;
+                this.zVel = 0;
+            }
+
         }
 
         var drivingIntoTileType = getTrackAtPixelCoord(nextX, nextY);
@@ -431,7 +453,7 @@ function carClass() {
             case TRACK_GRASS:
 				this.x = nextX;
 				this.y = nextY;
-			    if (this.z > 0) {
+			    if (this.airborne) {
 					break; 
 				} else {
 					this.speed *= 0.5;
@@ -442,7 +464,7 @@ function carClass() {
                 this.x = nextX;
                 this.y = nextY;
                 this.turnable = false;
-                this.getAirTime();
+                this.startJump();
                 break;
             case TRACK_WALL:
                 this.speed = -.5 * this.speed;
@@ -454,9 +476,10 @@ function carClass() {
         this.skidMarkHandling();
     }
 
-    this.getAirTime = function() { // WIP:  Need to gradually increase shadow while in air.
-        if (this.z <= 0) {
-            this.zVel = 5;
+    this.startJump = function() { // WIP:  Need to gradually increase shadow while in air.
+        if (!this.airborne) {
+            this.zVel = JUMP_START_ZSPEED;
+            this.airborne = true;
         }
     }
 
