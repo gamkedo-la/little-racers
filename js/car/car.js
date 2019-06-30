@@ -16,6 +16,8 @@ const CAR_HEIGHT = 12;
 function carClass() {
     this.x = 60;
     this.y = 60;
+    this.oldX = this.x;
+    this.oldY = this.y;
     this.z = 0;
     this.zVel = 0;
 
@@ -248,45 +250,6 @@ function carClass() {
         }
     }
 
-    this.carControls = function() {
-        
-        //Handle changes in speed for vehicles on the ground.
-        if (!this.airborne) {
-            this.speed *= GROUNDSPEED_DECAY_MULT;
-
-            if (this.keyHeld_Gas) {
-                if (this.fuelInTank > 0) {
-                    this.speed += DRIVE_POWER;
-                    if (!debugMode) { //don't remove fuel while in debug mode
-                        this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
-                    }
-                    this.checkForEmptyTank()
-                }
-                if (this.keyHeld_Nitro) {
-                    this.tryNitroBoost();
-                }
-            }
-
-            if (this.keyHeld_Reverse) {
-                if (this.fuelInTank > 0) {
-                    this.speed -= REVERSE_POWER;
-                    this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
-                    this.checkForEmptyTank()
-                }
-            }
-        }
-
-        //Even airborne vehicles can steer, if they just believe in themselves.
-        if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
-            if (this.keyHeld_TurnLeft && this.turnable) {
-                this.ang -= this.turn_rate * Math.PI;
-            }
-            if (this.keyHeld_TurnRight && this.turnable) {
-                this.ang += this.turn_rate * Math.PI;
-            }
-        }
-    }
-
     this.checkForEmptyTank = function() {
         if (this.fuelInTank < 0) {
             this.fuelInTank = 0
@@ -348,47 +311,98 @@ function carClass() {
 
     }
 
-    this.movement = function() {
-
-        var nextX = this.x + Math.cos(this.ang) * this.speed;
-        var nextY = this.y + Math.sin(this.ang) * this.speed;
+    this.movement = function () {
 
         if (this.computerPlayer) {
-            if (this.aiRandomMovements) {
-                this.randomMovements();
+            this.doComputerPlayerDriving(); //Determines their steering and throttle.
+        }
+        this.updateCarSpeedAndTurnRate();
+        this.updateCarPosition();
+        this.handleTileEffects();
+        this.trackTime();
+        this.skidMarkHandling();
+    }
+
+    this.doComputerPlayerDriving = function()
+    {
+        if (this.aiRandomMovements) {
+            this.randomMovements();
+        }
+        if (this.wayPoint) {
+            this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
+            if (this.stopCar) {
+                this.keyHeld_Gas = false;
+            } else {
+                this.keyHeld_Gas = true;
             }
-            if (this.wayPoint) {
-                this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
-				if(this.stopCar){
-					this.keyHeld_Gas = false;
-				} else {
-					this.keyHeld_Gas = true;
-				}
-                this.keyHeld_Reverse = false;
-                this.checkIfStuck();
+            this.keyHeld_Reverse = false;
+            this.checkIfStuck();
+        }
+    }
+
+    this.updateCarSpeedAndTurnRate = function () {
+
+        //Handle changes in speed for vehicles on the ground.
+        if (!this.airborne) {
+            this.speed *= GROUNDSPEED_DECAY_MULT;
+
+            if (this.keyHeld_Gas) {
+                if (this.fuelInTank > 0) {
+                    this.speed += DRIVE_POWER;
+                    if (!debugMode) { //don't remove fuel while in debug mode
+                        this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
+                    }
+                    this.checkForEmptyTank()
+                }
+                if (this.keyHeld_Nitro) {
+                    this.tryNitroBoost();
+                }
+            }
+
+            if (this.keyHeld_Reverse) {
+                if (this.fuelInTank > 0) {
+                    this.speed -= REVERSE_POWER;
+                    this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
+                    this.checkForEmptyTank()
+                }
             }
         }
 
-        this.carControls();
+        //Even airborne vehicles can steer, if they just believe in themselves.
+        if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
+            if (this.keyHeld_TurnLeft && this.turnable) {
+                this.ang -= this.turn_rate * Math.PI;
+            }
+            if (this.keyHeld_TurnRight && this.turnable) {
+                this.ang += this.turn_rate * Math.PI;
+            }
+        }
+    }
 
-        if (this.airborne)
-        {
+    this.updateCarPosition = function () {
+
+        this.oldX = this.x; //Preserve previous values for use in tile collisions.
+        this.oldY = this.y;
+
+        this.x += Math.cos(this.ang) * this.speed;
+        this.y += Math.sin(this.ang) * this.speed;
+
+        if (this.airborne) {
             this.z += this.zVel;
 
-            if (this.z > 0)
-            {
+            if (this.z > 0) {
                 this.zVel += GRAVITY;
             }
-            else
-            {
+            else {
                 this.airborne = false;
                 this.z = 0;
                 this.zVel = 0;
             }
-
         }
+    }
 
-        var drivingIntoTileType = getTrackAtPixelCoord(nextX, nextY);
+    this.handleTileEffects = function () {
+        var drivingIntoTileType = getTrackAtPixelCoord(this.x, this.y);
 
         switch (drivingIntoTileType) {
 
@@ -401,19 +415,13 @@ function carClass() {
             case TRACK_ROAD_SIXTH:
             case TRACK_ROAD_SEVENTH:
             case TRACK_ROAD_EIGHT:
-                this.x = nextX;
-                this.y = nextY;
                 this.turnable = true;
                 break;
             case TRACK_ROAD_AAA:
-                this.x = nextX;
-                this.y = nextY;
                 this.turnable = true;
                 this.checkPointA = true;
                 break;
             case TRACK_ROAD_BBB:
-                this.x = nextX;
-                this.y = nextY;
                 this.turnable = true;
                 if (this.checkPointA) {
                     this.checkPointB = true;
@@ -421,8 +429,6 @@ function carClass() {
                 }
                 break;
             case TRACK_ROAD_CCC:
-                this.x = nextX;
-                this.y = nextY;
                 this.turnable = true;
                 if (this.checkPointB) {
                     this.checkPointC = true;
@@ -439,43 +445,34 @@ function carClass() {
                         this.updateWayPoints();
                     }
                 }
-                this.x = nextX;
-                this.y = nextY;
                 this.turnable = true;
                 break;
             case TRACK_OIL_SLICK:
-                this.x = nextX;
-                this.y = nextY;
                 this.turnable = false;
                 this.oilslickRemaining = OILSLICK_FRAMECOUNT;
                 break;
             case TRACK_GRASS:
-				this.x = nextX;
-				this.y = nextY;
-			    if (this.airborne) {
-					break; 
-				} else {
-					this.speed *= 0.5;
-					this.turnable = true;
-					break;
-				}
+                if (this.airborne) {
+                    break;
+                } else {
+                    this.speed *= 0.5;
+                    this.turnable = true;
+                    break;
+                }
             case TRACK_NORTH_RAMP:
-                this.x = nextX;
-                this.y = nextY;
                 this.turnable = true; //Can turn on ramp, or even airborne; Let the multiplier take care of it.
-                if (this.speed > MIN_JUMP_START_SPEED)
-                {
+                if (this.speed > MIN_JUMP_START_SPEED) {
                     this.startJump();
                 }
                 break;
             case TRACK_WALL:
+                this.x = this.oldX; //Go back to just before the collision.
+                this.y = this.oldY;
                 this.speed = -.5 * this.speed;
                 crashIntoConeSound.play();
             default: //Handles collision with solid tiles (interior wall block and track border)
                 this.speed = -.5 * this.speed;
         }
-        this.trackTime();
-        this.skidMarkHandling();
     }
 
     this.startJump = function() { // WIP:  Need to gradually increase shadow while in air.
