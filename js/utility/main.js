@@ -1,3 +1,10 @@
+var isWideScreen = false;
+
+const ASPECT_RATIO_WIDTH = isWideScreen ? 16 : 4;
+const ASPECT_RATIO_HEIGHT = isWideScreen ? 9 : 3;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 600;
+
 var canvas;
 var canvasContext;
 var mouseX = 0;
@@ -55,10 +62,10 @@ window.onload = function(){
 
 function resizeCanvas() {
 	if (allowRescale) {
-	    canvas.width = window.innerWidth;
+	    canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;
 		canvas.height = window.innerHeight;
-		scaleWidth = canvas.width/800;
-		scaleHeight = canvas.height/600;
+		scaleWidth = canvas.width/CANVAS_WIDTH;
+		scaleHeight = canvas.height/CANVAS_HEIGHT;
 		canvasContext.scale(scaleWidth,scaleHeight);
 	}
 }
