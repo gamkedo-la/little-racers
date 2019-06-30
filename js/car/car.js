@@ -429,11 +429,11 @@ function carClass() {
                 this.oilslickRemaining = OILSLICK_FRAMECOUNT;
                 break;
             case TRACK_GRASS:
-			    if (this.airborne) {
+				this.x = nextX;
+				this.y = nextY;
+			    if (this.z > 0) {
 					break; 
 				} else {
-					this.x = nextX;
-					this.y = nextY;
 					this.speed *= 0.5;
 					this.turnable = true;
 					break;
