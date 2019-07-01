@@ -300,6 +300,14 @@ function rowColToArrayIndex(col, row) {
 	return col + getCurrentTrackCols() * row;
 }			
 
+function getIndexAtPixelCoord(pixelX,pixelY){
+	var tileCol = pixelX / TRACK_W;		
+	var tileRow = pixelY / TRACK_H;
+				
+	tileCol = Math.floor(tileCol);
+	tileRow = Math.floor(tileRow);
+	return rowColToArrayIndex(tileCol,tileRow);
+}
 			
 function getTrackAtPixelCoord(pixelX,pixelY){
 	var tileCol = pixelX / TRACK_W;		

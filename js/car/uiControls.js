@@ -10,7 +10,8 @@ const KEY_HOME = 36;
 const KEY_PAGE_UP = 33;
 const KEY_DELETE = 46;
 const KEY_END = 35;
-const KEY_PAGE_DOWN = 34;
+const KEY_PAGE_DOWN = 34; //not all keyboards have a KEY_PAGE_DOWN
+const KEY_ENTER = 13;
 
 const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38;
@@ -50,7 +51,7 @@ function initInput(){
 	if(computerPlayerOn) {
 		vehicleList[1].setupControls(KEY_W, KEY_S, KEY_A, KEY_D, KEY_F);
 	}
-	vehicleList[0].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_PAGE_DOWN);
+	vehicleList[0].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER); 
 }
 
 function keyPressed(evt) {
@@ -59,8 +60,27 @@ function keyPressed(evt) {
 	var pausedKey = KEY_P;
 	var nextLevelKey = KEY_L;
 	
-	setKeyHoldState(evt.keyCode, vehicleList[0], true);
-	setKeyHoldState(evt.keyCode, vehicleList[1], true);
+	if(levelEditor){
+		var camJump = 40;
+		switch (evt.keyCode){
+			case KEY_UP_ARROW:
+				camPanY -= camJump;
+				break;			
+			case KEY_DOWN_ARROW:
+				camPanY += camJump;
+				break;
+			case KEY_LEFT_ARROW:
+				camPanX -= camJump;
+				break;
+			case KEY_RIGHT_ARROW:
+				camPanX += camJump;
+				break;
+		}
+	} else {
+		setKeyHoldState(evt.keyCode, vehicleList[0], true);
+		setKeyHoldState(evt.keyCode, vehicleList[1], true);
+	}
+	
 	evt.preventDefault();
 	
 	if(pausedKey == evt.keyCode){

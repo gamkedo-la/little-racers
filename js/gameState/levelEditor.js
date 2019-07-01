@@ -2,6 +2,9 @@ var boxTopLeft = 540;
 
 function drawLevelEditor(){
 	colorRect(0,0,canvas.width,canvas.height, 'green');	
+	shiftForCameraPan();
+	drawTracksByTile();
+	finishedCameraPan();
 	for(var i = 0; i < 7; i++) {
 		colorRect((i * 100 + 75), 540, 50, 50, 'grey')
 	}
@@ -15,7 +18,9 @@ function drawLevelEditor(){
 }
 
 function mouseClick(mousePosX, mousePosY) {
-	console.log(mousePosX, mousePosY);
+	var underMouseIndex = getIndexAtPixelCoord(mousePosX/scaleWidth + camPanX, mousePosY/scaleHeight  + camPanY);
+	trackGrid[underMouseIndex] = 0;
+	
 	if(mousePosX > 75 && mousePosX < 125 && mousePosY > 540 && mousePosY < 590){
 		console.log('LEFT');
 	} else if(mousePosX > 175 && mousePosX < 225 && mousePosY > 540 && mousePosY < 590){
@@ -32,3 +37,4 @@ function mouseClick(mousePosX, mousePosY) {
 		console.log('RIGHT');
 	}
 }
+
