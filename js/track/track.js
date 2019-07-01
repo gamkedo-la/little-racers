@@ -107,6 +107,7 @@ const TRACK_ROAD_SEVENTH = 12;
 const TRACK_ROAD_EIGHT = 13;
 
 // 50 through 99 are dedicated for track obstacles
+const TRACK_CONE = 50;
 const TRACK_WALL = 50;
 const TRACK_GRASS = 51;
 const TRACK_OIL_SLICK = 52;
@@ -192,7 +193,7 @@ function drawTracksByTile() {
 		for(var eachCol=0; eachCol<currentCols; eachCol++) {
 			
 			var trackTypeHere = trackGrid[trackIndex];
-			var transparencyCheckTypeHere = trackGrid[trackIndex]
+			var transparencyCheckTypeHere = trackGrid[trackIndex];
 			var imageOffsetY = 0;
 			if (trackTypeHere >= 0 && trackTypeHere < 50){
 				spriteSheet = roadSpriteSheet;
@@ -272,7 +273,8 @@ function tileTypeHasRoadTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_MIDDLE ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_RIGHT_END ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_LEFT ||
-			transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT	
+			 transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT ||
+			 transparencyCheckTypeHere == TRACK_CONE
 			);
 }
 
@@ -292,8 +294,8 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 
 
 function isWallAtTileCoord(trackTileCol, trackTileRow){
-				var trackIndex = trackTileCol + getCurrentTrackCols()*trackTileRow;
-				return (trackGrid[trackIndex] == TRACK_WALL);
+	var trackIndex = trackTileCol + getCurrentTrackCols()*trackTileRow;
+	return (trackGrid[trackIndex] == TRACK_WALL);
 }
 
 function rowColToArrayIndex(col, row) {
