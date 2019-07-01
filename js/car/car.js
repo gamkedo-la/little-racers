@@ -10,25 +10,31 @@ const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
 const TURN_RATE_MULTIPLIER_OIL = 0.4;
-const CAR_WIDTH = 28;
+const TURN_RATE_MULTIPLIER_GRASS = 0.75;
+const NITRO_FRAME_DURATION = 10;            //Being measured in frames, so at 30fps this is 1 second.
+const NITRO_BOOST_BASE_AMOUNT = 1.8;        //Speed increase per frame.
+const NITRO_START_QUANTITY = 5;
+const CAR_WIDTH = 28;                       //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 
 function carClass() {
     this.x = 60;
     this.y = 60;
+    this.oldX = this.x;
+    this.oldY = this.y;
     this.z = 0;
     this.zVel = 0;
 
-    this.turn_rate = TURN_RATE_STANDARD;
+    this.turnRate = TURN_RATE_STANDARD;
+    this.turnRateTileMultiplier = 1;
     this.keyHeld_Gas = false;
     this.keyHeld_Reverse = false;
     this.keyHeld_TurnLeft = false;
     this.keyHeld_TurnRight = false;
     this.keyHeld_Nitro = false;
-    this.turnable = true;
     this.computerPlayer = false;
     this.runTime = 0.0
-    this.nitroboost = false;
+    this.nitroBoostOn = false;
     this.wayPointNumber = 0;
     this.cash = 0;
     this.placedPosition = false;
@@ -79,9 +85,9 @@ function carClass() {
         this.myName = whichName;
         this.carReset(whichGraphic, whichName, computer);
         this.computerPlayer = computer;
-        this.nitroboost = false;
-        this.nitroBoostAmount = 1;
-        this.nitroBoostTime = 10;
+        this.nitroBoostOn = false;
+        this.nitroBoostQuantity = NITRO_START_QUANTITY;
+        this.nitroBoostTime = 0; //Time (frames) of boost remaining.
         this.airborne = false;
         this.startTime = now;
         this.xOffSet = this.x;
@@ -110,17 +116,6 @@ function carClass() {
         this.randomMovementsTimer = 0;
         this.placedPosition = false;
         this.oilslickRemaining = 0;
-    }
-
-    this.tryNitroBoost = function() {
-        if (this.nitroBoostAmount > 0) {
-            this.speed += 2;
-            this.turn_rate = TURN_RATE_NITRO;
-            this.nitroboost = true;
-        }
-        this.nitroBoostAmount = this.nitroBoostAmount - 1;
-        this.turn_rate = TURN_RATE_STANDARD;
-        this.nitroboost = false;
     }
 
     this.randomMovements = function() {
@@ -248,45 +243,6 @@ function carClass() {
         }
     }
 
-    this.carControls = function() {
-        
-        //Handle changes in speed for vehicles on the ground.
-        if (!this.airborne) {
-            this.speed *= GROUNDSPEED_DECAY_MULT;
-
-            if (this.keyHeld_Gas) {
-                if (this.fuelInTank > 0) {
-                    this.speed += DRIVE_POWER;
-                    if (!debugMode) { //don't remove fuel while in debug mode
-                        this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
-                    }
-                    this.checkForEmptyTank()
-                }
-                if (this.keyHeld_Nitro) {
-                    this.tryNitroBoost();
-                }
-            }
-
-            if (this.keyHeld_Reverse) {
-                if (this.fuelInTank > 0) {
-                    this.speed -= REVERSE_POWER;
-                    this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
-                    this.checkForEmptyTank()
-                }
-            }
-        }
-
-        //Even airborne vehicles can steer, if they just believe in themselves.
-        if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
-            if (this.keyHeld_TurnLeft && this.turnable) {
-                this.ang -= this.turn_rate * Math.PI;
-            }
-            if (this.keyHeld_TurnRight && this.turnable) {
-                this.ang += this.turn_rate * Math.PI;
-            }
-        }
-    }
-
     this.checkForEmptyTank = function() {
         if (this.fuelInTank < 0) {
             this.fuelInTank = 0
@@ -348,47 +304,163 @@ function carClass() {
 
     }
 
-    this.movement = function() {
+    //Used to turn on the nitro.
+    this.tryNitroBoost = function () {
+        if (this.nitroBoostQuantity > 0 && !this.nitroBoostOn) {
+            this.nitroBoostQuantity--;
+            this.nitroBoostTime = NITRO_FRAME_DURATION;
+            this.nitroBoostOn = true;
+        }
+    }
 
-        var nextX = this.x + Math.cos(this.ang) * this.speed;
-        var nextY = this.y + Math.sin(this.ang) * this.speed;
+    //Consume nitro and turn off if duration elapsed.
+    this.updateNitro = function ()
+    {
+        if(this.nitroBoostOn)
+        {
+            this.nitroBoostTime--;
+            if(this.nitroBoostTime <=0)
+            {
+                this.nitroBoostOn = false;
+            }
+        }
+    }
+
+    this.movement = function () {
 
         if (this.computerPlayer) {
-            if (this.aiRandomMovements) {
-                this.randomMovements();
+            this.doComputerPlayerDriving(); //Determines their steering and throttle.
+        }
+        this.updateCarSpeedAndTurnRate();
+        this.updateCarPositionAndAngle();
+        this.handleTileEffects();
+        this.trackTime();
+        this.skidMarkHandling();
+    }
+
+    this.doComputerPlayerDriving = function()
+    {
+        if (this.aiRandomMovements) {
+            this.randomMovements();
+        }
+        if (this.wayPoint) {
+            this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
+            if (this.stopCar) {
+                this.keyHeld_Gas = false;
+            } else {
+                this.keyHeld_Gas = true;
             }
-            if (this.wayPoint) {
-                this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
-				if(this.stopCar){
-					this.keyHeld_Gas = false;
-				} else {
-					this.keyHeld_Gas = true;
-				}
-                this.keyHeld_Reverse = false;
-                this.checkIfStuck();
+            this.keyHeld_Reverse = false;
+            this.checkIfStuck();
+        }
+    }
+
+    this.updateCarSpeedAndTurnRate = function () {
+
+        if (!this.airborne)  //Handle changes in speed for vehicles on the ground.
+        {
+            this.speed *= GROUNDSPEED_DECAY_MULT;
+
+            if (this.keyHeld_Gas) {
+                if (this.fuelInTank > 0) {
+                    this.speed += DRIVE_POWER;
+                    if (!debugMode) { //don't remove fuel while in debug mode
+                        this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
+                    }
+                    this.checkForEmptyTank()
+                }
+                if (this.keyHeld_Nitro) { //Don't engage nitro if player is backing up!
+                    this.tryNitroBoost();
+                }
+            }
+
+            if (this.keyHeld_Reverse) {
+                if (this.fuelInTank > 0) {
+                    this.speed -= REVERSE_POWER;
+                    this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
+                    this.checkForEmptyTank()
+                }
+            }
+
+            //As long as you're on the ground, nitro will push you forward even if you're trying to brake!
+            //That's why this code is not in the above sections for forward/reverse.
+            if (this.nitroBoostOn) {
+                this.speed += NITRO_BOOST_BASE_AMOUNT;
             }
         }
 
-        this.carControls();
 
-        if (this.airborne)
+        //Determine base turn rate.
+        this.turnRate = TURN_RATE_STANDARD;
+        if (this.nitroBoostOn)
         {
+            this.turnRate = TURN_RATE_NITRO;
+        }
+
+        //With the base rate determined, the following will lower it further based on driving conditions.
+
+        //Lower turn rate if airborne. Allows for a tiny bit of steering in defiance of physics!
+        if (this.airborne) 
+        {
+            this.turnRate *= TURN_RATE_MULTIPLIER_AIRBORNE;
+        }
+
+        else //On the ground; degrade rate by tile effects and if tires are oil-slicked.
+        {
+            this.turnRate *= this.turnRateTileMultiplier;
+            if (this.oilslickRemaining > 0)
+            {
+                this.turnRate *= TURN_RATE_MULTIPLIER_OIL;
+            }
+        }
+
+        this.updateNitro();  //Needs to be done after the above code so that speed is used for one frame before being "consumed".
+                             //Do it during the speed increase and you would miss the turn rate penalty!
+
+
+    }
+
+    this.updateCarPositionAndAngle = function () {
+
+        //Preserve previous values for use in tile collisions.
+        this.oldX = this.x;
+        this.oldY = this.y;
+
+        //Update ground position
+        this.x += Math.cos(this.ang) * this.speed;
+        this.y += Math.sin(this.ang) * this.speed;
+
+        //Update vertical position.
+        if (this.airborne) {
             this.z += this.zVel;
 
-            if (this.z > 0)
-            {
+            if (this.z > 0) {
                 this.zVel += GRAVITY;
             }
-            else
-            {
+            else {
                 this.airborne = false;
                 this.z = 0;
                 this.zVel = 0;
             }
-
         }
 
-        var drivingIntoTileType = getTrackAtPixelCoord(nextX, nextY);
+        //Update steering angle.
+        if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
+            if (this.keyHeld_TurnLeft) {
+                this.ang -= this.turnRate * Math.PI;
+            }
+            if (this.keyHeld_TurnRight) {
+                this.ang += this.turnRate * Math.PI;
+            }
+        }
+
+    }
+
+    this.handleTileEffects = function () {
+
+        this.turnRateTileMultiplier = 1; //Start at max possible; reduce based on the tiles that impact steering.
+
+        var drivingIntoTileType = getTrackAtPixelCoord(this.x, this.y);
 
         switch (drivingIntoTileType) {
 
@@ -401,29 +473,17 @@ function carClass() {
             case TRACK_ROAD_SIXTH:
             case TRACK_ROAD_SEVENTH:
             case TRACK_ROAD_EIGHT:
-                this.x = nextX;
-                this.y = nextY;
-                this.turnable = true;
                 break;
             case TRACK_ROAD_AAA:
-                this.x = nextX;
-                this.y = nextY;
-                this.turnable = true;
                 this.checkPointA = true;
                 break;
             case TRACK_ROAD_BBB:
-                this.x = nextX;
-                this.y = nextY;
-                this.turnable = true;
                 if (this.checkPointA) {
                     this.checkPointB = true;
                     this.checkPointA = false;
                 }
                 break;
             case TRACK_ROAD_CCC:
-                this.x = nextX;
-                this.y = nextY;
-                this.turnable = true;
                 if (this.checkPointB) {
                     this.checkPointC = true;
                     this.checkPointB = false;
@@ -439,43 +499,32 @@ function carClass() {
                         this.updateWayPoints();
                     }
                 }
-                this.x = nextX;
-                this.y = nextY;
-                this.turnable = true;
                 break;
             case TRACK_OIL_SLICK:
-                this.x = nextX;
-                this.y = nextY;
-                this.turnable = false;
-                this.oilslickRemaining = OILSLICK_FRAMECOUNT;
+                if (!this.airborne) {
+                    this.oilslickRemaining = OILSLICK_FRAMECOUNT; //No need to set the turnRateTileMultiplier; oil effects use oilSlickRemaining.
+                }
                 break;
             case TRACK_GRASS:
-				this.x = nextX;
-				this.y = nextY;
-			    if (this.airborne) {
-					break; 
-				} else {
-					this.speed *= 0.5;
-					this.turnable = true;
-					break;
-				}
-            case TRACK_NORTH_RAMP:
-                this.x = nextX;
-                this.y = nextY;
-                this.turnable = true; //Can turn on ramp, or even airborne; Let the multiplier take care of it.
-                if (this.speed > MIN_JUMP_START_SPEED)
+                if(!this.airborne)
                 {
+                    this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
+                    this.speed *= 0.5;
+                }
+                break;
+            case TRACK_NORTH_RAMP:
+                if (this.speed > MIN_JUMP_START_SPEED) {
                     this.startJump();
                 }
                 break;
             case TRACK_WALL:
+                this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
+                this.y = this.oldY;
                 this.speed = -.5 * this.speed;
                 crashIntoConeSound.play();
             default: //Handles collision with solid tiles (interior wall block and track border)
                 this.speed = -.5 * this.speed;
         }
-        this.trackTime();
-        this.skidMarkHandling();
     }
 
     this.startJump = function() { // WIP:  Need to gradually increase shadow while in air.
