@@ -75,6 +75,9 @@ function keyPressed(evt) {
 			case KEY_RIGHT_ARROW:
 				camPanX += camJump;
 				break;
+			case KEY_ENTER:
+				downloadMap("var newTrack = [" + trackGrid + "];", "text/plain", "updatedTrackGrid.txt");
+			break;
 		}
 	} else {
 		setKeyHoldState(evt.keyCode, vehicleList[0], true);
