@@ -1,3 +1,4 @@
+//cars
 var carPic1 = document.createElement("img");
 var carPic2 = document.createElement("img");
 var carPic3 = document.createElement("img");
@@ -7,14 +8,12 @@ var carPic6 = document.createElement("img");
 var carPic7 = document.createElement("img");
 var carPic8 = document.createElement("img");
 var carShadowPic = document.createElement("img");
-var clockPic = document.createElement("img");
+//Backgrounds
+var resultScreenPic = document.createElement("img");
 //var titlepagePic = document.createElement("img");
 var bodyShopPic = document.createElement("img");
 var bodyShopGaragePic = document.createElement("img");
-var arrowPic = document.createElement("img");
-var roadSpriteSheet =  document.createElement("img");
-var trackobstaclesSpriteSheet = document.createElement("img");
-var wallSpriteSheet = document.createElement("img");
+//upgrades
 var tireTrackPic = document.createElement("img");
 var tireOptionOnePic = document.createElement("img");
 var tireOptionTwoPic = document.createElement("img");
@@ -22,7 +21,12 @@ var tireOptionThreePic = document.createElement("img");
 var tireOptionFourPic = document.createElement("img");
 var nitrosOptionOnePic = document.createElement("img");
 var nitrosOptionTwoPic = document.createElement("img");
-
+//misc
+var arrowPic = document.createElement("img");
+var roadSpriteSheet =  document.createElement("img");
+var trackobstaclesSpriteSheet = document.createElement("img");
+var wallSpriteSheet = document.createElement("img");
+var clockPic = document.createElement("img");
 var trackPics = [];
 
 var picsToLoad = 0;
@@ -48,29 +52,30 @@ function loadImageForTrackCode(trackCode, fileName)  {
 function loadImages() {
 	
 		var imageList = [
-			{varName: carPic1, theFile: "player1.png"},
-			{varName: carPic2, theFile: "player2.png"},
-			{varName: carPic3, theFile: "player3.png"},
-			{varName: carPic4, theFile: "player4.png"},
-			{varName: carPic5, theFile: "player5.png"},
-			{varName: carPic6, theFile: "player6.png"},
-			{varName: carPic7, theFile: "player7.png"},
-			{varName: carPic8, theFile: "player8.png"},
-			{varName: bodyShopPic, theFile: "bodyShop.png"},
-			{varName: bodyShopGaragePic, theFile: "bodyShopGarage.png"},
+			{varName: carPic1, theFile: "vehicles/player1.png"},
+			{varName: carPic2, theFile: "vehicles/player2.png"},
+			{varName: carPic3, theFile: "vehicles/player3.png"},
+			{varName: carPic4, theFile: "vehicles/player4.png"},
+			{varName: carPic5, theFile: "vehicles/player5.png"},
+			{varName: carPic6, theFile: "vehicles/player6.png"},
+			{varName: carPic7, theFile: "vehicles/player7.png"},
+			{varName: carPic8, theFile: "vehicles/player8.png"},
+			{varName: tireTrackPic, theFile: "vehicles/tireTracks.png"},
+			{varName: carShadowPic, theFile: "vehicles/car_shadow.png"},
+			{varName: bodyShopPic, theFile: "backdrops/bodyShop.png"},
+			{varName: bodyShopGaragePic, theFile: "backdrops/bodyShopGarage.png"},
+			{varName: resultScreenPic, theFile: "backdrops/resultScreenBackground.png"},
+			{varName: tireOptionOnePic, theFile: "upgrades/tireOptionOne.png"},			
+			{varName: tireOptionTwoPic, theFile: "upgrades/tireOptionTwo.png"},	
+			{varName: tireOptionThreePic, theFile: "upgrades/tireOptionThree.png"},	
+			{varName: tireOptionFourPic, theFile: "upgrades/tireOptionFour.png"},
+			{varName: nitrosOptionOnePic, theFile: "upgrades/nitrosOptionOne.png"},
+			{varName: nitrosOptionTwoPic, theFile: "upgrades/nitrosOptionTwo.png"},		
 			{varName: clockPic, theFile: "system_clock.png"},
-			{varName: carShadowPic, theFile: "car_shadow.png"},
 			{varName: arrowPic, theFile: "leftArrow.png"},
 			{varName: roadSpriteSheet, theFile: "roadSpriteSheet.png"},
 			{varName: trackobstaclesSpriteSheet, theFile: "trackobstaclesSpriteSheet.png"},
-			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"},
-			{varName: tireTrackPic, theFile: "tireTracks.png"},
-			{varName: tireOptionOnePic, theFile: "tireOptionOne.png"},			
-			{varName: tireOptionTwoPic, theFile: "tireOptionTwo.png"},	
-			{varName: tireOptionThreePic, theFile: "tireOptionThree.png"},	
-			{varName: tireOptionFourPic, theFile: "tireOptionFour.png"},
-			{varName: nitrosOptionOnePic, theFile: "nitrosOptionOne.png"},
-			{varName: nitrosOptionTwoPic, theFile: "nitrosOptionTwo.png"}					
+			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"}
 		];
 			
 	picsToLoad = imageList.length;

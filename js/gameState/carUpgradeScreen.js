@@ -34,7 +34,7 @@ var purchaseBox = false;
 var purchaseItem;
 
 function drawCarUpgradeScreen(){
-	colorRect(0,0,canvas.width * scaleWidth,canvas.height * scaleHeight, 'white');
+	colorRect(0,0,canvas.width * scaleWidth, canvas.height * scaleHeight, 'white');
 	canvasContext.drawImage(bodyShopGaragePic, 0, 0);
 	canvasContext.drawImage(bodyShopPic, 0, 0);
 	colorText("Body Shop", 135, 30, 'black', font = "24px Arial Black");

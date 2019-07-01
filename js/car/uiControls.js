@@ -22,6 +22,7 @@ const ENTER_KEY = 13;
 const KEY_F1 = 112;
 const KEY_F2 = 113;
 const KEY_P = 80;
+const KEY_1 = 49;
 
 
 function initInput(){
@@ -59,6 +60,7 @@ function keyPressed(evt) {
 	var debugKey = KEY_F2;
 	var pausedKey = KEY_P;
 	var nextLevelKey = KEY_L;
+	var raceResultsPageKey = KEY_1;
 	
 	if(levelEditor){
 		var camJump = 40;
@@ -109,6 +111,11 @@ function keyPressed(evt) {
 		if (evt.keyCode == nextLevelKey){
 			nextLevel();
 			debugMode = false;
+		} else if (evt.keyCode == raceResultsPageKey){
+			titleScreen = false;
+			levelEditor = false;
+			winScreen = true;
+			carUpgradeScreen = false;
 		}
 	}
 }
