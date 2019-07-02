@@ -524,6 +524,10 @@ function carClass() {
                     this.startJump();
                 }
                 break;
+			case TRACK_CASH:
+				this.cash += 100;
+				//trackGrid[driveIntoTileIndex] = TRACK_ROAD;		//need to determine tile index
+				break;
             case TRACK_WALL:
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
                 this.y = this.oldY;

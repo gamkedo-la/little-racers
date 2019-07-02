@@ -23,7 +23,7 @@ var levelOne = {
    103,  0,  1,  1,  1, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  0,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107, 
-   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
+   103,  0,  0,  2,  1, 54,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
    103,  1,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107, 
    103,  1,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,  
    103,  1,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
@@ -112,6 +112,7 @@ const TRACK_WALL = 50;
 const TRACK_GRASS = 51;
 const TRACK_OIL_SLICK = 52;
 const TRACK_NORTH_RAMP = 53;
+const TRACK_CASH = 54;
 
 // 100 through 150 are dedicated for wallSpriteSheet
 const TRACK_BRICK_WALL_TOP_LEFT_END = 100;
@@ -273,8 +274,9 @@ function tileTypeHasRoadTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_MIDDLE ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_RIGHT_END ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_LEFT ||
-			 transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT ||
-			 transparencyCheckTypeHere == TRACK_CONE
+			transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT ||
+			transparencyCheckTypeHere == TRACK_CONE ||
+			transparencyCheckTypeHere == TRACK_CASH 
 			);
 }
 
