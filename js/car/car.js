@@ -243,6 +243,12 @@ function carClass() {
         }
     }
 
+    this.checkForLowFuelLevel = function() {
+        if (this.fuelInTank <= 20) {
+            console.log("Low fuel!");
+        }
+    }
+
     this.checkForEmptyTank = function() {
         if (this.fuelInTank < 0) {
             this.fuelInTank = 0
@@ -367,6 +373,7 @@ function carClass() {
                     if (!debugMode) { //don't remove fuel while in debug mode
                         this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
                     }
+                    this.checkForLowFuelLevel()
                     this.checkForEmptyTank()
                 }
                 if (this.keyHeld_Nitro) { //Don't engage nitro if player is backing up!
