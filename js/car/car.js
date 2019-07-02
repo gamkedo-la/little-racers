@@ -527,7 +527,14 @@ function carClass() {
                 break;
 			case TRACK_CASH:
 				this.cash += 100;
-				console.log(driveIntoTileIndex);
+				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+				terrainChanged = true;				
+				break;
+			case TRACK_FUEL:
+				this.fuelInTank += 50;
+				if(this.fuelInTank > 100){
+					this.fuelInTank = 100;
+				}
 				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
 				terrainChanged = true;				
 				break;
