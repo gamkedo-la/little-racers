@@ -468,6 +468,7 @@ function carClass() {
         this.turnRateTileMultiplier = 1; //Start at max possible; reduce based on the tiles that impact steering.
 
         var drivingIntoTileType = getTrackAtPixelCoord(this.x, this.y);
+		var driveIntoTileIndex = getTileTypeAtPixelCoord(this.x, this.y);
 
         switch (drivingIntoTileType) {
 
@@ -526,7 +527,9 @@ function carClass() {
                 break;
 			case TRACK_CASH:
 				this.cash += 100;
-				//trackGrid[driveIntoTileIndex] = TRACK_ROAD;		//need to determine tile index
+				console.log(driveIntoTileIndex);
+				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+				terrainChanged = true;				
 				break;
             case TRACK_WALL:
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).

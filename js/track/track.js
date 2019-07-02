@@ -328,6 +328,13 @@ function getTrackAtPixelCoord(pixelX,pixelY){
 	return (trackGrid[trackIndex]);
 }		
 
+function getTileTypeAtPixelCoord(atX, atY) {
+	var trackCol = Math.floor(atX / TRACK_W);
+	var trackRow = Math.floor(atY / TRACK_H);
+	var trackIndexUnderVehicle = rowColToArrayIndex(trackCol, trackRow);
+
+	return trackIndexUnderVehicle;
+}
 			
 function trackTileToIndex(tileCol, tileRow) {
 	return(tileCol + getCurrentTrackCols()*tileRow);
