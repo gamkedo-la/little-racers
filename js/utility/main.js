@@ -28,6 +28,11 @@ var paused = false;
 var raceHasStarted = false;
 
 var raceStartTimer = 0;
+var drawStartLightsTimer = 0;
+var displayRedLight = false;
+var displayYellowLight = false;
+var displayGreenLight = false;
+
 
 //Debug Options
 var debugMode = true;
@@ -129,9 +134,12 @@ function prepareForRace(){
 		startYourEnginesSound.play();
 	} else if (raceStartTimer == 180){
 		readySetGoSound.play();
-		
+		displayRedLight = true;
+	} else if (raceStartTimer == 210){
+		displayYellowLight = true;
 	} else if (raceStartTimer == 240){
 		raceHasStarted = true;
+		displayGreenLight = true;
 	}
 }
 
@@ -168,6 +176,24 @@ function drawFuelPercentage(){
 	}
 }
 
+function drawStartLights(){
+	if(displayRedLight){
+		colorCircle(50, 50, 20, 'red')
+	}
+	if(displayYellowLight){
+		colorCircle(50, 100, 20, 'yellow')
+	}
+	if(displayGreenLight){
+		colorCircle(50, 159, 20, 'green')
+		drawStartLightsTimer++;
+	}
+	if( drawStartLightsTimer == 10){
+		displayRedLight = false;
+		displayYellowLight = false;
+		displayGreenLight = false;
+	}
+}
+
 function drawEverything() {
 	if(titleScreen){
 		drawTitleScreen();
@@ -189,6 +215,7 @@ function drawEverything() {
 		drawClock();
 		drawLapOneTime();
 		drawFuelPercentage();
+		drawStartLights();
 		if(debugMode){
 			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", font = "14px Arial Black");
 		}

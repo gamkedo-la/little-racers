@@ -17,6 +17,8 @@ const NITRO_START_QUANTITY = 5;
 const CAR_WIDTH = 28;                       //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 
+var finalLappedCalled = false;
+
 function carClass() {
     this.x = 60;
     this.y = 60;
@@ -500,8 +502,12 @@ function carClass() {
             case TRACK_FINISH:
                 if (this.checkPointC) {
                     this.checkPointC = false;
-                    if (this.lapNumber < 0) {
-                        this.recordALap();
+                    if (this.lapNumber < 1) {
+                        if (this.lapNumber == 0 && !finalLappedCalled){
+							finallapSound.play();
+							finalLappedCalled = true;
+						}
+						this.recordALap();
                     } else {
                         whichPlace(this);
                         this.updateWayPoints();
