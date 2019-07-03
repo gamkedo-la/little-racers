@@ -1,5 +1,6 @@
 var audioFormat;
 var isMuted = false;
+var soundSetforMeetings = true; //make false to hear at normal level
 
 //sounds
 var crashIntoConeSound = new SoundOverlapsClass("crashCone");
@@ -41,9 +42,15 @@ function SoundOverlapsClass(filenameWithPath) {
     	}
 		if (altSoundTurn) {
 			altSound.currentTime = 0;
+			if(soundSetforMeetings){
+				altSound.volume = 0.05;  //quieter for screen sharing during meetings
+			}
 			altSound.play();
 		} else {
 			mainSound.currentTime = 0;
+			if(soundSetforMeetings){
+				mainSound.volume = 0.05; //quieter for screen sharing during meetings
+			}
 			mainSound.play();
 		}
 		altSoundTurn = !altSoundTurn;
