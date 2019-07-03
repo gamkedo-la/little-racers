@@ -25,6 +25,9 @@ var levelEditor = false;
 var winScreen = false;
 var carUpgradeScreen = false;
 var paused = false;
+var raceHasStarted = false;
+
+var raceStartTimer = 0;
 
 //Debug Options
 var debugMode = true;
@@ -95,22 +98,40 @@ function moveEverything() {
 		//Intentionally left empty - no movement
 	} else {
 		if(!paused){
-			for (var i = 0; i < vehicleList.length; i++) {
-				vehicleList[i].movement();
-			}
-			updatedCameraPosition();
-			for (var i = 0; i < vehicleList.length; i++) {
-				for (var ii = i+1; ii < vehicleList.length; ii++) {
-					vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
+			if(raceHasStarted){
+				for (var i = 0; i < vehicleList.length; i++) {
+					vehicleList[i].movement();
 				}
-			}
-			updateTime();
-			if(firstPlaceFilled){
-				soundDelayTimer++;
-				announceRaceCarNumber(40);
-				console.log(soundDelayTimer);
+				updatedCameraPosition();
+				for (var i = 0; i < vehicleList.length; i++) {
+					for (var ii = i+1; ii < vehicleList.length; ii++) {
+						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
+					}
+				}
+				updateTime();
+				if(firstPlaceFilled){ //sound bite for the winner
+					soundDelayTimer++;
+					announceRaceCarNumber(40);
+				}
+			} else {
+				prepareForRace();
 			}
 		}
+	}
+}
+
+function prepareForRace(){
+	raceStartTimer++;
+	console.log(raceStartTimer);
+	if(raceStartTimer == 10){
+		attentionDriversSound.play();
+	} else if (raceStartTimer == 70){
+		startYourEnginesSound.play();
+	} else if (raceStartTimer == 180){
+		readySetGoSound.play();
+		
+	} else if (raceStartTimer == 240){
+		raceHasStarted = true;
 	}
 }
 

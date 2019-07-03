@@ -13,6 +13,9 @@ var carFiveSound = new SoundOverlapsClass("carnumber_five_01");
 var carSixSound = new SoundOverlapsClass("carnumber_six_01");
 var carSevenSound = new SoundOverlapsClass("carnumber_seven_01");
 var carEightSound = new SoundOverlapsClass("carnumber_eight_01");
+var attentionDriversSound = new SoundOverlapsClass("attentiondrivers_01");
+var startYourEnginesSound = new SoundOverlapsClass("startyourengines_01");
+var readySetGoSound = new SoundOverlapsClass("readysetgo_01");
 
 function setFormat() {
     var audio = new Audio();
