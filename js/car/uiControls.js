@@ -22,6 +22,7 @@ const ENTER_KEY = 13;
 const KEY_F1 = 112;
 const KEY_F2 = 113;
 const KEY_P = 80;
+const KEY_O = 79;
 const KEY_1 = 49;
 
 
@@ -61,6 +62,7 @@ function keyPressed(evt) {
 	var pausedKey = KEY_P;
 	var nextLevelKey = KEY_L;
 	var raceResultsPageKey = KEY_1;
+	var muteKey = KEY_O;
 	
 	if(levelEditor){
 		var camJump = 40;
@@ -87,27 +89,16 @@ function keyPressed(evt) {
 	}
 	
 	evt.preventDefault();
-	
-	if(pausedKey == evt.keyCode){
+	if (muteKey == evt.keyCode) {
+		console.log("mute key pressed");
+	} else if(pausedKey == evt.keyCode){
 		console.log(paused);
-		if(paused){
-			paused = false;
-		} else {
-			paused = true;
-		}
+		paused = !paused;
 	} else if (levelEditorKey == evt.keyCode) {
-		if(levelEditor){
-			levelEditor = false;
-		} else 
-			levelEditor = true;
+		levelEditor = !levelEditor;
 	} else if (debugKey == evt.keyCode){
-		if(debugMode){
-			debugMode = false;
-		} else {
-			debugMode = true;
-		}
-	//Debug options
-	} else if (debugMode){
+		debugMode = !debugMode;
+	} else if (debugMode){		//Debug options
 		if (evt.keyCode == nextLevelKey){
 			nextLevel();
 			debugMode = false;
