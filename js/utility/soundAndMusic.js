@@ -1,6 +1,19 @@
 var audioFormat;
 var isMuted = false;
 
+//sounds
+var crashIntoConeSound = new SoundOverlapsClass("crashCone");
+var engineSound = new SoundOverlapsClass("engine");
+var andTheWinnerIsSound = new SoundOverlapsClass("andTheWinnerIs_01");
+var carOneSound = new SoundOverlapsClass("carnumber_one_01");
+var carTwoSound = new SoundOverlapsClass("carnumber_two_01");
+var carThreeSound = new SoundOverlapsClass("carnumber_three_01");
+var carFourSound = new SoundOverlapsClass("carnumber_four_01");
+var carFiveSound = new SoundOverlapsClass("carnumber_five_01");
+var carSixSound = new SoundOverlapsClass("carnumber_six_01");
+var carSevenSound = new SoundOverlapsClass("carnumber_seven_01");
+var carEightSound = new SoundOverlapsClass("carnumber_eight_01");
+
 function setFormat() {
     var audio = new Audio();
     if (audio.canPlayType("audio/mp3")) {

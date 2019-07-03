@@ -19,10 +19,6 @@ var vehicleList = [];
 var twoPlayerGame = false;
 var computerPlayerOn = true;
 
-//sounds
-var crashIntoConeSound = new SoundOverlapsClass("crashCone");
-var engineSound = new SoundOverlapsClass("engine");
-
 //Game States
 var titleScreen = true;
 var levelEditor = false;
@@ -109,6 +105,11 @@ function moveEverything() {
 				}
 			}
 			updateTime();
+			if(firstPlaceFilled){
+				soundDelayTimer++;
+				announceRaceCarNumber(40);
+				console.log(soundDelayTimer);
+			}
 		}
 	}
 }

@@ -14,6 +14,7 @@ var fifthPlaceFilled = false;
 var sixthPlaceFilled = false;
 var seventhPlaceFilled = false;
 var eigthPlaceFilled = false;
+var soundDelayTimer = 0;
 
 //check to see if position is filled, if not, fill place position with that care, 
 //mark position as filled, show car as having a position, and award cash.
@@ -23,6 +24,7 @@ function whichPlace(car){
 		firstPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 1000;
+		andTheWinnerIsSound.play();
 		console.log("First: " + car.myName + " " + car.cash);
 	} else if(!secondPlaceFilled && !car.placedPosition){
 		secondPlace = car.myName;
@@ -88,4 +90,27 @@ function clearRacePositions(){
 	sixthPlace = "empty";
 	seventhPlace = "empty";
 	eigthPlace = "empty";
+}
+
+//Announce Race Car Number
+function announceRaceCarNumber(delay){
+	if(soundDelayTimer == delay){
+		if(firstPlace == "Car 1"){
+			carOneSound.play();
+		} else if(firstPlace == "Car 2"){
+			carTwoSound.play();
+		} else if(firstPlace == "Car 3"){
+			carThreeSound.play();
+		} else if(firstPlace == "Car 4"){
+			carFourSound.play();
+		} else if(firstPlace == "Car 5"){
+			carFiveSound.play();
+		} else if(firstPlace == "Car 6"){
+			carSixSound.play();
+		} else if(firstPlace == "Car 7"){
+			carSevenSound.play();
+		} else if(firstPlace == "Car 8"){
+			carEightSound.play();
+		}
+	}
 }

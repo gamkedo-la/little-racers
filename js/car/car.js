@@ -500,7 +500,7 @@ function carClass() {
             case TRACK_FINISH:
                 if (this.checkPointC) {
                     this.checkPointC = false;
-                    if (this.lapNumber < 3) {
+                    if (this.lapNumber < 0) {
                         this.recordALap();
                     } else {
                         whichPlace(this);
@@ -542,7 +542,7 @@ function carClass() {
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
                 this.y = this.oldY;
                 this.speed = -.5 * this.speed;
-                crashIntoConeSound.play();
+                //crashIntoConeSound.play();
                 break;  //Added this, we think it was missing the negatives were canceling out
             default: //Handles collision with solid tiles (interior wall block and track border)
                 this.speed = -.5 * this.speed;
