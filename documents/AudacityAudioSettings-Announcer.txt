@@ -1,0 +1,3 @@
+Audacity Settings for Announcer Effects.
+1. Distortion --> type = Hard Overdrive
+2. Echo --> Delay time = 0.25, Decay factor = 0.025
