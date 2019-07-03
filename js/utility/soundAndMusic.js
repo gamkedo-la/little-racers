@@ -1,4 +1,5 @@
 var audioFormat;
+var isMuted = false;
 
 function setFormat() {
     var audio = new Audio();
@@ -16,6 +17,10 @@ function SoundOverlapsClass(filenameWithPath) {
     var altSound = new Audio("sound/" + filenameWithPath + audioFormat);
     
     this.play = function() {
+    	if (isMuted) {
+    		console.log ("sound muted");
+    		return;
+    	}
 		if (altSoundTurn) {
 			altSound.currentTime = 0;
 			altSound.play();

@@ -543,6 +543,7 @@ function carClass() {
                 this.y = this.oldY;
                 this.speed = -.5 * this.speed;
                 crashIntoConeSound.play();
+                break;  //Added this, we think it was missing the negatives were canceling out
             default: //Handles collision with solid tiles (interior wall block and track border)
                 this.speed = -.5 * this.speed;
         }

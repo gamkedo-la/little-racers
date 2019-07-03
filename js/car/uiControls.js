@@ -91,6 +91,7 @@ function keyPressed(evt) {
 	evt.preventDefault();
 	if (muteKey == evt.keyCode) {
 		console.log("mute key pressed");
+		isMuted = !isMuted;
 	} else if(pausedKey == evt.keyCode){
 		console.log(paused);
 		paused = !paused;
