@@ -3,7 +3,7 @@ var winScreenTime = 0;
 function drawWinScreen(){
 	//placed position
 	var placePositionX = 80;
-	var placePositionY = 95;
+	var placePositionY = 295;
 	var increasePlacePositionY = 35;
 	//car information
 	var carColumnOneX = 325;
@@ -21,6 +21,11 @@ function drawWinScreen(){
 	colorText("6th: " + sixthPlace, placePositionX, (placePositionY + increasePlacePositionY * 5), 'black', font = "20px Arial Black");
 	colorText("7th: " + seventhPlace, placePositionX, (placePositionY + increasePlacePositionY * 6), 'black', font = "20px Arial Black");
 	colorText("8th: " + eigthPlace, placePositionX, (placePositionY + increasePlacePositionY * 7), 'black', font = "20x Arial Black");
+	//trophy
+	canvasContext.drawImage(firstPlaceTrophyPic, 80, 50);
+	colorText("First Place", 140, 192, 'black', font = "8px Arial Black");
+	colorText(firstPlace, 140, 202, 'black', font = "8px Arial Black");
+	
 	//car information
 	for(var i = 0; i < 4; i++){
 		//row 1

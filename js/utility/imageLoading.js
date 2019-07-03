@@ -28,6 +28,8 @@ var trackobstaclesSpriteSheet = document.createElement("img");
 var wallSpriteSheet = document.createElement("img");
 var clockPic = document.createElement("img");
 var trackPics = [];
+// trophies
+var firstPlaceTrophyPic = document.createElement("img");
 
 var picsToLoad = 0;
 
@@ -75,7 +77,8 @@ function loadImages() {
 			{varName: arrowPic, theFile: "leftArrow.png"},
 			{varName: roadSpriteSheet, theFile: "roadSpriteSheet.png"},
 			{varName: trackobstaclesSpriteSheet, theFile: "trackobstaclesSpriteSheet.png"},
-			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"}
+			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"},
+			{varName: firstPlaceTrophyPic, theFile: "trophy.png"}
 		];
 			
 	picsToLoad = imageList.length;
