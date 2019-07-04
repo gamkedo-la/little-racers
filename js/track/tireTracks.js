@@ -4,12 +4,15 @@
 var decalManager = function() {
 	
 	//var img.crossOrigin = "Anonymous";
+	this.clear = function() {
+		this.tireTrackCanvas = document.createElement("canvas");
+		this.tireTrackCanvas.width = gameCanvas.width;
+		this.tireTrackCanvas.height = gameCanvas.height;
+		this.tireTrackCTX = this.tireTrackCanvas.getContext('2d'); 
+		this.decalCount = 0;
+	};
 
-	this.tireTrackCanvas = document.createElement("canvas");
-	this.tireTrackCanvas.width = gameCanvas.width;
-	this.tireTrackCanvas.height = gameCanvas.height;
-	this.tireTrackCTX = this.tireTrackCanvas.getContext('2d'); 
-	this.decalCount = 0;
+	this.clear();
 	
 	this.add = function(x,y,rot,alpha,color) {
 		this.decalCount++;
@@ -57,7 +60,7 @@ var decalManager = function() {
 		this.tireTrackCTX.putImageData(myImageData, 0, 0);
 		*/
 
-	}
+	};
 
 	this.draw = function() {
 		canvasContext.drawImage(this.tireTrackCanvas, 0, 0);

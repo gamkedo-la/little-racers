@@ -54,5 +54,6 @@ function winScreenTimer(){
 		winScreen = false;
 		carUpgradeScreen = true;
 		clearRacePositions();
+		tireTracks.clear();
 	}	
 }
