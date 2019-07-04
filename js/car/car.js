@@ -38,7 +38,7 @@ function carClass() {
     this.runTime = 0.0
     this.nitroBoostOn = false;
     this.wayPointNumber = 0;
-    this.cash = 0;
+    this.cash = 2000;
     this.placedPosition = false;
     this.fuelCapacity = 100;
     this.fuelConsumptionRate = 0.15;

@@ -84,7 +84,7 @@ function drawCarUpgradeScreen(){
 		}
 	}
 	
-	if(transmissionOptions){ //I plan to re-factor this code.... way too long and repetitive - Vince
+	if(transmissionOptions){ 
 		optionsSelected = true;
 		colorRect(250,290,30,200, 'red');
 		colorText("Transmission", 62, 390, 'red', font = "12px Arial Black");
@@ -307,6 +307,131 @@ function carUpgradeScreenMouseClick(mousePosX, mousePosY) {
 			purchaseBox = true;
 			purchaseItem = "Exhaust 4";
 		}
+	// Purchase Box
+	} else if(	mousePosX > purchaseBoxX * scaleWidth && mousePosX < (purchaseBoxX + 100) * scaleWidth && 
+				mousePosY > purchaseBoxY * scaleHeight && mousePosY < (purchaseBoxY + 50) * scaleHeight){
+				switch(purchaseItem){
+					case "Transmission 1":
+						if(vehicleList[0].transmissionVersion < 1 && vehicleList[0].cash > 500){	
+							vehicleList[0].transmissionVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 500;
+						}
+						break;
+					case "Transmission 2":
+						if(vehicleList[0].transmissionVersion < 2 && vehicleList[0].cash >= 1000){	
+							vehicleList[0].transmissionVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 1000;
+						}
+						break;
+					case "Transmission 3":
+						if(vehicleList[0].transmissionVersion < 3 && vehicleList[0].cash >= 2000){	
+							vehicleList[0].transmissionVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 2000;
+						}
+						break;
+					case "Transmission 4":
+						if(vehicleList[0].transmissionVersion != 4 && vehicleList[0].cash >= 3000){	
+							vehicleList[0].transmissionVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 3000;
+						}
+						break;
+					case "Tire 1":
+						if(vehicleList[0].tireVersion < 1 && vehicleList[0].cash >= 100){	
+							vehicleList[0].tireVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 100;
+						}
+						break;
+					case "Tire 2":
+						if(vehicleList[0].tireVersion < 2 && vehicleList[0].cash >= 300){	
+							vehicleList[0].tireVersion = 2;
+							vehicleList[0].cash = vehicleList[0].cash - 300;
+						}
+						break;
+					case "Tire 3":
+						if(vehicleList[0].tireVersion < 3 && vehicleList[0].cash >= 500){	
+							vehicleList[0].tireVersion = 3;
+							vehicleList[0].cash = vehicleList[0].cash - 500;
+						}
+						break;
+					case "Tire 4":
+						if(vehicleList[0].tireVersion != 4 && vehicleList[0].cash >= 1000){	
+							vehicleList[0].tireVersion = 4;
+							vehicleList[0].cash = vehicleList[0].cash - 1000;
+						}
+						break;
+					case "Engine 1":
+						if(vehicleList[0].engineVersion < 1 && vehicleList[0].cash >= 1000){	
+							vehicleList[0].engineVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 1000;
+						}
+						break;
+					case "Engine 2":
+						if(vehicleList[0].engineVersion < 2 && vehicleList[0].cash >= 2000){	
+							vehicleList[0].engineVersion = 2;
+							vehicleList[0].cash = vehicleList[0].cash - 2000;
+						}
+						break;
+					case "Engine 3":
+						if(vehicleList[0].engineVersion < 3 && vehicleList[0].cash >= 3000){	
+							vehicleList[0].engineVersion = 3;
+							vehicleList[0].cash = vehicleList[0].cash - 3000;
+						}
+						break;
+					case "Engine 4":
+						if(vehicleList[0].engineVersion != 4 && vehicleList[0].cash >= 4000){	
+							vehicleList[0].engineVersion = 4;
+							vehicleList[0].cash = vehicleList[0].cash - 4000;
+						}
+						break;
+					case "Nitro 1":
+						if(vehicleList[0].nitroVersion < 1 && vehicleList[0].cash >= 100){	
+							vehicleList[0].nitroVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 100;
+						}
+						break;
+					case "Nitro 2":
+						if(vehicleList[0].nitroVersion < 2 && vehicleList[0].cash >= 250){	
+							vehicleList[0].nitroVersion = 2;
+							vehicleList[0].cash = vehicleList[0].cash - 250;
+						}
+						break;
+					case "Nitro 3":
+						if(vehicleList[0].nitroVersion < 3 && vehicleList[0].cash >= 500){	
+							vehicleList[0].nitroVersion = 3;
+							vehicleList[0].cash = vehicleList[0].cash - 500;
+						}
+						break;
+					case "Nitro 4":
+						if(vehicleList[0].nitroVersion != 4 && vehicleList[0].cash >= 1000){	
+							vehicleList[0].nitroVersion = 4;
+							vehicleList[0].cash = vehicleList[0].cash - 1000;
+						}
+						break;
+					case "Exhaust 1":
+						if(vehicleList[0].exhaustVersion < 1 && vehicleList[0].cash >= 100){	
+							vehicleList[0].exhaustVersion = 1;
+							vehicleList[0].cash = vehicleList[0].cash - 100;
+						}
+						break;
+					case "Exhaust 2":
+						if(vehicleList[0].exhaustVersion < 2 && vehicleList[0].cash >= 500){	
+							vehicleList[0].exhaustVersion = 2;
+							vehicleList[0].cash = vehicleList[0].cash - 500;
+						}
+						break;
+					case "Exhaust 3":
+						if(vehicleList[0].exhaustVersion < 3 && vehicleList[0].cash >= 1000){	
+							vehicleList[0].exhaustVersion = 3;
+							vehicleList[0].cash = vehicleList[0].cash - 1000;
+						}
+						break;
+					case "Exhaust 4":
+						if(vehicleList[0].exhaustVersion != 4 && vehicleList[0].cash >= 2000){	
+							vehicleList[0].exhaustVersion = 4;
+							vehicleList[0].cash = vehicleList[0].cash - 2000;
+						}
+						break;
+				}
 	}
 }
 
