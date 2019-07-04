@@ -547,6 +547,20 @@ function carClass() {
                     this.speed *= 0.5;
                 }
                 break;
+			case TRACK_SOUTH_RAMP:
+            	if (this.speed < 0 || 
+            		(this.ang < -Math.PI && this.ang < -3 * Math.PI)) {
+                    this.x = this.oldX;
+	                this.y = this.oldY;
+	                this.speed = -.5 * this.speed;
+                }
+                if (this.speed > MIN_JUMP_START_SPEED) {
+                    this.startJump();
+                } else {
+                	this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
+                    this.speed *= 0.5;
+                }
+                break;
 			case TRACK_CASH:
 				this.cash += 100;
                 trackGrid[driveIntoTileIndex] = TRACK_ROAD;
@@ -560,6 +574,9 @@ function carClass() {
                 trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                 addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
 				break;
+			case TRACK_CONE:
+				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+				addTrackImageAtTileIndex(TRACK_KNOCKED_OVER_CONE, driveIntoTileIndex);
             case TRACK_WALL:
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
                 this.y = this.oldY;

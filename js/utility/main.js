@@ -114,6 +114,7 @@ function moveEverything() {
 						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
 					}
 				}
+				console.log(vehicleList[0].ang);
 				updateTime();
 				if(firstPlaceFilled){ //sound bite for the winner
 					soundDelayTimer++;
