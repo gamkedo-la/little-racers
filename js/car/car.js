@@ -609,6 +609,10 @@ function carClass() {
     this.checkCarCollisionAgainst = function(otherCar) { 
         if (otherCar.isOverLappingPoint(this.x, this.y))
         {
+        	if (this.airborne || otherCar.airborne) {
+        		return;
+        	}
+
             distToMove = CAR_COLLISION_RADIUS / 6;  //Determined empirically; will need tweaking.
                                                     //Probably will be replaced in a physics-based model?
 
@@ -630,7 +634,6 @@ function carClass() {
             //Remove a bit of speed from both cars.
             this.speed *= 0.75;
             otherCar.speed *= 0.75;
-
         }
     }
 
