@@ -455,11 +455,18 @@ function carClass() {
 
         //Update steering angle.
         if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
-            if (this.keyHeld_TurnLeft) {
+        	var negativeFullCircleAngle = -2 * Math.PI;
+            if (this.keyHeld_TurnLeft) {	
                 this.ang -= this.turnRate * Math.PI;
+                if (this.ang < negativeFullCircleAngle) {
+                	this.ang = 0;
+                }
             }
             if (this.keyHeld_TurnRight) {
                 this.ang += this.turnRate * Math.PI;
+                if (this.ang > 0) {
+                	this.ang = negativeFullCircleAngle;
+                }
             }
         }
 
@@ -527,8 +534,17 @@ function carClass() {
                 }
                 break;
             case TRACK_NORTH_RAMP:
+            	if (this.speed < 0 || 
+            		(this.ang < -Math.PI && this.ang > -2 * Math.PI)) {
+                    this.x = this.oldX;
+	                this.y = this.oldY;
+	                this.speed = -.5 * this.speed;
+                }
                 if (this.speed > MIN_JUMP_START_SPEED) {
                     this.startJump();
+                } else {
+                	this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
+                    this.speed *= 0.5;
                 }
                 break;
 			case TRACK_CASH:
