@@ -103,11 +103,12 @@ function moveEverything() {
 		//Intentionally left empty - no movement
 	} else {
 		if(!paused){
+			updatedCameraPosition();
 			if(raceHasStarted){
 				for (var i = 0; i < vehicleList.length; i++) {
 					vehicleList[i].movement();
 				}
-				updatedCameraPosition();
+
 				for (var i = 0; i < vehicleList.length; i++) {
 					for (var ii = i+1; ii < vehicleList.length; ii++) {
 						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
@@ -127,7 +128,7 @@ function moveEverything() {
 
 function prepareForRace(){
 	raceStartTimer++;
-	console.log(raceStartTimer);
+//	console.log(raceStartTimer);
 	if(raceStartTimer == 10){
 		attentionDriversSound.play();
 	} else if (raceStartTimer == 70){

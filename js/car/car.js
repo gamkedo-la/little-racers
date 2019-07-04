@@ -507,7 +507,7 @@ function carClass() {
 							finallapSound.play();
 							finalLappedCalled = true;
 						}
-						this.recordALap();
+                        this.recordALap();
                     } else {
                         whichPlace(this);
                         this.updateWayPoints();
@@ -533,16 +533,16 @@ function carClass() {
                 break;
 			case TRACK_CASH:
 				this.cash += 100;
-				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
-				terrainChanged = true;				
+                trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+                addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
 				break;
 			case TRACK_FUEL:
 				this.fuelInTank += 50;
 				if(this.fuelInTank > 100){
 					this.fuelInTank = 100;
 				}
-				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
-				terrainChanged = true;				
+                trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+                addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
 				break;
             case TRACK_WALL:
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).

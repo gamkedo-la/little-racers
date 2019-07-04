@@ -169,6 +169,25 @@ function drawTrackByCanvas() {
 	canvasContext.drawImage(TRACK_CANVAS, 0, 0);
 }
 
+function addTrackImageAtPixelPos(trackCode, x, y) {
+	const tileData = findTrackType_YOffset_SpriteSheetForTileType(trackCode);
+	tileData.transparency = trackCode;
+	tileData.x = x;
+	tileData.y = y;
+
+	drawWithTileData(tileData);
+}
+
+function addTrackImageAtTileCoords(trackCode, col, row) {
+	const pixelPos = trackCoordToPixelPos(col, row);
+	addTrackImageAtPixelPos(trackCode, pixelPos.x, pixelPos.y);
+}
+
+function addTrackImageAtTileIndex(trackCode, index) {
+	const pixelPos = tileIndexToPixelPos(index);
+	addTrackImageAtPixelPos(trackCode, pixelPos.x, pixelPos.y);
+}
+
 function drawTracks() {
 	if(terrainChanged) {
 		drawTracksByTile();
@@ -176,82 +195,25 @@ function drawTracks() {
 		drawTrackByCanvas();
 	}
 }
-		
-function drawTracksByTile() {
-	const currentCols = getCurrentTrackCols();
-	const currentRows = getCurrentTrackRows();
-	TRACK_CANVAS.width = TRACK_W * currentCols;
-	TRACK_CANVAS.height = TRACK_H * currentRows;
 
+//TODO: Fix this.  Only works correctly when drawing entire track (0, 0) to ('maxCol', 'maxRow')
+function drawTrackByTileAtCoords(startCol, startRow, endCol, endRow) {
 	var trackIndex = 0;
 	var trackLeftEdgeX = 0;
 	var trackTopEdgeY = 0;
-	var spriteSheet = roadSpriteSheet;
-	
-	for(var eachRow = 0; eachRow<currentRows; eachRow++){
+
+	for(var eachRow = startRow; eachRow < endRow; eachRow++){
 		
 		trackLeftEdgeX = 0;
 		
-		for(var eachCol=0; eachCol<currentCols; eachCol++) {
+		for(var eachCol = startCol; eachCol < endCol; eachCol++) {
+			const tileData = findTrackType_YOffset_SpriteSheetForTileType(trackGrid[trackIndex]);
+			tileData.transparency = trackGrid[trackIndex];
+			tileData.x = Math.floor(trackLeftEdgeX);
+			tileData.y = trackTopEdgeY;
 			
-			var trackTypeHere = trackGrid[trackIndex];
-			var transparencyCheckTypeHere = trackGrid[trackIndex];
-			var imageOffsetY = 0;
-			if (trackTypeHere >= 0 && trackTypeHere < 50){
-				spriteSheet = roadSpriteSheet;
-				if (trackTypeHere > 9 && trackTypeHere <= 19){
-					imageOffsetY = TRACK_H;
-					trackTypeHere -= 10;
-				} else if (trackTypeHere > 19 && trackTypeHere <= 29){
-					imageOffsetY = TRACK_H * 2;
-					trackTypeHere -= 20;
-				} else if (trackTypeHere > 29 && trackTypeHere <= 39){
-					imageOffsetY = TRACK_H * 3;
-					trackTypeHere -= 30;
-				} else if (trackTypeHere > 39 && trackTypeHere <= 49){
-					imageOffsetY = TRACK_H * 4;
-					trackTypeHere -= 40;
-				}
-			} else if (trackTypeHere >= 50 && trackTypeHere < 100){
-				spriteSheet = trackobstaclesSpriteSheet;
-				var trackTypeHere = trackTypeHere - 50;
-				if (trackTypeHere > 9 && trackTypeHere <= 19){
-					imageOffsetY = TRACK_H;
-					trackTypeHere -= 10;
-				} else if (trackTypeHere > 19 && trackTypeHere <= 29){
-					imageOffsetY = TRACK_H * 2;
-					trackTypeHere -= 20;
-				} else if (trackTypeHere > 29 && trackTypeHere <= 39){
-					imageOffsetY = TRACK_H * 3;
-					trackTypeHere -= 30;
-				} else if (trackTypeHere > 39 && trackTypeHere <= 49){
-					imageOffsetY = TRACK_H * 4;
-					trackTypeHere -= 40;
-				}
-			} else if (trackTypeHere >= 100 && trackTypeHere < 150){
-				spriteSheet = wallSpriteSheet;
-				var trackTypeHere = trackTypeHere - 100;
-				if (trackTypeHere > 9 && trackTypeHere <= 19){
-					imageOffsetY = TRACK_H;
-				} else if (trackTypeHere > 19 && trackTypeHere <= 29){
-					imageOffsetY = TRACK_H * 2;
-				} else if (trackTypeHere > 29 && trackTypeHere <= 39){
-					imageOffsetY = TRACK_H * 3;
-				} else if (trackTypeHere > 39 && trackTypeHere <= 49){
-					imageOffsetY = TRACK_H * 4;
-				}
-			}
+			drawWithTileData(tileData);
 			
-			if (tileTypeHasRoadTransparency(transparencyCheckTypeHere)) {
-//				canvasContext.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
-				TRACK_CONTEXT.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
-			} else if (tileTypeHasgGrassTransparency(transparencyCheckTypeHere)) {
-//				canvasContext.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
-				TRACK_CONTEXT.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
-			}			
-//			canvasContext.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
-			TRACK_CONTEXT.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, Math.floor(trackLeftEdgeX), trackTopEdgeY, TRACK_W, TRACK_H);
-				
 			trackIndex++;
 			trackLeftEdgeX += TRACK_W;
 				
@@ -260,6 +222,55 @@ function drawTracksByTile() {
 		trackTopEdgeY += TRACK_H;
 		
 	} // end of each row
+}
+
+function drawWithTileData(tileData) {
+	if (tileTypeHasRoadTransparency(tileData.transparency)) {
+		TRACK_CONTEXT.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, tileData.x, tileData.y, TRACK_W, TRACK_H);
+	} else if (tileTypeHasgGrassTransparency(tileData.transparency)) {
+		TRACK_CONTEXT.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, tileData.x, tileData.y, TRACK_W, TRACK_H);
+	}
+
+	TRACK_CONTEXT.drawImage( tileData.spriteSheet, tileData.type * TRACK_W, tileData.offset, TRACK_W, TRACK_H, tileData.x, tileData.y, TRACK_W, TRACK_H);
+}
+
+function findTrackType_YOffset_SpriteSheetForTileType(tileType) {
+	let trackTypeHere = tileType;
+	let imageOffsetY = 0;
+	let spriteSheet = roadSpriteSheet;
+
+	if (trackTypeHere >= 50 && trackTypeHere < 100){
+		spriteSheet = trackobstaclesSpriteSheet;
+		trackTypeHere -= 50;
+	} else if (trackTypeHere >= 100 && trackTypeHere < 150){
+		spriteSheet = wallSpriteSheet;
+		trackTypeHere -= 100;
+	}
+
+	const resultType = trackTypeHere % 10;
+	imageOffsetY = TRACK_H * Math.floor(trackTypeHere / 10);
+
+	return {type:resultType, offset:imageOffsetY, spriteSheet:spriteSheet};
+}
+
+function drawTileAtPixelPos(x, y, roadTransparency, grassTransparency) {
+	if (roadTransparency) {
+		TRACK_CONTEXT.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, x, y, TRACK_W, TRACK_H);
+	} else if (grassTransparency) {
+		TRACK_CONTEXT.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, x, y, TRACK_W, TRACK_H);
+	}			
+
+	TRACK_CONTEXT.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, x, y, TRACK_W, TRACK_H);
+}
+		
+function drawTracksByTile() {
+	const currentCols = getCurrentTrackCols();
+	const currentRows = getCurrentTrackRows();
+	TRACK_CANVAS.width = TRACK_W * currentCols;
+	TRACK_CANVAS.height = TRACK_H * currentRows;
+
+	//Draw the whole track
+	drawTrackByTileAtCoords(0, 0, currentCols, currentRows);
 
 	terrainChanged = false;
 	drawTrackByCanvas();
@@ -314,13 +325,28 @@ function getIndexAtPixelCoord(pixelX,pixelY){
 	tileRow = Math.floor(tileRow);
 	return rowColToArrayIndex(tileCol,tileRow);
 }
-			
-function getTrackAtPixelCoord(pixelX,pixelY){
+
+function pixelCoordToTrackCoords(pixelX, pixelY) {
 	var tileCol = pixelX / TRACK_W;		
 	var tileRow = pixelY / TRACK_H;
 				
 	tileCol = Math.floor(tileCol);
 	tileRow = Math.floor(tileRow);
+
+	return {col: tileCol, row:tileRow};
+}
+
+function trackCoordToPixelPos(col, row) {
+	const xPos = col * TRACK_W;
+	const yPos = row * TRACK_H;
+
+	return {x:xPos, y:yPos};
+}
+			
+function getTrackAtPixelCoord(pixelX,pixelY){
+	const tileCoords = pixelCoordToTrackCoords(pixelX, pixelY);
+	const tileCol = tileCoords.col;
+	const tileRow = tileCoords.row;
 				
 	if(tileCol < 0 || tileCol >= getCurrentTrackCols() || tileRow < 0 || tileRow >= getCurrentTrackRows()) {
 		return TRACK_WALL; // This returns Track Wall to prevent out of bounds as a wall.
@@ -340,5 +366,19 @@ function getTileTypeAtPixelCoord(atX, atY) {
 			
 function trackTileToIndex(tileCol, tileRow) {
 	return(tileCol + getCurrentTrackCols()*tileRow);
+}
+
+function tileIndexToTileCoords(index) {
+	const trackCol = index % getCurrentTrackCols();//remainder
+
+	const trackRow = Math.floor(index / getCurrentTrackCols());
+
+	return {col:trackCol, row:trackRow};
+}
+
+function tileIndexToPixelPos(index) {
+	const tileCoords = tileIndexToTileCoords(index);
+
+	return trackCoordToPixelPos(tileCoords.col, tileCoords.row);
 }
 			
