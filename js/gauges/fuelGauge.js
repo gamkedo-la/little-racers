@@ -25,13 +25,12 @@ function fuelGaugeClass() {
     	canvasContext.save(); //allows undo translate movement and rotate spin
     	canvasContext.translate(atX,atY);
     	canvasContext.rotate(withAngle); //sets the rotation
-    	canvasContext.drawImage(graphic, -this.needleCenterX, -this.needleCenterY); //center, draws car
+    	canvasContext.drawImage(graphic, -this.needleCenterX, -this.needleCenterY); //center
     	canvasContext.restore(); //undoes the translation movement and rotation since save()
     }
 
     this.draw = function() {
         canvasContext.drawImage(fuelGaugePic, this.positionX, this.positionY);
-        // TODO: Math for ratio between 0-100 and min/max angles for needle
         this.drawNeedle(gaugeNeedlePic,
             this.positionX + this.needleOffsetX,
             this.positionY + this.needleOffsetY,
