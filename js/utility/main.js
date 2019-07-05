@@ -33,6 +33,9 @@ var displayRedLight = false;
 var displayYellowLight = false;
 var displayGreenLight = false;
 
+var p1FuelGauge = new fuelGaugeClass();
+var p2FuelGauge = new fuelGaugeClass();
+
 
 //Debug Options
 var debugMode = true;
@@ -196,6 +199,28 @@ function drawStartLights(){
 	}
 }
 
+function drawFuelGauges() {
+	var playerOne = vehicleList[0];
+	var playerTwo = vehicleList[1];
+
+	if (!playerTwo.computerPlayer) {
+		// TODO: draw two fuel gauges
+		p1FuelGauge.positionX = 715;
+		p1FuelGauge.positionY = 542;
+		p1FuelGauge.maxValue = playerOne.fuelCapacity;
+		p1FuelGauge.currentValue = playerOne.fuelInTank;
+
+		p1FuelGauge.draw();
+	} else {
+		p1FuelGauge.positionX = 715;
+		p1FuelGauge.positionY = 542;
+		p1FuelGauge.maxValue = playerOne.fuelCapacity;
+		p1FuelGauge.currentValue = playerOne.fuelInTank;
+
+		p1FuelGauge.draw();
+	}
+}
+
 function drawEverything() {
 	if(titleScreen){
 		drawTitleScreen();
@@ -216,9 +241,10 @@ function drawEverything() {
 		finishedCameraPan();
 		drawClock();
 		drawLapOneTime();
-		drawFuelPercentage();
 		drawStartLights();
+		drawFuelGauges();
 		if(debugMode){
+			drawFuelPercentage();
 			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", font = "14px Arial Black");
 		}
 		if(paused){

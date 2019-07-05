@@ -28,6 +28,9 @@ var trackobstaclesSpriteSheet = document.createElement("img");
 var wallSpriteSheet = document.createElement("img");
 var clockPic = document.createElement("img");
 var trackPics = [];
+// Gauges
+var gaugeNeedlePic = document.createElement("img");
+var fuelGaugePic = document.createElement("img");
 // trophies
 var firstPlaceTrophyPic = document.createElement("img");
 
@@ -48,11 +51,11 @@ function beginLoadingImage(imgVar, fileName) {
 
 function loadImageForTrackCode(trackCode, fileName)  {
 	trackPics[trackCode] = document.createElement("img");
-	beginLoadingImage(trackPics[trackCode], fileName);	
+	beginLoadingImage(trackPics[trackCode], fileName);
 }
 
 function loadImages() {
-	
+
 		var imageList = [
 			{varName: carPic1, theFile: "vehicles/player1.png"},
 			{varName: carPic2, theFile: "vehicles/player2.png"},
@@ -67,20 +70,22 @@ function loadImages() {
 			{varName: bodyShopPic, theFile: "backdrops/bodyShop.png"},
 			{varName: bodyShopGaragePic, theFile: "backdrops/bodyShopGarage.png"},
 			{varName: resultScreenPic, theFile: "backdrops/resultScreenBackground.png"},
-			{varName: tireOptionOnePic, theFile: "upgrades/tireOptionOne.png"},			
-			{varName: tireOptionTwoPic, theFile: "upgrades/tireOptionTwo.png"},	
-			{varName: tireOptionThreePic, theFile: "upgrades/tireOptionThree.png"},	
+			{varName: tireOptionOnePic, theFile: "upgrades/tireOptionOne.png"},
+			{varName: tireOptionTwoPic, theFile: "upgrades/tireOptionTwo.png"},
+			{varName: tireOptionThreePic, theFile: "upgrades/tireOptionThree.png"},
 			{varName: tireOptionFourPic, theFile: "upgrades/tireOptionFour.png"},
 			{varName: nitrosOptionOnePic, theFile: "upgrades/nitrosOptionOne.png"},
-			{varName: nitrosOptionTwoPic, theFile: "upgrades/nitrosOptionTwo.png"},		
+			{varName: nitrosOptionTwoPic, theFile: "upgrades/nitrosOptionTwo.png"},
 			{varName: clockPic, theFile: "system_clock.png"},
 			{varName: arrowPic, theFile: "leftArrow.png"},
 			{varName: roadSpriteSheet, theFile: "roadSpriteSheet.png"},
 			{varName: trackobstaclesSpriteSheet, theFile: "trackobstaclesSpriteSheet.png"},
 			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"},
+			{varName: gaugeNeedlePic, theFile: "gauges/GaugeNeedle.png"},
+			{varName: fuelGaugePic, theFile: "gauges/FuelGauge.png"},
 			{varName: firstPlaceTrophyPic, theFile: "trophy.png"}
 		];
-			
+
 	picsToLoad = imageList.length;
 
 	for(var i=0; i<imageList.length; i++) {
