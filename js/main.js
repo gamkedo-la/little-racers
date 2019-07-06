@@ -145,6 +145,7 @@ function prepareForRace(){
 	} else if (raceStartTimer == 240){
 		raceHasStarted = true;
 		displayGreenLight = true;
+		alanZBackgroundMusic.loopSong("backgroundMusicV1");
 	}
 }
 

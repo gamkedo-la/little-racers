@@ -19,6 +19,7 @@ var startYourEnginesSound = new SoundOverlapsClass("startyourengines_01");
 var readySetGoSound = new SoundOverlapsClass("readysetgo_01");
 var finallapSound =  new SoundOverlapsClass("finallap_01");
 var exhilaratingSound = new SoundOverlapsClass("exhilarating_01");
+var alanZBackgroundMusic = new BackgroundMusicClass();
 
 function setFormat() {
     var audio = new Audio();
@@ -66,7 +67,8 @@ function BackgroundMusicClass() {
 			musicSound.pause();
 			musicSound = null;
 		}
-		musicSound = new Audio(filenameWithPath + audioFormat);
+		musicSound = new Audio("sound/music/" + filenameWithPath + audioFormat);
+		musicSound.volume = 0.04; //quiter for screen sharing during meetings
 		musicSound.loop = true;
 		musicSound.play();
     }
