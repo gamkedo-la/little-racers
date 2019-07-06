@@ -130,19 +130,24 @@ function moveEverything() {
 	}
 }
 
-function prepareForRace(){
-	raceStartTimer++;
-//	console.log(raceStartTimer);
+function prepareForRace() {
+    raceStartTimer++;
+
+    if (debugMode)
+    {
+        raceStartTimer = 195;
+    }
+
 	if(raceStartTimer == 10){
 		attentionDriversSound.play();
 	} else if (raceStartTimer == 70){
 		startYourEnginesSound.play();
-	} else if (raceStartTimer == 180){
+	} else if (raceStartTimer == 140){
 		readySetGoSound.play();
 		displayRedLight = true;
-	} else if (raceStartTimer == 210){
+	} else if (raceStartTimer == 170){
 		displayYellowLight = true;
-	} else if (raceStartTimer == 240){
+	} else if (raceStartTimer == 195){
 		raceHasStarted = true;
 		displayGreenLight = true;
 		alanZBackgroundMusic.loopSong("backgroundMusicV1");
