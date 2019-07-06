@@ -35,7 +35,7 @@ function vectorMagnitude(x, y)
 }
 
 //Constrain an angle between 0 and -2PI.
-function constrainAngleToNegative(angle) {
+function constrainAngleToNegativeRange(angle) {
 
     angle = angle % FULL_CIRCLE;
 
