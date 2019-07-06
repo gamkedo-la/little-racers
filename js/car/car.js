@@ -64,8 +64,8 @@ function carClass() {
         this.name = whichName;
         this.myCarPic = whichGraphic;
         this.speed = 0;
-        this.ang = -0.5 * Math.PI; //Angle is in radians; this rotates the graphic -90 degrees to point car up.
-        //Because the graphics on the sheet are oriented pointing to the right.
+        this.ang = -0.5 * Math.PI; //Angle is in radians; this rotates the car -90 degrees to point car up. (0 deg is to the right)
+        //Graphics on the sheet are oriented pointing to the right, matching angle=0 degrees.`
 
         for (var i = 0; i < trackGrid.length; i++) {
             if (trackGrid[i] == TRACK_PLAYER) {
@@ -213,7 +213,10 @@ function carClass() {
         var wayPointVectorX = toX - this.x;
         var wayPointVectorY = toY - this.y;
 
-        //Subtract Pi/2 accounts for the car image being rotated 90 degrees.
+
+        //When calculating the car's vector, subtract 90 degrees from it
+        //to allow for dot product to give a -ve to +ve result, indicating if car
+        //needs to steer left or right.
         var carVectorX = Math.cos(this.ang - Math.PI / 2);
         var carVectorY = Math.sin(this.ang - Math.PI / 2);
         var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
@@ -455,19 +458,17 @@ function carClass() {
         }
 
         //Update steering angle.
+        //Note that it is constrained between 0rad (facing right) to -2Pi radians.
+        //The angle is *never* positive.
+        //With the magnitude of the negative angle increasing counterclockwise.
         if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
-        	var negativeFullCircleAngle = -2 * Math.PI;
             if (this.keyHeld_TurnLeft) {	
                 this.ang -= this.turnRate * Math.PI;
-                if (this.ang < negativeFullCircleAngle) {
-                	this.ang = 0;
-                }
+                this.ang = constrainAngleToNegativeRange(this.ang)
             }
             if (this.keyHeld_TurnRight) {
                 this.ang += this.turnRate * Math.PI;
-                if (this.ang > 0) {
-                	this.ang = negativeFullCircleAngle;
-                }
+                this.ang = constrainAngleToNegativeRange(this.ang)
             }
         }
 
