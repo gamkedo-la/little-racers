@@ -213,9 +213,10 @@ function carClass() {
         var wayPointVectorX = toX - this.x;
         var wayPointVectorY = toY - this.y;
 
-        //Why is 90 degrees (PI/2) being subtracted from the car angle in calculating its vector?
-        //I used to think it was because the car graphic is to the right (0 deg) and we start the race pointed up.
-        //But that's clearly not the reason as all we do is change this.ang to -PI/2 to get the car pointed up.
+
+        //When calculating the car's vector, subtract 90 degrees from it
+        //to allow for dot product to give a -ve to +ve result, indicating if car
+        //needs to steer left or right.
         var carVectorX = Math.cos(this.ang - Math.PI / 2);
         var carVectorY = Math.sin(this.ang - Math.PI / 2);
         var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
