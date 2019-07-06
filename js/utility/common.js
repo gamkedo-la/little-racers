@@ -1,3 +1,5 @@
+const FULL_CIRCLE = 2*Math.PI;
+
 //Calculates a point in world space from a center when rotated by an angle.
 function getRotatedPoint(centerX, centerY, pX, pY, angle) {
     var xLen = pX - centerX;
@@ -30,4 +32,15 @@ function normalizeVector(x1, y1)
 function vectorMagnitude(x, y)
 {
     return Math.sqrt(x * x + y * y);
+}
+
+//Constrain an angle between 0 and -2PI.
+function constrainAngleToNegative(angle) {
+
+    angle = angle % FULL_CIRCLE;
+
+    if (angle > 0)
+        angle -= FULL_CIRCLE;
+
+    return angle;
 }
