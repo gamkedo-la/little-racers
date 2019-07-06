@@ -11,7 +11,7 @@ const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
 const TURN_RATE_MULTIPLIER_OIL = 0.4;
 const TURN_RATE_MULTIPLIER_GRASS = 0.75;
-const NITRO_FRAME_DURATION = 10;            //Being measured in frames, so at 30fps this is 1 second.
+const NITRO_FRAME_DURATION = 10;            //Being measured in frames, so at 30fps this is 1/3 second.
 const NITRO_BOOST_BASE_AMOUNT = 1.8;        //Speed increase per frame.
 const NITRO_START_QUANTITY = 5;
 const CAR_WIDTH = 28;                       //These are determined from examination of the graphics. May be used for collisions (WIP).
@@ -334,6 +334,7 @@ function carClass() {
         }
     }
 
+    //The priary movement function; everything a car does starts here.
     this.movement = function () {
 
         if (this.computerPlayer) {
@@ -472,6 +473,8 @@ function carClass() {
 
     }
 
+    //Determines what happens when cars drive into a tile, including collisions, jumps, tracking waypoints
+    //to measure race progress, etc.
     this.handleTileEffects = function () {
 
         this.turnRateTileMultiplier = 1; //Start at max possible; reduce based on the tiles that impact steering.
@@ -542,9 +545,6 @@ function carClass() {
                 }
                 if (this.speed > MIN_JUMP_START_SPEED) {
                     this.startJump();
-                } else {
-                	this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
-                    this.speed *= 0.5;
                 }
                 break;
 			case TRACK_SOUTH_RAMP:
@@ -556,10 +556,7 @@ function carClass() {
                 }
                 if (this.speed > MIN_JUMP_START_SPEED) {
                     this.startJump();
-                } else {
-                	this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
-                    this.speed *= 0.5;
-                }
+                } 
                 break;
 			case TRACK_CASH:
 				this.cash += 100;
