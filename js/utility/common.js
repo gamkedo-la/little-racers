@@ -1,4 +1,10 @@
-const FULL_CIRCLE = 2*Math.PI;
+const RADIANS_360_DEGREES_POSITIVE = 2 * Math.PI;
+const RADIANS_270_DEGREES_NEGATIVE = -Math.PI * 3 / 2;
+const RADIANS_240_DEGREES_NEGATIVE = -Math.PI * 4 / 3;
+const RADIANS_180_DEGREES_NEGATIVE = -Math.PI;
+const RADIANS_120_DEGREES_NEGATIVE = -Math.PI * 2 / 3;
+const RADIANS_90_DEGREES_NEGATIVE = -Math.PI / 2;
+const RADIANS_0_DEGREES = 0;
 
 //Calculates a point in world space from a center when rotated by an angle.
 function getRotatedPoint(centerX, centerY, pX, pY, angle) {
@@ -37,10 +43,10 @@ function vectorMagnitude(x, y)
 //Constrain an angle between 0 and -2PI.
 function constrainAngleToNegativeRange(angle) {
 
-    angle = angle % FULL_CIRCLE;
+    angle = angle % RADIANS_360_DEGREES_POSITIVE;
 
     if (angle > 0)
-        angle -= FULL_CIRCLE;
+        angle -= RADIANS_360_DEGREES_POSITIVE;
 
     return angle;
 }

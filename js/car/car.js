@@ -6,6 +6,10 @@ const JUMP_START_ZSPEED = 5;
 const GRAVITY = -0.4;
 const GROUNDSPEED_DECAY_MULT = 0.94;
 const CAR_COLLISION_RADIUS = 15;
+const WALL_LOW_IMPACT_THRESHOLD = Math.PI / 6;
+const WALL_BOUNCE_ANGLE = Math.PI / 36;     //When cars hit the wall at a low angle, they bounce off at this angle.
+const WALL_BOUNCE_SPEED_MODIFIER = 0.85;    //Low-angle impact speed reduction.
+const WALL_IMPACT_SPEED_MODIFIER = 0.7;     //Head-on collion speed reduction.
 const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
@@ -576,15 +580,90 @@ function carClass() {
 			case TRACK_CONE:
 				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
 				addTrackImageAtTileIndex(TRACK_KNOCKED_OVER_CONE, driveIntoTileIndex);
-            case TRACK_WALL:
+				this.speed = -.5 * this.speed;
+            case TRACK_BRICK_WALL_LEFT:
+            case TRACK_BRICK_WALL_LEFT_GRASS:
+                this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
+                this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
+                break;
+            case TRACK_BRICK_WALL_RIGHT:
+            case TRACK_BRICK_WALL_RIGHT_GRASS:
+                this.handleWallImpact(RADIANS_270_DEGREES_NEGATIVE);
+                this.x = this.oldX - 1; 
+                break;
+            case TRACK_BRICK_WALL_TOP_MIDDLE:
+            case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
+                this.handleWallImpact(RADIANS_0_DEGREES);
+                this.y = this.oldY + 1; 
+                break;
+            case TRACK_BRICK_WALL_BOT_MIDDLE:
+            case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
+                this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
+                this.y = this.oldY - 1; 
+                break;
+            case TRACK_WALL: 
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
                 this.y = this.oldY;
                 this.speed = -.5 * this.speed;
                 //crashIntoConeSound.play();
-                break;  //Added this, we think it was missing the negatives were canceling out
-            default: //Handles collision with solid tiles (interior wall block and track border)
+                break;  
+            default: //Handles collision with solid tiles
                 this.speed = -.5 * this.speed;
         }
+    }
+
+    //checkAngle is the angle around which to constrain forward travel.
+    //Angles within 180degrees counterclockwise of checkAngle indicate travel outside the wall.
+    //This function will bounce vehicles back when within the WALL_LOW_IMPACT_THRESHOLD angle from checkAngle.
+    //WARNING: This function only works with right angles (0/90/180/270). There is math weirdness around the 0
+    //         degree range that hasn't been fully developed to handle bounces off other angles.
+    this.handleWallImpact = function(checkAngle)
+    {
+        var travelAngle = this.ang;
+        var checkAngleOpposite = constrainAngleToNegativeRange(checkAngle + RADIANS_180_DEGREES_NEGATIVE);
+
+        //When passed 180deg, checkAngleOpposite becomes 0 degrees; screws up range checking, so fix it to -360.
+        if (checkAngleOpposite == 0)
+        {
+            checkAngleOpposite = -RADIANS_360_DEGREES_POSITIVE;
+        }
+
+        //When travelling backwards, use the opposite angle as the vector for wall impact calculations.
+        if (this.speed < 0)
+        {
+            travelAngle += RADIANS_180_DEGREES_NEGATIVE;
+            travelAngle = constrainAngleToNegativeRange(travelAngle);
+        }
+
+        //Handle wall impact, first for low-angle impacts where car can bounce away.
+        if (travelAngle < checkAngle && travelAngle > checkAngle-WALL_LOW_IMPACT_THRESHOLD)
+        {
+            if (this.speed > 0)
+            {
+                this.ang = checkAngle + WALL_BOUNCE_ANGLE;
+            }
+            else
+            {
+                this.ang = checkAngleOpposite + WALL_BOUNCE_ANGLE;
+            }
+            this.speed = this.speed * WALL_BOUNCE_SPEED_MODIFIER;
+        }
+        else if(travelAngle < checkAngleOpposite+WALL_LOW_IMPACT_THRESHOLD && travelAngle > checkAngleOpposite)
+        {
+            if (this.speed < 0) {
+                this.ang = checkAngle - WALL_BOUNCE_ANGLE;
+            }
+            else {
+                this.ang = checkAngleOpposite - WALL_BOUNCE_ANGLE;
+            }
+            this.speed = this.speed * WALL_BOUNCE_SPEED_MODIFIER;
+
+        }
+        else //Impact is more head-on.
+        {
+            this.speed = -WALL_IMPACT_SPEED_MODIFIER * this.speed;
+        }
+
     }
 
     this.startJump = function() { // WIP:  Need to gradually increase shadow while in air.
