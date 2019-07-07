@@ -10,6 +10,8 @@ const WALL_LOW_IMPACT_THRESHOLD = Math.PI / 6;
 const WALL_BOUNCE_ANGLE = Math.PI / 36;     //When cars hit the wall at a low angle, they bounce off at this angle.
 const WALL_BOUNCE_SPEED_MODIFIER = 0.85;    //Low-angle impact speed reduction.
 const WALL_IMPACT_SPEED_MODIFIER = 0.7;     //Head-on collion speed reduction.
+const GRASS_SLOWDOWN_THRESHOLD = 0.6;
+const GRASS_ACCELERATION = 0.9;             //Modifier to approach the maximum grass speed.
 const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
@@ -539,7 +541,8 @@ function carClass() {
                 if(!this.airborne)
                 {
                     this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
-                    this.speed *= 0.5;
+                    if(this.speed > GRASS_SLOWDOWN_THRESHOLD)
+                        this.speed *= GRASS_ACCELERATION;
                 }
                 break;
             case TRACK_NORTH_RAMP:
