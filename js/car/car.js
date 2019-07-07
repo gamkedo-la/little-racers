@@ -580,10 +580,14 @@ function carClass() {
                 trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                 addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
 				break;
-			case TRACK_CONE:
-				trackGrid[driveIntoTileIndex] = TRACK_ROAD;
-				addTrackImageAtTileIndex(TRACK_KNOCKED_OVER_CONE, driveIntoTileIndex);
-				this.speed = -.5 * this.speed;
+            case TRACK_CONE:
+                if (!this.airborne)
+                {
+                    trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+                    addTrackImageAtTileIndex(TRACK_KNOCKED_OVER_CONE, driveIntoTileIndex);
+                    this.speed = -.5 * this.speed;
+                }
+                break;
             case TRACK_BRICK_WALL_LEFT:
             case TRACK_BRICK_WALL_LEFT_GRASS:
                 this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
