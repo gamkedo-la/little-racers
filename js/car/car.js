@@ -64,6 +64,7 @@ function carClass() {
         this.name = whichName;
         this.myCarPic = whichGraphic;
         this.speed = 0;
+        this.maxSpeed = MAXSPD_FOR_TRAIL;
         this.ang = -0.5 * Math.PI; //Angle is in radians; this rotates the car -90 degrees to point car up. (0 deg is to the right)
         //Graphics on the sheet are oriented pointing to the right, matching angle=0 degrees.`
 
