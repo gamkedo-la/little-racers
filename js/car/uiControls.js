@@ -102,7 +102,7 @@ function keyPressed(evt) {
 	} else if (debugMode){		//Debug options
 		if (evt.keyCode == nextLevelKey){
 			nextLevel();
-			debugMode = false;
+//			debugMode = false;
 		} else if (evt.keyCode == raceResultsPageKey){
 			titleScreen = false;
 			levelEditor = false;

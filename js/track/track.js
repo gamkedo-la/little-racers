@@ -6,7 +6,9 @@ const TRACK_CANVAS = document.createElement("canvas");
 const TRACK_CONTEXT = TRACK_CANVAS.getContext('2d');
 let terrainChanged = true;
 
-var levelOne = {
+const MAP_MANAGER = new MapManager();
+
+/*var levelOne = {
 	cols:40,
 	rows:30,
 	data:[
@@ -41,7 +43,7 @@ var levelOne = {
    103,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105 
    ]
-};
+};*/
 	
 var levelTwo = {
 	cols:20,
@@ -87,8 +89,9 @@ var levelThree = {
 	]
 };
 	
-var levelList = [levelOne, levelTwo, levelThree];
+var levelList = [];// = [levelOne, levelTwo, levelThree];
 var levelNow = 0;
+MAP_MANAGER.loadLevels();
 var trackGrid = [];
 // 0 through 49 are dedicated for road tiles				
 const TRACK_PLAYER = 0;
@@ -150,6 +153,7 @@ function nextLevel() {
 	if(levelNow >= levelList.length) {
 		levelNow = 0;
 	}
+
 	loadLevel(levelList[levelNow]);
 	//make into a list
 	//updates wayPoints

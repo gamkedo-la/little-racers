@@ -89,7 +89,8 @@ function imageLoadingDoneSoStartGame(){
 		vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
 	}
 
-	loadLevel(levelOne);
+//	loadLevel(levelOne);
+	loadLevel(levelList[0]);
 }
 
 function addVehicle(){
@@ -119,7 +120,7 @@ function moveEverything() {
 						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
 					}
 				}
-				console.log(vehicleList[0].ang);
+//				console.log(vehicleList[0].ang);
 				updateTime();
 				if(firstPlaceFilled){ //sound bite for the winner
 					soundDelayTimer++;
