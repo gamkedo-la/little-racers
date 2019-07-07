@@ -117,7 +117,7 @@ function moveEverything() {
 						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
 					}
 				}
-				console.log(vehicleList[0].ang);
+				//console.log(vehicleList[0].ang);
 				updateTime();
 				if(firstPlaceFilled){ //sound bite for the winner
 					soundDelayTimer++;
@@ -249,6 +249,14 @@ function drawEverything() {
 		drawLapOneTime();
 		drawStartLights();
 		drawFuelGauges();
+		//console.log("raining ", raining);
+		if (raining) {
+			//setInterval(function(){ addRainToArray(); }, 3000);
+			drawRain();
+			updateRain();
+			deleteRainThatShouldBeInvisible();
+		}
+
 		if(debugMode){
 			drawFuelPercentage();
 			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", font = "14px Arial Black");

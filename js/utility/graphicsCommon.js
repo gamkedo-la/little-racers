@@ -2,7 +2,7 @@ function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor){
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillRect(topLeftX,topLeftY,boxWidth,boxHeight);
 }
-			
+
 function colorCircle(centerX, centerY, radius, fillColor){
 	canvasContext.fillStyle = fillColor;
 	canvasContext.beginPath();
@@ -59,3 +59,12 @@ function colorLine(x1, y1, x2, y2, color){
 	canvasContext.stroke();
 }
 
+function colorRGBALine(xStartingPoint, yStartingPoint, xFinishingPoint, yFinishingPoint, lineWidth, rGBAString){
+	canvasContext.strokeStyle = rGBAString;
+	canvasContext.lineWidth = lineWidth;
+	canvasContext.beginPath();
+	canvasContext.moveTo(xStartingPoint, yStartingPoint);
+	canvasContext.lineTo(xFinishingPoint, yFinishingPoint);
+
+	canvasContext.stroke();
+}

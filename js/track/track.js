@@ -10,7 +10,7 @@ var levelOne = {
 	cols:40,
 	rows:30,
 	data:[
-   100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,  
+   100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,
    103,  1,  1,  1,  1,  1,  1,  1,  3,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1,  1, 55,  1,  1, 55,  3,  1,  1,  1, 55,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1, 50,  6,  7,  8, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
@@ -22,10 +22,10 @@ var levelOne = {
    103,  1,  1,  1,  1,  1, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1,  1,  1, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
-   103,  1,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107, 
+   103,  1,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1,  2,  1, 54,  1,  1,  1,  1,  1,  1, 55,  5,  1,  1,  1,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
-   103,  0,  0, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107, 
-   103,  0,  0, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,  
+   103,  0,  0, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
+   103,  0,  0, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
    103,  0,  0, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
    103,  0,  0, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
    103,  3,  3, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
@@ -37,17 +37,17 @@ var levelOne = {
    103,  1,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51,  1,  1,  1,  1,  1,107,
    103,  1,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 51,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1, 50, 51, 51, 51, 51, 51, 50, 50, 51, 51, 51, 51, 51, 50,  1,  1, 51,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
-   103,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107, 
    103,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
-   104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105 
+   103,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
+   104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105
    ]
 };
-	
+
 var levelTwo = {
 	cols:20,
 	rows:15,
 	data:[
-   100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102, 
+   100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,
    103,  1,  1,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    103,  1,  1, 50, 51, 51, 51,  1,  1, 50,  1,  1, 51, 51, 51, 51, 50,  1,  1,107,
@@ -59,17 +59,17 @@ var levelTwo = {
    103,  1,  1, 51, 51, 51, 51, 51, 51, 50, 51, 51, 51, 51, 51, 51, 51,  1,  1,107,
    103,  0,  0, 51, 51, 51, 51, 51, 51, 50, 51, 51, 51, 51, 51, 51, 51,  1,  1,107,
    103,  0,  0, 50, 51, 51, 51, 51, 51, 50, 51, 51, 51, 51, 51, 51, 50,  1,  1,107,
-   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,  
-   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,	
-   104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105, 
+   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
+   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
+   104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,
    ]
 };
-	
+
 var levelThree = {
 	cols:20,
 	rows:15,
 	data:[
-   100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102, 
+   100,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,102,
     50, 51, 51,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
     50, 51, 51,  1,  1,  1,  1,  1,  1, 50,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
     50, 51, 51,  1,  1, 50, 50,  1,  1, 50,  1,  1, 51, 51, 51, 51, 50,  1,  1,107,
@@ -81,16 +81,16 @@ var levelThree = {
    103,  1,  1, 51, 51, 51, 51,  1,  1,  4,  1,  1, 51, 51, 50,  1,  1,  1,  1,107,
    103,  0,  0, 51, 51, 51, 50,  1,  1,  4,  1,  1, 50, 51, 50, 50, 50,  1,  1,107,
    103,  0,  0, 50, 51, 51, 50, 50, 50, 50, 50, 50, 50, 51, 51, 51, 50,  1,  1,107,
-   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,  
-   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,	
+   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
+   103,  0,  0,  2,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,
 	]
 };
-	
+
 var levelList = [levelOne, levelTwo, levelThree];
 var levelNow = 0;
 var trackGrid = [];
-// 0 through 49 are dedicated for road tiles				
+// 0 through 49 are dedicated for road tiles
 const TRACK_PLAYER = 0;
 const TRACK_ROAD = 1;
 const TRACK_FINISH = 2;
@@ -115,7 +115,7 @@ const TRACK_CASH = 54;
 const TRACK_FUEL = 55;
 const TRACK_KNOCKED_OVER_CONE = 60;
 const TRACK_SOUTH_RAMP = 63;
-const TRACK_WALL = 70; 
+const TRACK_WALL = 70;
 
 // 100 through 150 are dedicated for wallSpriteSheet
 const TRACK_BRICK_WALL_TOP_LEFT_END = 100;
@@ -153,18 +153,20 @@ function nextLevel() {
 	loadLevel(levelList[levelNow]);
 	//make into a list
 	//updates wayPoints
-	for (var i = 0; i < vehicleList.length; i++) {  	
-		vehicleList[i].updateWayPoints(); 
+	for (var i = 0; i < vehicleList.length; i++) {
+		vehicleList[i].updateWayPoints();
 	}
 	winScreen = true;
-	
+
 }
 
-function loadLevel(whichLevel) {	
+function loadLevel(whichLevel) {
 	trackGrid = whichLevel.data.slice();
-	for (var i = 0; i < vehicleList.length; i++) {  
+	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset(window['carPic'+(i+1)], 'Car '+(i+1), true);
-	} 	
+	}
+	//randomizeIfItWillRain();
+	//addRainToArray();
 }
 
 function drawTrackByCanvas() {
@@ -205,24 +207,26 @@ function drawTrackByTileAtCoords(startCol, startRow, endCol, endRow) {
 	var trackTopEdgeY = 0;
 
 	for(var eachRow = startRow; eachRow < endRow; eachRow++){
-		
+
 		trackLeftEdgeX = 0;
-		
+
 		for(var eachCol = startCol; eachCol < endCol; eachCol++) {
 			const tileData = findTrackType_YOffset_SpriteSheetForTileType(trackGrid[trackIndex]);
 			tileData.transparency = trackGrid[trackIndex];
 			tileData.x = Math.floor(trackLeftEdgeX);
 			tileData.y = trackTopEdgeY;
-			
+
 			drawWithTileData(tileData);
-			
+
+
+
 			trackIndex++;
 			trackLeftEdgeX += TRACK_W;
-				
+
 		} // end of each col
-		
+
 		trackTopEdgeY += TRACK_H;
-		
+
 	} // end of each row
 }
 
@@ -260,11 +264,11 @@ function drawTileAtPixelPos(x, y, roadTransparency, grassTransparency) {
 		TRACK_CONTEXT.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, x, y, TRACK_W, TRACK_H);
 	} else if (grassTransparency) {
 		TRACK_CONTEXT.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, x, y, TRACK_W, TRACK_H);
-	}			
+	}
 
 	TRACK_CONTEXT.drawImage( spriteSheet, trackTypeHere * TRACK_W, imageOffsetY, TRACK_W, TRACK_H, x, y, TRACK_W, TRACK_H);
 }
-		
+
 function drawTracksByTile() {
 	const currentCols = getCurrentTrackCols();
 	const currentRows = getCurrentTrackRows();
@@ -294,7 +298,7 @@ function tileTypeHasRoadTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_CASH  ||
 			transparencyCheckTypeHere == TRACK_FUEL  ||
 			transparencyCheckTypeHere == TRACK_NORTH_RAMP  ||
-			transparencyCheckTypeHere == TRACK_SOUTH_RAMP  			
+			transparencyCheckTypeHere == TRACK_SOUTH_RAMP
 			);
 }
 
@@ -307,7 +311,7 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_MIDDLE_GRASS ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_LEFT_GRASS ||
-			transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT_GRASS			
+			transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT_GRASS
 			);
 }
 
@@ -320,21 +324,21 @@ function isWallAtTileCoord(trackTileCol, trackTileRow){
 
 function rowColToArrayIndex(col, row) {
 	return col + getCurrentTrackCols() * row;
-}			
+}
 
 function getIndexAtPixelCoord(pixelX,pixelY){
-	var tileCol = pixelX / TRACK_W;		
+	var tileCol = pixelX / TRACK_W;
 	var tileRow = pixelY / TRACK_H;
-				
+
 	tileCol = Math.floor(tileCol);
 	tileRow = Math.floor(tileRow);
 	return rowColToArrayIndex(tileCol,tileRow);
 }
 
 function pixelCoordToTrackCoords(pixelX, pixelY) {
-	var tileCol = pixelX / TRACK_W;		
+	var tileCol = pixelX / TRACK_W;
 	var tileRow = pixelY / TRACK_H;
-				
+
 	tileCol = Math.floor(tileCol);
 	tileRow = Math.floor(tileRow);
 
@@ -347,19 +351,19 @@ function trackCoordToPixelPos(col, row) {
 
 	return {x:xPos, y:yPos};
 }
-			
+
 function getTrackAtPixelCoord(pixelX,pixelY){
 	const tileCoords = pixelCoordToTrackCoords(pixelX, pixelY);
 	const tileCol = tileCoords.col;
 	const tileRow = tileCoords.row;
-				
+
 	if(tileCol < 0 || tileCol >= getCurrentTrackCols() || tileRow < 0 || tileRow >= getCurrentTrackRows()) {
 		return TRACK_WALL; // This returns Track Wall to prevent out of bounds as a wall.
 	}
-				
+
 	var trackIndex = trackTileToIndex(tileCol, tileRow);
 	return (trackGrid[trackIndex]);
-}		
+}
 
 function getTileTypeAtPixelCoord(atX, atY) {
 	var trackCol = Math.floor(atX / TRACK_W);
@@ -368,7 +372,7 @@ function getTileTypeAtPixelCoord(atX, atY) {
 
 	return trackIndexUnderVehicle;
 }
-			
+
 function trackTileToIndex(tileCol, tileRow) {
 	return(tileCol + getCurrentTrackCols()*tileRow);
 }
@@ -386,4 +390,3 @@ function tileIndexToPixelPos(index) {
 
 	return trackCoordToPixelPos(tileCoords.col, tileCoords.row);
 }
-			
