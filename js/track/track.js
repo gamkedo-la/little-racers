@@ -6,9 +6,9 @@ const TRACK_CANVAS = document.createElement("canvas");
 const TRACK_CONTEXT = TRACK_CANVAS.getContext('2d');
 let terrainChanged = true;
 
-const MAP_MANAGER = new MapManager();
+//const MAP_MANAGER = new MapManager();
 
-/*var levelOne = {
+var levelOne = {
 	cols:40,
 	rows:30,
 	data:[
@@ -43,7 +43,7 @@ const MAP_MANAGER = new MapManager();
    103,  1,  1,  1,  1,  1,  1,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,107,
    104,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105 
    ]
-};*/
+};
 	
 var levelTwo = {
 	cols:20,
@@ -89,9 +89,10 @@ var levelThree = {
 	]
 };
 	
-var levelList = [];// = [levelOne, levelTwo, levelThree];
+//var levelList = [];
+var levelList = [levelOne, levelTwo, levelThree];
 var levelNow = 0;
-MAP_MANAGER.loadLevels();
+//MAP_MANAGER.loadLevels();
 var trackGrid = [];
 // 0 through 49 are dedicated for road tiles				
 const TRACK_PLAYER = 0;
