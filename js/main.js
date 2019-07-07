@@ -275,6 +275,14 @@ function drawEverything() {
 		drawStartLights();
 		drawSpeedometers();
 		drawFuelGauges();
+		//console.log("raining ", raining);
+		if (raining) {
+			//setInterval(function(){ addRainToArray(); }, 3000);
+			drawRain();
+			updateRain();
+			deleteRainThatShouldBeInvisible();
+		}
+
 		if(debugMode){
 			drawFuelPercentage();
 			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", font = "14px Arial Black");
