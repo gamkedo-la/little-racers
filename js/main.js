@@ -111,6 +111,9 @@ function moveEverything() {
 		if(!paused){
 			updatedCameraPosition();
 			if(raceHasStarted){
+				
+				handleJoystickControls(); // optionally
+				
 				for (var i = 0; i < vehicleList.length; i++) {
 					vehicleList[i].movement();
 				}
