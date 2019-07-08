@@ -51,6 +51,7 @@ function carClass() {
     this.fuelInTank = this.fuelCapacity;
     this.oilslickRemaining = 0;
 	this.stopCar = false;
+	this.findPitStop = false;
 	this.transmissionVersion = 0;
 	this.tireVersion = 0;
 	this.engineVersion = 0;
@@ -258,6 +259,7 @@ function carClass() {
     this.checkForLowFuelLevel = function() {
         if (this.fuelInTank <= 20) {
             console.log("Low fuel!");
+			this.findPitStop = true;
         }
     }
 
@@ -371,7 +373,12 @@ function carClass() {
             }
             this.keyHeld_Reverse = false;
             this.checkIfStuck();
-        }
+			//if low on fuel and past checkPoint.  Pit stops must come after checkPointC
+			if(this.findPitStop && this.checkPointC){
+				this.wayPointX	= 150;	//test Pitstop for first level
+				this.wayPointY = 460;
+			}
+        } 
     }
 
     this.updateCarSpeedAndTurnRate = function () {
