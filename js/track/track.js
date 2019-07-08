@@ -303,7 +303,7 @@ function tileTypeHasRoadTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_FUEL  ||
 			transparencyCheckTypeHere == TRACK_NORTH_RAMP  ||
 			transparencyCheckTypeHere == TRACK_SOUTH_RAMP ||
-			transparencyCheckTypeHere == TRACK_PITSTOP
+			transparencyCheckTypeHere == TRACK_ROAD_PITSTOP
 			);
 }
 
