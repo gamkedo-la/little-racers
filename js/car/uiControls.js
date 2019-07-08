@@ -119,6 +119,8 @@ function keyReleased(evt) {
 
 function setKeyHoldState(thisKey, thisCar, setTo) {
 
+	isJoystickBeingUsed = false; // allow user to switch to keybd after trying gamepad
+
 	if(thisKey == thisCar.controlKeyForGas){
 		thisCar.keyHeld_Gas = setTo;
 	}
