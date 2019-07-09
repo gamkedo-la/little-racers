@@ -161,7 +161,6 @@ function carClass() {
     }
 
     this.updateWayPoints = function() {
-        //this.level = this.level + 1; // this needs to move to a Global
         this.wayPointNumber = 0;
         this.lapNumber = 0;
         this.checkPointA = false;
@@ -373,7 +372,7 @@ function carClass() {
             }
             this.keyHeld_Reverse = false;
             this.checkIfStuck();
-			//if low on fuel and past checkPoint.  Pit stops must come after checkPointC
+			//if low on fuel and past checkPoint C.  Pit stops must come after checkPoint C
 			if(this.findPitStop && this.checkPointC){
 				this.wayPointX	= 150;	//test Pitstop for first level
 				this.wayPointY = 460;
@@ -527,7 +526,7 @@ function carClass() {
             case TRACK_FINISH:
                 if (this.checkPointC) {
                     this.checkPointC = false;
-                    if (this.lapNumber < 1) {
+                    if (this.lapNumber < 3) {
                         if (this.lapNumber == 0 && !finalLappedCalled){
 							finallapSound.play();
 							finalLappedCalled = true;
