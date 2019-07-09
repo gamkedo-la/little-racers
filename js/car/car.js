@@ -373,7 +373,7 @@ function carClass() {
             this.keyHeld_Reverse = false;
             this.checkIfStuck();
 			//if low on fuel and past checkPoint C.  Pit stops must come after checkPoint C
-			if(this.findPitStop && this.checkPointC){
+			if(this.findPitStop){ //&& this.checkPointC){
 				this.wayPointX	= 150;	//test Pitstop for first level
 				this.wayPointY = 460;
 			}
@@ -594,6 +594,14 @@ function carClass() {
                     this.speed = -.5 * this.speed;
                 }
                 break;
+			case TRACK_OIL_BARREL:
+                if (!this.airborne)
+                {
+                    trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+                    addTrackImageAtTileIndex(TRACK_OIL_SLICK, driveIntoTileIndex);
+                    this.speed = -.5 * this.speed;
+                }
+                break;	
             case TRACK_BRICK_WALL_LEFT:
             case TRACK_BRICK_WALL_LEFT_GRASS:
                 this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
