@@ -100,7 +100,7 @@ function addVehicle(){
 
 function moveEverything() {
 	if(titleScreen){
-		colorRect(0,0,canvas.width,canvas.height, 'green');
+		//colorRect(0,0,canvas.width,canvas.height, 'green');
 	} else if (levelEditor) {
 		//Intentionally left empty - no movement
 	} else if (winScreen){

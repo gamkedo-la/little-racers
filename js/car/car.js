@@ -113,7 +113,7 @@ function carClass() {
         this.lapSecondTensSpot = 0;
         this.lapMinute = 0;
         this.lapMinuteTensSpot = 0;
-        this.lapNumber = 0;
+        this.lapNumber = 2;
         this.checkPointA = false;
         this.checkPointB = false;
         this.checkPointC = false;
@@ -174,14 +174,11 @@ function carClass() {
                 this.wayPointY = [485, 435, 380, 320, 145];
 
             //use these way points when a place is determined
-            } else if (this.myName == firstPlace) {
-                this.wayPointX = [ 60,  74, 160, 220, 180];
-                this.wayPointY = [500, 420, 380, 300, 140];
-				
-				//if (this.wayPointNumber >= this.wayPointX.length-1){
-					this.stopCar = true;
-					console.log("stop car " +this.stopCar);
-				//}
+        } else {
+        	this.speed = 
+        	} else if (this.myName == firstPlace) {
+                this.wayPointX = [ /*60,*/ 74, /*160,*/ 220, 180];
+                this.wayPointY = [/*500,*/ 420, /*380,*/ 300, 140];
             } else if (this.myName == secondPlace) {
                 this.wayPointX = [ 60,  74, 160, 220, 220];
                 this.wayPointY = [500, 420, 380, 300, 140];
@@ -203,16 +200,16 @@ function carClass() {
             } else if (this.myName == eigthPlace) {
                 this.wayPointX = [ 60,  74, 160, 220, 220];
                 this.wayPointY = [500, 420, 380, 300, 220];
-            }
-        } else if (this.level == 1) {
-            this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150];
-            this.wayPointY = [110, 106, 266, 277, 86, 100, 500, 500];
-        } else if (this.level == 2) {
-            this.wayPointX = [71, 164, 218, 332, 327, 450, 454, 725, 721, 640, 738, 66];
-            this.wayPointY = [243, 167, 76, 134, 411, 355, 96, 104, 246, 313, 508, 512];
-        } else if (this.level == 3) {
-            this.wayPointX = [110, 680, 680, 150];
-            this.wayPointY = [110, 100, 500, 500];
+            } else if (this.level == 1) {
+	            this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150];
+	            this.wayPointY = [110, 106, 266, 277, 86, 100, 500, 500];
+	        } else if (this.level == 2) {
+	            this.wayPointX = [71, 164, 218, 332, 327, 450, 454, 725, 721, 640, 738, 66];
+	            this.wayPointY = [243, 167, 76, 134, 411, 355, 96, 104, 246, 313, 508, 512];
+	        } else if (this.level == 3) {
+	            this.wayPointX = [110, 680, 680, 150];
+	            this.wayPointY = [110, 100, 500, 500];
+	        }
         }
     }
 
@@ -238,8 +235,13 @@ function carClass() {
 
         if (dist(this.x, this.y, toX, toY) < 20) {
             this.wayPointNumber++;
-            if (this.wayPointNumber >= this.wayPointX.length && !this.placedPosition) {
-                this.wayPointNumber = 0;
+            if (this.wayPointNumber >= this.wayPointX.length) {
+            	if (!this.placedPosition) {
+                	this.wayPointNumber = 0;
+            	} else {
+					this.stopCar = true;
+					console.log("stop car " +this.stopCar);
+				}
             }
         }
     }
@@ -360,16 +362,21 @@ function carClass() {
 
     this.doComputerPlayerDriving = function()
     {
+    	if (this.stopCar) {
+            this.keyHeld_Gas = false;
+            this.speed = 0;
+            this.ang = -Math.PI/2;
+            return;
+        } else {
+            this.keyHeld_Gas = true;
+        }
+
         if (this.aiRandomMovements) {
             this.randomMovements();
         }
         if (this.wayPoint) {
             this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
-            if (this.stopCar) {
-                this.keyHeld_Gas = false;
-            } else {
-                this.keyHeld_Gas = true;
-            }
+           
             this.keyHeld_Reverse = false;
             this.checkIfStuck();
 			//if low on fuel and past checkPoint C.  Pit stops must come after checkPoint C
@@ -385,7 +392,6 @@ function carClass() {
         if (!this.airborne)  //Handle changes in speed for vehicles on the ground.
         {
             this.speed *= GROUNDSPEED_DECAY_MULT;
-
             if (this.keyHeld_Gas) {
                 if (this.fuelInTank > 0) {
                     this.speed += DRIVE_POWER;
@@ -527,7 +533,7 @@ function carClass() {
                 if (this.checkPointC) {
                     this.checkPointC = false;
                     if (this.lapNumber < 3) {
-                        if (this.lapNumber == 0 && !finalLappedCalled){
+                        if (this.lapNumber == 2 && !finalLappedCalled){
 							finallapSound.play();
 							finalLappedCalled = true;
 						}
