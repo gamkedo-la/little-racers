@@ -506,6 +506,7 @@ function carClass() {
             case TRACK_ROAD_SIXTH:
             case TRACK_ROAD_SEVENTH:
             case TRACK_ROAD_EIGHT:
+            case TRACK_ROAD_PITSTOP:
                 break;
             case TRACK_ROAD_AAA:
                 this.checkPointA = true;
