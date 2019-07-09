@@ -40,7 +40,7 @@ const TRACK_KNOCKED_OVER_CONE = 60;
 const TRACK_SOUTH_RAMP = 63;
 const TRACK_WALL = 70;
 
-// 100 through 150 are dedicated for wallSpriteSheet
+// 100 through 149 are dedicated for wallSpriteSheet
 const TRACK_BRICK_WALL_TOP_LEFT_END = 100;
 const TRACK_BRICK_WALL_TOP_MIDDLE = 101;
 const TRACK_BRICK_WALL_TOP_RIGHT_END = 102;
@@ -58,6 +58,9 @@ const TRACK_BRICK_WALL_BOT_LEFT_END_GRASS = 114;
 const TRACK_BRICK_WALL_BOT_MIDDLE_GRASS = 115;
 const TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS = 116;
 const TRACK_BRICK_WALL_RIGHT_GRASS = 117;
+
+//151 through 200 are dedicated for city objects
+
 
 function getCurrentTrackCols() {
 	return levelList[levelNow].cols;
@@ -175,6 +178,9 @@ function findTrackType_YOffset_SpriteSheetForTileType(tileType) {
 	} else if (trackTypeHere >= 100 && trackTypeHere < 150){
 		spriteSheet = wallSpriteSheet;
 		trackTypeHere -= 100;
+	} else if (trackTypeHere >= 150 && trackTypeHere < 200){
+		spriteSheet = cityScapeSpriteSheet;
+		trackTypeHere -= 150;
 	}
 
 	const resultType = trackTypeHere % 10;

@@ -26,6 +26,7 @@ var arrowPic = document.createElement("img");
 var roadSpriteSheet =  document.createElement("img");
 var trackobstaclesSpriteSheet = document.createElement("img");
 var wallSpriteSheet = document.createElement("img");
+var cityScapeSpriteSheet = document.createElement("img");
 var clockPic = document.createElement("img");
 var trackPics = [];
 // Gauges
@@ -78,9 +79,10 @@ function loadImages() {
 			{varName: nitrosOptionTwoPic, theFile: "upgrades/nitrosOptionTwo.png"},
 			{varName: clockPic, theFile: "system_clock.png"},
 			{varName: arrowPic, theFile: "leftArrow.png"},
-			{varName: roadSpriteSheet, theFile: "roadSpriteSheet.png"},
-			{varName: trackobstaclesSpriteSheet, theFile: "trackobstaclesSpriteSheet.png"},
-			{varName: wallSpriteSheet, theFile: "wallSpriteSheet.png"},
+			{varName: roadSpriteSheet, theFile: "spriteSheet/roadSpriteSheet.png"},
+			{varName: trackobstaclesSpriteSheet, theFile: "spriteSheet/trackobstaclesSpriteSheet.png"},
+			{varName: wallSpriteSheet, theFile: "spriteSheet/wallSpriteSheet.png"},
+			{varName: cityScapeSpriteSheet, theFile: "spriteSheet/cityScapeSpriteSheet.png"},
 			{varName: gaugeNeedlePic, theFile: "gauges/GaugeNeedle.png"},
 			{varName: fuelGaugePic, theFile: "gauges/FuelGauge.png"},
 			{varName: firstPlaceTrophyPic, theFile: "trophy.png"}
