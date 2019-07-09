@@ -68,7 +68,9 @@ function BackgroundMusicClass() {
 			musicSound = null;
 		}
 		musicSound = new Audio("sound/music/" + filenameWithPath + audioFormat);
-		musicSound.volume = 0.04; //quiter for screen sharing during meetings
+		if(soundSetforMeetings){
+			musicSound.volume = 0.04; //quieter for screen sharing during meetings
+		}
 		musicSound.loop = true;
 		musicSound.play();
     }

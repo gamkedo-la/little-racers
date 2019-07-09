@@ -71,6 +71,8 @@ function carClass() {
         this.name = whichName;
         this.myCarPic = whichGraphic;
         this.speed = 0;
+        this.placedPosition = false;
+        this.stopCar = false;
         this.maxSpeed = MAXSPD_FOR_TRAIL;
         this.ang = -0.5 * Math.PI; //Angle is in radians; this rotates the car -90 degrees to point car up. (0 deg is to the right)
         //Graphics on the sheet are oriented pointing to the right, matching angle=0 degrees.`
@@ -113,7 +115,7 @@ function carClass() {
         this.lapSecondTensSpot = 0;
         this.lapMinute = 0;
         this.lapMinuteTensSpot = 0;
-        this.lapNumber = 2;
+        this.lapNumber = 3;
         this.checkPointA = false;
         this.checkPointB = false;
         this.checkPointC = false;
@@ -175,33 +177,32 @@ function carClass() {
 
                 //use these way points when a place is determined
             } else {
-
-                if (this.speed = 0) {
-                    //this was left incomplete.  Temporary filling in for game to work. 
-                } else if (this.myName == firstPlace) {
-                    this.wayPointX = [ /*60,*/ 74, /*160,*/ 220, 180];
-                    this.wayPointY = [ /*500,*/ 420, /*380,*/ 300, 140];
+            	this.wayPointX = [ 100, /*74,*/ 160, 220];
+                this.wayPointY = [ 500, /*420,*/ 380, 300];
+                if (this.myName == firstPlace) {
+                    this.wayPointX.push(180);
+                    this.wayPointY.push(140);
                 } else if (this.myName == secondPlace) {
-                    this.wayPointX = [60, 74, 160, 220, 220];
-                    this.wayPointY = [500, 420, 380, 300, 140];
+                    this.wayPointX.push(220);
+                    this.wayPointY.push(140);
                 } else if (this.myName == thirdPlace) {
-                    this.wayPointX = [60, 74, 160, 220, 255];
-                    this.wayPointY = [500, 420, 380, 300, 140];
+                    this.wayPointX.push(255);
+                    this.wayPointY.push(140);
                 } else if (this.myName == fourthPlace) {
-                    this.wayPointX = [60, 74, 160, 220, 180];
-                    this.wayPointY = [500, 420, 380, 300, 180];
+                    this.wayPointX.push(180);
+                    this.wayPointY.push(180);
                 } else if (this.myName == fifthPlace) {
-                    this.wayPointX = [60, 74, 160, 229, 220];
-                    this.wayPointY = [500, 420, 380, 300, 180];
+                    this.wayPointX.push(220);
+                    this.wayPointY.push(180);
                 } else if (this.myName == sixthPlace) {
-                    this.wayPointX = [60, 74, 160, 220, 255];
-                    this.wayPointY = [500, 420, 380, 300, 180];
+                    this.wayPointX.push(255);
+                    this.wayPointY.push(180);
                 } else if (this.myName == seventhPlace) {
-                    this.wayPointX = [60, 74, 160, 220, 180];
-                    this.wayPointY = [500, 420, 380, 300, 220];
+                    this.wayPointX.push(180);
+                    this.wayPointY.push(220);
                 } else if (this.myName == eigthPlace) {
-                    this.wayPointX = [60, 74, 160, 220, 220];
-                    this.wayPointY = [500, 420, 380, 300, 220];
+                    this.wayPointX.push(220);
+                    this.wayPointY.push(220);
                 } else if (this.level == 1) {
                     this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150];
                     this.wayPointY = [110, 106, 266, 277, 86, 100, 500, 500];
@@ -392,6 +393,11 @@ function carClass() {
         {
             this.speed *= GROUNDSPEED_DECAY_MULT;
             if (this.keyHeld_Gas) {
+            	if (this.placedPosition) {
+            		if (this.speed > 3) {
+            			this.speed = 3;
+            		}
+            	}
                 if (this.fuelInTank > 0) {
                     this.speed += DRIVE_POWER;
                     if (!debugMode) { //don't remove fuel while in debug mode
@@ -510,6 +516,7 @@ function carClass() {
                 break;
             case TRACK_ROAD_AAA:
                 this.checkPointA = true;
+                //console.log(`Checkpoint A crossed by ${this.name}`);
                 break;
             case TRACK_ROAD_BBB:
                 if (this.checkPointA) {
@@ -726,7 +733,7 @@ function carClass() {
     //front a slight speed boost while slowing the one behind.
     this.checkCarCollisionAgainst = function(otherCar) {
         if (otherCar.isOverLappingPoint(this.x, this.y)) {
-            if (this.airborne || otherCar.airborne) {
+            if (this.airborne || otherCar.airborne || this.placedPosition || otherCar.placedPosition) {
                 return;
             }
 
