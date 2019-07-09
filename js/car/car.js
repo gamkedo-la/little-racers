@@ -7,20 +7,20 @@ const GRAVITY = -0.4;
 const GROUNDSPEED_DECAY_MULT = 0.94;
 const CAR_COLLISION_RADIUS = 15;
 const WALL_LOW_IMPACT_THRESHOLD = Math.PI / 6;
-const WALL_BOUNCE_ANGLE = Math.PI / 36;     //When cars hit the wall at a low angle, they bounce off at this angle.
-const WALL_BOUNCE_SPEED_MODIFIER = 0.85;    //Low-angle impact speed reduction.
-const WALL_IMPACT_SPEED_MODIFIER = 0.7;     //Head-on collion speed reduction.
+const WALL_BOUNCE_ANGLE = Math.PI / 36; //When cars hit the wall at a low angle, they bounce off at this angle.
+const WALL_BOUNCE_SPEED_MODIFIER = 0.85; //Low-angle impact speed reduction.
+const WALL_IMPACT_SPEED_MODIFIER = 0.7; //Head-on collion speed reduction.
 const GRASS_SLOWDOWN_THRESHOLD = 0.6;
-const GRASS_ACCELERATION = 0.9;             //Modifier to approach the maximum grass speed.
+const GRASS_ACCELERATION = 0.9; //Modifier to approach the maximum grass speed.
 const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
 const TURN_RATE_MULTIPLIER_OIL = 0.4;
 const TURN_RATE_MULTIPLIER_GRASS = 0.75;
-const NITRO_FRAME_DURATION = 10;            //Being measured in frames, so at 30fps this is 1/3 second.
-const NITRO_BOOST_BASE_AMOUNT = 1.8;        //Speed increase per frame.
+const NITRO_FRAME_DURATION = 10; //Being measured in frames, so at 30fps this is 1/3 second.
+const NITRO_BOOST_BASE_AMOUNT = 1.8; //Speed increase per frame.
 const NITRO_START_QUANTITY = 5;
-const CAR_WIDTH = 28;                       //These are determined from examination of the graphics. May be used for collisions (WIP).
+const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 
 var finalLappedCalled = false;
@@ -50,13 +50,13 @@ function carClass() {
     this.fuelConsumptionRate = 0.15;
     this.fuelInTank = this.fuelCapacity;
     this.oilslickRemaining = 0;
-	this.stopCar = false;
-	this.findPitStop = false;
-	this.transmissionVersion = 0;
-	this.tireVersion = 0;
-	this.engineVersion = 0;
-	this.nitroVersion = 0;
-	this.exhaustVersion = 0;
+    this.stopCar = false;
+    this.findPitStop = false;
+    this.transmissionVersion = 0;
+    this.tireVersion = 0;
+    this.engineVersion = 0;
+    this.nitroVersion = 0;
+    this.exhaustVersion = 0;
     this.carPic = document.createElement("img");
 
     this.setupControls = function(forwardKey, backKey, leftKey, rightKey, nitroKey) {
@@ -173,43 +173,46 @@ function carClass() {
                 this.wayPointX = [55, 60, 160, 180, 180];
                 this.wayPointY = [485, 435, 380, 320, 145];
 
-            //use these way points when a place is determined
-        } else {
-        	this.speed = 
-        	} else if (this.myName == firstPlace) {
-                this.wayPointX = [ /*60,*/ 74, /*160,*/ 220, 180];
-                this.wayPointY = [/*500,*/ 420, /*380,*/ 300, 140];
-            } else if (this.myName == secondPlace) {
-                this.wayPointX = [ 60,  74, 160, 220, 220];
-                this.wayPointY = [500, 420, 380, 300, 140];
-            } else if (this.myName == thirdPlace) {
-                this.wayPointX = [ 60,  74, 160, 220, 255];
-                this.wayPointY = [500, 420, 380, 300, 140];
-            } else if (this.myName == fourthPlace) {
-                this.wayPointX = [ 60,  74, 160, 220, 180];
-                this.wayPointY = [500, 420, 380, 300, 180];
-            } else if (this.myName == fifthPlace) {
-                this.wayPointX = [ 60,  74, 160, 229, 220];
-                this.wayPointY = [500, 420, 380, 300, 180];
-            } else if (this.myName == sixthPlace) {
-                this.wayPointX = [ 60,  74, 160, 220, 255];
-                this.wayPointY = [500, 420, 380, 300, 180];
-            } else if (this.myName == seventhPlace) {
-                this.wayPointX = [ 60,  74, 160, 220, 180];
-                this.wayPointY = [500, 420, 380, 300, 220];
-            } else if (this.myName == eigthPlace) {
-                this.wayPointX = [ 60,  74, 160, 220, 220];
-                this.wayPointY = [500, 420, 380, 300, 220];
-            } else if (this.level == 1) {
-	            this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150];
-	            this.wayPointY = [110, 106, 266, 277, 86, 100, 500, 500];
-	        } else if (this.level == 2) {
-	            this.wayPointX = [71, 164, 218, 332, 327, 450, 454, 725, 721, 640, 738, 66];
-	            this.wayPointY = [243, 167, 76, 134, 411, 355, 96, 104, 246, 313, 508, 512];
-	        } else if (this.level == 3) {
-	            this.wayPointX = [110, 680, 680, 150];
-	            this.wayPointY = [110, 100, 500, 500];
-	        }
+                //use these way points when a place is determined
+            } else {
+
+                if (this.speed = 0) {
+                    //this was left incomplete.  Temporary filling in for game to work. 
+                } else if (this.myName == firstPlace) {
+                    this.wayPointX = [ /*60,*/ 74, /*160,*/ 220, 180];
+                    this.wayPointY = [ /*500,*/ 420, /*380,*/ 300, 140];
+                } else if (this.myName == secondPlace) {
+                    this.wayPointX = [60, 74, 160, 220, 220];
+                    this.wayPointY = [500, 420, 380, 300, 140];
+                } else if (this.myName == thirdPlace) {
+                    this.wayPointX = [60, 74, 160, 220, 255];
+                    this.wayPointY = [500, 420, 380, 300, 140];
+                } else if (this.myName == fourthPlace) {
+                    this.wayPointX = [60, 74, 160, 220, 180];
+                    this.wayPointY = [500, 420, 380, 300, 180];
+                } else if (this.myName == fifthPlace) {
+                    this.wayPointX = [60, 74, 160, 229, 220];
+                    this.wayPointY = [500, 420, 380, 300, 180];
+                } else if (this.myName == sixthPlace) {
+                    this.wayPointX = [60, 74, 160, 220, 255];
+                    this.wayPointY = [500, 420, 380, 300, 180];
+                } else if (this.myName == seventhPlace) {
+                    this.wayPointX = [60, 74, 160, 220, 180];
+                    this.wayPointY = [500, 420, 380, 300, 220];
+                } else if (this.myName == eigthPlace) {
+                    this.wayPointX = [60, 74, 160, 220, 220];
+                    this.wayPointY = [500, 420, 380, 300, 220];
+                } else if (this.level == 1) {
+                    this.wayPointX = [110, 304, 334, 437, 461, 680, 680, 150];
+                    this.wayPointY = [110, 106, 266, 277, 86, 100, 500, 500];
+                } else if (this.level == 2) {
+                    this.wayPointX = [71, 164, 218, 332, 327, 450, 454, 725, 721, 640, 738, 66];
+                    this.wayPointY = [243, 167, 76, 134, 411, 355, 96, 104, 246, 313, 508, 512];
+                } else if (this.level == 3) {
+                    this.wayPointX = [110, 680, 680, 150];
+                    this.wayPointY = [110, 100, 500, 500];
+                }
+            }
         }
     }
 
@@ -236,12 +239,12 @@ function carClass() {
         if (dist(this.x, this.y, toX, toY) < 20) {
             this.wayPointNumber++;
             if (this.wayPointNumber >= this.wayPointX.length) {
-            	if (!this.placedPosition) {
-                	this.wayPointNumber = 0;
-            	} else {
-					this.stopCar = true;
-					console.log("stop car " +this.stopCar);
-				}
+                if (!this.placedPosition) {
+                    this.wayPointNumber = 0;
+                } else {
+                    this.stopCar = true;
+                    console.log("stop car " + this.stopCar);
+                }
             }
         }
     }
@@ -260,7 +263,7 @@ function carClass() {
     this.checkForLowFuelLevel = function() {
         if (this.fuelInTank <= 20) {
             console.log("Low fuel!");
-			this.findPitStop = true;
+            this.findPitStop = true;
         }
     }
 
@@ -326,7 +329,7 @@ function carClass() {
     }
 
     //Used to turn on the nitro.
-    this.tryNitroBoost = function () {
+    this.tryNitroBoost = function() {
         if (this.nitroBoostQuantity > 0 && !this.nitroBoostOn) {
             this.nitroBoostQuantity--;
             this.nitroBoostTime = NITRO_FRAME_DURATION;
@@ -335,20 +338,17 @@ function carClass() {
     }
 
     //Consume nitro and turn off if duration elapsed.
-    this.updateNitro = function ()
-    {
-        if(this.nitroBoostOn)
-        {
+    this.updateNitro = function() {
+        if (this.nitroBoostOn) {
             this.nitroBoostTime--;
-            if(this.nitroBoostTime <=0)
-            {
+            if (this.nitroBoostTime <= 0) {
                 this.nitroBoostOn = false;
             }
         }
     }
 
     //The priary movement function; everything a car does starts here.
-    this.movement = function () {
+    this.movement = function() {
 
         if (this.computerPlayer) {
             this.doComputerPlayerDriving(); //Determines their steering and throttle.
@@ -360,12 +360,11 @@ function carClass() {
         this.skidMarkHandling();
     }
 
-    this.doComputerPlayerDriving = function()
-    {
-    	if (this.stopCar) {
+    this.doComputerPlayerDriving = function() {
+        if (this.stopCar) {
             this.keyHeld_Gas = false;
             this.speed = 0;
-            this.ang = -Math.PI/2;
+            this.ang = -Math.PI / 2;
             return;
         } else {
             this.keyHeld_Gas = true;
@@ -376,20 +375,20 @@ function carClass() {
         }
         if (this.wayPoint) {
             this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
-           
+
             this.keyHeld_Reverse = false;
             this.checkIfStuck();
-			//if low on fuel and past checkPoint C.  Pit stops must come after checkPoint C
-			if(this.findPitStop){ //&& this.checkPointC){
-				this.wayPointX	= 150;	//test Pitstop for first level
-				this.wayPointY = 460;
-			}
-        } 
+            //if low on fuel and past checkPoint C.  Pit stops must come after checkPoint C
+            if (this.findPitStop) { //&& this.checkPointC){
+                this.wayPointX = 150; //test Pitstop for first level
+                this.wayPointY = 460;
+            }
+        }
     }
 
-    this.updateCarSpeedAndTurnRate = function () {
+    this.updateCarSpeedAndTurnRate = function() {
 
-        if (!this.airborne)  //Handle changes in speed for vehicles on the ground.
+        if (!this.airborne) //Handle changes in speed for vehicles on the ground.
         {
             this.speed *= GROUNDSPEED_DECAY_MULT;
             if (this.keyHeld_Gas) {
@@ -424,35 +423,30 @@ function carClass() {
 
         //Determine base turn rate.
         this.turnRate = TURN_RATE_STANDARD;
-        if (this.nitroBoostOn)
-        {
+        if (this.nitroBoostOn) {
             this.turnRate = TURN_RATE_NITRO;
         }
 
         //With the base rate determined, the following will lower it further based on driving conditions.
 
         //Lower turn rate if airborne. Allows for a tiny bit of steering in defiance of physics!
-        if (this.airborne) 
-        {
+        if (this.airborne) {
             this.turnRate *= TURN_RATE_MULTIPLIER_AIRBORNE;
-        }
-
-        else //On the ground; degrade rate by tile effects and if tires are oil-slicked.
+        } else //On the ground; degrade rate by tile effects and if tires are oil-slicked.
         {
             this.turnRate *= this.turnRateTileMultiplier;
-            if (this.oilslickRemaining > 0)
-            {
+            if (this.oilslickRemaining > 0) {
                 this.turnRate *= TURN_RATE_MULTIPLIER_OIL;
             }
         }
 
-        this.updateNitro();  //Needs to be done after the above code so that speed is used for one frame before being "consumed".
-                             //Do it during the speed increase and you would miss the turn rate penalty!
+        this.updateNitro(); //Needs to be done after the above code so that speed is used for one frame before being "consumed".
+        //Do it during the speed increase and you would miss the turn rate penalty!
 
 
     }
 
-    this.updateCarPositionAndAngle = function () {
+    this.updateCarPositionAndAngle = function() {
 
         //Preserve previous values for use in tile collisions.
         this.oldX = this.x;
@@ -468,8 +462,7 @@ function carClass() {
 
             if (this.z > 0) {
                 this.zVel += GRAVITY;
-            }
-            else {
+            } else {
                 this.airborne = false;
                 this.z = 0;
                 this.zVel = 0;
@@ -481,7 +474,7 @@ function carClass() {
         //The angle is *never* positive.
         //With the magnitude of the negative angle increasing counterclockwise.
         if (Math.abs(this.speed) >= MIN_TURN_SPEED) {
-            if (this.keyHeld_TurnLeft) {	
+            if (this.keyHeld_TurnLeft) {
                 this.ang -= this.turnRate * Math.PI;
                 this.ang = constrainAngleToNegativeRange(this.ang)
             }
@@ -495,12 +488,12 @@ function carClass() {
 
     //Determines what happens when cars drive into a tile, including collisions, jumps, tracking waypoints
     //to measure race progress, etc.
-    this.handleTileEffects = function () {
+    this.handleTileEffects = function() {
 
         this.turnRateTileMultiplier = 1; //Start at max possible; reduce based on the tiles that impact steering.
 
         var drivingIntoTileType = getTrackAtPixelCoord(this.x, this.y);
-		var driveIntoTileIndex = getTileTypeAtPixelCoord(this.x, this.y);
+        var driveIntoTileIndex = getTileTypeAtPixelCoord(this.x, this.y);
 
         switch (drivingIntoTileType) {
 
@@ -533,10 +526,10 @@ function carClass() {
                 if (this.checkPointC) {
                     this.checkPointC = false;
                     if (this.lapNumber < 3) {
-                        if (this.lapNumber == 2 && !finalLappedCalled){
-							finallapSound.play();
-							finalLappedCalled = true;
-						}
+                        if (this.lapNumber == 2 && !finalLappedCalled) {
+                            finallapSound.play();
+                            finalLappedCalled = true;
+                        }
                         this.recordALap();
                     } else {
                         whichPlace(this);
@@ -550,64 +543,61 @@ function carClass() {
                 }
                 break;
             case TRACK_GRASS:
-                if(!this.airborne)
-                {
+                if (!this.airborne) {
                     this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
-                    if(this.speed > GRASS_SLOWDOWN_THRESHOLD)
+                    if (this.speed > GRASS_SLOWDOWN_THRESHOLD)
                         this.speed *= GRASS_ACCELERATION;
                 }
                 break;
             case TRACK_NORTH_RAMP:
-            	if (this.speed < 0 || 
-            		(this.ang < -Math.PI && this.ang > -2 * Math.PI)) {
+                if (this.speed < 0 ||
+                    (this.ang < -Math.PI && this.ang > -2 * Math.PI)) {
                     this.x = this.oldX;
-	                this.y = this.oldY;
-	                this.speed = -.5 * this.speed;
+                    this.y = this.oldY;
+                    this.speed = -.5 * this.speed;
                 }
                 if (this.speed > MIN_JUMP_START_SPEED) {
                     this.startJump();
                 }
                 break;
-			case TRACK_SOUTH_RAMP:
-            	if (this.speed < 0 || 
-            		(this.ang < -Math.PI && this.ang < -3 * Math.PI)) {
+            case TRACK_SOUTH_RAMP:
+                if (this.speed < 0 ||
+                    (this.ang < -Math.PI && this.ang < -3 * Math.PI)) {
                     this.x = this.oldX;
-	                this.y = this.oldY;
-	                this.speed = -.5 * this.speed;
+                    this.y = this.oldY;
+                    this.speed = -.5 * this.speed;
                 }
                 if (this.speed > MIN_JUMP_START_SPEED) {
                     this.startJump();
-                } 
+                }
                 break;
-			case TRACK_CASH:
-				this.cash += 100;
+            case TRACK_CASH:
+                this.cash += 100;
                 trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                 addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
-				break;
-			case TRACK_FUEL:
-				this.fuelInTank += 50;
-				if(this.fuelInTank > 100){
-					this.fuelInTank = 100;
-				}
+                break;
+            case TRACK_FUEL:
+                this.fuelInTank += 50;
+                if (this.fuelInTank > 100) {
+                    this.fuelInTank = 100;
+                }
                 trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                 addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
-				break;
+                break;
             case TRACK_CONE:
-                if (!this.airborne)
-                {
+                if (!this.airborne) {
                     trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                     addTrackImageAtTileIndex(TRACK_KNOCKED_OVER_CONE, driveIntoTileIndex);
                     this.speed = -.5 * this.speed;
                 }
                 break;
-			case TRACK_OIL_BARREL:
-                if (!this.airborne)
-                {
+            case TRACK_OIL_BARREL:
+                if (!this.airborne) {
                     trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                     addTrackImageAtTileIndex(TRACK_OIL_SLICK, driveIntoTileIndex);
                     this.speed = -.5 * this.speed;
                 }
-                break;	
+                break;
             case TRACK_BRICK_WALL_LEFT:
             case TRACK_BRICK_WALL_LEFT_GRASS:
                 this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
@@ -616,24 +606,24 @@ function carClass() {
             case TRACK_BRICK_WALL_RIGHT:
             case TRACK_BRICK_WALL_RIGHT_GRASS:
                 this.handleWallImpact(RADIANS_270_DEGREES_NEGATIVE);
-                this.x = this.oldX - 1; 
+                this.x = this.oldX - 1;
                 break;
             case TRACK_BRICK_WALL_TOP_MIDDLE:
             case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
                 this.handleWallImpact(RADIANS_0_DEGREES);
-                this.y = this.oldY + 1; 
+                this.y = this.oldY + 1;
                 break;
             case TRACK_BRICK_WALL_BOT_MIDDLE:
             case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
                 this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
-                this.y = this.oldY - 1; 
+                this.y = this.oldY - 1;
                 break;
-            case TRACK_WALL: 
+            case TRACK_WALL:
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
                 this.y = this.oldY;
                 this.speed = -.5 * this.speed;
                 //crashIntoConeSound.play();
-                break;  
+                break;
             default: //Handles collision with solid tiles
                 this.speed = -.5 * this.speed;
         }
@@ -644,49 +634,38 @@ function carClass() {
     //This function will bounce vehicles back when within the WALL_LOW_IMPACT_THRESHOLD angle from checkAngle.
     //WARNING: This function only works with right angles (0/90/180/270). There is math weirdness around the 0
     //         degree range that hasn't been fully developed to handle bounces off other angles.
-    this.handleWallImpact = function(checkAngle)
-    {
+    this.handleWallImpact = function(checkAngle) {
         var travelAngle = this.ang;
         var checkAngleOpposite = constrainAngleToNegativeRange(checkAngle + RADIANS_180_DEGREES_NEGATIVE);
 
         //When passed 180deg, checkAngleOpposite becomes 0 degrees; screws up range checking, so fix it to -360.
-        if (checkAngleOpposite == 0)
-        {
+        if (checkAngleOpposite == 0) {
             checkAngleOpposite = -RADIANS_360_DEGREES_POSITIVE;
         }
 
         //When travelling backwards, use the opposite angle as the vector for wall impact calculations.
-        if (this.speed < 0)
-        {
+        if (this.speed < 0) {
             travelAngle += RADIANS_180_DEGREES_NEGATIVE;
             travelAngle = constrainAngleToNegativeRange(travelAngle);
         }
 
         //Handle wall impact, first for low-angle impacts where car can bounce away.
-        if (travelAngle < checkAngle && travelAngle > checkAngle-WALL_LOW_IMPACT_THRESHOLD)
-        {
-            if (this.speed > 0)
-            {
+        if (travelAngle < checkAngle && travelAngle > checkAngle - WALL_LOW_IMPACT_THRESHOLD) {
+            if (this.speed > 0) {
                 this.ang = checkAngle + WALL_BOUNCE_ANGLE;
-            }
-            else
-            {
+            } else {
                 this.ang = checkAngleOpposite + WALL_BOUNCE_ANGLE;
             }
             this.speed = this.speed * WALL_BOUNCE_SPEED_MODIFIER;
-        }
-        else if(travelAngle < checkAngleOpposite+WALL_LOW_IMPACT_THRESHOLD && travelAngle > checkAngleOpposite)
-        {
+        } else if (travelAngle < checkAngleOpposite + WALL_LOW_IMPACT_THRESHOLD && travelAngle > checkAngleOpposite) {
             if (this.speed < 0) {
                 this.ang = checkAngle - WALL_BOUNCE_ANGLE;
-            }
-            else {
+            } else {
                 this.ang = checkAngleOpposite - WALL_BOUNCE_ANGLE;
             }
             this.speed = this.speed * WALL_BOUNCE_SPEED_MODIFIER;
 
-        }
-        else //Impact is more head-on.
+        } else //Impact is more head-on.
         {
             this.speed = -WALL_IMPACT_SPEED_MODIFIER * this.speed;
         }
@@ -744,15 +723,14 @@ function carClass() {
     //Current approach is to bounce cars away from each other and slow them both down.
     //Next possiblity: see if they're travelling nearly in the same direction and give the one in
     //front a slight speed boost while slowing the one behind.
-    this.checkCarCollisionAgainst = function(otherCar) { 
-        if (otherCar.isOverLappingPoint(this.x, this.y))
-        {
-        	if (this.airborne || otherCar.airborne) {
-        		return;
-        	}
+    this.checkCarCollisionAgainst = function(otherCar) {
+        if (otherCar.isOverLappingPoint(this.x, this.y)) {
+            if (this.airborne || otherCar.airborne) {
+                return;
+            }
 
-            distToMove = CAR_COLLISION_RADIUS / 6;  //Determined empirically; will need tweaking.
-                                                    //Probably will be replaced in a physics-based model?
+            distToMove = CAR_COLLISION_RADIUS / 6; //Determined empirically; will need tweaking.
+            //Probably will be replaced in a physics-based model?
 
             var thisToOther = {}; //Vector to the other car.
             thisToOther.x = otherCar.x - this.x;
@@ -768,7 +746,7 @@ function carClass() {
             this.y += -thisToOther.y;
             otherCar.x += thisToOther.x;
             otherCar.y += thisToOther.y;
-            
+
             //Remove a bit of speed from both cars.
             this.speed *= 0.75;
             otherCar.speed *= 0.75;
@@ -781,7 +759,7 @@ function carClass() {
         var yOffSet = this.y;
         if (this.airborne) {
             yOffSet = yOffSet - 10;
-			//TO DO - don't collide with anything except the perimeter wall
+            //TO DO - don't collide with anything except the perimeter wall
         }
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang);
         if (debugMode) {
