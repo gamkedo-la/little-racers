@@ -4,6 +4,7 @@ const RADIANS_240_DEGREES_NEGATIVE = -Math.PI * 4 / 3;
 const RADIANS_180_DEGREES_NEGATIVE = -Math.PI;
 const RADIANS_120_DEGREES_NEGATIVE = -Math.PI * 2 / 3;
 const RADIANS_90_DEGREES_NEGATIVE = -Math.PI / 2;
+const RADIANS_45_DEGREES_POSITIVE = Math.PI / 4;
 const RADIANS_0_DEGREES = 0;
 
 //Calculates a point in world space from a center when rotated by an angle.

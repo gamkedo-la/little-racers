@@ -123,6 +123,26 @@ function moveEverything() {
 						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
 					}
 				}
+				
+				for (var i = 0; i < vehicleList.length; i++) {
+					for (var ii = 0; ii < vehicleList.length; ii++) {
+						if(i != ii){
+							vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
+							var carVectorX = Math.cos(vehicleList[i].ang); 
+							var carVectorY = Math.sin(vehicleList[i].ang);
+							var distInFrontOfCenter = 25;
+							var carFrontX = vehicleList[i].x + carVectorX * distInFrontOfCenter;
+							var carFrontY = vehicleList[i].y + carVectorY * distInFrontOfCenter;
+							var dot = dotProduct(carVectorX, carVectorY, carFrontX - vehicleList[ii].x, carFrontY - vehicleList[ii].y);
+							var distance = dist (vehicleList[i].x, vehicleList[i].y, vehicleList[ii].x, vehicleList[ii].y);							
+							if (dot < 0) { // it's infront of us
+								if (distance < 35){
+									vehicleList[i].speed *= 0.25;
+								}
+							} 
+						}
+					}
+				}
 //				console.log(vehicleList[0].ang);
 				updateTime();
 				if(firstPlaceFilled){ //sound bite for the winner
@@ -288,10 +308,11 @@ function drawEverything() {
 
 		if(debugMode){
 			drawFuelPercentage();
-			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", font = "14px Arial Black");
+			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", "14px Arial Black");
+
 		}
 		if(paused){
-			colorText("PAUSED", 300, canvas.height/scaleHeight - 50, "white", font = "36px Arial Black");
+			colorText("PAUSED", 300, canvas.height/scaleHeight - 50, "white", "36px Arial Black");
 		}
 	}
 }
