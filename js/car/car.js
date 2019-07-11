@@ -123,6 +123,8 @@ function carClass() {
         this.wayPoint = true;
         this.wayPointX = [110, 680, 680, 150];
         this.wayPointY = [110, 100, 500, 500];
+        //this.wayPointX = levelList[levelNow].wayPointsX.slice();
+        //this.wayPointY = levelList[levelNow].wayPointsY.slice();
         this.level = 0;
         this.stuckTime = 0;
         this.randomMovementsTimer = 0;
