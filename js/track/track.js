@@ -60,7 +60,11 @@ const TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS = 116;
 const TRACK_BRICK_WALL_RIGHT_GRASS = 117;
 
 //151 through 200 are dedicated for city objects
-
+const TRACK_L_SHAPE_HOUSE_A = 151;
+const TRACK_L_SHAPE_HOUSE_B = 152;
+//153 TO 160 are available
+const TRACK_L_SHAPE_HOUSE_C = 161;
+const TRACK_L_SHAPE_HOUSE_D = 162;
 
 function getCurrentTrackCols() {
 	return levelList[levelNow].cols;
@@ -144,8 +148,6 @@ function drawTrackByTileAtCoords(startCol, startRow, endCol, endRow) {
 			tileData.y = trackTopEdgeY;
 
 			drawWithTileData(tileData);
-
-
 
 			trackIndex++;
 			trackLeftEdgeX += TRACK_W;
@@ -243,7 +245,11 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_MIDDLE_GRASS ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_LEFT_GRASS ||
-			transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT_GRASS
+			transparencyCheckTypeHere == TRACK_BRICK_WALL_RIGHT_GRASS ||
+			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_A ||
+			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_B ||
+			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_C ||
+			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_D 
 			);
 }
 
