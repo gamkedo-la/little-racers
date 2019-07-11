@@ -62,9 +62,13 @@ const TRACK_BRICK_WALL_RIGHT_GRASS = 117;
 //151 through 200 are dedicated for city objects
 const TRACK_L_SHAPE_HOUSE_A = 151;
 const TRACK_L_SHAPE_HOUSE_B = 152;
-//153 TO 160 are available
+const TRACK_LONG_HOUSE_A = 153;
+const TRACK_LONG_HOUSE_B = 154;
+//155 TO 160 are available
 const TRACK_L_SHAPE_HOUSE_C = 161;
 const TRACK_L_SHAPE_HOUSE_D = 162;
+const TRACK_LONG_HOUSE_C = 163;
+const TRACK_LONG_HOUSE_D = 164;
 
 function getCurrentTrackCols() {
 	return levelList[levelNow].cols;
@@ -249,7 +253,11 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_A ||
 			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_B ||
 			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_C ||
-			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_D 
+			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_D ||
+			transparencyCheckTypeHere == TRACK_LONG_HOUSE_A ||
+			transparencyCheckTypeHere == TRACK_LONG_HOUSE_B ||
+			transparencyCheckTypeHere == TRACK_LONG_HOUSE_C ||
+			transparencyCheckTypeHere == TRACK_LONG_HOUSE_D 
 			);
 }
 
