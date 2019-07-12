@@ -288,6 +288,13 @@ function carClass() {
 
     this.skidMarkHandling = function() { // draw tire tracks / skid marks
 
+        if (SMOKE_FX_ENABLED) {
+            SmokeFX.add(this.x-camPanX, this.y-camPanY, // FIXME: why offset
+                Math.cos(this.ang)*this.speed*-2 +Math.random()-0.5,
+                Math.sin(this.ang)*this.speed*-2 +Math.random()-0.5,
+                [0.25,0.25,0.2], 16);
+        }
+
         // never leave a trail when flying through the air
         if (this.airborne) return;
         // nor if we aren't putting our foot on the gas

@@ -1,5 +1,9 @@
-var isWideScreen = false;
 
+const SMOKE_FX_ENABLED = false; // if true, we get a gpu powered particle system
+var SmokeFX;
+
+const FPS = 30; // TODO: test running at 60fps
+var isWideScreen = false;
 const ASPECT_RATIO_WIDTH = isWideScreen ? 16 : 4;
 const ASPECT_RATIO_HEIGHT = isWideScreen ? 9 : 3;
 const CANVAS_WIDTH = 800;
@@ -81,16 +85,22 @@ function resizeCanvas() {
 }
 
 function imageLoadingDoneSoStartGame(){
-	var framesPerSecond = 30;
-	setInterval(function() {
+
+    var framesPerSecond = FPS;
+
+    setInterval(function() {
 		moveEverything();
-		drawEverything();
+        drawEverything();
+        if (SMOKE_FX_ENABLED) SmokeFX.update();
 	}, 1000/framesPerSecond);
-	for (var i = 0; i < vehicleList.length; i++) {
+
+    for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
 	}
 
-//	loadLevel(levelOne);
+    if (SMOKE_FX_ENABLED) SmokeFX = new SmokeFXClass();
+
+    //	loadLevel(levelOne);
 	loadLevel(levelList[0]);
 }
 
@@ -149,7 +159,8 @@ function moveEverything() {
 				if(firstPlaceFilled){ //sound bite for the winner
 					soundDelayTimer++;
 					announceRaceCarNumber(40);
-				}
+                }
+                
 			} else {
 				prepareForRace();
 			}
