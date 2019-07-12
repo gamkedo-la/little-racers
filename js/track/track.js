@@ -69,6 +69,7 @@ const TRACK_L_SHAPE_HOUSE_C = 161;
 const TRACK_L_SHAPE_HOUSE_D = 162;
 const TRACK_LONG_HOUSE_C = 163;
 const TRACK_LONG_HOUSE_D = 164;
+const TRACK_L_SHAPE_HOUSE_E = 171;
 
 function getCurrentTrackCols() {
 	return levelList[levelNow].cols;
@@ -254,6 +255,7 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_B ||
 			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_C ||
 			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_D ||
+			transparencyCheckTypeHere == TRACK_L_SHAPE_HOUSE_E ||
 			transparencyCheckTypeHere == TRACK_LONG_HOUSE_A ||
 			transparencyCheckTypeHere == TRACK_LONG_HOUSE_B ||
 			transparencyCheckTypeHere == TRACK_LONG_HOUSE_C ||
