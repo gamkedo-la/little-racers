@@ -131,9 +131,9 @@ function addTrackImageAtTileIndex(trackCode, index) {
 function drawTracks() {
 	if(terrainChanged) {
 		drawTracksByTile();
-	} else {
-		drawTrackByCanvas();
-	}
+	} 
+
+	drawTrackByCanvas();
 }
 
 //TODO: Fix this.  Only works correctly when drawing entire track (0, 0) to ('maxCol', 'maxRow')
@@ -216,7 +216,6 @@ function drawTracksByTile() {
 	drawTrackByTileAtCoords(0, 0, currentCols, currentRows);
 
 	terrainChanged = false;
-	drawTrackByCanvas();
 }
 
 function tileTypeHasRoadTransparency(transparencyCheckTypeHere){

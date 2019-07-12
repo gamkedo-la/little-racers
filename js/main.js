@@ -4,6 +4,7 @@ const ASPECT_RATIO_WIDTH = isWideScreen ? 16 : 4;
 const ASPECT_RATIO_HEIGHT = isWideScreen ? 9 : 3;
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
+const OFFSCREEN_DRAW_DELAY = 10;//ensures the win screen is displayed before starting to load next level image
 
 var canvas;
 var canvasContext;
@@ -282,6 +283,9 @@ function drawEverything() {
 		drawLevelEditor();
 	} else if (winScreen){
 		drawWinScreen();
+		if((Date.now() - winScreenTime > OFFSCREEN_DRAW_DELAY) && (terrainChanged)) {
+			drawTracksByTile();
+		}
 	} else if (carUpgradeScreen){
 		drawCarUpgradeScreen();
 	} else {

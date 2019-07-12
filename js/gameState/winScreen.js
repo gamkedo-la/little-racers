@@ -1,4 +1,5 @@
 var winScreenTime = 0;
+const SHOW_WINSCREEN_TIME = 3500;//time to show the win screen in milliseconds
 
 function drawWinScreen(){
 	//placed position
@@ -48,8 +49,11 @@ function drawWinScreen(){
 }
 
 function winScreenTimer(){
-	winScreenTime++;
-	if(winScreenTime == 200){
+	if(winScreenTime == 0) {
+		winScreenTime = Date.now();
+	} 
+
+	if(Date.now() - winScreenTime >= SHOW_WINSCREEN_TIME) {
 		winScreenTime = 0;
 		winScreen = false;
 		carUpgradeScreen = true;
