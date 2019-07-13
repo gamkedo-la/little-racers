@@ -125,36 +125,18 @@ function moveEverything() {
 				
 				handleJoystickControls(); // optionally
 				
+                //Move vehicles. Includes AI decisions on turning and gas.
 				for (var i = 0; i < vehicleList.length; i++) {
 					vehicleList[i].movement();
 				}
 
+                //Handle collisions between cars based on their new positions.
 				for (var i = 0; i < vehicleList.length; i++) {
 					for (var ii = i+1; ii < vehicleList.length; ii++) {
 						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
 					}
 				}
 				
-				for (var i = 0; i < vehicleList.length; i++) {
-					for (var ii = 0; ii < vehicleList.length; ii++) {
-						if(i != ii){
-							vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
-							var carVectorX = Math.cos(vehicleList[i].ang); 
-							var carVectorY = Math.sin(vehicleList[i].ang);
-							var distInFrontOfCenter = 25;
-							var carFrontX = vehicleList[i].x + carVectorX * distInFrontOfCenter;
-							var carFrontY = vehicleList[i].y + carVectorY * distInFrontOfCenter;
-							var dot = dotProduct(carVectorX, carVectorY, carFrontX - vehicleList[ii].x, carFrontY - vehicleList[ii].y);
-							var distance = dist (vehicleList[i].x, vehicleList[i].y, vehicleList[ii].x, vehicleList[ii].y);							
-							if (dot < 0) { // it's infront of us
-								if (distance < 35){
-									vehicleList[i].speed *= 0.25;
-								}
-							} 
-						}
-					}
-				}
-//				console.log(vehicleList[0].ang);
 				updateTime();
 				if(firstPlaceFilled){ //sound bite for the winner
 					soundDelayTimer++;
@@ -330,10 +312,4 @@ function drawEverything() {
 			colorText("PAUSED", 300, canvas.height/scaleHeight - 50, "white", "36px Arial Black");
 		}
 	}
-}
-
-function dist (x1, y1, x2, y2){
-	var xd = x2 - x1;
-	var yd = y2 - y1;
-	return Math.sqrt(xd * xd + yd * yd);
 }

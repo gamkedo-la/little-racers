@@ -20,6 +20,9 @@ const TURN_RATE_MULTIPLIER_GRASS = 0.75;
 const NITRO_FRAME_DURATION = 10; //Being measured in frames, so at 30fps this is 1/3 second.
 const NITRO_BOOST_BASE_AMOUNT = 1.8; //Speed increase per frame.
 const NITRO_START_QUANTITY = 5;
+const AI_BRAKING_DISTANCE = 50;   //Measured from car center.
+const AI_BRAKING_OBSERVATION_ANGLE_90 = 0.707;
+const AI_BRAKING_OBSERVATION_ANGLE_110 = 0.5743;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 
@@ -370,14 +373,25 @@ function carClass() {
         this.skidMarkHandling();
     }
 
+    //Handle AI steering and throttle
     this.doComputerPlayerDriving = function() {
-        if (this.stopCar) {
+        
+        if (this.stopCar) { //Car stopped due to things like being done the race and parked.
             this.keyHeld_Gas = false;
             this.speed = 0;
             this.ang = -Math.PI / 2;
             return;
-        } else {
-            this.keyHeld_Gas = true;
+        }
+        else
+        {
+            if (this.isAnotherCarNearAndInFront())
+            {
+                this.keyHeld_Gas = false; //This requires adjustment based on AI characteristics for aggressiveness, mood, etc.
+            }
+            else
+            {
+                this.keyHeld_Gas = true;
+            }
         }
 
         if (this.aiRandomMovements) {
@@ -394,6 +408,45 @@ function carClass() {
                 this.wayPointY = 460;
             }
         }
+    }
+
+    //Check if there is at least one car in front and the AI may want to brake.
+    //This is pretty inefficient. Ideally, we could check all interactions and record the state, then make the decision later.
+    //But since we're doing this as part of the movement for each car, we'll need to check it every time.
+    //To save some overhead, return as soon as a close car in front is found.
+    this.isAnotherCarNearAndInFront = function()
+    {
+        for (var i = 0; i < vehicleList.length; i++) {
+            if (this != vehicleList[i])
+            {
+                var distance = dist(this.x, this.y, vehicleList[i].x, vehicleList[i].y);
+
+                if(distance < AI_BRAKING_DISTANCE)
+                {
+                    //Get this car's driving vector (unit vector).
+                    var carVectorX = Math.cos(this.ang);
+                    var carVectorY = Math.sin(this.ang);
+
+                    //Get the unit vector to the other car.
+                    var vecToOtherCar = {}
+                    vecToOtherCar.x = vehicleList[i].x - this.x;
+                    vecToOtherCar.y = vehicleList[i].y - this.y;
+                    vecToOtherCar = normalizeVector(vecToOtherCar.x, vecToOtherCar.y);
+
+                    var dot = dotProduct(carVectorX, carVectorY, vecToOtherCar.x, vecToOtherCar.y);
+
+                    //This check tests two things:
+                    // 1) Dot product greater than 0 means the other car is in front of this car. (Vectors are in the same direction)
+                    // 2) Since they were both unit vectors the result will always be from -1..1. A 45 degree angle between the vectors
+                    //    gives a result of 0.707. So checking for > 0.707 means the other car is within a 90 degree window of this car.
+                    if (dot > AI_BRAKING_OBSERVATION_ANGLE_90)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false; //No other cars near.
     }
 
     this.updateCarSpeedAndTurnRate = function() {
