@@ -834,7 +834,9 @@ function carClass() {
         }
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang);
         if (debugMode) {
-            drawRotatedRectWithLines(this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
+            //Please leave this here but commented out so I don't have to remember how to set it up properly.
+            //Draws the red rectangles around cars; use if you're needing some help with collision detection.
+            //drawRotatedRectWithLines(this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
             colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
             colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
         }
