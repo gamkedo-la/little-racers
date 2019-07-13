@@ -641,7 +641,7 @@ function carClass() {
                 this.speed = -.5 * this.speed;
                 //crashIntoConeSound.play();
                 break;
-            default: //Handles collision with solid tiles
+            default: //Handles collision with solid tiles. Really, this catch-all should generally be avoided.
                 this.speed = -.5 * this.speed;
         }
     }
@@ -776,11 +776,10 @@ function carClass() {
         var yOffSet = this.y;
         if (this.airborne) {
             yOffSet = yOffSet - 10;
-            //TO DO - don't collide with anything except the perimeter wall
         }
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang);
         if (debugMode) {
-            drawRotatedRectWithLines(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
+            drawRotatedRectWithLines(this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
             colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
             colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
         }

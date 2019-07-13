@@ -29,13 +29,14 @@ function drawBitmapCenteredAtLocationWithRotation(graphic, atX, atY, withAngle){
 
 //While this function could rotate the context to draw a rotated rect, it's a work in progress being used to determine if
 //calculating the corners of the car graphic is possible for use in collisions.
-function drawRotatedRectWithLines(graphic, atX, atY, width, height, angle)
+function drawRotatedRectWithLines(atX, atY, width, height, angle)
 {
     xOffset=width/2;
     yOffset=height/2;
     var hypLength = Math.sqrt(yOffset*yOffset + xOffset*xOffset);
     canvasContext.beginPath();
-    canvasContext.strokeStyle="#FF0000";
+    canvasContext.strokeStyle="red";
+    canvasContext.lineWidth = 2;
 
     var tl, tr, br, bl = {};
     tl=getRotatedPoint(atX, atY, atX-xOffset, atY-yOffset, angle);
@@ -43,11 +44,11 @@ function drawRotatedRectWithLines(graphic, atX, atY, width, height, angle)
     br=getRotatedPoint(atX, atY, atX+xOffset, atY+yOffset, angle);
     bl=getRotatedPoint(atX, atY, atX-xOffset, atY+yOffset, angle);
 
-    canvasContext.moveTo(tl.newX, tl.newY);
-    canvasContext.lineTo(tr.newX, tr.newY);
-    canvasContext.lineTo(br.newX, br.newY);
-    canvasContext.lineTo(bl.newX, bl.newY);
-    canvasContext.lineTo(tl.newX, tl.newY);
+    canvasContext.moveTo(tl.x, tl.y);
+    canvasContext.lineTo(tr.x, tr.y);
+    canvasContext.lineTo(br.x, br.y);
+    canvasContext.lineTo(bl.x, bl.y);
+    canvasContext.lineTo(tl.x, tl.y);
 
     canvasContext.stroke();
 }
@@ -62,9 +63,10 @@ function colorText(showWords, textX, textY, fillColor, font = "14px Arial Black"
 
 function colorLine(x1, y1, x2, y2, color){
 	canvasContext.beginPath();
+	canvasContext.strokeStyle = color;
+	canvasContext.lineWidth = 1;
 	canvasContext.moveTo(x1, y1);
 	canvasContext.lineTo(x2, y2);
-	canvasContext.strokeStyle = color;
 	canvasContext.stroke();
 }
 
