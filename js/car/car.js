@@ -23,6 +23,8 @@ const NITRO_START_QUANTITY = 5;
 const AI_BRAKING_DISTANCE = 50;   //Measured from car center.
 const AI_BRAKING_OBSERVATION_ANGLE_90 = 0.707;
 const AI_BRAKING_OBSERVATION_ANGLE_110 = 0.5743;
+const AI_STUCK_TIME_FRAMES = 10;
+const AI_RANDOM_MOVEMENT_FRAMES = 30;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 
@@ -160,7 +162,7 @@ function carClass() {
         if (chanceToUseNitro <= 1) {
             this.controlKeyForNitro = true;
         }
-        if (this.randomMovementsTimer > 300) {
+        if (this.randomMovementsTimer > AI_RANDOM_MOVEMENT_FRAMES) {
             this.randomMovementsTimer = 0;
             this.aiRandomMovements = false;
             this.wayPoint = true;
@@ -258,7 +260,7 @@ function carClass() {
     this.checkIfStuck = function() {
         if (this.speed < 1) {
             this.stuckTime++;
-            if (this.stuckTime == 100) {
+            if (this.stuckTime == AI_STUCK_TIME_FRAMES) {
                 this.aiRandomMovements = true;
                 this.wayPoint = false;
                 this.stuckTime = 0;
