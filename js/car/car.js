@@ -347,7 +347,7 @@ function carClass() {
     this.tryNitroBoost = function() {
         if (this.nitroBoostQuantity > 0 && !this.nitroBoostOn) {
             this.nitroBoostQuantity--;
-            this.nitroBoostTime = NITRO_FRAME_DURATION;
+            this.nitroBoostTime = NITRO_FRAME_DURATION * (this.nitroVersion + 1);
             this.nitroBoostOn = true;
         }
     }
