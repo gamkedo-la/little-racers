@@ -38,6 +38,14 @@ var displayRedLight = false;
 var displayYellowLight = false;
 var displayGreenLight = false;
 
+var fuelMeterP1 = new MeterClass(10, 520);
+fuelMeterP1.meterPic = fuelGaugePic;
+var speedometerP1 = new MeterClass(50, 440);
+
+var fuelMeterP2 = new MeterClass(715, 520);
+fuelMeterP2.meterPic = fuelGaugePic;
+var speedometerP2 = new MeterClass(715 - 45, 440);
+
 //Debug Options
 var debugMode = true;
 var allowRescale = true;
@@ -219,6 +227,28 @@ function drawStartLights(){
 	}
 }
 
+function drawAllMeters() {
+	var playerOne = vehicleList[0];
+	var playerTwo = vehicleList[1];
+
+	fuelMeterP1.maxValue = playerOne.fuelCapacity;
+	fuelMeterP1.currentValue = playerOne.fuelInTank;		
+	fuelMeterP1.draw();
+
+	speedometerP1.maxValue = playerOne.maxSpeed;
+	speedometerP1.currentValue = Math.abs(playerOne.speed);
+	speedometerP1.draw();
+
+	if (!playerTwo.computerPlayer) {
+		fuelMeterP2.maxValue = playerTwo.fuelCapacity;
+		fuelMeterP2.currentValue = playerTwo.fuelInTank;
+		fuelMeterP2.draw();
+
+		speedometerP2.maxValue = playerTwo.maxSpeed;
+		speedometerP2.currentValue = Math.abs(playerTwo.speed);
+		speedometerP2.draw();
+	}
+}
 
 function drawEverything() {
 	if(titleScreen){
@@ -244,6 +274,7 @@ function drawEverything() {
 		drawClock();
 		drawLapOneTime();
 		drawStartLights();
+		drawAllMeters();
 		
 		//console.log("raining ", raining);
 		if (raining) {
