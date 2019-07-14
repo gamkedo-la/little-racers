@@ -38,12 +38,6 @@ var displayRedLight = false;
 var displayYellowLight = false;
 var displayGreenLight = false;
 
-var p1Speedometer = new speedometerClass();
-var p2Speedometer = new speedometerClass();
-
-var p1FuelGauge = new fuelGaugeClass();
-var p2FuelGauge = new fuelGaugeClass();
-
 //Debug Options
 var debugMode = true;
 var allowRescale = true;
@@ -225,49 +219,6 @@ function drawStartLights(){
 	}
 }
 
-function drawSpeedometers() {
-	var playerOne = vehicleList[0];
-	var playerTwo = vehicleList[1];
-
-	if (!playerTwo.computerPlayer) {
-		// TODO: draw two speedometers
-		p1Speedometer.positionX = 15;
-		p1Speedometer.positionY = 532;
-		p1Speedometer.maxValue = playerOne.maxSpeed;
-		p1Speedometer.currentValue = Math.abs(playerOne.speed);
-
-		p1Speedometer.draw();
-	} else {
-		p1Speedometer.positionX = 15;
-		p1Speedometer.positionY = 532;
-		p1Speedometer.maxValue = playerOne.maxSpeed;
-		p1Speedometer.currentValue = Math.abs(playerOne.speed);
-
-		p1Speedometer.draw();
-	}
-}
-
-function drawFuelGauges() {
-	var playerOne = vehicleList[0];
-	var playerTwo = vehicleList[1];
-
-	if (!playerTwo.computerPlayer) {
-		// TODO: draw two fuel gauges
-		p1FuelGauge.positionX = 715;
-		p1FuelGauge.positionY = 532;
-		p1FuelGauge.maxValue = playerOne.fuelCapacity;
-		p1FuelGauge.currentValue = playerOne.fuelInTank;
-
-		p1FuelGauge.draw();
-	} else {
-		p1FuelGauge.positionX = 715;
-		p1FuelGauge.positionY = 532;
-		p1FuelGauge.maxValue = playerOne.fuelCapacity;
-		p1FuelGauge.currentValue = playerOne.fuelInTank;
-
-		p1FuelGauge.draw();
-	}
-}
 
 function drawEverything() {
 	if(titleScreen){
@@ -293,8 +244,7 @@ function drawEverything() {
 		drawClock();
 		drawLapOneTime();
 		drawStartLights();
-		drawSpeedometers();
-		drawFuelGauges();
+		
 		//console.log("raining ", raining);
 		if (raining) {
 			//setInterval(function(){ addRainToArray(); }, 3000);
