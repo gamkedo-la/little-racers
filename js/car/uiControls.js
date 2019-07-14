@@ -51,9 +51,9 @@ function initInput(){
 	} );
 	
 	if(computerPlayerOn) {
-		vehicleList[1].setupControls(KEY_W, KEY_S, KEY_A, KEY_D, KEY_F);
+		vehicleList[1].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER);
 	}
-	vehicleList[0].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER); 
+	vehicleList[0].setupControls(KEY_W, KEY_S, KEY_A, KEY_D, KEY_F);
 }
 
 function keyPressed(evt) {
