@@ -1,7 +1,7 @@
 var winScreenTime = 0;
 const SHOW_WINSCREEN_TIME = 3500;//time to show the win screen in milliseconds
 
-function drawWinScreen(){
+function drawWinScreen(canvas, canvasContext){
 	//placed position
 	var placePositionX = 80;
 	var placePositionY = 295;
@@ -36,7 +36,7 @@ function drawWinScreen(){
 		colorText("Nitro: " + vehicleList[i].nitroVersion, carColumnOneX + 12, carRowOneY + (150 * i) + 48, 'black', font = "10px Arial Black");
 		colorText("Exhaust: " + vehicleList[i].exhaustVersion, carColumnOneX + 12, carRowOneY + (150 * i) + 60,  'black', font = "10px Arial Black");
 		colorText("Cash: $" + vehicleList[i].cash, carColumnOneX + 130, carRowOneY + (150 * i) + 110,  'green', font = "10px Arial Black");
-		drawBitmapCenteredAtLocationWithRotation(vehicleList[i].myBitmap, carColumnOneX + 150, carRowOneY + (150 * i), 0);
+		drawBitmapCenteredAtLocationWithRotation(vehicleList[i].myBitmap, carColumnOneX + 150, carRowOneY + (150 * i), 0, canvasContext);
 		//row 2
 		colorText(vehicleList[i+4].myName, carColumnTwoX, carRowOneY + (150 * i), 'black', font = "20px Arial Black");
 		colorText("Transmission: " + vehicleList[i+4].transmissionVersion, carColumnTwoX + 12, carRowOneY + (150 * i) + 24, 'black', font = "10px Arial Black");
@@ -44,7 +44,7 @@ function drawWinScreen(){
 		colorText("Nitro: " + vehicleList[i+4].nitroVersion, carColumnTwoX + 12, carRowOneY + (150 * i) + 48, 'black', font = "10px Arial Black");
 		colorText("Exhaust: " + vehicleList[i+4].exhaustVersion, carColumnTwoX + 12, carRowOneY + (150 * i) + 60,  'black', font = "10px Arial Black");
 		colorText("Cash: $" + vehicleList[i+4].cash, carColumnTwoX + 130, carRowOneY + (150 * i) + 110,  'green', font = "10px Arial Black");
-		drawBitmapCenteredAtLocationWithRotation(vehicleList[i+4].myBitmap, carColumnTwoX + 150, carRowOneY + (150 * i), 0);
+		drawBitmapCenteredAtLocationWithRotation(vehicleList[i+4].myBitmap, carColumnTwoX + 150, carRowOneY + (150 * i), 0, canvasContext);
 	}
 }
 

@@ -842,14 +842,14 @@ function carClass() {
         }
     }
 
-    this.drawCar = function() {
-        drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang);
+    this.drawCar = function(canvasContext) {
+        drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang, canvasContext);
         var xOffSet = this.x;
         var yOffSet = this.y;
         if (this.airborne) {
             yOffSet = yOffSet - 10;
         }
-        drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang);
+        drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang, canvasContext);
         if (debugMode) {
             //Please leave this here but commented out so I don't have to remember how to set it up properly.
             //Draws the red rectangles around cars; use if you're needing some help with collision detection.

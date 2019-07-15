@@ -33,7 +33,7 @@ var optionsSelected = false;
 var purchaseBox = false;
 var purchaseItem;
 
-function drawCarUpgradeScreen(){
+function drawCarUpgradeScreen(canvas, canvasContext){
 	colorRect(0,0,canvas.width * scaleWidth, canvas.height * scaleHeight, 'white');
 	canvasContext.drawImage(bodyShopGaragePic, 0, 0);
 	canvasContext.drawImage(bodyShopPic, 0, 0);

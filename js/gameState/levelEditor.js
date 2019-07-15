@@ -1,6 +1,6 @@
 var boxTopLeft = 540;
 
-function drawLevelEditor(){
+function drawLevelEditor(canvas, canvasContext){
 	colorRect(0,0,canvas.width,canvas.height, 'green');	
 	shiftForCameraPan();
 	drawTracksByTile();
@@ -8,8 +8,8 @@ function drawLevelEditor(){
 	for(var i = 0; i < 7; i++) {
 		colorRect((i * 100 + 75), 540, 50, 50, 'grey')
 	}
-	drawBitmapCenteredAtLocationWithRotation(arrowPic, 100, boxTopLeft+25, 0);
-	drawBitmapCenteredAtLocationWithRotation(arrowPic, 700, boxTopLeft+25, 3.14);
+	drawBitmapCenteredAtLocationWithRotation(arrowPic, 100, boxTopLeft+25, 0, canvasContext);
+	drawBitmapCenteredAtLocationWithRotation(arrowPic, 700, boxTopLeft+25, 3.14, canvasContext);
 	colorText('Left', 90, boxTopLeft - 10, 'black', font = "14px Arial Black");
 	colorText('Right', 685, boxTopLeft - 10, 'black', font = "14px Arial Black");
 	for(var i = 1; i < 6; i++) {

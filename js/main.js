@@ -12,10 +12,16 @@ const OFFSCREEN_DRAW_DELAY = 10;//ensures the win screen is displayed before sta
 
 var canvas;
 var canvasContext;
+var canvas2;
+var canvasContext2;
+
 var mouseX = 0;
 var mouseY = 0;
 var scaleWidth = 1;
 var scaleHeight = 1;
+
+var cameraP1 = new Camera();
+var cameraP2 = new Camera();
 
 var now = new Date();
 var time = 0;
@@ -42,9 +48,9 @@ var fuelMeterP1 = new MeterClass(10, 520);
 fuelMeterP1.meterPic = fuelGaugePic;
 var speedometerP1 = new MeterClass(50, 440);
 
-var fuelMeterP2 = new MeterClass(715, 520);
+var fuelMeterP2 = new MeterClass(10, 520);
 fuelMeterP2.meterPic = fuelGaugePic;
-var speedometerP2 = new MeterClass(715 - 45, 440);
+var speedometerP2 = new MeterClass(50, 440);
 
 //Debug Options
 var debugMode = true;
@@ -56,12 +62,16 @@ var isMouseDragging = false;
 window.onload = function(){
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
+	canvas2 = document.getElementById('gameCanvas2');
+	canvasContext2 = canvas2.getContext('2d');
+
 	window.addEventListener("resize", resizeCanvas);
 	for (var i = 0; i < 8; i++) {
 		addVehicle();
 	}
 	if (allowRescale) {
-		resizeCanvas();
+		resizeCanvas(canvas, canvasContext);
+		resizeCanvas(canvas2, canvasContext2);
 	}
 	window.addEventListener('focus', function () {
 		paused = false;
@@ -76,7 +86,7 @@ window.onload = function(){
 	}
 }
 
-function resizeCanvas() {
+function resizeCanvas(canvas, canvasContext) {
 	if (allowRescale) {
 	    canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;
 		canvas.height = window.innerHeight;
@@ -122,7 +132,10 @@ function moveEverything() {
 		//Intentionally left empty - no movement
 	} else {
 		if(!paused){
-			updatedCameraPosition();
+			cameraP1.follow(canvas, vehicleList[0]);
+			if (!vehicleList[1].computerPlayer) {
+				cameraP2.follow(canvas2, vehicleList[1]);
+			}
 			if(raceHasStarted){
 				
 				handleJoystickControls(); // optionally
@@ -227,26 +240,36 @@ function drawStartLights(){
 	}
 }
 
-function drawAllMeters() {
-	var playerOne = vehicleList[0];
-	var playerTwo = vehicleList[1];
+function drawP1Meters(canvasContext) {
+	var playerOne = vehicleList[0];	
 
 	fuelMeterP1.maxValue = playerOne.fuelCapacity;
 	fuelMeterP1.currentValue = playerOne.fuelInTank;		
-	fuelMeterP1.draw();
+	fuelMeterP1.draw(canvasContext);
 
 	speedometerP1.maxValue = playerOne.maxSpeed;
 	speedometerP1.currentValue = Math.abs(playerOne.speed);
-	speedometerP1.draw();
+	speedometerP1.draw(canvasContext);
+}
 
-	if (!playerTwo.computerPlayer) {
-		fuelMeterP2.maxValue = playerTwo.fuelCapacity;
-		fuelMeterP2.currentValue = playerTwo.fuelInTank;
-		fuelMeterP2.draw();
+function drawP2Meters(canvasContext) {
+	var playerTwo = vehicleList[1];
 
-		speedometerP2.maxValue = playerTwo.maxSpeed;
-		speedometerP2.currentValue = Math.abs(playerTwo.speed);
-		speedometerP2.draw();
+	fuelMeterP2.maxValue = playerTwo.fuelCapacity;
+	fuelMeterP2.currentValue = playerTwo.fuelInTank;
+	fuelMeterP2.draw(canvasContext);
+
+	speedometerP2.maxValue = playerTwo.maxSpeed;
+	speedometerP2.currentValue = Math.abs(playerTwo.speed);
+	speedometerP2.draw(canvasContext);
+}
+
+function drawTracksOnScreen(canvas, canvasContext) {
+	drawTracks(canvasContext);
+	tireTracks.draw(canvasContext);
+	
+	for (var i = 0; i < vehicleList.length; i++) {
+		vehicleList[i].drawCar(canvasContext);
 	}
 }
 
@@ -254,27 +277,40 @@ function drawEverything() {
 	if(titleScreen){
 		drawTitleScreen();
 	} else if (levelEditor) {
-		drawLevelEditor();
+		drawLevelEditor(canvas, canvasContext);
 	} else if (winScreen){
-		drawWinScreen();
+		drawWinScreen(canvas, canvasContext);
 		if((Date.now() - winScreenTime > OFFSCREEN_DRAW_DELAY) && (terrainChanged)) {
 			drawTracksByTile();
 		}
 	} else if (carUpgradeScreen){
-		drawCarUpgradeScreen();
-	} else {
-		colorRect(0,0,canvas.width/scaleWidth,canvas.height/scaleHeight, 'black');
-		shiftForCameraPan();
-		drawTracks();
-		tireTracks.draw();
-		for (var i = 0; i < vehicleList.length; i++) {
-			vehicleList[i].drawCar();
+		drawCarUpgradeScreen(canvas, canvasContext);
+		if (!vehicleList[1].computerPlayer) {
+			drawCarUpgradeScreen(canvas2, canvasContext2);
 		}
-		finishedCameraPan();
+	} else {		
+		canvas.width = !vehicleList[1].computerPlayer ? CANVAS_WIDTH / 2 : CANVAS_WIDTH;	
+		
+		cameraP1.startPan(canvasContext);
+		drawTracksOnScreen(canvas, canvasContext);
+		cameraP1.endPan(canvasContext);
+
 		drawClock();
 		drawLapOneTime();
 		drawStartLights();
-		drawAllMeters();
+		drawP1Meters(canvasContext);
+
+		if (!vehicleList[1].computerPlayer) {
+			canvas2.width = CANVAS_WIDTH / 2;
+
+			cameraP2.startPan(canvasContext2);
+			drawTracksOnScreen(canvas2, canvasContext2);
+			cameraP2.endPan(canvasContext2);
+			
+			drawP2Meters(canvasContext2);
+		} else {
+			canvas2.width = 0;
+		}
 		
 		//console.log("raining ", raining);
 		if (raining) {

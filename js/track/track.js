@@ -122,7 +122,7 @@ function loadLevel(whichLevel) {
 	//addRainToArray();
 }
 
-function drawTrackByCanvas() {
+function drawTrackByCanvas(canvasContext) {
 	canvasContext.drawImage(TRACK_CANVAS, 0, 0);
 }
 
@@ -145,12 +145,12 @@ function addTrackImageAtTileIndex(trackCode, index) {
 	addTrackImageAtPixelPos(trackCode, pixelPos.x, pixelPos.y);
 }
 
-function drawTracks() {
+function drawTracks(canvasContext) {
 	if(terrainChanged) {
 		drawTracksByTile();
 	} 
 
-	drawTrackByCanvas();
+	drawTrackByCanvas(canvasContext);
 }
 
 //TODO: Fix this.  Only works correctly when drawing entire track (0, 0) to ('maxCol', 'maxRow')

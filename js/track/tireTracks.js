@@ -62,7 +62,7 @@ var decalManager = function() {
 
 	};
 
-	this.draw = function() {
+	this.draw = function(canvasContext) {
 		canvasContext.drawImage(this.tireTrackCanvas, 0, 0);
 	};
 

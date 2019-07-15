@@ -1,32 +1,34 @@
-var camPanX = 0;
-var camPanY = 0;
+function Camera () {
+	this.panX = 0;
+	this.panY = 0;
 
-function updatedCameraPosition(){
-	camPanX = vehicleList[0].x - (canvas.width/2)/scaleWidth;
-	camPanY = vehicleList[0].y - (canvas.height/2)/scaleHeight;
-	if(camPanX < 0){
-		camPanX = 0;
-	}
-	if(camPanY < 0){
-		camPanY = 0;
-	}
-	
-	var rightEdgeX = TRACK_W * getCurrentTrackCols();
-	var bottomEdgeY = TRACK_H * getCurrentTrackRows();
-	
-	if(camPanX >= rightEdgeX - 1 - canvas.width/scaleWidth){
-		camPanX = rightEdgeX - 1 - canvas.width/scaleWidth ;
-	}
-	if(camPanY >= bottomEdgeY - 1 - canvas.height/scaleHeight){
-		camPanY = bottomEdgeY - 1 - canvas.height/scaleHeight;
-	}
-}
+	this.follow = function (canvas, target) {
+		this.panX = target.x - (canvas.width/2)/scaleWidth;
+		this.panY = target.y - (canvas.height/2)/scaleHeight;
+		if(this.panX < 0){
+			this.panX = 0;
+		}
+		if(this.panY < 0){
+			this.panY = 0;
+		}
+		
+		var rightEdgeX = TRACK_W * getCurrentTrackCols();
+		var bottomEdgeY = TRACK_H * getCurrentTrackRows();
+		
+		if(this.panX >= rightEdgeX - 1 - canvas.width/scaleWidth){
+			this.panX = rightEdgeX - 1 - canvas.width/scaleWidth ;
+		}
+		if(this.panY >= bottomEdgeY - 1 - canvas.height/scaleHeight){
+			this.panY = bottomEdgeY - 1 - canvas.height/scaleHeight;
+		}
+	};
 
-function shiftForCameraPan(){
-	canvasContext.save();
-	canvasContext.translate(-camPanX, -camPanY);
-}
+	this.startPan = function (ctx = canvasContext) {
+		ctx.save();
+		ctx.translate(-this.panX, -this.panY);
+	};
 
-function finishedCameraPan(){
-	canvasContext.restore();
+	this.endPan = function (ctx = canvasContext) {
+		ctx.restore();
+	};
 }

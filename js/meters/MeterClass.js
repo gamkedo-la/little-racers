@@ -46,7 +46,7 @@ function MeterClass(x = 0,
         return needleAngle;
     }
 
-    this.drawNeedle = function(needlePic, atX, atY, withAngle){
+    this.drawNeedle = function(canvasContext, needlePic, atX, atY, withAngle){
     	canvasContext.save(); //allows undo translate movement and rotate spin
     	canvasContext.translate(atX,atY);
     	canvasContext.rotate(withAngle); //sets the rotation
@@ -54,7 +54,8 @@ function MeterClass(x = 0,
     	canvasContext.restore(); //undoes the translation movement and rotation since save()
     }
 
-    this.draw = function(needlePic = this.needlePic,
+    this.draw = function(canvasContext, 
+                         needlePic = this.needlePic,
                          meterPic = this.meterPic,
                          color = this.color,
                          alpha = this.alpha,
@@ -67,13 +68,14 @@ function MeterClass(x = 0,
             canvasContext.drawImage(meterPic, this.x, this.y);
         }
         else {
-            outlineCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusOuter, outlineColor, outlineWidth);
+            outlineCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusOuter, outlineColor, outlineWidth, canvasContext);
             canvasContext.save();
             canvasContext.globalAlpha = alpha;
-            colorCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusInner, color);
+            colorCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusInner, color, canvasContext);
             canvasContext.restore();
         }
-        this.drawNeedle(needlePic,
+        this.drawNeedle(canvasContext,
+                        needlePic,
                         this.x + needleOffsetX,
                         this.y + needleOffsetY,
                         this.calculateNeedleAngle());
