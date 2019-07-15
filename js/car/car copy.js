@@ -188,39 +188,6 @@ function carClass() {
         }
     }
 
-    this.wayPointMovements = function(toX, toY) {
-        var wayPointVectorX = toX - this.x;
-        var wayPointVectorY = toY - this.y;
-
-
-        //When calculating the car's vector, subtract 90 degrees from it
-        //to allow for dot product to give a -ve to +ve result, indicating if car
-        //needs to steer left or right.
-        var carVectorX = Math.cos(this.ang - Math.PI / 2);
-        var carVectorY = Math.sin(this.ang - Math.PI / 2);
-        var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
-
-        if (dot < 0) {
-            this.keyHeld_TurnRight = true;
-            this.keyHeld_TurnLeft = false;
-        } else {
-            this.keyHeld_TurnRight = false;
-            this.keyHeld_TurnLeft = true;
-        }
-
-        if (dist(this.x, this.y, toX, toY) < 20) {
-            this.wayPointNumber++;
-            if (this.wayPointNumber >= this.wayPointX.length) {
-                if (!this.placedPosition) {
-                    this.wayPointNumber = 0;
-                } else {
-                    this.stopCar = true;
-                    console.log("stop car " + this.stopCar);
-                }
-            }
-        }
-    }
-
     this.findMyProperFinishSpot = function() {
     	let lastIndex = this.wayPointX.length - 1;
 		switch (this.myName) {
@@ -249,6 +216,38 @@ function carClass() {
 				this.wayPointY[lastIndex] += TRACK_H * 2;
 				break;
 		}
+    } 
+
+    this.wayPointMovements = function(toX, toY) {
+        var wayPointVectorX = toX - this.x;
+        var wayPointVectorY = toY - this.y;
+
+        //When calculating the car's vector, subtract 90 degrees from it
+        //to allow for dot product to give a -ve to +ve result, indicating if car
+        //needs to steer left or right.
+        var carVectorX = Math.cos(this.ang - Math.PI / 2);
+        var carVectorY = Math.sin(this.ang - Math.PI / 2);
+        var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
+
+        if (dot < 0) {
+            this.keyHeld_TurnRight = true;
+            this.keyHeld_TurnLeft = false;
+        } else {
+            this.keyHeld_TurnRight = false;
+            this.keyHeld_TurnLeft = true;
+        }
+
+        if (dist(this.x, this.y, toX, toY) < 20) {
+            this.wayPointNumber++;
+            if (this.wayPointNumber >= this.wayPointX.length) {
+                if (!this.placedPosition) {
+                    this.wayPointNumber = 0;
+                } else {
+                    this.stopCar = true;
+                    console.log("stop car " + this.stopCar);
+                }
+            }
+        }
     }
 
     this.checkIfStuck = function() {
@@ -284,50 +283,14 @@ function carClass() {
     const MAXSPD_TRAIL_OPACITY = 0.025; // very faint when on straighaways
     // FIXME: AI is "always turning"
     const TURNING_SKIDMARK_OPACITY = 0.025; // darker when cornering
-    const RANDSPEED = 0.25; // randomness in the speed angle
-    const SMOKESPEED = 4; // times the car speed
-    const FENDERDISTANCE = -20; // pixels from the center of the vehicle
-    var justHitTheGround = false; // jump completed this frame?
 
     this.skidMarkHandling = function() { // draw tire tracks / skid marks
 
         if (SMOKE_FX_ENABLED) {
-            
-            if (this.keyHeld_Gas) { // no smoke when gliding/braking?
-            // offset from center of sprite to near rear fender
-            var ofsx = Math.cos(this.ang)*FENDERDISTANCE;
-            var ofsy = Math.sin(this.ang)*FENDERDISTANCE;
-            var spdboost = 1;
-            var rgb;
-            if (this.speed < PEEL_OUT_SPEED) { rgb = [0.3,0.3,0.3]; }
-            else if (this.speed > MAXSPD_FOR_TRAIL) { rgb = [0.01,0.01,0.01]; }
-            else if (this.nitroBoostOn) { rgb = [0.5,0,0]; spdboost=2; }
-            else if (this.oilslickRemaining > 0) { rgb = [0.001,0.001,0.2]; spdboost=2; } // no black! [additive particles]
-            else rgb = [0.15,0.15,0.15]; // how bright 
-
-            // FIXME: draw on both cameras if splitscreen?
-            // FIXME: assumes aspect ratio of 800x600 canvas
-            SmokeFX.add(
-                this.x-cameraP1.panX+ofsx, 
-                this.y-cameraP1.panY+ofsy,
-                (Math.cos(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
-                (Math.sin(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
-                rgb, 16);
-            }
-
-            // pending ground pound (landed from a ramp jump)
-            if (justHitTheGround) {
-                console.log("Hit the ground!");
-                justHitTheGround = false;
-                for (var loop=0; loop<16; loop++) {
-                    SmokeFX.add(
-                        this.x-cameraP1.panX + ((Math.random()-0.5)*10), 
-                        this.y-cameraP1.panY + ((Math.random()-0.5)*10),
-                        ((Math.random()-0.5)*800),
-                        ((Math.random()-0.5)*500),
-                        [Math.random()*0.5,Math.random()*0.5,Math.random()*0.5], 16);
-                }
-            }
+            SmokeFX.add(this.x-camPanX, this.y-camPanY, // FIXME: why offset
+                Math.cos(this.ang)*this.speed*-2 +Math.random()-0.5,
+                Math.sin(this.ang)*this.speed*-2 +Math.random()-0.5,
+                [0.25,0.25,0.2], 16);
         }
 
         // never leave a trail when flying through the air
@@ -563,7 +526,6 @@ function carClass() {
             if (this.z > 0) {
                 this.zVel += GRAVITY;
             } else {
-                justHitTheGround = true;
                 this.airborne = false;
                 this.z = 0;
                 this.zVel = 0;
