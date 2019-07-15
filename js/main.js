@@ -1,5 +1,5 @@
 
-const SMOKE_FX_ENABLED = false; // if true, we get a gpu powered particle system
+const SMOKE_FX_ENABLED = true; // if true, we get a gpu powered particle system
 var SmokeFX;
 
 const FPS = 30; // TODO: test running at 60fps
