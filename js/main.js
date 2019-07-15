@@ -199,10 +199,15 @@ function calculateMousePos(evt) {
 	mouseY = evt.clientY - rect.top - root.scrollTop;
 }
 
-function drawClock(){
-	canvasContext.drawImage(clockPic, 350, 2);
+function drawClock(canvasContext, sx, sy, sw, sh, dx, dy, dw, dh, clockX){
+	canvasContext.drawImage(clockPic, sx, sy, sw, sh, dx, dy, dw, dh);
 	var playerOne = vehicleList[0];
-	colorText(playerOne.minuteTensSpot.toString() + playerOne.minute.toString() + ':' + playerOne.secondTensSpot.toString() + playerOne.second.toString() +':'+playerOne.tenthSecond.toString(), 368, 30, 'black');
+	colorText(playerOne.minuteTensSpot.toString() + playerOne.minute.toString() + ':' + playerOne.secondTensSpot.toString() + playerOne.second.toString() +':'+playerOne.tenthSecond.toString(), 
+			  clockX, 
+			  30, 
+			  'black', 
+			  "14px Arial Black", 
+			  canvasContext);
 }
 
 function drawLapOneTime(){
@@ -273,6 +278,34 @@ function drawTracksOnScreen(canvas, canvasContext) {
 	}
 }
 
+function drawP1Screen() {
+	canvas.width = !vehicleList[1].computerPlayer ? CANVAS_WIDTH / 2 : CANVAS_WIDTH;	
+	
+	cameraP1.startPan(canvasContext);
+	drawTracksOnScreen(canvas, canvasContext);
+	cameraP1.endPan(canvasContext);
+
+	drawClock(canvasContext, 0, 0, 100, 40, 350, 2, 100, 40, 368);
+	drawLapOneTime();
+	drawStartLights();
+	drawP1Meters(canvasContext);
+}
+
+function drawP2Screen() {
+	if (!vehicleList[1].computerPlayer) {
+		canvas2.width = CANVAS_WIDTH / 2;
+
+		cameraP2.startPan(canvasContext2);
+		drawTracksOnScreen(canvas2, canvasContext2);
+		cameraP2.endPan(canvasContext2);
+		
+		drawClock(canvasContext2, 50, 0, 50, 40, 0, 2, 50, 40, -32);
+		drawP2Meters(canvasContext2);
+	} else {
+		canvas2.width = 0;
+	}
+}
+
 function drawEverything() {
 	if(titleScreen){
 		drawTitleScreen();
@@ -288,29 +321,9 @@ function drawEverything() {
 		if (!vehicleList[1].computerPlayer) {
 			drawCarUpgradeScreen(canvas2, canvasContext2);
 		}
-	} else {		
-		canvas.width = !vehicleList[1].computerPlayer ? CANVAS_WIDTH / 2 : CANVAS_WIDTH;	
-		
-		cameraP1.startPan(canvasContext);
-		drawTracksOnScreen(canvas, canvasContext);
-		cameraP1.endPan(canvasContext);
-
-		drawClock();
-		drawLapOneTime();
-		drawStartLights();
-		drawP1Meters(canvasContext);
-
-		if (!vehicleList[1].computerPlayer) {
-			canvas2.width = CANVAS_WIDTH / 2;
-
-			cameraP2.startPan(canvasContext2);
-			drawTracksOnScreen(canvas2, canvasContext2);
-			cameraP2.endPan(canvasContext2);
-			
-			drawP2Meters(canvasContext2);
-		} else {
-			canvas2.width = 0;
-		}
+	} else {				
+		drawP1Screen();
+		drawP2Screen();		
 		
 		//console.log("raining ", raining);
 		if (raining) {
