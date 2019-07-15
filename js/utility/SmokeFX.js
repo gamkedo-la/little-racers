@@ -731,4 +731,11 @@ function SmokeFXClass(smokeCanvas) {
         */
     }
 
+
 } // end SmokeFX class
+
+// start animating the effect at 60fps
+function SmokeFXStartRendering() {
+    SmokeFX.update();
+    requestAnimationFrame(SmokeFXStartRendering);
+}

@@ -290,14 +290,35 @@ function carClass() {
     const MAXSPD_TRAIL_OPACITY = 0.025; // very faint when on straighaways
     // FIXME: AI is "always turning"
     const TURNING_SKIDMARK_OPACITY = 0.025; // darker when cornering
+    const RANDSPEED = 0.25; // randomness in the speed angle
+    const SMOKESPEED = 4; // times the car speed
+    const FENDERDISTANCE = -20; // pixels from the center of the vehicle
 
     this.skidMarkHandling = function() { // draw tire tracks / skid marks
 
         if (SMOKE_FX_ENABLED) {
-            SmokeFX.add(this.x-camPanX, this.y-camPanY, // FIXME: why offset
-                Math.cos(this.ang)*this.speed*-2 +Math.random()-0.5,
-                Math.sin(this.ang)*this.speed*-2 +Math.random()-0.5,
-                [0.25,0.25,0.2], 16);
+            
+            if (this.keyHeld_Gas) { // no smoke when gliding/braking?
+            // offset from center of sprite to near rear fender
+            var ofsx = Math.cos(this.ang)*FENDERDISTANCE;
+            var ofsy = Math.sin(this.ang)*FENDERDISTANCE;
+            var spdboost = 1;
+            var rgb;
+            if (this.speed < PEEL_OUT_SPEED) { rgb = [0.3,0.3,0.3]; }
+            else if (this.speed > MAXSPD_FOR_TRAIL) { rgb = [0.01,0.01,0.01]; }
+            else if (this.nitroBoostOn) { rgb = [0.5,0,0]; spdboost=2; }
+            else if (this.oilslickRemaining > 0) { rgb = [0.001,0.001,0.2]; spdboost=2; } // no black! [additive particles]
+            else rgb = [0.15,0.15,0.15]; // how bright 
+
+            // FIXME: draw on both cameras if splitscreen?
+            // FIXME: assumes aspect ratio of 800x600 canvas
+            SmokeFX.add(
+                this.x-cameraP1.panX+ofsx, 
+                this.y-cameraP1.panY+ofsy,
+                (Math.cos(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
+                (Math.sin(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
+                rgb, 16);
+            }
         }
 
         // never leave a trail when flying through the air

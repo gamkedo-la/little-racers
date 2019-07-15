@@ -103,14 +103,18 @@ function imageLoadingDoneSoStartGame(){
     setInterval(function() {
 		moveEverything();
         drawEverything();
-        if (SMOKE_FX_ENABLED) SmokeFX.update();
+        //not needed here anymore because it updates itself:
+        //if (SMOKE_FX_ENABLED) SmokeFX.update(); 
 	}, 1000/framesPerSecond);
 
     for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
 	}
 
-    if (SMOKE_FX_ENABLED) SmokeFX = new SmokeFXClass();
+    if (SMOKE_FX_ENABLED) {
+        SmokeFX = new SmokeFXClass();
+        SmokeFXStartRendering(); 
+    }
 
     //	loadLevel(levelOne);
 	loadLevel(levelList[0]);
