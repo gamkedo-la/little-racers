@@ -577,7 +577,7 @@ function SmokeFXClass(smokeCanvas) {
         if (!gl) return;
         
         // debug spam
-        if (DEBUG_SMOKE) this.add(mouseX,mouseY,400 * (Math.random() - 0.5),400 * (Math.random() - 0.5),[Math.random()/2,Math.random()/2, Math.random()/2],Math.random()*0.2);
+        // if (DEBUG_SMOKE) this.add(mouseX,mouseY,400 * (Math.random() - 0.5),400 * (Math.random() - 0.5),[Math.random()/2,Math.random()/2, Math.random()/2],Math.random()*0.2);
 
         resizeCanvas();
 

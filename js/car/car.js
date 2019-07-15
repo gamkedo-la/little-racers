@@ -293,6 +293,7 @@ function carClass() {
     const RANDSPEED = 0.25; // randomness in the speed angle
     const SMOKESPEED = 4; // times the car speed
     const FENDERDISTANCE = -20; // pixels from the center of the vehicle
+    var justHitTheGround = false; // jump completed this frame?
 
     this.skidMarkHandling = function() { // draw tire tracks / skid marks
 
@@ -318,6 +319,20 @@ function carClass() {
                 (Math.cos(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
                 (Math.sin(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
                 rgb, 16);
+            }
+
+            // pending ground pound (landed from a ramp jump)
+            if (justHitTheGround) {
+                console.log("Hit the ground!");
+                justHitTheGround = false;
+                for (var loop=0; loop<16; loop++) {
+                    SmokeFX.add(
+                        this.x-cameraP1.panX + ((Math.random()-0.5)*10), 
+                        this.y-cameraP1.panY + ((Math.random()-0.5)*10),
+                        ((Math.random()-0.5)*800),
+                        ((Math.random()-0.5)*500),
+                        [Math.random()*0.5,Math.random()*0.5,Math.random()*0.5], 16);
+                }
             }
         }
 
@@ -554,6 +569,7 @@ function carClass() {
             if (this.z > 0) {
                 this.zVel += GRAVITY;
             } else {
+                justHitTheGround = true;
                 this.airborne = false;
                 this.z = 0;
                 this.zVel = 0;
