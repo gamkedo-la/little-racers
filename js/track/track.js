@@ -81,12 +81,18 @@ const TRACK_L_SHAPE_HOUSE_A = 151;
 const TRACK_L_SHAPE_HOUSE_B = 152;
 const TRACK_LONG_HOUSE_A = 153;
 const TRACK_LONG_HOUSE_B = 154;
+const TRACK_TOWN_RESIDENTIAL_ONE_A = 155;
+const TRACK_TOWN_RESIDENTIAL_TWO_A = 156;
 //155 TO 160 are available
 const TRACK_L_SHAPE_HOUSE_C = 161;
 const TRACK_L_SHAPE_HOUSE_D = 162;
 const TRACK_LONG_HOUSE_C = 163;
 const TRACK_LONG_HOUSE_D = 164;
+const TRACK_TOWN_RESIDENTIAL_ONE_B = 165;
+const TRACK_TOWN_RESIDENTIAL_TWO_B = 166;
 const TRACK_L_SHAPE_HOUSE_E = 171;
+const TRACK_TOWN_RESIDENTIAL_ONE_C = 175;
+const TRACK_TOWN_RESIDENTIAL_TWO_C = 176;
 
 function getCurrentTrackCols() {
 	return levelList[levelNow].cols;
@@ -275,7 +281,14 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_LONG_HOUSE_A ||
 			transparencyCheckTypeHere == TRACK_LONG_HOUSE_B ||
 			transparencyCheckTypeHere == TRACK_LONG_HOUSE_C ||
-			transparencyCheckTypeHere == TRACK_LONG_HOUSE_D 
+			transparencyCheckTypeHere == TRACK_LONG_HOUSE_D ||
+			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_ONE_A  ||
+			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_ONE_B  ||
+			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_ONE_C  ||
+			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_TWO_A  ||
+			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_TWO_B  ||
+			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_TWO_C  
+ 
 			);
 }
 
