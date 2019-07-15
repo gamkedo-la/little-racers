@@ -44,13 +44,13 @@ var displayRedLight = false;
 var displayYellowLight = false;
 var displayGreenLight = false;
 
-var fuelMeterP1 = new MeterClass(10, 520);
+var fuelMeterP1 = new MeterClass(8, 480);
 fuelMeterP1.meterPic = fuelGaugePic;
-var speedometerP1 = new MeterClass(50, 440);
+var speedometerP1 = new MeterClass(50, 400);
 
-var fuelMeterP2 = new MeterClass(10, 520);
+var fuelMeterP2 = new MeterClass(8, 480);
 fuelMeterP2.meterPic = fuelGaugePic;
-var speedometerP2 = new MeterClass(50, 440);
+var speedometerP2 = new MeterClass(50, 400);
 
 //Debug Options
 var debugMode = true;
@@ -294,7 +294,7 @@ function drawP1Screen() {
 function drawP2Screen() {
 	if (!vehicleList[1].computerPlayer) {
 		canvas2.width = CANVAS_WIDTH / 2;
-
+		
 		cameraP2.startPan(canvasContext2);
 		drawTracksOnScreen(canvas2, canvasContext2);
 		cameraP2.endPan(canvasContext2);
