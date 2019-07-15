@@ -575,20 +575,28 @@ function SmokeFXClass(smokeCanvas) {
         
         if (!smokeCanvas) return;
         if (!gl) return;
-        
-        // debug spam
-        // if (DEBUG_SMOKE) this.add(mouseX,mouseY,400 * (Math.random() - 0.5),400 * (Math.random() - 0.5),[Math.random()/2,Math.random()/2, Math.random()/2],Math.random()*0.2);
-
+    
         resizeCanvas();
+        
+        if (titleScreen) {
+            // just for fun, spawn on the mouse cursor during the menus
+            this.add(mouseX,mouseY,
+                200 * (Math.random() - 0.5),-50 * (Math.random()),
+                [Math.random()/2,Math.random()/2, Math.random()/2],
+                Math.random()*0.2);
+
+            // fire near the logo
+            for (var loop=0; loop<50; loop++) {
+                this.add(Math.random() * smokeCanvas.width/2 + smokeCanvas.width/4, 250 + Math.random() * 20,
+                    200 * (Math.random() - 0.5), -25 * (Math.random()),
+                    [Math.random()*0.5,Math.random()*0.25,Math.random()*0.1],
+                    Math.random()*0.2);
+            }
+        }
 
 		const dt = Math.min((Date.now() - lastTime) / 1000, 0.016);
 		lastTime = Date.now();
-
 		gl.viewport(0, 0, textureWidth, textureHeight);
-
-		//if (splatStack.length > 0)
-		//	multipleSplats(splatStack.pop());
-
 		advectionProgram.bind();
 		gl.uniform2f(advectionProgram.uniforms.texelSize, 1.0 / textureWidth, 1.0 / textureHeight);
 		gl.uniform1i(advectionProgram.uniforms.uVelocity, velocity.read[2]);
