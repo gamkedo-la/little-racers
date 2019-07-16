@@ -15,7 +15,7 @@ function drawWinScreen(canvas, canvasContext){
 	canvasContext.drawImage(resultScreenPic, 0, 0);
 	//placed positions
 	colorText("1st: " + firstPlace, placePositionX, placePositionY, 'black', font = "20px Arial Black");
-	colorText("2nd: " + secondPlace, placePositionX, (placePositionY + increasePlacePositionY), 128, 'black', font = "20px Arial Black");
+	colorText("2nd: " + secondPlace, placePositionX, (placePositionY + increasePlacePositionY), 'black', font = "20px Arial Black");
 	colorText("3rd: " + thirdPlace, placePositionX, (placePositionY + increasePlacePositionY * 2), 'black', font = "20px Arial Black");
 	colorText("4th: " + fourthPlace, placePositionX, (placePositionY + increasePlacePositionY * 3), 'black', font = "20x Arial Black");
 	colorText("5th: " + fifthPlace, placePositionX, (placePositionY + increasePlacePositionY * 4), 'black', font = "20px Arial Black");
