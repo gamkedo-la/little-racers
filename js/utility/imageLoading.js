@@ -35,6 +35,7 @@ var fuelGaugePic = document.createElement("img");
 // trophies
 var firstPlaceTrophyPic = document.createElement("img");
 var logoPic = document.createElement("img");
+//var titlescreenPic = document.createElement("img");
 
 var picsToLoad = 0;
 
@@ -87,6 +88,7 @@ function loadImages() {
 			{varName: gaugeNeedlePic, theFile: "gauges/GaugeNeedle.png"},
 			{varName: fuelGaugePic, theFile: "gauges/FuelGauge.png"},
             {varName: firstPlaceTrophyPic, theFile: "trophy.png"},
+            //{varName: titlescreenPic, theFile: "background.jpg"},
             {varName: logoPic, theFile: "logo.png"}
 		];
 

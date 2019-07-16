@@ -52,7 +52,11 @@ function SmokeFXClass(smokeCanvas) {
         if (DEBUG_SMOKE) console.log("SmokeFX creating overlay canvas");
         smokeCanvas = document.createElement('canvas');
         smokeCanvas.style = "position:absolute; pointer-events:none; top:0px; left:0px; width:100%; height:100%; margin:0; z-index:1;";
+        // full screen:
         document.body.appendChild(smokeCanvas);
+        // 800x600 letterboxed w black bars: FIXME the div is full width
+        // but you can't make this a child of a canvas - GL error
+        // div.appendChild(smokeCanvas); // put as a child of the game div
         smokeCanvas.width = smokeCanvas.clientWidth;
         smokeCanvas.height = smokeCanvas.clientHeight;
     }
