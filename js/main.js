@@ -10,11 +10,6 @@ const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 const OFFSCREEN_DRAW_DELAY = 10;//ensures the win screen is displayed before starting to load next level image
 
-var canvas;
-var canvasContext;
-var canvas2;
-var canvasContext2;
-
 var mouseX = 0;
 var mouseY = 0;
 var scaleWidth = 1;
@@ -60,11 +55,6 @@ var byPassFadeOut = true; //disable if not using a local server
 var isMouseDragging = false;
 
 window.onload = function(){
-	canvas = document.getElementById('gameCanvas');
-	canvasContext = canvas.getContext('2d');
-	canvas2 = document.getElementById('gameCanvas2');
-	canvasContext2 = canvas2.getContext('2d');
-
 	window.addEventListener("resize", function () {
 		if (allowRescale) {
 			resizeCanvas(canvas, canvasContext);

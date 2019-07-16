@@ -22,22 +22,32 @@
 					image-rendering: -webkit-crisp-edges;
 					image-rendering: -moz-crisp-edges;
 					image-rendering: -o-crisp-edges;
-					margin: 0 auto;
-					display: inline;
 				}				
-				#gameOuter {		
-					min-width: 800px;							
-					text-align: center;
+				#game {
+					display: table;			
+					white-space: nowrap;					
 					margin: 0 auto;
 					padding: 0;
 				}
 			</style>
 	</head>
-	<body>
-		<div id="gameOuter">			
-			<canvas id="gameCanvas" width="800" height="600"></canvas>		
-			<canvas id="gameCanvas2" width="0" height="600" style="margin-left: -5px;"></canvas>			
-		</div>
+	<body>		
+		<script>
+			var canvas = document.createElement('canvas');
+			canvas.id = 'gameCanvas';
+			var canvasContext = canvas.getContext('2d');
+			
+			var canvas2 = document.createElement('canvas');
+			canvas.id = 'gameCanvas2';
+			var canvasContext2 = canvas2.getContext('2d');
+
+			var div = document.createElement('div');
+			div.id = 'game';	
+
+			div.appendChild(canvas);
+			div.appendChild(canvas2);
+			document.body.appendChild(div);
+		</script>
 		<script src="js/utility/imageLoading.js"></script>
 		<script src="js/utility/graphicsCommon.js"></script>
 		<script src="js/car/uiControls.js"></script>
