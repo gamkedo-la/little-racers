@@ -189,7 +189,7 @@ function drawTrackByTileAtCoords(startCol, startRow, endCol, endRow) {
 
 function drawWithTileData(tileData) {
 	if (tileTypeHasRoadTransparency(tileData.transparency)) {
-		TRACK_CONTEXT.drawImage( roadSpriteSheet, 0, 0, TRACK_W, TRACK_H, tileData.x, tileData.y, TRACK_W, TRACK_H);
+		TRACK_CONTEXT.drawImage( roadSpriteSheet, TRACK_W, 0, TRACK_W, TRACK_H, tileData.x, tileData.y, TRACK_W, TRACK_H);
 	} else if (tileTypeHasgGrassTransparency(tileData.transparency)) {
 		TRACK_CONTEXT.drawImage( trackobstaclesSpriteSheet, 40, 0, TRACK_W, TRACK_H, tileData.x, tileData.y, TRACK_W, TRACK_H);
 	}

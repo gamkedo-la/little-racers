@@ -92,7 +92,8 @@ function carClass() {
                 break;
             }
         }
-
+        this.wayPointX = levelList[levelNow].wayPointsX.slice();
+        this.wayPointY = levelList[levelNow].wayPointsY.slice();
         this.x = this.homeX;
         this.y = this.homeY;
     }

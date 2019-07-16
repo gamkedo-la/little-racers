@@ -1,5 +1,6 @@
 const MAPS_TO_LOAD = [
-	'level1WaypointTest'
+	'level1WaypointTest',
+	'level2WaypointTest'
 	// 'level1Test',
 	// 'OneBigTrack',
 	// 'level2Test',
