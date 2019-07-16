@@ -598,7 +598,7 @@ function SmokeFXClass(smokeCanvas) {
                     200 * (Math.random() - 0.5), 
                     -25 * (Math.random()),
                     [Math.random()*0.5,Math.random()*0.25,Math.random()*0.1],
-                    Math.random()*0.2);
+                    Math.random()*0.002);
                 // tire tracks: two lines =)
                 this.add(
                     Math.random() * smokeCanvas.width, // /2 + smokeCanvas.width/4, 
@@ -607,10 +607,26 @@ function SmokeFXClass(smokeCanvas) {
                     -25 * (Math.random()),
                     [Math.random()*0.5,
                         Math.random()*0.25,Math.random()*0.1],
-                    Math.random()*0.2);
-        }
+                    Math.random()*0.002);
 
+            }
 
+            // huge puffs of smoke
+            this.add(
+                smokeCanvas.width,
+                smokeCanvas.height,
+                -50 * Math.random(), 
+                -50 * Math.random(), 
+                [0.1,0.1,0.1],
+                0.01);//Math.random()*0.05);
+            this.add(
+                    0,
+                    smokeCanvas.height,
+                    50 * Math.random(), 
+                    -50 * Math.random(), 
+                    [0.1,0.1,0.1],
+                    0.01);//Math.random()*0.05);
+    
 
         }
 
@@ -636,7 +652,7 @@ function SmokeFXClass(smokeCanvas) {
         for (let i = 0; i < puffs.length; i++) {
 			const puff = puffs[i];
 			if (puff.moved) {
-				splat(puff.x, puff.y, puff.dx, puff.dy, puff.color);
+				splat(puff.x, puff.y, puff.dx, puff.dy, puff.color, puff.size);
 				puff.moved = false;
 			}
         }
@@ -700,9 +716,11 @@ function SmokeFXClass(smokeCanvas) {
 
 	this.update = update;
 
-	function splat(x, y, dx, dy, color) {
+	function splat(x, y, dx, dy, color, size) {
 
         if (!gl) return; // make sure WebGL initialized ok
+
+        if (!size) size = config.SPLAT_RADIUS; // default
 
         //if (DEBUG_SMOKE) console.log("SmokeFX splat pos:" + x + "," + y + " spd:" + dx + "," + dy + " col:" + color);
         
@@ -715,7 +733,7 @@ function SmokeFXClass(smokeCanvas) {
 		gl.uniform1f(splatProgram.uniforms.aspectRatio, smokeCanvas.width / smokeCanvas.height);
 		gl.uniform2f(splatProgram.uniforms.point, x / smokeCanvas.width, 1.0 - y / smokeCanvas.height);
 		gl.uniform3f(splatProgram.uniforms.color, dx, -dy, 1.0);
-		gl.uniform1f(splatProgram.uniforms.radius, config.SPLAT_RADIUS);
+		gl.uniform1f(splatProgram.uniforms.radius, size);
 		blit(velocity.write[1]);
 		velocity.swap();
 
@@ -741,9 +759,17 @@ function SmokeFXClass(smokeCanvas) {
     // the game uses this function to add fx
     // eg. SmokeFX.add(p1.x,p1.y,speed.x,speed.y,[255,255,255],0.001);
     this.add = function(x, y, dx, dy, color, size) {
+        if (!smokeCanvas) return;
+        if (!gl) return;
         if (x==0 && y==0) return; // ignore during inits etc
         if (x<0) x=0; if (x>smokeCanvas.width) x=smokeCanvas.width;
         if (y<0) y=0; if (y>smokeCanvas.height) y=smokeCanvas.height;
+
+        // cannot do - shader in wrong state
+        //splat(x, y, dx, dy, color, size);
+        //return;
+
+        // queued for processing during the update
         var data = {x:x,y:y,dx:dx,dy:dy,color:color,size:size,moved:true};
         //if (DEBUG_SMOKE) console.log("SmokeFX.add at "+x+","+y);
         puffs.push(data); // FIXME memory leak
