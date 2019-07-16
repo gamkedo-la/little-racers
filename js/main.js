@@ -65,7 +65,12 @@ window.onload = function(){
 	canvas2 = document.getElementById('gameCanvas2');
 	canvasContext2 = canvas2.getContext('2d');
 
-	window.addEventListener("resize", resizeCanvas);
+	window.addEventListener("resize", function () {
+		if (allowRescale) {
+			resizeCanvas(canvas, canvasContext);
+			resizeCanvas(canvas2, canvasContext2);
+		}
+	});
 	for (var i = 0; i < 8; i++) {
 		addVehicle();
 	}
@@ -86,11 +91,17 @@ window.onload = function(){
 	}
 }
 
-function resizeCanvas(canvas, canvasContext) {
+function resizeCanvas(canvas, canvasContext, isSplitScreen = false) {
 	if (allowRescale) {
-	    canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;
+		canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
 		canvas.height = window.innerHeight;
+		if (isSplitScreen) {
+			canvas.width /= 2;			
+		}
 		scaleWidth = canvas.width/CANVAS_WIDTH;
+		if (isSplitScreen) {
+			scaleWidth *= 2;
+		}
 		scaleHeight = canvas.height/CANVAS_HEIGHT;
 		canvasContext.scale(scaleWidth,scaleHeight);
 	}
@@ -284,7 +295,7 @@ function drawTracksOnScreen(canvas, canvasContext) {
 
 function drawP1Screen() {
 	canvas.width = !vehicleList[1].computerPlayer ? CANVAS_WIDTH / 2 : CANVAS_WIDTH;	
-	
+	resizeCanvas(canvas, canvasContext, !vehicleList[1].computerPlayer);
 	cameraP1.startPan(canvasContext);
 	drawTracksOnScreen(canvas, canvasContext);
 	cameraP1.endPan(canvasContext);
@@ -298,7 +309,7 @@ function drawP1Screen() {
 function drawP2Screen() {
 	if (!vehicleList[1].computerPlayer) {
 		canvas2.width = CANVAS_WIDTH / 2;
-		
+		resizeCanvas(canvas2, canvasContext2, !vehicleList[1].computerPlayer);
 		cameraP2.startPan(canvasContext2);
 		drawTracksOnScreen(canvas2, canvasContext2);
 		cameraP2.endPan(canvasContext2);

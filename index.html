@@ -13,8 +13,7 @@
 					padding:0;
 					overflow:hidden;
 				}
-				canvas {
-					height:100vh;
+				canvas {					
 					padding:0;
 					outline:0;
 					image-rendering: pixelated;
@@ -24,14 +23,10 @@
 					image-rendering: -moz-crisp-edges;
 					image-rendering: -o-crisp-edges;
 					margin: 0 auto;
-					display: inline-block;
-				}
-				#gameInner {					
-					display: inline-block;
-					min-width: 400px;				
-				}
-				#gameOuter {					
-					min-width: 800px;
+					display: inline;
+				}				
+				#gameOuter {		
+					min-width: 800px;							
 					text-align: center;
 					margin: 0 auto;
 					padding: 0;
@@ -39,13 +34,9 @@
 			</style>
 	</head>
 	<body>
-		<div id="gameOuter">
-			<div id="gameInner">
-				<canvas id="gameCanvas" width="800" height="600"></canvas>
-			</div>
-			<div id="gameInner" style="margin-left: -5px;">
-				<canvas id="gameCanvas2" width="0" height="600"></canvas>
-			</div>
+		<div id="gameOuter">			
+			<canvas id="gameCanvas" width="800" height="600"></canvas>		
+			<canvas id="gameCanvas2" width="0" height="600" style="margin-left: -5px;"></canvas>			
 		</div>
 		<script src="js/utility/imageLoading.js"></script>
 		<script src="js/utility/graphicsCommon.js"></script>
