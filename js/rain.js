@@ -35,9 +35,9 @@ function RainClass(column) {
   this.rgbaString = 'rgba(' + this.redValue.toString() + ',' + this.greenValue.toString() + ',' +
   this.blueValue.toString() + ',' + this.alpha.toString() + ')';
 
-  this.draw = function() {
+  this.draw = function(ctx = canvasContext) {
     //console.log("hello individual rain class draw method");
-    colorRGBALine(this.x, this.y, this.x, this.y + this.lineLength, this.lineWidth, this.rgbaString);
+    colorRGBALine(this.x, this.y, this.x, this.y + this.lineLength, this.lineWidth, this.rgbaString, ctx);
   }
 
   this.update = function() {
@@ -74,9 +74,9 @@ function deleteRainThatShouldBeInvisible() {//prevent -y length values from bein
   }
 }
 
-function drawRain() {
+function drawRain(canvasContext) {
   for (let i = 0; i < arrayOfRain.length - 1; i++) {
-    arrayOfRain[i].draw();
+    arrayOfRain[i].draw(canvasContext);
   }
   //arrayOfRain[0].draw();
   //colorRect(CANVAS_WIDTH/2, CANVAS_HEIGHT/2, 200,200, 'purple');

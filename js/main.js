@@ -220,16 +220,13 @@ function drawLapOneTime(){
 	colorText(playerOne.lapMinuteTensSpot.toString() + playerOne.lapMinute.toString() + ':' + playerOne.lapSecondTensSpot.toString() + playerOne.lapSecond.toString() +':'+playerOne.lapTenthSecond.toString(), 700, 30, 'black');
 }
 
-function drawFuelPercentage(){
-	var playerOne = vehicleList[0];
-	var playerTwo = vehicleList[1];
-	var percentFuelLeftP1 = Math.round(playerOne.fuelInTank / playerOne.fuelCapacity * 100);
-	colorText("P1-Fuel: " +percentFuelLeftP1.toString()+ "%", 50, 30, 'black')
-
-	if (!playerTwo.computerPlayer) {
-		var percentFuelLeftP2 = Math.round(playerTwo.fuelInTank / playerTwo.fuelCapacity * 100)
-		colorText("P2-Fuel: " +percentFuelLeftP2.toString()+ "%", 50, 50, 'black')
-	}
+function drawFuelPercentage(canvasContext, player){		
+	var percentFuelLeft = Math.round(player.fuelInTank / player.fuelCapacity * 100);
+	colorText("Fuel: " + percentFuelLeft.toString()+ "%", 
+			  canvas.width/scaleWidth * 0.5, canvas.height/scaleHeight * 0.025, 
+			  'white', 
+			  "14px Arial Black", 
+			  canvasContext);
 }
 
 function drawStartLights(){
@@ -294,6 +291,19 @@ function drawP1Screen() {
 	drawLapOneTime();
 	drawStartLights();
 	drawP1Meters(canvasContext);
+
+	if (raining) {
+		//setInterval(function(){ addRainToArray(); }, 3000);
+		drawRain(canvasContext);
+	}
+
+	if (debugMode) {
+		drawFuelPercentage(canvasContext, vehicleList[0]);
+	}
+
+	if (paused){
+		colorText("PAUSED", 350, canvas.height/scaleHeight * 0.5 - 50, "white", "36px Arial Black", canvasContext);
+	}
 }
 
 function drawP2Screen() {
@@ -306,6 +316,19 @@ function drawP2Screen() {
 		
 		drawClock(canvasContext2, 50, 0, 50, 40, 0, 2, 50, 40, -32);
 		drawP2Meters(canvasContext2);
+
+		if (raining) {
+			//setInterval(function(){ addRainToArray(); }, 3000);
+			drawRain(canvasContext2);
+		}
+
+		if (debugMode) {
+			drawFuelPercentage(canvasContext2, vehicleList[1]);
+		}
+
+		if (paused){
+			colorText("PAUSED", -50, canvas.height/scaleHeight * 0.5 - 50, "white", "36px Arial Black", canvasContext2);
+		}
 	} else {
 		canvas2.width = 0;
 	}
@@ -328,23 +351,15 @@ function drawEverything() {
 		}
 	} else {				
 		drawP1Screen();
-		drawP2Screen();		
+		drawP2Screen();				
 		
-		//console.log("raining ", raining);
 		if (raining) {
-			//setInterval(function(){ addRainToArray(); }, 3000);
-			drawRain();
 			updateRain();
 			deleteRainThatShouldBeInvisible();
 		}
 
 		if(debugMode){
-			drawFuelPercentage();
-			colorText("Debug Mode", 10, canvas.height/scaleHeight - 50, "white", "14px Arial Black");
-
-		}
-		if(paused){
-			colorText("PAUSED", 300, canvas.height/scaleHeight - 50, "white", "36px Arial Black");
-		}
+			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white", "14px Arial Black");
+		}		
 	}
 }
