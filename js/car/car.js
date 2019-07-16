@@ -193,7 +193,6 @@ function carClass() {
         var wayPointVectorX = toX - this.x;
         var wayPointVectorY = toY - this.y;
 
-
         //When calculating the car's vector, subtract 90 degrees from it
         //to allow for dot product to give a -ve to +ve result, indicating if car
         //needs to steer left or right.
@@ -208,8 +207,8 @@ function carClass() {
             this.keyHeld_TurnRight = false;
             this.keyHeld_TurnLeft = true;
         }
-
-        if (dist(this.x, this.y, toX, toY) < 20) {
+        var hitWaypointDistance = 27;
+        if (dist(this.x, this.y, toX, toY) <= hitWaypointDistance) {
             this.wayPointNumber++;
             if (this.wayPointNumber >= this.wayPointX.length) {
                 if (!this.placedPosition) {
@@ -886,8 +885,10 @@ function carClass() {
             //Please leave this here but commented out so I don't have to remember how to set it up properly.
             //Draws the red rectangles around cars; use if you're needing some help with collision detection.
             //drawRotatedRectWithLines(this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
-            colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
-            colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
+            if (this.computerPlayer) {            	
+	            colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
+	            colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
+            } 
         }
     }
 
