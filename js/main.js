@@ -215,29 +215,33 @@ function drawClock(canvasContext, sx, sy, sw, sh, dx, dy, dw, dh, clockX){
 			  canvasContext);
 }
 
-function drawLapOneTime(){
-	var playerOne = vehicleList[0];
-	colorText(playerOne.lapMinuteTensSpot.toString() + playerOne.lapMinute.toString() + ':' + playerOne.lapSecondTensSpot.toString() + playerOne.lapSecond.toString() +':'+playerOne.lapTenthSecond.toString(), 700, 30, 'black');
+function drawLapOneTime(canvasContext, player){	
+	colorText(player.lapMinuteTensSpot.toString() + player.lapMinute.toString() + ':' + player.lapSecondTensSpot.toString() + player.lapSecond.toString() +':'+player.lapTenthSecond.toString(), 
+			  canvas.width/scaleWidth * 0.32, 
+			  canvas.height/scaleHeight * 0.025 + 15, 
+			  'white',
+			  "14px Arial Black", 
+			  canvasContext);
 }
 
 function drawFuelPercentage(canvasContext, player){		
 	var percentFuelLeft = Math.round(player.fuelInTank / player.fuelCapacity * 100);
 	colorText("Fuel: " + percentFuelLeft.toString()+ "%", 
-			  canvas.width/scaleWidth * 0.5, canvas.height/scaleHeight * 0.025, 
+			  canvas.width/scaleWidth * 0.32, canvas.height/scaleHeight * 0.025, 
 			  'white', 
 			  "14px Arial Black", 
 			  canvasContext);
 }
 
-function drawStartLights(){
+function drawStartLights(canvasContext){
 	if(displayRedLight){
-		colorCircle(50, 50, 20, 'red')
+		colorCircle(50, 50, 20, 'red', canvasContext)
 	}
 	if(displayYellowLight){
-		colorCircle(50, 100, 20, 'yellow')
+		colorCircle(50, 100, 20, 'yellow', canvasContext)
 	}
 	if(displayGreenLight){
-		colorCircle(50, 159, 20, 'green')
+		colorCircle(50, 159, 20, 'green', canvasContext)
 		drawStartLightsTimer++;
 	}
 	if( drawStartLightsTimer == 10){
@@ -288,8 +292,8 @@ function drawP1Screen() {
 	cameraP1.endPan(canvasContext);
 
 	drawClock(canvasContext, 0, 0, 100, 40, 350, 2, 100, 40, 368);
-	drawLapOneTime();
-	drawStartLights();
+	drawLapOneTime(canvasContext, vehicleList[0]);
+	drawStartLights(canvasContext);
 	drawP1Meters(canvasContext);
 
 	if (raining) {
@@ -315,6 +319,8 @@ function drawP2Screen() {
 		cameraP2.endPan(canvasContext2);
 		
 		drawClock(canvasContext2, 50, 0, 50, 40, 0, 2, 50, 40, -32);
+		drawLapOneTime(canvasContext2, vehicleList[1]);
+		drawStartLights(canvasContext2);
 		drawP2Meters(canvasContext2);
 
 		if (raining) {
@@ -351,7 +357,7 @@ function drawEverything() {
 		}
 	} else {				
 		drawP1Screen();
-		drawP2Screen();				
+		drawP2Screen();
 		
 		if (raining) {
 			updateRain();
