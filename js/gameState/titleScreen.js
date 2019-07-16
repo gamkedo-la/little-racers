@@ -10,6 +10,10 @@ function titleScreenMouseClick(mousePosX, mousePosY) {
 		vehicleList[1].computerPlayer = false;
 		titleScreen = false;
 	}
+	else if(mousePosX > 350 * scaleWidth && mousePosX < 500 * scaleWidth && mousePosY > 300 * scaleHeight && mousePosY < 350 * scaleHeight){
+		console.log('Debug Mode');
+		debugMode = !debugMode;
+	}
 	addRainToArray();
 	setInterval(function() {
 		addRainToArray();
@@ -22,6 +26,8 @@ function drawTitleScreen(){
 	colorText("Little Racers", 310, 200, 'white', font = "24px Arial Black");
 	colorRect(200,400,100,50, 'white');
 	colorRect(500,400,100,50, 'white');
+	colorRect(325,300,150,50, 'white');
 	colorText("1 Player", 215, 430, 'black', font = "14px Arial Black");
 	colorText("2 Players", 515, 430, 'black', font = "14px Arial Black");
+	colorText("Debug Mode :" + ((debugMode == true) ? "on" : "off") , 340, 330, 'black', font = "14px Arial Black");
 }
