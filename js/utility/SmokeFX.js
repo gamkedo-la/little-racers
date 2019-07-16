@@ -579,19 +579,39 @@ function SmokeFXClass(smokeCanvas) {
         resizeCanvas();
         
         if (titleScreen) {
+            
             // just for fun, spawn on the mouse cursor during the menus
+            // FIXME this does not take canvas stretching into account
+            /*
             this.add(mouseX,mouseY,
                 200 * (Math.random() - 0.5),-50 * (Math.random()),
                 [Math.random()/2,Math.random()/2, Math.random()/2],
                 Math.random()*0.2);
+            */
 
             // fire near the logo
-            for (var loop=0; loop<50; loop++) {
-                this.add(Math.random() * smokeCanvas.width/2 + smokeCanvas.width/4, 250 + Math.random() * 20,
-                    200 * (Math.random() - 0.5), -25 * (Math.random()),
+            // the canvas stretching makes the calulation wierd
+            for (var loop=0; loop<32; loop++) {
+                this.add(
+                    Math.random() * smokeCanvas.width,// /2 + smokeCanvas.width/4, 
+                    smokeCanvas.height * 0.4 + Math.random() * 20,
+                    200 * (Math.random() - 0.5), 
+                    -25 * (Math.random()),
                     [Math.random()*0.5,Math.random()*0.25,Math.random()*0.1],
                     Math.random()*0.2);
-            }
+                // tire tracks: two lines =)
+                this.add(
+                    Math.random() * smokeCanvas.width, // /2 + smokeCanvas.width/4, 
+                    smokeCanvas.height * 0.225 + Math.random() * 20,
+                    200 * (Math.random() - 0.5), 
+                    -25 * (Math.random()),
+                    [Math.random()*0.5,
+                        Math.random()*0.25,Math.random()*0.1],
+                    Math.random()*0.2);
+        }
+
+
+
         }
 
 		const dt = Math.min((Date.now() - lastTime) / 1000, 0.016);
@@ -739,11 +759,29 @@ function SmokeFXClass(smokeCanvas) {
         */
     }
 
+    this.stop = function() {
+        if (DEBUG_SMOKE) console.log("SmokeFX stopping.");
+        smokeCanvas.style.display='none';
+    }
+
 
 } // end SmokeFX class
 
 // start animating the effect at 60fps
 function SmokeFXStartRendering() {
-    SmokeFX.update();
-    requestAnimationFrame(SmokeFXStartRendering);
+
+    // only update the simulation if enabled
+    if ((titleScreen && SMOKE_FX_IN_MENU) ||
+        (!titleScreen && SMOKE_FX_IN_GAME)) {
+        SmokeFX.update();
+    }
+
+    // hide the canvas if no longer being used
+    if (!titleScreen && !SMOKE_FX_IN_GAME) {
+        SmokeFX.stop();
+    }
+    else {
+        // wait for next frame and update if still allowed
+        requestAnimationFrame(SmokeFXStartRendering);
+    }
 }

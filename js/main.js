@@ -1,5 +1,7 @@
 
-const SMOKE_FX_ENABLED = false; // if true, we get a gpu powered particle system
+const SMOKE_FX_ENABLED = true; // if true, we get a gpu powered particle system
+const SMOKE_FX_IN_MENU = true;
+const SMOKE_FX_IN_GAME = false;
 var SmokeFX;
 
 const FPS = 30; // TODO: test running at 60fps
@@ -104,8 +106,6 @@ function imageLoadingDoneSoStartGame(){
     setInterval(function() {
 		moveEverything();
         drawEverything();
-        //not needed here anymore because it updates itself:
-        //if (SMOKE_FX_ENABLED) SmokeFX.update(); 
 	}, 1000/framesPerSecond);
 
     for (var i = 0; i < vehicleList.length; i++) {
