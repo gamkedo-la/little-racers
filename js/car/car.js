@@ -711,7 +711,7 @@ function carClass() {
                     this.speed = -.5 * this.speed;
                     if(this.myName == vehicleList[0].myName){
                     cameraP1.shakeCamera(5, 3);
-                    } else if (this.myName == vehicleList[0].myName){
+                    } else if (this.myName == vehicleList[1].myName){
                      cameraP2.shakeCamera(5, 3);
                          }
                 }
@@ -723,7 +723,7 @@ function carClass() {
                     this.speed = -.5 * this.speed;
                     if(this.myName == vehicleList[0].myName){
                     cameraP1.shakeCamera(5, 15);
-                    } else if (this.myName == vehicleList[0].myName){
+                    } else if (this.myName == vehicleList[1].myName){
                      cameraP2.shakeCamera(5, 15);
                          }
                 }
