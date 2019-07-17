@@ -92,6 +92,7 @@ function keyPressed(evt) {
 	if (muteKey == evt.keyCode) {
 		console.log("mute key pressed");
 		isMuted = !isMuted;
+		alanZBackgroundMusic.startOrStopMusic();
 	} else if(pausedKey == evt.keyCode){
 		console.log(paused);
 		paused = !paused;

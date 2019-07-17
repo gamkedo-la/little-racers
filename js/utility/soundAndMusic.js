@@ -76,7 +76,7 @@ function BackgroundMusicClass() {
     }
 
     this.startOrStopMusic = function() {
-		if (musicSound.paused) {
+		if (isMuted == false) {
 			musicSound.play();
 		} else {
 			musicSound.pause();
