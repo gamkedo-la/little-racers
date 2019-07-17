@@ -25,8 +25,8 @@ function Camera () {
 		}
 	};
 
-	this.shakeCamera = function (newPower) {
-		this.shakeFrames = 4;
+	this.shakeCamera = function (newShake, newPower) {
+		this.shakeFrames = newShake;
 		this.shakePower = newPower;
 	}
 
