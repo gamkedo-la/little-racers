@@ -1,6 +1,8 @@
 function Camera () {
 	this.panX = 0;
 	this.panY = 0;
+	this.shakeFrames = 0;
+	this.shakePower = 5;
 
 	this.follow = function (canvas, target) {
 		this.panX = target.x - (canvas.width/2)/scaleWidth;
@@ -23,9 +25,21 @@ function Camera () {
 		}
 	};
 
+	this.shakeCamera = function (newPower) {
+		this.shakeFrames = 4;
+		this.shakePower = newPower;
+	}
+
 	this.startPan = function (ctx = canvasContext) {
+		var shakeX = 0;
+		var shakeY = 0;
 		ctx.save();
-		ctx.translate(-this.panX, -this.panY);
+		if (this.shakeFrames > 0) {
+			this.shakeFrames --;
+			shakeX = Math.floor(Math.random() * 3 - 1) * this.shakePower;
+			shakeY = Math.floor(Math.random() * 3 - 1) * this.shakePower;
+		}
+		ctx.translate(-this.panX + shakeX, -this.panY + shakeY);
 	};
 
 	this.endPan = function (ctx = canvasContext) {

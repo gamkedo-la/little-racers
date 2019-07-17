@@ -709,6 +709,8 @@ function carClass() {
                     trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                     addTrackImageAtTileIndex(TRACK_KNOCKED_OVER_CONE, driveIntoTileIndex);
                     this.speed = -.5 * this.speed;
+                    console.log ("cam shake!");
+                    cameraP1.shakeCamera(3);
                 }
                 break;
             case TRACK_OIL_BARREL:
