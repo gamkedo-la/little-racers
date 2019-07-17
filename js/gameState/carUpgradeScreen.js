@@ -384,27 +384,27 @@ function carUpgradeScreenMouseClick(mousePosX, mousePosY) {
 						}
 						break;
 					case "Nitro 1":
-						if(vehicleList[0].nitroVersion < 1 && vehicleList[0].cash >= 100){	
+						if(vehicleList[0].nitroVersion < 1 && vehicleList[0].cash >= 50){	
 							vehicleList[0].nitroVersion = 1;
-							vehicleList[0].cash = vehicleList[0].cash - 100;
+							vehicleList[0].cash = vehicleList[0].cash - 50;
 						}
 						break;
 					case "Nitro 2":
-						if(vehicleList[0].nitroVersion < 2 && vehicleList[0].cash >= 250){	
+						if(vehicleList[0].nitroVersion < 2 && vehicleList[0].cash >= 100){	
 							vehicleList[0].nitroVersion = 2;
-							vehicleList[0].cash = vehicleList[0].cash - 250;
+							vehicleList[0].cash = vehicleList[0].cash - 100;
 						}
 						break;
 					case "Nitro 3":
-						if(vehicleList[0].nitroVersion < 3 && vehicleList[0].cash >= 500){	
+						if(vehicleList[0].nitroVersion < 3 && vehicleList[0].cash >= 200){	
 							vehicleList[0].nitroVersion = 3;
-							vehicleList[0].cash = vehicleList[0].cash - 500;
+							vehicleList[0].cash = vehicleList[0].cash - 200;
 						}
 						break;
 					case "Nitro 4":
-						if(vehicleList[0].nitroVersion != 4 && vehicleList[0].cash >= 1000){	
+						if(vehicleList[0].nitroVersion != 4 && vehicleList[0].cash >= 500){	
 							vehicleList[0].nitroVersion = 4;
-							vehicleList[0].cash = vehicleList[0].cash - 1000;
+							vehicleList[0].cash = vehicleList[0].cash - 500;
 						}
 						break;
 					case "Exhaust 1":
