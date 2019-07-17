@@ -709,7 +709,11 @@ function carClass() {
                     trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                     addTrackImageAtTileIndex(TRACK_KNOCKED_OVER_CONE, driveIntoTileIndex);
                     this.speed = -.5 * this.speed;
-                    cameraP1.shakeCamera(5 , 5);
+                    if(this.myName == vehicleList[0].myName){
+                    cameraP1.shakeCamera(5, 3);
+                    } else if (this.myName == vehicleList[0].myName){
+                     cameraP2.shakeCamera(5, 3);
+                         }
                 }
                 break;
             case TRACK_OIL_BARREL:
@@ -717,7 +721,11 @@ function carClass() {
                     trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                     addTrackImageAtTileIndex(TRACK_OIL_SLICK, driveIntoTileIndex);
                     this.speed = -.5 * this.speed;
-                    cameraP1.shakeCamera(15, 15);
+                    if(this.myName == vehicleList[0].myName){
+                    cameraP1.shakeCamera(5, 15);
+                    } else if (this.myName == vehicleList[0].myName){
+                     cameraP2.shakeCamera(5, 15);
+                         }
                 }
                 break;
             case TRACK_BRICK_WALL_LEFT:
