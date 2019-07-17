@@ -42,7 +42,8 @@ function drawCarUpgradeScreen(canvas, canvasContext){
 	colorText("Tire Type: " + vehicleList[0].tireVersion, 60, 65, 'black', font = "12px Arial Black");
 	colorText("Engine Type: " + vehicleList[0].engineVersion, 60, 80, 'black', font = "12px Arial Black");
 	colorText("Nitrous Type: " + vehicleList[0].nitroVersion, 60, 95, 'black', font = "12px Arial Black");	
-	colorText("Exhaust Type: " + vehicleList[0].exhaustVersion, 60, 110, 'black', font = "12px Arial Black");	
+	colorText("Exhaust Type: " + vehicleList[0].exhaustVersion, 60, 110, 'black', font = "12px Arial Black");
+	colorText("Transmission Type: " + vehicleList[0].transmissionVersion, 60, 125, 'black', font = "12px Arial Black");		
 	colorRect(transmissionBoxX, transmissionBoxY,100,50, 'blue'); //transmission	
 	colorRect(tireBoxX, tireBoxY,100,50, 'blue');	//tires
 	colorRect(engineBoxX, engineBoxY,100,50, 'blue');	//engine
@@ -88,10 +89,22 @@ function drawCarUpgradeScreen(canvas, canvasContext){
 		optionsSelected = true;
 		colorRect(250,290,30,200, 'red');
 		colorText("Transmission", 62, 390, 'red', font = "12px Arial Black");
-		colorText("Tx Option 1", optionOneX + 5, 50, 'white', font = "12px Arial Black"); // To be replaced
-		colorText("Tx Option 2", optionTwoX + 5, 205, 'white', font = "12px Arial Black"); // to be replaced
-		colorText("Tx Option 3", optionThreeX + 5, 355, 'white', font = "12px Arial Black"); // to be replaced 
-		colorText("Tx Option 4", optionFourX + 5, 505, 'white', font = "12px Arial Black"); // to be replaced
+		//Transmission option 1
+		//canvasContext.drawImage(transmissionOptionOnePic, optionOneX, optionOneY);
+		colorText("Basic Transmission", optionOneX - 2, optionOneY + 115, 'black', font = "10px Arial Black");
+		colorText("$500", optionOneX + 37, optionOneY + 130, 'black', font = "10px Arial Black");
+		//Transmission option 2
+		//canvasContext.drawImage(transmissionOptionTwoPic, optionTwoX, optionTwoY);
+		colorText("Good Transmission", optionTwoX - 2, optionTwoY + 115, 'black', font = "10px Arial Black");
+		colorText("$1000", optionTwoX + 37, optionTwoY + 130, 'black', font = "10px Arial Black");
+		//Transmission option 3
+		//canvasContext.drawImage(transmissionOptionThreePic, optionThreeX, optionThreeY);
+		colorText("Advanced Transmission", optionThreeX - 15, optionThreeY + 115, 'black', font = "10px Arial Black");
+		colorText("$2000", optionThreeX + 37, optionThreeY + 130, 'black', font = "10px Arial Black");
+		//Transmission option 4
+		//canvasContext.drawImage(transmissionOptionFourPic, optionFourX, optionFourY);
+		colorText("Premium Transmission", optionFourX - 10, optionFourY + 115, 'black', font = "10px Arial Black");
+		colorText("$3000", optionFourX + 37, optionFourY + 130, 'black', font = "10px Arial Black");
 	} else if(tireOptions){
 		optionsSelected = true;
 		colorRect(168,283,18,50, 'red'); //left front tire
@@ -319,19 +332,19 @@ function carUpgradeScreenMouseClick(mousePosX, mousePosY) {
 						break;
 					case "Transmission 2":
 						if(vehicleList[0].transmissionVersion < 2 && vehicleList[0].cash >= 1000){	
-							vehicleList[0].transmissionVersion = 1;
+							vehicleList[0].transmissionVersion = 2;
 							vehicleList[0].cash = vehicleList[0].cash - 1000;
 						}
 						break;
 					case "Transmission 3":
 						if(vehicleList[0].transmissionVersion < 3 && vehicleList[0].cash >= 2000){	
-							vehicleList[0].transmissionVersion = 1;
+							vehicleList[0].transmissionVersion = 3;
 							vehicleList[0].cash = vehicleList[0].cash - 2000;
 						}
 						break;
 					case "Transmission 4":
 						if(vehicleList[0].transmissionVersion != 4 && vehicleList[0].cash >= 3000){	
-							vehicleList[0].transmissionVersion = 1;
+							vehicleList[0].transmissionVersion = 4;
 							vehicleList[0].cash = vehicleList[0].cash - 3000;
 						}
 						break;
