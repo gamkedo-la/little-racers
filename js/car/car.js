@@ -493,7 +493,8 @@ function carClass() {
             		}
             	}
                 if (this.fuelInTank > 0) {
-                    this.speed += DRIVE_POWER;
+                    // Increase 0,1 with every upgrade on the transmission
+                    this.speed += DRIVE_POWER + (this.transmissionVersion/10);
                     if (!debugMode) { //don't remove fuel while in debug mode
                         this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
                     }
