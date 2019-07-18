@@ -28,12 +28,13 @@ var twoPlayerGame = false;
 var computerPlayerOn = true;
 
 //Game States
-var titleScreen = true;
+var titleScreen = true; 
 var levelEditor = false;
 var winScreen = false;
 var carUpgradeScreen = false;
 var paused = false;
 var raceHasStarted = false;
+var enterPlayerName = false; 
 
 var raceStartTimer = 0;
 var drawStartLightsTimer = 0;
@@ -129,6 +130,8 @@ function addVehicle(){
 function moveEverything() {
 	if(titleScreen){
 		//colorRect(0,0,canvas.width,canvas.height, 'green');
+	} else if (enterPlayerName){
+		//Intentionally left empty - no movement
 	} else if (levelEditor) {
 		//Intentionally left empty - no movement
 	} else if (winScreen){
@@ -343,6 +346,8 @@ function drawP2Screen() {
 function drawEverything() {
 	if(titleScreen){
 		drawTitleScreen();
+	} else if(enterPlayerName){
+		drawEnterPlayerNameScreen();
 	} else if (levelEditor) {
 		drawLevelEditor(canvas, canvasContext);
 	} else if (winScreen){
