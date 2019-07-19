@@ -293,7 +293,7 @@ function carClass() {
     this.skidMarkHandling = function() { // draw tire tracks / skid marks
 
         if (SMOKE_FX_ENABLED) {
-            
+
             if (this.keyHeld_Gas) { // no smoke when gliding/braking?
             // offset from center of sprite to near rear fender
             var ofsx = Math.cos(this.ang)*FENDERDISTANCE;
@@ -304,12 +304,12 @@ function carClass() {
             else if (this.speed > MAXSPD_FOR_TRAIL) { rgb = [0.01,0.01,0.01]; }
             else if (this.nitroBoostOn) { rgb = [0.5,0,0]; spdboost=2; }
             else if (this.oilslickRemaining > 0) { rgb = [0.001,0.001,0.2]; spdboost=2; } // no black! [additive particles]
-            else rgb = [0.15,0.15,0.15]; // how bright 
+            else rgb = [0.15,0.15,0.15]; // how bright
 
             // FIXME: draw on both cameras if splitscreen?
             // FIXME: assumes aspect ratio of 800x600 canvas
             SmokeFX.add(
-                this.x-cameraP1.panX+ofsx, 
+                this.x-cameraP1.panX+ofsx,
                 this.y-cameraP1.panY+ofsy,
                 (Math.cos(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
                 (Math.sin(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
@@ -322,7 +322,7 @@ function carClass() {
                 justHitTheGround = false;
                 for (var loop=0; loop<16; loop++) {
                     SmokeFX.add(
-                        this.x-cameraP1.panX + ((Math.random()-0.5)*10), 
+                        this.x-cameraP1.panX + ((Math.random()-0.5)*10),
                         this.y-cameraP1.panY + ((Math.random()-0.5)*10),
                         ((Math.random()-0.5)*800),
                         ((Math.random()-0.5)*500),
@@ -408,7 +408,7 @@ function carClass() {
 
     //Handle AI steering and throttle
     this.doComputerPlayerDriving = function() {
-        
+
         if (this.stopCar) { //Car stopped due to things like being done the race and parked.
             this.keyHeld_Gas = false;
             this.speed = 0;
@@ -609,7 +609,6 @@ function carClass() {
             case TRACK_ROAD_SIXTH:
             case TRACK_ROAD_SEVENTH:
             case TRACK_ROAD_EIGHT:
-            case TRACK_ROAD_PITSTOP:
             case TRACK_ROAD_UP_ARROW:
             case TRACK_ROAD_DWN_ARROW:
             case TRACK_ROAD_LFT_ARROW:
@@ -627,6 +626,9 @@ function carClass() {
             case TRACK_ROAD_BOT_STUB:
             case TRACK_ROAD_RIT_STUB:
             case TRACK_ROAD_LFT_STUB:
+                break;
+            case TRACK_ROAD_PITSTOP:
+                this.setFuel(this.fuelInTank += 0.5);
                 break;
             case TRACK_ROAD_AAA:
                 this.checkPointA = true;
@@ -699,10 +701,7 @@ function carClass() {
                 addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
                 break;
             case TRACK_FUEL:
-                this.fuelInTank += 50;
-                if (this.fuelInTank > 100) {
-                    this.fuelInTank = 100;
-                }
+                this.setFuel(this.fuelInTank += 50);
                 trackGrid[driveIntoTileIndex] = TRACK_ROAD;
                 addTrackImageAtTileIndex(TRACK_ROAD, driveIntoTileIndex);
                 break;
@@ -897,10 +896,10 @@ function carClass() {
             //Please leave this here but commented out so I don't have to remember how to set it up properly.
             //Draws the red rectangles around cars; use if you're needing some help with collision detection.
             //drawRotatedRectWithLines(this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
-            if (this.computerPlayer) {            	
+            if (this.computerPlayer) {
 	            colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
 	            colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
-            } 
+            }
         }
     }
 
