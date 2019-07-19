@@ -43,11 +43,11 @@ var displayYellowLight = false;
 var displayGreenLight = false;
 
 var speedometerP1 = new MeterClass(5, 435);
-var fuelMeterP1 = new MeterClass(2, 525);
+var fuelMeterP1 = new MeterClass(2, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP1.meterPic = fuelGaugePic;
 
 var speedometerP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 7, 435);
-var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525);
+var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP2.meterPic = fuelGaugePic;
 
 //Debug Options
