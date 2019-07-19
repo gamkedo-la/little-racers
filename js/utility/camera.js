@@ -5,6 +5,7 @@ function Camera () {
 	this.shakePower = 5;
 
 	this.follow = function (canvas, target) {
+		if(controlCameraForDebug) {return;}
 		this.panX = target.x - (canvas.width/2)/scaleWidth;
 		this.panY = target.y - (canvas.height/2)/scaleHeight;
 		if(this.panX < 0){

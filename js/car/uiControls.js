@@ -4,6 +4,7 @@ const KEY_A = 65;
 const KEY_D = 68; 
 const KEY_F = 70;
 const KEY_L = 76;
+const KEY_C = 67;
 
 const KEY_INSERT = 45;
 const KEY_HOME = 36;
@@ -25,6 +26,7 @@ const KEY_P = 80;
 const KEY_O = 79;
 const KEY_1 = 49;
 
+let controlCameraForDebug = false;
 
 function initInput(){
 	canvas.addEventListener('mousemove', function(evt) {
@@ -64,8 +66,8 @@ function keyPressed(evt) {
 	var raceResultsPageKey = KEY_1;
 	var muteKey = KEY_O;
 	
+	var camJump = 40;
 	if(levelEditor){
-		var camJump = 40;
 		switch (evt.keyCode){
 			case KEY_UP_ARROW:
 				camPanY -= camJump;
@@ -84,8 +86,36 @@ function keyPressed(evt) {
 			break;
 		}
 	} else {
-		setKeyHoldState(evt.keyCode, vehicleList[0], true);
-		setKeyHoldState(evt.keyCode, vehicleList[1], true);
+		if((debugMode) && (evt.keyCode == KEY_C)) {
+			controlCameraForDebug = !controlCameraForDebug;
+		}
+
+		if(controlCameraForDebug) {
+			console.log("Trying to control the camera directly");
+			switch (evt.keyCode){
+				case KEY_UP_ARROW:
+					cameraP1.panY -= camJump;
+					console.log("CamPan Y: " + cameraP1.panY);
+//					camPanY -= camJump;
+					break;			
+				case KEY_DOWN_ARROW:
+					cameraP1.panY += camJump;
+//					camPanY += camJump;
+					break;
+				case KEY_LEFT_ARROW:
+					cameraP1.panX -= camJump;
+//					camPanX -= camJump;
+					break;
+				case KEY_RIGHT_ARROW:
+					cameraP1.panX += camJump;
+//					camPanX += camJump;
+					break;
+			}
+		} else {
+			setKeyHoldState(evt.keyCode, vehicleList[0], true);
+			setKeyHoldState(evt.keyCode, vehicleList[1], true);	
+		}
+
 	}
 	
 	evt.preventDefault();
