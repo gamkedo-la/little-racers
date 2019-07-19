@@ -27,7 +27,7 @@ const AI_STUCK_TIME_FRAMES = 10;
 const AI_RANDOM_MOVEMENT_FRAMES = 30;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
-const CAR_LOW_FUEL_LEVEL = 90;//temporarily high for easier demo
+const CAR_LOW_FUEL_LEVEL = 20; // Displays low fuel indicator when fuelInTank is lower than val
 
 var finalLappedCalled = false;
 
@@ -64,6 +64,12 @@ function carClass() {
     this.nitroVersion = 0;
     this.exhaustVersion = 0;
     this.carPic = document.createElement("img");
+    this.maxShields = 100;
+    this.shieldStrength = 1; // Damage reduction factor when shields are available
+    this.shieldsRemaining = this.maxShields;
+    this.maxHealth = 100;
+    this.bodyStrength = 1; // Possibly upgradeable, damage reduction factor when hit without shieldStrength
+    this.healthRemaining = this.maxHealth;
 
     this.setupControls = function(forwardKey, backKey, leftKey, rightKey, nitroKey) {
         this.controlKeyForGas = forwardKey;
@@ -264,7 +270,7 @@ function carClass() {
     }
 
     this.checkForLowFuelLevel = function() {
-        if (this.fuelInTank <= 20) {
+        if (this.fuelInTank <= CAR_LOW_FUEL_LEVEL) {
             console.log("Low fuel!");
             this.findPitStop = true;
         }
@@ -905,13 +911,100 @@ function carClass() {
 
     this.setFuel = function(setFuelAmount) {
         if (isNaN(setFuelAmount)) {
+            console.log("Invalid fuel amount sent to setFuel on car: " + this.myName);
             return;
         }
         if (setFuelAmount < 0) {
             setFuelAmount = 0;
         } else if (setFuelAmount > this.fuelCapacity) {
-            setFuelAmount = this.fuelCapacity
+            setFuelAmount = this.fuelCapacity;
         }
-        this.fuelInTank = setFuelAmount
+        this.fuelInTank = setFuelAmount;
+    }
+
+    this.setFuelCapacity = function(setCapacityAmount) {
+        if (isNaN(setCapacityAmount)) {
+            console.log("Invalid fuel capacity amount sent to setFuelCapacity on car: " + this.myName);
+            return;
+        }
+        this.fuelCapacity = setCapacityAmount;
+    }
+
+    this.setHealth = function(setHealthAmount) {
+        if (isNaN(setHealthAmount)) {
+            console.log("Invalid health amount sent to setHealth on car: " + this.myName);
+            return;
+        }
+        if (setHealthAmount < 0) {
+            setHealthAmount = 0;
+        } else if (setHealthAmount > this.maxHealth) {
+            setHealthAmount = this.maxHealth;
+        }
+        this.healthRemaining = setHealthAmount;
+    }
+
+    this.setShields = function(setShieldAmount) {
+        if (isNaN(setShieldAmount)) {
+            console.log("Invalid shield amount sent to setShields on car: " + this.myName);
+            return;
+        }
+        if (setShieldAmount < 0) {
+            setShieldAmount = 0;
+        } else if (setShieldAmount > this.maxShields) {
+            setShieldAmount = this.maxShields;
+        }
+        this.shieldsRemaining = setShieldAmount;
+    }
+
+    this.setShieldStrength = function(setShieldStrengthAmount) {
+        if (isNaN(setShieldStrengthAmount)) {
+            console.log("Invalid shield strength amount sent to setShieldStrength on car: " + this.myName);
+            return;
+        }
+        this.shieldStrength = setShieldStrengthAmount;
+    }
+
+    this.setBodyStrength = function(setBodyStrengthAmount) {
+        if (isNaN(setShieldAmount)) {
+            console.log("Invalid body strength amount sent to setShields on car: " + this.myName);
+            return;
+        }
+        this.bodyStrength = setBodyStrengthAmount;
+    }
+
+    this.takeDamage = function(damageAmount) {
+        if (isNaN(damageAmount) || damageAmount <= 0) {
+            console.log("Invalid damage amount sent to takeDamage on car: " + this.myName);
+            return;
+        }
+
+        if (this.shieldsRemaining > 0) {
+            damageAmount = damageAmount * this.shieldStrength;
+            var shieldCheck = this.shieldsRemaining - damageAmount;
+            if (shieldCheck < 0) {
+                damageAmount = damageAmount - this.shieldsRemaining;
+                this.shieldsRemaining = 0;
+                console.log("Car '" + this.myName + "' has lost all shields!");
+                // TODO: Some sort of shields down sound or effect
+            } else if (shieldCheck >= 0 ) {
+                damageAmount = damageAmount - this.shieldsRemaining;
+                this.shieldsRemaining = shieldCheck;
+            } // end of shieldCheck
+        } // end of shieldsRemaining
+
+        if (damageAmount > 0) {
+            damageAmount = damageAmount * this.bodyStrength;
+            var healthCheck = this.healthRemaining - damageAmount;
+            if (healthCheck <= 0) {
+                // TODO: Car aslpode! Game over!
+                console.log('Car: ' + this.myName + ' is a ghost!')
+            } else {
+                this.healthRemaining = healthCheck;
+                console.log("Car '" + this.myName + "' took " + damageAmount + " points damage!");
+            } // end of healthCheck
+        } else {
+            console.log("All damage absorbed by shields for car: " + this.myName + ", Shields: " + this.shieldsRemaining + ", Health: " + this.healthRemaining);
+            return;
+        } // end of damageAmount
     }
 }
