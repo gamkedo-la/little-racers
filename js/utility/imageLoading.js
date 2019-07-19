@@ -32,6 +32,7 @@ var trackPics = [];
 // Gauges
 var gaugeNeedlePic = document.createElement("img");
 var fuelGaugePic = document.createElement("img");
+var lowFuelPic = document.createElement("img");
 // trophies
 var firstPlaceTrophyPic = document.createElement("img");
 var logoPic = document.createElement("img");
@@ -87,7 +88,8 @@ function loadImages() {
 			{varName: cityScapeSpriteSheet, theFile: "spriteSheet/cityScapeSpriteSheet.png"},
 			{varName: gaugeNeedlePic, theFile: "gauges/GaugeNeedle.png"},
 			{varName: fuelGaugePic, theFile: "gauges/FuelGauge.png"},
-            {varName: firstPlaceTrophyPic, theFile: "trophy.png"},
+			{varName: firstPlaceTrophyPic, theFile: "trophy.png"},
+			{varName: lowFuelPic, theFile: "lowFuelLight.png"},
             //{varName: titlescreenPic, theFile: "background.jpg"},
             {varName: logoPic, theFile: "logo.png"}
 		];

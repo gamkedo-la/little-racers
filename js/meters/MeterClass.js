@@ -4,6 +4,7 @@ const DEGREES_TO_RADIANS = Math.PI / 180;
 
 function MeterClass(x = 0, 
                     y = 0, 
+                    lowValueWarning = -1,
                     maxValue = 0,
                     minValue = 0,
                     currentValue = 0,
@@ -24,6 +25,7 @@ function MeterClass(x = 0,
     this.y = y;
     this.maxValue = maxValue;
     this.minValue = minValue;
+    this.lowValueWarning = lowValueWarning;
     this.currentValue = currentValue;
     this.needleX = needleX;
     this.needleY = needleY;
@@ -73,6 +75,10 @@ function MeterClass(x = 0,
             canvasContext.globalAlpha = alpha;
             colorCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusInner, color, canvasContext);
             canvasContext.restore();
+        }
+        //console.log(this.currentValue, this.lowValueWarning);
+        if(this.currentValue < this.lowValueWarning){
+            canvasContext.drawImage(lowFuelPic, this.x + this.needleX + lowFuelPic.width/2,this.y + this.needleY + lowFuelPic.height);
         }
         this.drawNeedle(canvasContext,
                         needlePic,
