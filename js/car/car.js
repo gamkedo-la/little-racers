@@ -27,6 +27,7 @@ const AI_STUCK_TIME_FRAMES = 10;
 const AI_RANDOM_MOVEMENT_FRAMES = 30;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
+const CAR_LOW_FUEL_LEVEL = 90;//temporarily high for easier demo
 
 var finalLappedCalled = false;
 
