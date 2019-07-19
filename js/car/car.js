@@ -930,6 +930,14 @@ function carClass() {
         this.fuelCapacity = setCapacityAmount;
     }
 
+    this.setFuelConsumptionRate = function(setConsumptionAmount) {
+        if (isNaN(setConsumptionAmount)) {
+            console.log("Invalid fuel consumption rate amount sent to setFuelConsumptionRate on car: " + this.myName);
+            return;
+        }
+        this.fuelConsumptionRate = setConsumptionAmount;
+    }
+
     this.setHealth = function(setHealthAmount) {
         if (isNaN(setHealthAmount)) {
             console.log("Invalid health amount sent to setHealth on car: " + this.myName);
@@ -965,7 +973,7 @@ function carClass() {
     }
 
     this.setBodyStrength = function(setBodyStrengthAmount) {
-        if (isNaN(setShieldAmount)) {
+        if (isNaN(setBodyStrengthAmount)) {
             console.log("Invalid body strength amount sent to setShields on car: " + this.myName);
             return;
         }
