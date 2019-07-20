@@ -95,21 +95,21 @@ function clearRacePositions(){
 //Announce Race Car Number
 function announceRaceCarNumber(delay){
 	if(soundDelayTimer == delay){
-		if(firstPlace == "Car 1"){
+		if(firstPlace == vehicleNames[0]){
 			carOneSound.play();
-		} else if(firstPlace == "Car 2"){
+		} else if(firstPlace == vehicleNames[1]){
 			carTwoSound.play();
-		} else if(firstPlace == "Car 3"){
+		} else if(firstPlace == vehicleNames[2]){
 			carThreeSound.play();
-		} else if(firstPlace == "Car 4"){
+		} else if(firstPlace == vehicleNames[3]){
 			carFourSound.play();
-		} else if(firstPlace == "Car 5"){
+		} else if(firstPlace == vehicleNames[4]){
 			carFiveSound.play();
-		} else if(firstPlace == "Car 6"){
+		} else if(firstPlace == vehicleNames[5]){
 			carSixSound.play();
-		} else if(firstPlace == "Car 7"){
+		} else if(firstPlace == vehicleNames[6]){
 			carSevenSound.play();
-		} else if(firstPlace == "Car 8"){
+		} else if(firstPlace == vehicleNames[7]){
 			carEightSound.play();
 		}
 	}

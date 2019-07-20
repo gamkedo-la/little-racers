@@ -48,16 +48,27 @@ function drawWinScreen(canvas, canvasContext){
 	}
 }
 
-function winScreenTimer(){
-	if(winScreenTime == 0) {
-		winScreenTime = Date.now();
-	} 
+//function winScreenTimer(){
+//	if(winScreenTime == 0) {
+//		winScreenTime = Date.now();
+//	} 
 
-	if(Date.now() - winScreenTime >= SHOW_WINSCREEN_TIME) {
-		winScreenTime = 0;
+//	if(Date.now() - winScreenTime >= SHOW_WINSCREEN_TIME) {
+//		winScreenTime = 0;
+//		winScreen = false;
+//		carUpgradeScreen = true;
+//		clearRacePositions();
+//		tireTracks.clear();
+//	}	
+//}
+
+canvas.addEventListener('mousedown', winScreenMouseClick);
+
+function winScreenMouseClick(evt) {
+	if(winScreen) {
 		winScreen = false;
 		carUpgradeScreen = true;
 		clearRacePositions();
 		tireTracks.clear();
-	}	
-}
+	}
+}	
