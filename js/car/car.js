@@ -228,12 +228,13 @@ function carClass() {
                 this.keyHeld_TurnRight = true;
                 this.keyHeld_TurnLeft = false;
                 if (dot < - dotTurningLimit) {// if result of the dot is much bigger or much lesser than 0 that means car has to make a big turn and it has to slow down.
+                  console.log(this.myName + "is slowing down");
                   this.keyHeld_Gas = false;
-                  this.keyHeld_Reverse = true;
+                  //this.keyHeld_Reverse = true;
                 }
                 else {
                   this.keyHeld_Gas = true;
-                  this.keyHeld_Reverse = false;
+                  //this.keyHeld_Reverse = false;
                 }
 
             } else {
@@ -241,11 +242,12 @@ function carClass() {
                 this.keyHeld_TurnLeft = true;
                 if (dot > dotTurningLimit) {
                   this.keyHeld_Gas = false;
-                  this.keyHeld_Reverse = true;
+                  console.log(this.myName + "is slowing down");
+                  //this.keyHeld_Reverse = true;
                 }
                 else {
                   this.keyHeld_Gas = true;
-                  this.keyHeld_Reverse = false;
+                  //this.keyHeld_Reverse = false;
                 }
             }
         }
