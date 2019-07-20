@@ -50,6 +50,11 @@ function carClass() {
     this.runTime = 0.0
     this.nitroBoostOn = false;
     this.wayPointNumber = 0;
+    this.wayPointNumberPrev = 0;
+    this.wrongDirectionTimerInterval = 150;
+    this.wrongDirectionTimer = 0;
+    this.wrongDirectionTimerPrev = 0;
+    this.wrongDirection = false;
     this.cash = 2000;
     this.placedPosition = false;
     this.fuelCapacity = 100;
@@ -194,7 +199,7 @@ function carClass() {
         }
     }
 
-    this.wayPointMovements = function(toX, toY) {
+    this.wayPointMovements = function(toX, toY, isComputerPlayer = this.computerPlayer) {
         var wayPointVectorX = toX - this.x;
         var wayPointVectorY = toY - this.y;
 
@@ -205,15 +210,18 @@ function carClass() {
         var carVectorY = Math.sin(this.ang - Math.PI / 2);
         var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
 
-        if (dot < 0) {
-            this.keyHeld_TurnRight = true;
-            this.keyHeld_TurnLeft = false;
-        } else {
-            this.keyHeld_TurnRight = false;
-            this.keyHeld_TurnLeft = true;
+        if (isComputerPlayer) {
+            if (dot < 0) {
+                this.keyHeld_TurnRight = true;
+                this.keyHeld_TurnLeft = false;
+            } else {
+                this.keyHeld_TurnRight = false;
+                this.keyHeld_TurnLeft = true;
+            }
         }
         var hitWaypointDistance = 27;
-        if (dist(this.x, this.y, toX, toY) <= hitWaypointDistance) {
+        var d = dist(this.x, this.y, toX, toY);
+        if (d <= hitWaypointDistance) {
             this.wayPointNumber++;
             if (this.wayPointNumber >= this.wayPointX.length) {
                 if (!this.placedPosition) {
@@ -397,6 +405,8 @@ function carClass() {
 
         if (this.computerPlayer) {
             this.doComputerPlayerDriving(); //Determines their steering and throttle.
+        } else {
+            this.checkIfWrongDirection();
         }
         this.updateCarSpeedAndTurnRate();
         this.updateCarPositionAndAngle();
@@ -586,6 +596,27 @@ function carClass() {
             }
         }
 
+    }
+
+    this.checkIfWrongDirection = function () {        
+        this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
+        if (this.keyHeld_Gas || this.keyHeld_Nitro || this.keyHeld_Reverse) {
+            if (this.wrongDirectionTimerPrev <= this.wrongDirectionTimer - this.wrongDirectionTimerInterval) {
+                this.wrongDirectionTimerPrev = this.wrongDirectionTimer;   
+
+                if (this.wayPointNumber > this.wayPointNumberPrev) {
+                    this.wayPointNumberPrev = this.wayPointNumber;
+                    this.wrongDirection = false;                
+                }
+                else {
+                    console.log("Wrong direction or checkpoint missed!");
+                    this.wrongDirection = true;
+                }            
+            }        
+            // console.log(this.wayPointNumber);
+            // console.log(this.wayPointNumberPrev);
+            this.wrongDirectionTimer++;
+        }
     }
 
     //Determines what happens when cars drive into a tile, including collisions, jumps, tracking waypoints
@@ -895,10 +926,10 @@ function carClass() {
             //Please leave this here but commented out so I don't have to remember how to set it up properly.
             //Draws the red rectangles around cars; use if you're needing some help with collision detection.
             //drawRotatedRectWithLines(this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
-            if (this.computerPlayer) {
+            // if (this.computerPlayer) {
 	            colorRect(this.x - (this.z / 4), this.y - (this.z / 2), 2, 2, 'red');
 	            colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
-            }
+            // }
         }
     }
 

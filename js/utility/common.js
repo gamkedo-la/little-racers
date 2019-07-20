@@ -41,10 +41,16 @@ function vectorMagnitude(x, y)
     return Math.sqrt(x * x + y * y);
 }
 
-function dist(x1, y1, x2, y2) {
+function dist(x1, y1, x2, y2, forComparisonOnly = false) {
     var xd = x2 - x1;
     var yd = y2 - y1;
-    return Math.sqrt(xd * xd + yd * yd);
+    var dist;
+    if (forComparisonOnly) {
+        dist = xd * xd + yd * yd;
+    } else {
+        dist = Math.sqrt(xd * xd + yd * yd);
+    }
+    return dist;
 }
 
 //Constrain an angle between 0 and -2PI.
