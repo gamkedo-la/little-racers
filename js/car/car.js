@@ -222,9 +222,8 @@ function carClass() {
         var carVectorY = Math.sin(this.ang - Math.PI / 2);
         var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
         var dotTurningLimit = 35;
-        
+
         if (isComputerPlayer) {
-          var angleOfTheTurn = this.calculateTurningWayPoint(this.wayPointNumber);
             if (dot < 0) {
                 this.keyHeld_TurnRight = true;
                 this.keyHeld_TurnLeft = false;
