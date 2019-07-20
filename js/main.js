@@ -44,12 +44,14 @@ var displayYellowLight = false;
 var displayGreenLight = false;
 
 var speedometerP1 = new MeterClass(5, 450);
+speedometerP1.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP1.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP1.overlayY = NITRO_DISLAY_YOFFSET;
 var fuelMeterP1 = new MeterClass(2, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP1.meterPic = fuelGaugePic;
 
 var speedometerP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 7, 450);
+speedometerP2.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP2.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP2.overlayY = NITRO_DISLAY_YOFFSET;
 var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525, CAR_LOW_FUEL_LEVEL);
@@ -116,7 +118,7 @@ function imageLoadingDoneSoStartGame(){
 
     for (var i = 0; i < vehicleList.length; i++) {
 		//vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
-		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i]+(i+1), true);
+		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i]), true);
 	}
 
     if (SMOKE_FX_ENABLED) {
@@ -141,7 +143,7 @@ function moveEverything() {
 	} else if (levelEditor) {
 		//Intentionally left empty - no movement
 	} else if (winScreen){
-		winScreenTimer();
+		//winScreenTimer();
 	} else if (carUpgradeScreen){
 		//Intentionally left empty - no movement
 	} else {
@@ -260,50 +262,38 @@ function drawStartLights(canvasContext){
 	}
 }
 
-function drawP1Meters(canvasContext) {
-	var playerOne = vehicleList[0];	
+function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
+{
+	fuelMeter.maxValue = plr.fuelCapacity;
+	fuelMeter.currentValue = plr.fuelInTank;		
+	fuelMeter.draw(canvasContext);
 
-	fuelMeterP1.maxValue = playerOne.fuelCapacity;
-	fuelMeterP1.currentValue = playerOne.fuelInTank;		
-	fuelMeterP1.draw(canvasContext);
-
-	if(playerOne.nitroBoostOn)
+	if(plr.nitroBoostOn)
 	{
-	    speedometerP1.meterPic = speedometerNitroOnPic;
+	    speedMeter.meterPic = speedometerNitroOnPic;
 	}
 	else
 	{
-	    speedometerP1.meterPic = speedometerNitroOffPic;
+	    speedMeter.meterPic = speedometerNitroOffPic;
 	}
-	speedometerP1.maxValue = playerOne.maxSpeed;
-	speedometerP1.currentValue = Math.abs(playerOne.speed);
-	speedometerP1.draw(canvasContext, speedometerP1.needlePic, speedometerP1.meterPic, speedometerP1.color,
-                       speedometerP1.alpha, speedometerP1.outlineWidth, speedometerP1.outlineColor, 
-                       speedometerP1.needleOffsetX, speedometerP1.needleOffsetY,
-                       speedometerNitroOverlays[playerOne.nitroBoostQuantity]);
-}
 
-function drawP2Meters(canvasContext) {
-	var playerTwo = vehicleList[1];
-
-	fuelMeterP2.maxValue = playerTwo.fuelCapacity;
-	fuelMeterP2.currentValue = playerTwo.fuelInTank;
-	fuelMeterP2.draw(canvasContext);
-
-	if(playerTwo.nitroBoostOn)
+	var extraGaugeIncrements = 0;
+	if(plr.speed > EXPECTED_CAR_MAX_SPEED_NO_NITRO)
 	{
-	    speedometerP2.meterPic = speedometerNitroOnPic;
+	    var extraGaugeNeedleIncrements = CAR_MAX_SPEED_DISPLAY_NITRO_ON - EXPECTED_CAR_MAX_SPEED_NO_NITRO; //Will be a constant (eg: 4 gauge increments).
+	    var extraGaugeSpeedQuantity = NITRO_MAX_SPEED-EXPECTED_CAR_MAX_SPEED_NO_NITRO;                    //Quantity represented by those increments (15).
+	    var nitroSpeed = plr.speed;
+	    if(nitroSpeed > NITRO_MAX_SPEED)
+	        nitroSpeed = NITRO_MAX_SPEED;                                                               //Could be up to 25
+	    var speedAboveMax = nitroSpeed - EXPECTED_CAR_MAX_SPEED_NO_NITRO;                               //Actual extra speed we need to draw (eg 0-15).
+	    var extraGaugeIncrementScale = speedAboveMax/extraGaugeSpeedQuantity;                           //From 0->1 to scale the extra increments.
+	    extraGaugeIncrements = extraGaugeNeedleIncrements*extraGaugeIncrementScale;                     //Actual extra needle increments to draw!
 	}
-	else
-	{
-	    speedometerP2.meterPic = speedometerNitroOffPic;
-	}
-	speedometerP2.maxValue = playerTwo.maxSpeed;
-	speedometerP2.currentValue = Math.abs(playerTwo.speed);
-	speedometerP2.draw(canvasContext, speedometerP2.needlePic, speedometerP2.meterPic, speedometerP2.color,
-                       speedometerP2.alpha, speedometerP2.outlineWidth, speedometerP2.outlineColor, 
-                       speedometerP2.needleOffsetX, speedometerP2.needleOffsetY,
-                       speedometerNitroOverlays[playerTwo.nitroBoostQuantity]);
+	speedMeter.currentValue = Math.min(Math.abs(plr.speed), EXPECTED_CAR_MAX_SPEED_NO_NITRO) + extraGaugeIncrements;
+	speedMeter.draw(canvasContext, speedMeter.needlePic, speedMeter.meterPic, speedMeter.color,
+                    speedMeter.alpha, speedMeter.outlineWidth, speedMeter.outlineColor, 
+                    speedMeter.needleOffsetX, speedMeter.needleOffsetY,
+                    speedometerNitroOverlays[plr.nitroBoostQuantity]);
 }
 
 function drawTracksOnScreen(canvas, canvasContext) {
@@ -325,7 +315,7 @@ function drawP1Screen() {
 	drawClock(canvasContext, 0, 0, 100, 40, 350, 2, 100, 40, 368);
 	drawLapOneTime(canvasContext, vehicleList[0]);
 	drawStartLights(canvasContext);
-	drawP1Meters(canvasContext);
+	drawMeters(canvasContext, vehicleList[0], fuelMeterP1, speedometerP1);
 
 	if (raining) {
 		//setInterval(function(){ addRainToArray(); }, 3000);
@@ -352,7 +342,7 @@ function drawP2Screen() {
 		drawClock(canvasContext2, 50, 0, 50, 40, 0, 2, 50, 40, -32);
 		drawLapOneTime(canvasContext2, vehicleList[1]);
 		drawStartLights(canvasContext2);
-		drawP2Meters(canvasContext2);
+		drawMeters(canvasContext2, vehicleList[1], fuelMeterP2, speedometerP2);
 
 		if (raining) {
 			//setInterval(function(){ addRainToArray(); }, 3000);
