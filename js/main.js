@@ -296,6 +296,17 @@ function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
                     speedometerNitroOverlays[plr.nitroBoostQuantity]);
 }
 
+function drawCheckpointArrow(canvas, canvasContext, player, arrowRotateOffset = Math.PI) {
+	if (player.wrongDirection && player.second % 2 == 0) {
+		var toX = player.wayPointX[player.wayPointNumber];
+		var toY = player.wayPointY[player.wayPointNumber];
+		var angle = Math.atan2(toY - player.y, toX - player.x) - arrowRotateOffset;		
+		var arrowX = canvas.width / 2 / scaleWidth;
+		var arrowY = (canvas.height / 2 - 300) / scaleHeight;
+		drawBitmapCenteredAtLocationWithRotation(arrowPic, arrowX, arrowY, angle, canvasContext);		
+	}
+}
+
 function drawTracksOnScreen(canvas, canvasContext) {
 	drawTracks(canvasContext);
 	tireTracks.draw(canvasContext);
@@ -316,6 +327,7 @@ function drawP1Screen() {
 	drawLapOneTime(canvasContext, vehicleList[0]);
 	drawStartLights(canvasContext);
 	drawMeters(canvasContext, vehicleList[0], fuelMeterP1, speedometerP1);
+	drawCheckpointArrow(canvas, canvasContext, vehicleList[0]);
 
 	if (raining) {
 		//setInterval(function(){ addRainToArray(); }, 3000);
@@ -343,6 +355,7 @@ function drawP2Screen() {
 		drawLapOneTime(canvasContext2, vehicleList[1]);
 		drawStartLights(canvasContext2);
 		drawMeters(canvasContext2, vehicleList[1], fuelMeterP2, speedometerP2);
+		drawCheckpointArrow(canvas2, canvasContext2, vehicleList[1]);
 
 		if (raining) {
 			//setInterval(function(){ addRainToArray(); }, 3000);
