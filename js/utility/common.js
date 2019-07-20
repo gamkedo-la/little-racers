@@ -63,3 +63,10 @@ function constrainAngleToNegativeRange(angle) {
 
     return angle;
 }
+
+//No clamp function in Javascript?
+//Takes value and returns it in range of min->max (inclusive of min and max).
+function clamp(min, value, max)
+{
+    return Math.min(Math.max(min, value), max);
+}

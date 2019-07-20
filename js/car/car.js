@@ -1,10 +1,10 @@
-const DRIVE_POWER = 0.5
-const GROUNDSPEED_DECAY_MULT = 0.94;
-const ENGINE_BOOST_LEVEL_DIVISOR = 50;
+const DRIVE_POWER = 0.45                    //These values from https://docs.google.com/spreadsheets/d/1bj506aOmZ7FRwFtS2wdQl-u09G10rXYQIrxpWryp_gk/edit#gid=953347406
+const GROUNDSPEED_DECAY_MULT = 0.948;
+const ENGINE_BOOST_LEVEL_DIVISOR = 60;
 const TRANSMISSION_BOOST_LEVEL_DIVISOR = 10;
 const TRANSMISSION_BOOST_CUTOFF_SPEED = 5;
 const EXPECTED_CAR_MAX_SPEED_NO_NITRO = 10; //This may not be used for anything. Recording as truth info in case needed.
-const NITRO_MAX_SPEED = 25;                 //However nitro is implemented, it will be capped to this speed.
+const NITRO_MAX_SPEED = 20;                 //However nitro is implemented, it will be capped to this speed.
 const CAR_MAX_SPEED_DISPLAY_NITRO_ON = 14;  //Used to scale the gauge. By putting it at 15, the gauge is configured such that
                                             //at the max upgraded non-nitro speed (10), the needle will line up just before
                                             //the nitro section.
@@ -25,8 +25,8 @@ const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
 const TURN_RATE_MULTIPLIER_OIL = 0.4;
 const TURN_RATE_MULTIPLIER_GRASS = 0.75;
-const NITRO_FRAME_DURATION = 10; //Being measured in frames, so at 30fps this is 1/3 second.
-const NITRO_BOOST_BASE_AMOUNT = 1.8; //Speed increase per frame.
+const NITRO_FRAME_DURATION = 30; //Being measured in frames, so at 30fps this is 1/3 second.
+const NITRO_BOOST_BASE_AMOUNT = .5; //Speed increase per frame.
 const NITRO_START_QUANTITY = 5;
 const AI_BRAKING_DISTANCE = 50;   //Measured from car center.
 const AI_BRAKING_OBSERVATION_ANGLE_90 = 0.707;
@@ -535,8 +535,19 @@ function carClass() {
             		}
             	}
                 if (this.fuelInTank > 0) {
-                    // Increase 0,1 with every upgrade on the transmission
-                    this.speed += DRIVE_POWER + (this.transmissionVersion/10);
+                    
+                    //Add in basic speed boost every car gets.
+                    this.speed += DRIVE_POWER;
+
+                    //Add in engine effects.
+                    this.speed += this.engineVersion/ENGINE_BOOST_LEVEL_DIVISOR;
+
+                    //Add in transmission effects for extra increase when at lower speeds.
+                    //transmissionBoostScale will be large when car is slow/stopped, getting smaller and going to 0 when approachign cutoff speed.
+                    var transmissionBoostScale = TRANSMISSION_BOOST_CUTOFF_SPEED- clamp(0, this.speed, TRANSMISSION_BOOST_CUTOFF_SPEED);
+                    var transmissionBoostAmount = transmissionBoostScale*this.transmissionVersion/TRANSMISSION_BOOST_LEVEL_DIVISOR;
+                    this.speed += transmissionBoostAmount;
+
                     if (!debugMode) { //don't remove fuel while in debug mode
                         this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
                     }
@@ -560,6 +571,12 @@ function carClass() {
             //That's why this code is not in the above sections for forward/reverse.
             if (this.nitroBoostOn) {
                 this.speed += NITRO_BOOST_BASE_AMOUNT;
+            }
+
+            //Finally, cap speed to a reasonable max in case anything else has broken.
+            if(this.speed > NITRO_MAX_SPEED)
+            {
+                this.speed=NITRO_MAX_SPEED;
             }
         }
 

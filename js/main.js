@@ -117,7 +117,6 @@ function imageLoadingDoneSoStartGame(){
 	}, 1000/framesPerSecond);
 
     for (var i = 0; i < vehicleList.length; i++) {
-		//vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
 		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i], true);
 	}
 
@@ -127,7 +126,7 @@ function imageLoadingDoneSoStartGame(){
     }
 
     //	loadLevel(levelOne);
-	loadLevel(levelList[0]);
+    loadLevel(levelList[0]);
 }
 
 function addVehicle(){
