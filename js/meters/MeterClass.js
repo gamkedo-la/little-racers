@@ -48,6 +48,7 @@ function MeterClass(x = 0,
     this.meterOverlayX = meterOverlayX;
     this.meterOverlayY = meterOverlayY;
 
+    //Just returns the angle based on the % of max value based on the draw calls current value.
     this.calculateNeedleAngle = function() {
         var percentFull = this.currentValue / this.maxValue;
         var angleRange = MAX_NEEDLE_ANGLE - MIN_NEEDLE_ANGLE;

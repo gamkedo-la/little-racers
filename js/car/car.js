@@ -1,10 +1,18 @@
 const DRIVE_POWER = 0.5
+const GROUNDSPEED_DECAY_MULT = 0.94;
+const ENGINE_BOOST_LEVEL_DIVISOR = 50;
+const TRANSMISSION_BOOST_LEVEL_DIVISOR = 10;
+const TRANSMISSION_BOOST_CUTOFF_SPEED = 5;
+const EXPECTED_CAR_MAX_SPEED_NO_NITRO = 10; //This may not be used for anything. Recording as truth info in case needed.
+const NITRO_MAX_SPEED = 25;                 //However nitro is implemented, it will be capped to this speed.
+const CAR_MAX_SPEED_DISPLAY_NITRO_ON = 14;  //Used to scale the gauge. By putting it at 15, the gauge is configured such that
+                                            //at the max upgraded non-nitro speed (10), the needle will line up just before
+                                            //the nitro section.
 const REVERSE_POWER = 0.2;
 const MIN_TURN_SPEED = 0.5;
 const MIN_JUMP_START_SPEED = 4;
 const JUMP_START_ZSPEED = 5;
 const GRAVITY = -0.4;
-const GROUNDSPEED_DECAY_MULT = 0.94;
 const CAR_COLLISION_RADIUS = 15;
 const WALL_LOW_IMPACT_THRESHOLD = Math.PI / 6;
 const WALL_BOUNCE_ANGLE = Math.PI / 36; //When cars hit the wall at a low angle, they bounce off at this angle.
@@ -84,7 +92,6 @@ function carClass() {
         this.speed = 0;
         this.placedPosition = false;
         this.stopCar = false;
-        this.maxSpeed = MAXSPD_FOR_TRAIL;
         this.ang = -0.5 * Math.PI; //Angle is in radians; this rotates the car -90 degrees to point car up. (0 deg is to the right)
         //Graphics on the sheet are oriented pointing to the right, matching angle=0 degrees.`
 

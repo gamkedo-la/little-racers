@@ -43,12 +43,14 @@ var displayYellowLight = false;
 var displayGreenLight = false;
 
 var speedometerP1 = new MeterClass(5, 450);
+speedometerP1.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP1.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP1.overlayY = NITRO_DISLAY_YOFFSET;
 var fuelMeterP1 = new MeterClass(2, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP1.meterPic = fuelGaugePic;
 
 var speedometerP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 7, 450);
+speedometerP2.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP2.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP2.overlayY = NITRO_DISLAY_YOFFSET;
 var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525, CAR_LOW_FUEL_LEVEL);
@@ -273,8 +275,20 @@ function drawP1Meters(canvasContext) {
 	{
 	    speedometerP1.meterPic = speedometerNitroOffPic;
 	}
-	speedometerP1.maxValue = playerOne.maxSpeed;
-	speedometerP1.currentValue = Math.abs(playerOne.speed);
+
+	var extraGaugeIncrements = 0;
+	if(playerOne.speed > EXPECTED_CAR_MAX_SPEED_NO_NITRO)
+	{
+	    var extraGaugeNeedleIncrements = CAR_MAX_SPEED_DISPLAY_NITRO_ON - EXPECTED_CAR_MAX_SPEED_NO_NITRO; //Will be a constant (eg: 4 gauge increments).
+	    var extraGaugeSpeedQuantity = NITRO_MAX_SPEED-EXPECTED_CAR_MAX_SPEED_NO_NITRO;                    //Quantity represented by those increments (15).
+	    var nitroSpeed = playerOne.speed;
+	    if(nitroSpeed > NITRO_MAX_SPEED)
+	        nitroSpeed = NITRO_MAX_SPEED;                                                               //Could be up to 25
+	    var speedAboveMax = nitroSpeed - EXPECTED_CAR_MAX_SPEED_NO_NITRO;                               //Actual extra speed we need to draw (eg 0-15).
+	    var extraGaugeIncrementScale = speedAboveMax/extraGaugeSpeedQuantity;                           //From 0->1 to scale the extra increments.
+	    extraGaugeIncrements = extraGaugeNeedleIncrements*extraGaugeIncrementScale;                     //Actual extra needle increments to draw!
+	}
+	speedometerP1.currentValue = Math.min(Math.abs(playerOne.speed), EXPECTED_CAR_MAX_SPEED_NO_NITRO) + extraGaugeIncrements;
 	speedometerP1.draw(canvasContext, speedometerP1.needlePic, speedometerP1.meterPic, speedometerP1.color,
                        speedometerP1.alpha, speedometerP1.outlineWidth, speedometerP1.outlineColor, 
                        speedometerP1.needleOffsetX, speedometerP1.needleOffsetY,
@@ -296,7 +310,6 @@ function drawP2Meters(canvasContext) {
 	{
 	    speedometerP2.meterPic = speedometerNitroOffPic;
 	}
-	speedometerP2.maxValue = playerTwo.maxSpeed;
 	speedometerP2.currentValue = Math.abs(playerTwo.speed);
 	speedometerP2.draw(canvasContext, speedometerP2.needlePic, speedometerP2.meterPic, speedometerP2.color,
                        speedometerP2.alpha, speedometerP2.outlineWidth, speedometerP2.outlineColor, 
