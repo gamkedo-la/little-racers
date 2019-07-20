@@ -238,6 +238,8 @@ function carClass() {
             if (this.wayPointNumber >= this.wayPointX.length) {                
                 if (!this.placedPosition) {
                     this.wayPointNumber = 0;
+                    this.wayPointNumberPrev = 0;
+                    this.wrongDirection = false;
                 } else {
                     this.stopCar = true;                 
                 }
@@ -625,10 +627,10 @@ function carClass() {
                     this.wrongDirection = true;
                 }            
             }        
-            // console.log("wayPointNumber: " + this.wayPointNumber);
-            // console.log("wayPointNumberPrev: + " + this.wayPointNumberPrev);
-            // console.log("wrongDirectionTimer: " + this.wrongDirectionTimer);
             this.wrongDirectionTimer++;
+            console.log("wayPointNumber: " + this.wayPointNumber);
+            console.log("wayPointNumberPrev: " + this.wayPointNumberPrev);
+            console.log("wrongDirectionTimer: " + this.wrongDirectionTimer);
         }
     }
 
