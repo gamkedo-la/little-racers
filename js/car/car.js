@@ -114,6 +114,11 @@ function carClass() {
         this.wayPointY = levelList[levelNow].wayPointsY.slice();
         this.x = this.homeX;
         this.y = this.homeY;
+
+        this.wrongDirection = false;
+        this.wrongDirectionTimer = 0;
+        this.wrongDirectionTimerPrev = 0;
+        this.wayPointNumberPrev = 0;
     }
 
     this.carInit = function(whichGraphic, whichName, computer) {
@@ -230,11 +235,11 @@ function carClass() {
         var d = dist(this.x, this.y, toX, toY);
         if (d <= hitWaypointDistance) {
             this.wayPointNumber++;
-            if (this.wayPointNumber >= this.wayPointX.length) {
+            if (this.wayPointNumber >= this.wayPointX.length) {                
                 if (!this.placedPosition) {
                     this.wayPointNumber = 0;
                 } else {
-                    this.stopCar = true;
+                    this.stopCar = true;                 
                 }
             }
         }
@@ -620,8 +625,9 @@ function carClass() {
                     this.wrongDirection = true;
                 }            
             }        
-            // console.log(this.wayPointNumber);
-            // console.log(this.wayPointNumberPrev);
+            // console.log("wayPointNumber: " + this.wayPointNumber);
+            // console.log("wayPointNumberPrev: + " + this.wayPointNumberPrev);
+            // console.log("wrongDirectionTimer: " + this.wrongDirectionTimer);
             this.wrongDirectionTimer++;
         }
     }
