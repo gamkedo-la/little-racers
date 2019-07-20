@@ -262,61 +262,38 @@ function drawStartLights(canvasContext){
 	}
 }
 
-function drawP1Meters(canvasContext) {
-	var playerOne = vehicleList[0];	
+function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
+{
+	fuelMeter.maxValue = plr.fuelCapacity;
+	fuelMeter.currentValue = plr.fuelInTank;		
+	fuelMeter.draw(canvasContext);
 
-	fuelMeterP1.maxValue = playerOne.fuelCapacity;
-	fuelMeterP1.currentValue = playerOne.fuelInTank;		
-	fuelMeterP1.draw(canvasContext);
-
-	if(playerOne.nitroBoostOn)
+	if(plr.nitroBoostOn)
 	{
-	    speedometerP1.meterPic = speedometerNitroOnPic;
+	    speedMeter.meterPic = speedometerNitroOnPic;
 	}
 	else
 	{
-	    speedometerP1.meterPic = speedometerNitroOffPic;
+	    speedMeter.meterPic = speedometerNitroOffPic;
 	}
 
 	var extraGaugeIncrements = 0;
-	if(playerOne.speed > EXPECTED_CAR_MAX_SPEED_NO_NITRO)
+	if(plr.speed > EXPECTED_CAR_MAX_SPEED_NO_NITRO)
 	{
 	    var extraGaugeNeedleIncrements = CAR_MAX_SPEED_DISPLAY_NITRO_ON - EXPECTED_CAR_MAX_SPEED_NO_NITRO; //Will be a constant (eg: 4 gauge increments).
 	    var extraGaugeSpeedQuantity = NITRO_MAX_SPEED-EXPECTED_CAR_MAX_SPEED_NO_NITRO;                    //Quantity represented by those increments (15).
-	    var nitroSpeed = playerOne.speed;
+	    var nitroSpeed = plr.speed;
 	    if(nitroSpeed > NITRO_MAX_SPEED)
 	        nitroSpeed = NITRO_MAX_SPEED;                                                               //Could be up to 25
 	    var speedAboveMax = nitroSpeed - EXPECTED_CAR_MAX_SPEED_NO_NITRO;                               //Actual extra speed we need to draw (eg 0-15).
 	    var extraGaugeIncrementScale = speedAboveMax/extraGaugeSpeedQuantity;                           //From 0->1 to scale the extra increments.
 	    extraGaugeIncrements = extraGaugeNeedleIncrements*extraGaugeIncrementScale;                     //Actual extra needle increments to draw!
 	}
-	speedometerP1.currentValue = Math.min(Math.abs(playerOne.speed), EXPECTED_CAR_MAX_SPEED_NO_NITRO) + extraGaugeIncrements;
-	speedometerP1.draw(canvasContext, speedometerP1.needlePic, speedometerP1.meterPic, speedometerP1.color,
-                       speedometerP1.alpha, speedometerP1.outlineWidth, speedometerP1.outlineColor, 
-                       speedometerP1.needleOffsetX, speedometerP1.needleOffsetY,
-                       speedometerNitroOverlays[playerOne.nitroBoostQuantity]);
-}
-
-function drawP2Meters(canvasContext) {
-	var playerTwo = vehicleList[1];
-
-	fuelMeterP2.maxValue = playerTwo.fuelCapacity;
-	fuelMeterP2.currentValue = playerTwo.fuelInTank;
-	fuelMeterP2.draw(canvasContext);
-
-	if(playerTwo.nitroBoostOn)
-	{
-	    speedometerP2.meterPic = speedometerNitroOnPic;
-	}
-	else
-	{
-	    speedometerP2.meterPic = speedometerNitroOffPic;
-	}
-	speedometerP2.currentValue = Math.abs(playerTwo.speed);
-	speedometerP2.draw(canvasContext, speedometerP2.needlePic, speedometerP2.meterPic, speedometerP2.color,
-                       speedometerP2.alpha, speedometerP2.outlineWidth, speedometerP2.outlineColor, 
-                       speedometerP2.needleOffsetX, speedometerP2.needleOffsetY,
-                       speedometerNitroOverlays[playerTwo.nitroBoostQuantity]);
+	speedMeter.currentValue = Math.min(Math.abs(plr.speed), EXPECTED_CAR_MAX_SPEED_NO_NITRO) + extraGaugeIncrements;
+	speedMeter.draw(canvasContext, speedMeter.needlePic, speedMeter.meterPic, speedMeter.color,
+                    speedMeter.alpha, speedMeter.outlineWidth, speedMeter.outlineColor, 
+                    speedMeter.needleOffsetX, speedMeter.needleOffsetY,
+                    speedometerNitroOverlays[plr.nitroBoostQuantity]);
 }
 
 function drawTracksOnScreen(canvas, canvasContext) {
@@ -338,7 +315,7 @@ function drawP1Screen() {
 	drawClock(canvasContext, 0, 0, 100, 40, 350, 2, 100, 40, 368);
 	drawLapOneTime(canvasContext, vehicleList[0]);
 	drawStartLights(canvasContext);
-	drawP1Meters(canvasContext);
+	drawMeters(canvasContext, vehicleList[0], fuelMeterP1, speedometerP1);
 
 	if (raining) {
 		//setInterval(function(){ addRainToArray(); }, 3000);
@@ -365,7 +342,7 @@ function drawP2Screen() {
 		drawClock(canvasContext2, 50, 0, 50, 40, 0, 2, 50, 40, -32);
 		drawLapOneTime(canvasContext2, vehicleList[1]);
 		drawStartLights(canvasContext2);
-		drawP2Meters(canvasContext2);
+		drawMeters(canvasContext2, vehicleList[1], fuelMeterP2, speedometerP2);
 
 		if (raining) {
 			//setInterval(function(){ addRainToArray(); }, 3000);
