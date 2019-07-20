@@ -221,27 +221,46 @@ function carClass() {
         var carVectorX = Math.cos(this.ang - Math.PI / 2);
         var carVectorY = Math.sin(this.ang - Math.PI / 2);
         var dot = dotProduct(wayPointVectorX, wayPointVectorY, carVectorX, carVectorY);
-
+        var dotTurningLimit = 35;
+        
         if (isComputerPlayer) {
+          var angleOfTheTurn = this.calculateTurningWayPoint(this.wayPointNumber);
             if (dot < 0) {
                 this.keyHeld_TurnRight = true;
                 this.keyHeld_TurnLeft = false;
+                if (dot < - dotTurningLimit) {// if result of the dot is much bigger or much lesser than 0 that means car has to make a big turn and it has to slow down.
+                  this.keyHeld_Gas = false;
+                  this.keyHeld_Reverse = true;
+                }
+                else {
+                  this.keyHeld_Gas = true;
+                  this.keyHeld_Reverse = false;
+                }
+
             } else {
                 this.keyHeld_TurnRight = false;
                 this.keyHeld_TurnLeft = true;
+                if (dot > dotTurningLimit) {
+                  this.keyHeld_Gas = false;
+                  this.keyHeld_Reverse = true;
+                }
+                else {
+                  this.keyHeld_Gas = true;
+                  this.keyHeld_Reverse = false;
+                }
             }
         }
         var hitWaypointDistance = 27;
         var d = dist(this.x, this.y, toX, toY);
         if (d <= hitWaypointDistance) {
             this.wayPointNumber++;
-            if (this.wayPointNumber >= this.wayPointX.length) {                
+            if (this.wayPointNumber >= this.wayPointX.length) {
                 if (!this.placedPosition) {
                     this.wayPointNumber = 0;
                     this.wayPointNumberPrev = 0;
                     this.wrongDirection = false;
                 } else {
-                    this.stopCar = true;                 
+                    this.stopCar = true;
                 }
             }
         }
@@ -612,21 +631,21 @@ function carClass() {
 
     }
 
-    this.checkIfWrongDirection = function () {        
+    this.checkIfWrongDirection = function () {
         this.wayPointMovements(this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber]);
         if (this.keyHeld_Gas || this.keyHeld_Nitro || this.keyHeld_Reverse) {
             if (this.wrongDirectionTimerPrev <= this.wrongDirectionTimer - this.wrongDirectionTimerInterval) {
-                this.wrongDirectionTimerPrev = this.wrongDirectionTimer;   
+                this.wrongDirectionTimerPrev = this.wrongDirectionTimer;
 
                 if (this.wayPointNumber > this.wayPointNumberPrev) {
                     this.wayPointNumberPrev = this.wayPointNumber;
-                    this.wrongDirection = false;                
+                    this.wrongDirection = false;
                 }
                 else {
                     console.log("Wrong direction or checkpoint missed!");
                     this.wrongDirection = true;
-                }            
-            }        
+                }
+            }
             this.wrongDirectionTimer++;
             console.log("wayPointNumber: " + this.wayPointNumber);
             console.log("wayPointNumberPrev: " + this.wayPointNumberPrev);
