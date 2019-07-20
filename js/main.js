@@ -24,6 +24,7 @@ var now = new Date();
 var time = 0;
 
 var vehicleList = [];
+var vehicleNames = ["Sir Puggington III", "McFirepants", "Sunbeam Tiger", "Luminous Thunder", "Max Mad", "Chris DeLorean", "Spectre", "JS Mach"];
 var twoPlayerGame = false;
 var computerPlayerOn = true;
 
@@ -114,7 +115,8 @@ function imageLoadingDoneSoStartGame(){
 	}, 1000/framesPerSecond);
 
     for (var i = 0; i < vehicleList.length; i++) {
-		vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
+		//vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
+		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i]+(i+1), true);
 	}
 
     if (SMOKE_FX_ENABLED) {
