@@ -118,7 +118,7 @@ function imageLoadingDoneSoStartGame(){
 
     for (var i = 0; i < vehicleList.length; i++) {
 		//vehicleList[i].carInit(window['carPic'+(i+1)], 'Car '+(i+1), true);
-		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i]), true);
+		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i], true);
 	}
 
     if (SMOKE_FX_ENABLED) {
