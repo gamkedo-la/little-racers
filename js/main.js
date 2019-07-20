@@ -43,12 +43,14 @@ var displayYellowLight = false;
 var displayGreenLight = false;
 
 var speedometerP1 = new MeterClass(5, 450);
-speedometerP1.meterPic = speedometerPic;
+speedometerP1.overlayX = NITRO_DISLAY_XOFFSET;
+speedometerP1.overlayY = NITRO_DISLAY_YOFFSET;
 var fuelMeterP1 = new MeterClass(2, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP1.meterPic = fuelGaugePic;
 
 var speedometerP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 7, 450);
-speedometerP2.meterPic = speedometerPic;
+speedometerP2.overlayX = NITRO_DISLAY_XOFFSET;
+speedometerP2.overlayY = NITRO_DISLAY_YOFFSET;
 var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP2.meterPic = fuelGaugePic;
 
@@ -263,9 +265,20 @@ function drawP1Meters(canvasContext) {
 	fuelMeterP1.currentValue = playerOne.fuelInTank;		
 	fuelMeterP1.draw(canvasContext);
 
+	if(playerOne.nitroBoostOn)
+	{
+	    speedometerP1.meterPic = speedometerNitroOnPic;
+	}
+	else
+	{
+	    speedometerP1.meterPic = speedometerNitroOffPic;
+	}
 	speedometerP1.maxValue = playerOne.maxSpeed;
 	speedometerP1.currentValue = Math.abs(playerOne.speed);
-	speedometerP1.draw(canvasContext);
+	speedometerP1.draw(canvasContext, speedometerP1.needlePic, speedometerP1.meterPic, speedometerP1.color,
+                       speedometerP1.alpha, speedometerP1.outlineWidth, speedometerP1.outlineColor, 
+                       speedometerP1.needleOffsetX, speedometerP1.needleOffsetY,
+                       speedometerNitroOverlays[playerOne.nitroBoostQuantity]);
 }
 
 function drawP2Meters(canvasContext) {
@@ -275,9 +288,20 @@ function drawP2Meters(canvasContext) {
 	fuelMeterP2.currentValue = playerTwo.fuelInTank;
 	fuelMeterP2.draw(canvasContext);
 
+	if(playerTwo.nitroBoostOn)
+	{
+	    speedometerP2.meterPic = speedometerNitroOnPic;
+	}
+	else
+	{
+	    speedometerP2.meterPic = speedometerNitroOffPic;
+	}
 	speedometerP2.maxValue = playerTwo.maxSpeed;
 	speedometerP2.currentValue = Math.abs(playerTwo.speed);
-	speedometerP2.draw(canvasContext);
+	speedometerP2.draw(canvasContext, speedometerP2.needlePic, speedometerP2.meterPic, speedometerP2.color,
+                       speedometerP2.alpha, speedometerP2.outlineWidth, speedometerP2.outlineColor, 
+                       speedometerP2.needleOffsetX, speedometerP2.needleOffsetY,
+                       speedometerNitroOverlays[playerTwo.nitroBoostQuantity]);
 }
 
 function drawTracksOnScreen(canvas, canvasContext) {

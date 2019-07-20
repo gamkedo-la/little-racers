@@ -1,5 +1,7 @@
 const MIN_NEEDLE_ANGLE = -62;
 const MAX_NEEDLE_ANGLE = 62;
+const NITRO_DISLAY_XOFFSET = 16;
+const NITRO_DISLAY_YOFFSET = 28;
 const DEGREES_TO_RADIANS = Math.PI / 180;
 
 function MeterClass(x = 0, 
@@ -19,7 +21,10 @@ function MeterClass(x = 0,
                     color = 'white',
                     alpha = 0.5,
                     needlePic = gaugeNeedlePic,
-                    meterPic) {
+                    meterPic,
+                    meterOverlayPic=null,
+                    meterOverlayX=0,
+                    meterOverlayY=0) {
 
     this.x = x;
     this.y = y;
@@ -39,6 +44,9 @@ function MeterClass(x = 0,
     this.alpha = alpha;
     this.meterPic = meterPic;
     this.needlePic = needlePic;
+    this.meterOverlayPic = meterOverlayPic;
+    this.meterOverlayX = meterOverlayX;
+    this.meterOverlayY = meterOverlayY;
 
     this.calculateNeedleAngle = function() {
         var percentFull = this.currentValue / this.maxValue;
@@ -64,7 +72,10 @@ function MeterClass(x = 0,
                          outlineWidth = this.outlineWidth, 
                          outlineColor = this.outlineColor, 
                          needleOffsetX = this.needleOffsetX,
-                         needleOffsetY = this.needleOffsetY) {
+                         needleOffsetY = this.needleOffsetY,
+                         meterOverlayPic = null,
+                         overlayX = this.overlayX,
+                         overlayY = this.overlayY) {
         
         if (meterPic) {
             canvasContext.drawImage(meterPic, this.x, this.y);
@@ -76,7 +87,8 @@ function MeterClass(x = 0,
             colorCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusInner, color, canvasContext);
             canvasContext.restore();
         }
-        //console.log(this.currentValue, this.lowValueWarning);
+        if(meterOverlayPic)
+            canvasContext.drawImage(meterOverlayPic, this.x+overlayX, this.y+overlayY);
         if(this.currentValue < this.lowValueWarning){
             canvasContext.drawImage(lowFuelPic, this.x + this.needleX + lowFuelPic.width/2,this.y + this.needleY + lowFuelPic.height);
         }

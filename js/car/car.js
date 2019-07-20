@@ -61,7 +61,6 @@ function carClass() {
     this.transmissionVersion = 0;
     this.tireVersion = 0;
     this.engineVersion = 0;
-    this.nitroVersion = 0;
     this.exhaustVersion = 0;
     this.carPic = document.createElement("img");
     this.maxShields = 100;
@@ -181,7 +180,6 @@ function carClass() {
         this.checkPointA = false;
         this.checkPointB = false;
         this.checkPointC = false;
-        console.log("Finish Line");
             //use these way points while racing
         if (!this.placedPosition) {
         	// do you boo
@@ -222,7 +220,6 @@ function carClass() {
                     this.wayPointNumber = 0;
                 } else {
                     this.stopCar = true;
-                    console.log("stop car " + this.stopCar);
                 }
             }
         }
@@ -271,7 +268,6 @@ function carClass() {
 
     this.checkForLowFuelLevel = function() {
         if (this.fuelInTank <= CAR_LOW_FUEL_LEVEL) {
-            console.log("Low fuel!");
             this.findPitStop = true;
         }
     }
@@ -324,7 +320,6 @@ function carClass() {
 
             // pending ground pound (landed from a ramp jump)
             if (justHitTheGround) {
-                console.log("Hit the ground!");
                 justHitTheGround = false;
                 for (var loop=0; loop<16; loop++) {
                     SmokeFX.add(
@@ -372,8 +367,6 @@ function carClass() {
         if (tireTrackAlpha < 0) tireTrackAlpha = 0;
         if (tireTrackAlpha > 1) tireTrackAlpha = 1;
 
-        //console.log("Car speed: " + this.speed.toFixed(1) + " Skid alpha: " + tireTrackAlpha.toFixed(1));
-
         if (tireTrackAlpha > 0.001) {
             tireTracks.add(this.x, this.y, this.ang, tireTrackAlpha);
         }
@@ -384,7 +377,7 @@ function carClass() {
     this.tryNitroBoost = function() {
         if (this.nitroBoostQuantity > 0 && !this.nitroBoostOn) {
             this.nitroBoostQuantity--;
-            this.nitroBoostTime = NITRO_FRAME_DURATION * (this.nitroVersion + 1);
+            this.nitroBoostTime = NITRO_FRAME_DURATION;
             this.nitroBoostOn = true;
         }
     }

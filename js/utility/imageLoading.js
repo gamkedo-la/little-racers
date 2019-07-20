@@ -32,8 +32,16 @@ var trackPics = [];
 // Gauges
 var gaugeNeedlePic = document.createElement("img");
 var fuelGaugePic = document.createElement("img");
-var speedometerPic = document.createElement("img");
-var speedometerNitroPic = document.createElement("img");
+var speedometerNitroOnPic = document.createElement("img");
+var speedometerNitroOffPic = document.createElement("img");
+var speedometerNitroOverlay0 = document.createElement("img");
+var speedometerNitroOverlay1 = document.createElement("img");
+var speedometerNitroOverlay2 = document.createElement("img");
+var speedometerNitroOverlay3 = document.createElement("img");
+var speedometerNitroOverlay4 = document.createElement("img");
+var speedometerNitroOverlay5 = document.createElement("img");
+var speedometerNitroOverlays = [speedometerNitroOverlay0, speedometerNitroOverlay1, speedometerNitroOverlay2,
+                                speedometerNitroOverlay3, speedometerNitroOverlay4, speedometerNitroOverlay5];
 var lowFuelPic = document.createElement("img");
 // trophies
 var firstPlaceTrophyPic = document.createElement("img");
@@ -90,9 +98,15 @@ function loadImages() {
 			{varName: cityScapeSpriteSheet, theFile: "spriteSheet/cityScapeSpriteSheet.png"},
 			{varName: gaugeNeedlePic, theFile: "gauges/GaugeNeedle.png"},
 			{varName: fuelGaugePic, theFile: "gauges/FuelGauge.png"},
-			{varName: speedometerPic, theFile: "gauges/SystemsGaugeNitroInactive.png"},
-			{varName: speedometerNitroPic, theFile: "gauges/SystemsGaugeNitroActive.png"},
-			{varName: firstPlaceTrophyPic, theFile: "trophy.png"},
+            {varName: speedometerNitroOffPic, theFile: "gauges/SystemsGaugeNitroInactive.png" },
+			{varName: speedometerNitroOnPic, theFile: "gauges/SystemsGaugeNitroActive.png"},
+			{varName: speedometerNitroOverlay0, theFile: "gauges/NitroQuantity-0.png"},
+			{varName: speedometerNitroOverlay1, theFile: "gauges/NitroQuantity-1.png"},
+			{varName: speedometerNitroOverlay2, theFile: "gauges/NitroQuantity-2.png"},
+			{varName: speedometerNitroOverlay3, theFile: "gauges/NitroQuantity-3.png"},
+			{varName: speedometerNitroOverlay4, theFile: "gauges/NitroQuantity-4.png"},
+			{varName: speedometerNitroOverlay5, theFile: "gauges/NitroQuantity-5.png"},
+			{varName: firstPlaceTrophyPic, theFile: "trophy.png" },
 			{varName: lowFuelPic, theFile: "lowFuelLight.png"},
             //{varName: titlescreenPic, theFile: "background.jpg"},
             {varName: logoPic, theFile: "logo.png"}
