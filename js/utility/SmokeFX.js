@@ -30,6 +30,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 function SmokeFXClass(smokeCanvas) {
 
 	const DEBUG_SMOKE = true;
+    var titlescreenTime = 0; // elapsed seconds
+    var titlescreenFrameCount = 0; // to measure FPS
+    const titlescreenTimespan = 1.0; // tire track fire anim length in seconds
 
 	if (DEBUG_SMOKE) console.log("SmokeFX initializing");
 
@@ -575,14 +578,18 @@ function SmokeFXClass(smokeCanvas) {
         }
     }
 
-    var titlescreenTime = 0; // elapsed
-    const titlescreenTimespan = 1.0; // seconds
     function titlescreenFX(dt) {
           
         titlescreenTime += dt;
+        titlescreenFrameCount++;
 
         var animPercent = Math.min(1,titlescreenTime/titlescreenTimespan);
 
+        if (animPercent==1 && !window.reportedFPS) {
+            if (DEBUG_SMOKE) console.log("FPS during tire track animation: " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
+            window.reportedFPS = true;
+        }
+        
         // just for fun, spawn on the mouse cursor during the menus
         // FIXME this does not take canvas stretching into account
         /*
@@ -803,6 +810,7 @@ function SmokeFXClass(smokeCanvas) {
     this.stop = function() {
         if (DEBUG_SMOKE) console.log("SmokeFX stopping.");
         smokeCanvas.style.display='none';
+        if (DEBUG_SMOKE) console.log("FPS during title screen: " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
     }
 
 
