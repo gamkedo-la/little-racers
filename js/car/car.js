@@ -1,3 +1,4 @@
+const DEBUG_AI = false;                     // verbose console log used for AI debugging
 const DRIVE_POWER = 0.45                    //These values from https://docs.google.com/spreadsheets/d/1bj506aOmZ7FRwFtS2wdQl-u09G10rXYQIrxpWryp_gk/edit#gid=953347406
 const GROUNDSPEED_DECAY_MULT = 0.948;
 const ENGINE_BOOST_LEVEL_DIVISOR = 60;
@@ -228,7 +229,7 @@ function carClass() {
                 this.keyHeld_TurnRight = true;
                 this.keyHeld_TurnLeft = false;
                 if (dot < - dotTurningLimit) {// if result of the dot is much bigger or much lesser than 0 that means car has to make a big turn and it has to slow down.
-                  console.log(this.myName + "is slowing down");
+                  if (DEBUG_AI) console.log(this.myName + "is slowing down");
                   this.keyHeld_Gas = false;
                   //this.keyHeld_Reverse = true;
                 }
@@ -242,7 +243,7 @@ function carClass() {
                 this.keyHeld_TurnLeft = true;
                 if (dot > dotTurningLimit) {
                   this.keyHeld_Gas = false;
-                  console.log(this.myName + "is slowing down");
+                  if (DEBUG_AI) console.log(this.myName + "is slowing down");
                   //this.keyHeld_Reverse = true;
                 }
                 else {
@@ -660,14 +661,14 @@ function carClass() {
                     this.wrongDirection = false;
                 }
                 else {
-                    console.log("Wrong direction or checkpoint missed!");
+                    if (DEBUG_AI) console.log("Wrong direction or checkpoint missed!");
                     this.wrongDirection = true;
                 }
             }
             this.wrongDirectionTimer++;
-            console.log("wayPointNumber: " + this.wayPointNumber);
-            console.log("wayPointNumberPrev: " + this.wayPointNumberPrev);
-            console.log("wrongDirectionTimer: " + this.wrongDirectionTimer);
+            if (DEBUG_AI) console.log("wayPointNumber: " + this.wayPointNumber);
+            if (DEBUG_AI) console.log("wayPointNumberPrev: " + this.wayPointNumberPrev);
+            if (DEBUG_AI) console.log("wrongDirectionTimer: " + this.wrongDirectionTimer);
         }
     }
 
@@ -987,7 +988,7 @@ function carClass() {
 
     this.setFuel = function(setFuelAmount) {
         if (isNaN(setFuelAmount)) {
-            console.log("Invalid fuel amount sent to setFuel on car: " + this.myName);
+            console.error("Invalid fuel amount sent to setFuel on car: " + this.myName);
             return;
         }
         if (setFuelAmount < 0) {
@@ -1000,7 +1001,7 @@ function carClass() {
 
     this.setFuelCapacity = function(setCapacityAmount) {
         if (isNaN(setCapacityAmount)) {
-            console.log("Invalid fuel capacity amount sent to setFuelCapacity on car: " + this.myName);
+            console.error("Invalid fuel capacity amount sent to setFuelCapacity on car: " + this.myName);
             return;
         }
         this.fuelCapacity = setCapacityAmount;
@@ -1008,7 +1009,7 @@ function carClass() {
 
     this.setFuelConsumptionRate = function(setConsumptionAmount) {
         if (isNaN(setConsumptionAmount)) {
-            console.log("Invalid fuel consumption rate amount sent to setFuelConsumptionRate on car: " + this.myName);
+            console.error("Invalid fuel consumption rate amount sent to setFuelConsumptionRate on car: " + this.myName);
             return;
         }
         this.fuelConsumptionRate = setConsumptionAmount;
@@ -1016,7 +1017,7 @@ function carClass() {
 
     this.setHealth = function(setHealthAmount) {
         if (isNaN(setHealthAmount)) {
-            console.log("Invalid health amount sent to setHealth on car: " + this.myName);
+            console.error("Invalid health amount sent to setHealth on car: " + this.myName);
             return;
         }
         if (setHealthAmount < 0) {
@@ -1029,7 +1030,7 @@ function carClass() {
 
     this.setShields = function(setShieldAmount) {
         if (isNaN(setShieldAmount)) {
-            console.log("Invalid shield amount sent to setShields on car: " + this.myName);
+            console.error("Invalid shield amount sent to setShields on car: " + this.myName);
             return;
         }
         if (setShieldAmount < 0) {
@@ -1042,7 +1043,7 @@ function carClass() {
 
     this.setShieldStrength = function(setShieldStrengthAmount) {
         if (isNaN(setShieldStrengthAmount)) {
-            console.log("Invalid shield strength amount sent to setShieldStrength on car: " + this.myName);
+            console.error("Invalid shield strength amount sent to setShieldStrength on car: " + this.myName);
             return;
         }
         this.shieldStrength = setShieldStrengthAmount;
@@ -1050,7 +1051,7 @@ function carClass() {
 
     this.setBodyStrength = function(setBodyStrengthAmount) {
         if (isNaN(setBodyStrengthAmount)) {
-            console.log("Invalid body strength amount sent to setShields on car: " + this.myName);
+            console.error("Invalid body strength amount sent to setShields on car: " + this.myName);
             return;
         }
         this.bodyStrength = setBodyStrengthAmount;
@@ -1058,7 +1059,7 @@ function carClass() {
 
     this.takeDamage = function(damageAmount) {
         if (isNaN(damageAmount) || damageAmount <= 0) {
-            console.log("Invalid damage amount sent to takeDamage on car: " + this.myName);
+            console.error("Invalid damage amount sent to takeDamage on car: " + this.myName);
             return;
         }
 
@@ -1068,7 +1069,7 @@ function carClass() {
             if (shieldCheck < 0) {
                 damageAmount = damageAmount - this.shieldsRemaining;
                 this.shieldsRemaining = 0;
-                console.log("Car '" + this.myName + "' has lost all shields!");
+                if (DEBUG_AI) console.log("Car '" + this.myName + "' has lost all shields!");
                 // TODO: Some sort of shields down sound or effect
             } else if (shieldCheck >= 0 ) {
                 damageAmount = damageAmount - this.shieldsRemaining;
@@ -1081,13 +1082,13 @@ function carClass() {
             var healthCheck = this.healthRemaining - damageAmount;
             if (healthCheck <= 0) {
                 // TODO: Car aslpode! Game over!
-                console.log('Car: ' + this.myName + ' is a ghost!')
+                if (DEBUG_AI) console.log('Car: ' + this.myName + ' is a ghost!')
             } else {
                 this.healthRemaining = healthCheck;
-                console.log("Car '" + this.myName + "' took " + damageAmount + " points damage!");
+                if (DEBUG_AI) console.log("Car '" + this.myName + "' took " + damageAmount + " points damage!");
             } // end of healthCheck
         } else {
-            console.log("All damage absorbed by shields for car: " + this.myName + ", Shields: " + this.shieldsRemaining + ", Health: " + this.healthRemaining);
+            if (DEBUG_AI) console.log("All damage absorbed by shields for car: " + this.myName + ", Shields: " + this.shieldsRemaining + ", Health: " + this.healthRemaining);
             return;
         } // end of damageAmount
     }
