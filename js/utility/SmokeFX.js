@@ -587,7 +587,7 @@ function SmokeFXClass(smokeCanvas) {
         var animPercent = Math.min(1,titlescreenTime/titlescreenTimespan);
 
         if (animPercent==1 && !window.reportedFPS) {
-            if (DEBUG_SMOKE) console.log("FPS during tire track animation: " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
+            if (DEBUG_SMOKE) console.log("Tire track animation: " + titlescreenFrameCount + " frames in " + titlescreenTime.toFixed(1) + " sec = " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
             window.reportedFPS = true;
         }
         
@@ -811,7 +811,7 @@ function SmokeFXClass(smokeCanvas) {
     this.stop = function() {
         if (DEBUG_SMOKE) console.log("SmokeFX stopping.");
         smokeCanvas.style.display='none';
-        if (DEBUG_SMOKE) console.log("FPS during title screen: " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
+        if (DEBUG_SMOKE) console.log("Title screen: " + titlescreenFrameCount + " frames in " + titlescreenTime.toFixed(1) + " sec = " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
     }
 
 
