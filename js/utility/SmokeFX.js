@@ -29,7 +29,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 function SmokeFXClass(smokeCanvas) {
 
-	const DEBUG_SMOKE = true;
+    const DEBUG_SMOKE = true;
+    const HIGH_DEFINITION = false; // if true, no downsampling
     var titlescreenTime = 0; // elapsed seconds
     var titlescreenFrameCount = 0; // to measure FPS
     const titlescreenTimespan = 1.0; // tire track fire anim length in seconds
@@ -37,7 +38,7 @@ function SmokeFXClass(smokeCanvas) {
 	if (DEBUG_SMOKE) console.log("SmokeFX initializing");
 
 	let config = {
-		TEXTURE_DOWNSAMPLE: 1,
+		TEXTURE_DOWNSAMPLE: HIGH_DEFINITION?1:2, // 1 == high def, 2 == blurry, 4 = low def
 		DENSITY_DISSIPATION: 0.9,
 		VELOCITY_DISSIPATION: 0.99,
 		PRESSURE_DISSIPATION: 0.7,
