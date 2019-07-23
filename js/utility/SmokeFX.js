@@ -650,7 +650,7 @@ function SmokeFXClass(smokeCanvas) {
         
 		const dt = Math.min((Date.now() - lastTime) / 1000, 0.016);
 
-        if (titleScreen) titlescreenFX(dt);
+        if (window.titleScreen) titlescreenFX(dt);
 
         lastTime = Date.now();
 		gl.viewport(0, 0, textureWidth, textureHeight);

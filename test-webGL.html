@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<HTML lang="en">
+	<head>
+	<meta charset="utf-8">
+			<meta name="description" content="GameKedo Project">
+			<meta name="keywords" content="HTML, JavaScript, Car Racing Game">
+			<meta name="author" content="Vince McKeown">
+			<title>Racing II</title>
+			<style>
+				body {
+					width:100%; height:100%;
+                    background:black;
+                    background-image:url(images/background.jpg);
+                    background-size:100% 100%;
+					margin:0;
+					padding:0;
+					overflow:hidden;
+				}
+				canvas {					
+					padding:0;
+					outline:0;
+					image-rendering: pixelated;
+					-ms-interpolation-mode: nearest-neighbor;
+					image-rendering: -webkit-optimize-contrast;
+					image-rendering: -webkit-crisp-edges;
+					image-rendering: -moz-crisp-edges;
+					image-rendering: -o-crisp-edges;
+				}				
+				#game {
+					display: table;			
+					white-space: nowrap;					
+					margin: 0 auto;
+					padding: 0;
+				}
+			</style>
+	</head>
+	<body>		
+		<script>
+			var canvas = document.createElement('canvas');
+			canvas.id = 'gameCanvas';
+			var canvasContext = canvas.getContext('2d');
+			
+			var canvas2 = document.createElement('canvas');
+			canvas.id = 'gameCanvas2';
+			var canvasContext2 = canvas2.getContext('2d');
+
+			var div = document.createElement('div');
+			div.id = 'game';	
+
+			div.appendChild(canvas);
+			div.appendChild(canvas2);
+			document.body.appendChild(div);
+		</script>
+        <script src="js/utility/SmokeFX.js"></script>
+        <script>
+        
+        // FPS meter // could use 'mrdoob.github.io/stats.js/build/stats.min.js'
+        (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='js/utility/stats.min.js';document.head.appendChild(script);})();
+        
+        // test the SmokeFX all by itself with no game
+        var SmokeFX = new SmokeFXClass();
+        function animate() {
+            SmokeFX.update();
+            requestAnimationFrame(animate);
+        }
+        var titleScreen = true; // SmokeFX hotwheels
+        animate();
+        </script>
+	</body>
+</html>
