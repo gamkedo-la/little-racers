@@ -23,9 +23,9 @@ function drawWinScreen(canvas, canvasContext){
 	colorText("7th: " + seventhPlace, placePositionX, (placePositionY + increasePlacePositionY * 6), 'black', font = "18px Arial Black");
 	colorText("8th: " + eigthPlace, placePositionX, (placePositionY + increasePlacePositionY * 7), 'black', font = "18px Arial Black");
 	//trophy
-	canvasContext.drawImage(firstPlaceTrophyPic, 80, 50);
-	colorText("First Place", 140, 192, 'black', font = "8px Arial Black");
-	colorText(firstPlace, 140, 202, 'black', font = "8px Arial Black");
+	canvasContext.drawImage(firstPlaceTrophyPic, 40, 40);
+	colorText("First Place", 142, 192, 'black', font = "8px Arial Black"); // should center text
+	colorText(firstPlace, 128, 202, 'black', font = "8px Arial Black"); // should center text
 	
 	//car information
 	for(var i = 0; i < 4; i++){
