@@ -111,7 +111,7 @@ function SmokeFXClass(smokeCanvas) {
 			formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
 		}
 
-		if (DEBUG_SMOKE) console.log("SmokeFX has access to WebGL");
+		if (DEBUG_SMOKE) console.log("SmokeFX has access to WebGL" + (isWebGL2?" 1 and 2":" 1 but *not* WebGL 2"));
 
 		return {
 			gl,
