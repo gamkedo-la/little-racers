@@ -1,6 +1,6 @@
 
-const SMOKE_FX_ENABLED = true; // if true, we get a gpu powered particle system
-const SMOKE_FX_IN_MENU = true; // back to the future flaming tracks
+const SMOKE_FX_ENABLED = false; // if true, we get a gpu powered particle system
+const SMOKE_FX_IN_MENU = false; // back to the future flaming tracks
 const SMOKE_FX_IN_GAME = false; // sadly the SmokeFX requires a new GPU
 var SmokeFX;
 
