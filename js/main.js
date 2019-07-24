@@ -217,12 +217,13 @@ function calculateMousePos(evt) {
 function drawClock(canvasContext, sx, sy, sw, sh, dx, dy, dw, dh, clockX){
 	canvasContext.drawImage(clockPic, sx, sy, sw, sh, dx, dy, dw, dh);
 	var playerOne = vehicleList[0];
-	colorText(playerOne.minuteTensSpot.toString() + playerOne.minute.toString() + ':' + playerOne.secondTensSpot.toString() + playerOne.second.toString() +':'+playerOne.tenthSecond.toString(), 
+	colorText(playerOne.minuteTensSpot.toString() +" "+ playerOne.minute.toString() + ' : ' + playerOne.secondTensSpot.toString() +" "+ playerOne.second.toString() +' : '+playerOne.tenthSecond.toString(), 
 			  clockX, 
-			  30, 
-			  'black', 
-			  "14px Arial Black", 
+			  25, 
+			  'yellow', 
+			  "24px Arial Black", 
 			  canvasContext);
+			  //var hundredths = Math.round((secs % 1) * 1000);
 }
 
 function drawLapOneTime(canvasContext, player){	
