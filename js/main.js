@@ -89,7 +89,7 @@ function enableMainCanvasOnly()
     resizeAndRepositionCanvas(canvas, canvasContext);
 }
 
-function enableP1P2CanvasesOverlayOption(drawOverlayCanvas)
+function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
 {
     if(vehicleList[1].computerPlayer) //Computer player, so draw full screen.
     {
@@ -423,16 +423,16 @@ function drawEverything() {
 	}
 	else if (carUpgradeScreen)
 	{
-	    enableP1P2CanvasesOverlayOption(false);
+	    enableMainCanvasOnly();
 
 	    drawCarUpgradeScreen(canvas, canvasContext);
-		if (!vehicleList[1].computerPlayer) {
-			drawCarUpgradeScreen(canvas2, canvasContext2);
-		}
+
+	    //TODO: code to manage which player is being presented upgrade options.
+        //Currently only player one can upgrade.
 	}
 	else //Game is running, draw the main race screen.
 	{
-	    enableP1P2CanvasesOverlayOption(true);
+	    enableP1P2CanvasesWithOverlayOption(true);
 
 	    drawP1Screen();
 		drawP2Screen();
