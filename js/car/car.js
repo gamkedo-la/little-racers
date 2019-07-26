@@ -37,7 +37,7 @@ const AI_RANDOM_MOVEMENT_FRAMES = 30;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 const CAR_LOW_FUEL_LEVEL = 20; // Displays low fuel indicator when fuelInTank is lower than val
-const MAX_DAMAGE_PARTICLES_PER_FRAME = 30;
+const MAX_DAMAGE_PARTICLES_PER_FRAME = 20;
 
 var finalLappedCalled = false;
 
@@ -757,7 +757,7 @@ function carClass() {
                         this.ang += Math.sin (this.oilSlickRemaining  * wobbleSpeed) * wobbleSize * (this.oilSlickRemaining/OILSLICK_FRAMECOUNT);
                     }
                    */
-                
+
 
                 }
                 break;
@@ -1134,8 +1134,9 @@ function carClass() {
 
     this.addDamageParticles = function() {
         if (this.healthRemaining < this.maxHealth ) {
-            for (var i = 0; i < MAX_DAMAGE_PARTICLES_PER_FRAME; i++) {
-                var newParticle = new simpleParticleClass(this.x, this.y);
+            var intensityFactor = (this.maxHealth - this.healthRemaining) * 0.01;
+            for (var i = 0; i < Math.floor(MAX_DAMAGE_PARTICLES_PER_FRAME * intensityFactor); i++) {
+                var newParticle = new fireParticleClass(this.x, this.y);
                 this.damageParticles.push(newParticle);
             }
         }
