@@ -39,12 +39,12 @@ function SmokeFXClass(smokeCanvas) {
 
 	let config = {
 		TEXTURE_DOWNSAMPLE: HIGH_DEFINITION?1:2, // 1 == high def, 2 == blurry, 4 = low def
-		DENSITY_DISSIPATION: 0.9,
-		VELOCITY_DISSIPATION: 0.99,
-		PRESSURE_DISSIPATION: 0.7,
-		PRESSURE_ITERATIONS: 25,
-		CURL: 30,
-		SPLAT_RADIUS: 0.0005 //0.005
+		DENSITY_DISSIPATION: 0.985, // how much the smoke fades (1=lasts forever)
+		VELOCITY_DISSIPATION: 0.85, // how fast it slows down (0.8=glue, 0.99=air)
+		PRESSURE_DISSIPATION: 0.999, // 0.7 will have things gradually slow (1=smoke lasts forever)
+		PRESSURE_ITERATIONS: 5, // 25 was the default simulation passes
+		CURL: 64, // how swirly the movements are, 30 is puffy 80 is spiky
+		SPLAT_RADIUS: 0.0005 // the default size of a puff (1=entire screen)
 	};
 
 	//let splatStack = [];
@@ -592,7 +592,7 @@ function SmokeFXClass(smokeCanvas) {
 //        var animPercent = Math.min(1,titlescreenTime/titlescreenTimespan);
 		var animPercent = titlescreenTime/titlescreenTimespan;
 
-        if (animPercent==1 && !window.reportedFPS) {
+        if (animPercent>=1 && !window.reportedFPS) {
             if (DEBUG_SMOKE) console.log("Tire track animation: " + titlescreenFrameCount + " frames in " + titlescreenTime.toFixed(1) + " sec = " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
             window.reportedFPS = true;
         }
@@ -608,28 +608,32 @@ function SmokeFXClass(smokeCanvas) {
 
         // fire near the logo
         // the canvas stretching makes the calulation wierd
-        for (var loop=0; loop<4; loop++) {
+        for (var loop=0; loop<2; loop++) {
 			if(animPercent > 4) {break;}
             add(
                 (smokeCanvas.width * animPercent),// /2 + smokeCanvas.width/4, 
                 smokeCanvas.height * 0.4 + Math.random() * 20,
-                200 * (Math.random() - 0.5), 
-                -25 * (Math.random()),
-                [Math.random()*0.5,Math.random()*0.25,Math.random()*0.1],
-                Math.random()*0.002);
+                256 * (Math.random() - 0.5), 
+                -32 * (Math.random()),
+                [Math.random()*0.72 + 0.75,
+                    Math.random()*0.25 + 0.25,
+                    Math.random()*0.25],
+                Math.random()*0.002 + 0.001);
             // tire tracks: two lines =)
             add(
                 (smokeCanvas.width * animPercent), // /2 + smokeCanvas.width/4, 
                 smokeCanvas.height * 0.225 + Math.random() * 20,
-                200 * (Math.random() - 0.5), 
-                -25 * (Math.random()),
-                [Math.random()*0.5,
-                    Math.random()*0.25,Math.random()*0.1],
-                Math.random()*0.002);
+                256 * (Math.random() - 0.5), 
+                -32 * (Math.random()),
+                [Math.random()*0.72 + 0.75,
+                    Math.random()*0.25 + 0.25,
+                    Math.random()*0.25],
+                Math.random()*0.002 + 0.001);
 
         }
 
-		// huge puffs of smoke
+        // huge puffs of smoke
+        /*
 		if(smokeCanvas.width * animPercent - 300 < 4 * smokeCanvas.width) {
 			add(
 				(smokeCanvas.width * animPercent - 200),// /2 + smokeCanvas.width/4, 
@@ -659,7 +663,8 @@ function SmokeFXClass(smokeCanvas) {
 				 -50 * Math.random(), 
 				 [0.1,0.1,0.1],
 				 0.01);//Math.random()*0.05);
-		}
+        }
+        */
     }
 
     function update() {
