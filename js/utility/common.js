@@ -70,3 +70,8 @@ function clamp(min, value, max)
 {
     return Math.min(Math.max(min, value), max);
 }
+
+function randomIntFromInterval(min,max) // min and max included
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
