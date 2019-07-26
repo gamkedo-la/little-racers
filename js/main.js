@@ -10,6 +10,7 @@ const ASPECT_RATIO_WIDTH = isWideScreen ? 16 : 4;
 const ASPECT_RATIO_HEIGHT = isWideScreen ? 9 : 3;
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
+const CANVAS_GAP_TWO_PLAYERS = 10;
 const OFFSCREEN_DRAW_DELAY = 10;//ensures the win screen is displayed before starting to load next level image
 
 var mouseX = 0;
@@ -65,18 +66,8 @@ var byPassFadeOut = true; //disable if not using a local server
 var isMouseDragging = false;
 
 window.onload = function(){
-	window.addEventListener("resize", function () {
-		if (allowRescale) {
-			resizeCanvas(canvas, canvasContext);
-			resizeCanvas(canvas2, canvasContext2);
-		}
-	});
 	for (var i = 0; i < 8; i++) {
 		addVehicle();
-	}
-	if (allowRescale) {
-		resizeCanvas(canvas, canvasContext);
-		resizeCanvas(canvas2, canvasContext2);
 	}
 	window.addEventListener('focus', function () {
 		paused = false;
@@ -91,8 +82,8 @@ window.onload = function(){
 	}
 }
 
-function resizeCanvas(canvas, canvasContext, isSplitScreen = false) {
-	if (allowRescale) {
+function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
+    if (allowRescale) {
 		canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
 		canvas.height = window.innerHeight;
 		if (isSplitScreen) {
@@ -104,6 +95,22 @@ function resizeCanvas(canvas, canvasContext, isSplitScreen = false) {
 		}
 		scaleHeight = canvas.height/CANVAS_HEIGHT;
 		canvasContext.scale(scaleWidth,scaleHeight);
+
+        //Reposition the canvas to be centered, or to the correct offset from center for split-screen play.
+		if(!isSplitScreen)
+		{
+		    canvas.style.left = (window.innerWidth/2 - canvas.width/2) + 'px';
+		}
+		else if(isSplitScreen && isLeftSide)
+		{
+		    canvas.style.left = (window.innerWidth/2 - canvas.width-gap/2) + 'px';
+		}
+		else
+		{
+		    canvas2.style.left = (window.innerWidth/2+gap/2) + 'px';
+
+		}
+
 	}
 }
 
@@ -214,16 +221,13 @@ function calculateMousePos(evt) {
 	mouseY = evt.clientY - rect.top - root.scrollTop;
 }
 
-function drawClock(canvasContext, sx, sy, sw, sh, dx, dy, dw, dh, clockX){
-	canvasContext.drawImage(clockPic, sx, sy, sw, sh, dx, dy, dw, dh);
+function drawClock(ctx, x, imgY, textY){
+	ctx.drawImage(clockPic, x-clockPic.width/2, imgY);
 	var playerOne = vehicleList[0];
-	colorText(playerOne.minuteTensSpot.toString() +" "+ playerOne.minute.toString() + ' : ' + playerOne.secondTensSpot.toString() +" "+ playerOne.second.toString() +' : '+playerOne.tenthSecond.toString(), 
-			  clockX, 
-			  25, 
-			  'yellow', 
-			  "24px Arial Black", 
-			  canvasContext);
-			  //var hundredths = Math.round((secs % 1) * 1000);
+	var timeString = playerOne.minuteTensSpot.toString() +" "+ playerOne.minute.toString() + ' : ' +
+                     playerOne.secondTensSpot.toString() +" "+ playerOne.second.toString() + ' : ' +
+                     playerOne.tenthSecond.toString() + " 0";
+	colorTextCentered(timeString, x, textY, 'yellow', "20px Arial Black", ctx);
 }
 
 function drawLapOneTime(canvasContext, player){	
@@ -316,14 +320,24 @@ function drawTracksOnScreen(canvas, canvasContext) {
 	}
 }
 
+function drawCommonScreenElements()
+{
+    canvasContextOverlay.clearRect(0, 0, canvasOverlay.width, canvasOverlay.height);
+
+    var xCenter = canvasOverlay.width/scaleWidth*0.5;
+
+    drawClock(canvasContextOverlay, xCenter, 10, 35);
+
+    if (paused){
+        colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
+    }
+}
+
 function drawP1Screen() {
-	canvas.width = !vehicleList[1].computerPlayer ? CANVAS_WIDTH / 2 : CANVAS_WIDTH;	
-	resizeCanvas(canvas, canvasContext, !vehicleList[1].computerPlayer);
 	cameraP1.startPan(canvasContext);
 	drawTracksOnScreen(canvas, canvasContext);
 	cameraP1.endPan(canvasContext);
 
-	drawClock(canvasContext, 0, 0, 100, 40, 350, 2, 100, 40, 368);
 	drawLapOneTime(canvasContext, vehicleList[0]);
 	drawStartLights(canvasContext);
 	drawMeters(canvasContext, vehicleList[0], fuelMeterP1, speedometerP1);
@@ -333,21 +347,15 @@ function drawP1Screen() {
 		//setInterval(function(){ addRainToArray(); }, 3000);
 		drawRain(canvasContext);
 	}
-
-	if (paused){
-		colorText("PAUSED", 350, canvas.height/scaleHeight * 0.5 - 50, "white", "36px Arial Black", canvasContext);
-	}
 }
 
 function drawP2Screen() {
 	if (!vehicleList[1].computerPlayer) {
-		canvas2.width = CANVAS_WIDTH / 2;
-		resizeCanvas(canvas2, canvasContext2, !vehicleList[1].computerPlayer);
+
 		cameraP2.startPan(canvasContext2);
 		drawTracksOnScreen(canvas2, canvasContext2);
 		cameraP2.endPan(canvasContext2);
 		
-		drawClock(canvasContext2, 50, 0, 50, 40, 0, 2, 50, 40, -32);
 		drawLapOneTime(canvasContext2, vehicleList[1]);
 		drawStartLights(canvasContext2);
 		drawMeters(canvasContext2, vehicleList[1], fuelMeterP2, speedometerP2);
@@ -358,34 +366,73 @@ function drawP2Screen() {
 			drawRain(canvasContext2);
 		}
 
-		if (paused){
-			colorText("PAUSED", -50, canvas.height/scaleHeight * 0.5 - 50, "white", "36px Arial Black", canvasContext2);
-		}
-	} else {
-		canvas2.width = 0;
 	}
 }
 
 function drawEverything() {
-	if(titleScreen){
+    if(titleScreen)
+    {
+        //Hide the player 2 and overlay canvases; position the main canvas on the center
+        canvas2.width = 0;
+        canvasOverlay.width = 0;
+        resizeAndRepositionCanvas(canvas, canvasContext);
+        canvas.style.left = (window.innerWidth- canvas.width)/2 + 'px';
 		drawTitleScreen();
 	} else if(enterPlayerName){
 		drawEnterPlayerNameScreen();
 	} else if (levelEditor) {
 		drawLevelEditor(canvas, canvasContext);
-	} else if (winScreen){
+	}
+	else if (winScreen)
+	{
+	    //Hide the player 2 and overlay canvases; position the main canvas on the center
+	    canvas2.width = 0;
+	    canvasOverlay.width = 0;
+	    resizeAndRepositionCanvas(canvas, canvasContext);
+	    canvas.style.left = (window.innerWidth- canvas.width)/2 + 'px';
+
 		drawWinScreen(canvas, canvasContext);
 		if((Date.now() - winScreenTime > OFFSCREEN_DRAW_DELAY) && (terrainChanged)) {
 			drawTracksByTile();
 		}
-	} else if (carUpgradeScreen){
+	}
+	else if (carUpgradeScreen)
+	{
+	    canvasOverlay.width = 0;
+	    if(vehicleList[1].computerPlayer) //Computer player, so draw full screen.
+	    {
+	        resizeAndRepositionCanvas(canvas, canvasContext, false, true, CANVAS_GAP_TWO_PLAYERS);
+	        canvas2.width=0;
+	    }
+	    else
+	    {
+	        resizeAndRepositionCanvas(canvas, canvasContext, true, true, CANVAS_GAP_TWO_PLAYERS);
+	        resizeAndRepositionCanvas(canvas2, canvasContext2, true, false, CANVAS_GAP_TWO_PLAYERS);
+	    }
+
 		drawCarUpgradeScreen(canvas, canvasContext);
 		if (!vehicleList[1].computerPlayer) {
 			drawCarUpgradeScreen(canvas2, canvasContext2);
 		}
-	} else {				
-		drawP1Screen();
+	}
+	else //Game is running, draw the main race screen.
+	{
+	    if(vehicleList[1].computerPlayer) //Computer player, so draw full screen.
+	    {
+	        resizeAndRepositionCanvas(canvas, canvasContext, false, true, CANVAS_GAP_TWO_PLAYERS);
+	        canvas2.width=0;
+	    }
+	    else
+	    {
+	        resizeAndRepositionCanvas(canvas, canvasContext, true, true, CANVAS_GAP_TWO_PLAYERS);
+	        resizeAndRepositionCanvas(canvas2, canvasContext2, true, false, CANVAS_GAP_TWO_PLAYERS);
+	    }
+	    resizeAndRepositionCanvas(canvasOverlay, canvasContextOverlay);
+
+	    drawP1Screen();
 		drawP2Screen();
+		drawCommonScreenElements();
+
 		
 		if (raining) {
 			updateRain();

@@ -11,6 +11,7 @@
 					background:black;
                     background-image:url(images/background.jpg);
                     background-size:100% 100%;
+                    background-size:cover;
 					margin:0;
 					padding:0;
 					overflow:hidden;
@@ -37,17 +38,26 @@
 		<script>
 			var canvas = document.createElement('canvas');
 			canvas.id = 'gameCanvas';
+			canvas.style = 'position:absolute; left:0px; z-index:3';
 			var canvasContext = canvas.getContext('2d');
 			
 			var canvas2 = document.createElement('canvas');
-			canvas.id = 'gameCanvas2';
+			canvas2.id = 'gameCanvas2';
+			canvas2.style = 'position:absolute; left:0px; z-index:3';
 			var canvasContext2 = canvas2.getContext('2d');
+
+			var canvasOverlay = document.createElement('canvas');
+			canvasOverlay.id = 'gameCanvasOverlay';
+			canvasOverlay.style = 'position:absolute; left:0px; z-index:4';
+			var canvasContextOverlay = canvasOverlay.getContext('2d');
 
 			var div = document.createElement('div');
 			div.id = 'game';	
 
+			div.appendChild(canvasOverlay);
 			div.appendChild(canvas);
 			div.appendChild(canvas2);
+
 			document.body.appendChild(div);
 		</script>
 		<script src="js/utility/imageLoading.js"></script>

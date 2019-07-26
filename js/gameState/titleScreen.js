@@ -21,8 +21,6 @@ function titleScreenMouseClick(mousePosX, mousePosY) {
 }
 
 function drawTitleScreen(){
-	canvas2.width = 0;
-    
     // clear screen
     // pure black 800x600
     // colorRect(0,0,canvas.width/scaleWidth,canvas.height/scaleHeight, 'black');

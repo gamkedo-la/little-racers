@@ -33,10 +33,10 @@ var optionsSelected = false;
 var purchaseBox = false;
 var purchaseItem;
 
-function drawCarUpgradeScreen(canvas, canvasContext){
-	colorRect(0,0,canvas.width * scaleWidth, canvas.height * scaleHeight, 'white');
-	canvasContext.drawImage(bodyShopGaragePic, 0, 0);
-	canvasContext.drawImage(bodyShopPic, 0, 0);
+function drawCarUpgradeScreen(cnv, ctx){
+	colorRect(0,0,cnv.width * scaleWidth, cnv.height * scaleHeight, 'white', ctx);
+	ctx.drawImage(bodyShopGaragePic, 0, 0);
+	ctx.drawImage(bodyShopPic, 0, 0);
 	colorText("Body Shop", 135, 30, 'black', font = "24px Arial Black");
 	colorText("Cash: $" + vehicleList[0].cash, 5, 16, 'green', font = "12px Arial Black");
 	colorText("Tire Type: " + vehicleList[0].tireVersion, 60, 65, 'black', font = "12px Arial Black");

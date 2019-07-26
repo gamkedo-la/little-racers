@@ -61,6 +61,14 @@ function colorText(showWords, textX, textY, fillColor, font = "14px Arial Black"
   ctx.fillText(showWords, textX, textY);
 }
 
+function colorTextCentered(showWords, textX, textY, fillColor, font = "14px Arial Black", ctx = canvasContext) {
+    ctx.textAlign = "center";
+    ctx.fillStyle = fillColor;
+    ctx.font = font;
+    ctx.fillText(showWords, textX, textY);
+}
+
+
 function colorLine(x1, y1, x2, y2, color, ctx = canvasContext){
 	ctx.beginPath();
 	ctx.strokeStyle = color;
