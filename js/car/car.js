@@ -37,6 +37,7 @@ const AI_RANDOM_MOVEMENT_FRAMES = 30;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 const CAR_LOW_FUEL_LEVEL = 20; // Displays low fuel indicator when fuelInTank is lower than val
+const MAX_DAMAGE_PARTICLES_PER_FRAME = 30;
 
 var finalLappedCalled = false;
 
@@ -158,6 +159,7 @@ function carClass() {
         this.randomMovementsTimer = 0;
         this.placedPosition = false;
         this.oilslickRemaining = 0;
+        this.damageParticles = [];
     }
 
     this.randomMovements = function() {
@@ -435,7 +437,7 @@ function carClass() {
         }
     }
 
-    //The priary movement function; everything a car does starts here.
+    //The primary movement function; everything a car does starts here.
     this.movement = function() {
 
         if (this.computerPlayer) {
@@ -448,6 +450,7 @@ function carClass() {
         this.handleTileEffects();
         this.trackTime();
         this.skidMarkHandling();
+        this.updateDamageParticles();
     }
 
     //Handle AI steering and throttle
@@ -538,7 +541,7 @@ function carClass() {
             		}
             	}
                 if (this.fuelInTank > 0) {
-                    
+
                     //Add in basic speed boost every car gets.
                     this.speed += DRIVE_POWER;
 
@@ -984,6 +987,7 @@ function carClass() {
 	            colorLine(this.x, this.y, this.wayPointX[this.wayPointNumber], this.wayPointY[this.wayPointNumber], 'white')
             // }
         }
+        this.drawDamageParticles();
     }
 
     this.setFuel = function(setFuelAmount) {
@@ -1091,5 +1095,34 @@ function carClass() {
             if (DEBUG_AI) console.log("All damage absorbed by shields for car: " + this.myName + ", Shields: " + this.shieldsRemaining + ", Health: " + this.healthRemaining);
             return;
         } // end of damageAmount
+    }
+
+    this.addDamageParticles = function() {
+        if (this.healthRemaining < this.maxHealth ) {
+            for (var i = 0; i < MAX_DAMAGE_PARTICLES_PER_FRAME; i++) {
+                var newParticle = new simpleParticleClass(this.x, this.y);
+                this.damageParticles.push(newParticle);
+            }
+        }
+    }
+
+    this.updateDamageParticles = function() {
+        for (var i = 0; i < this.damageParticles.length; i++) {
+            this.damageParticles[i].move();
+        }
+
+        for (var i = 0; i < this.damageParticles.length; i++) {
+            if (this.damageParticles[i].readyToRemove) {
+                this.damageParticles.splice(i,1);
+            }
+        }
+
+        this.addDamageParticles();
+    }
+
+    this.drawDamageParticles = function() {
+        for (var i = 0; i < this.damageParticles.length; i++) {
+            this.damageParticles[i].draw();
+        }
     }
 }
