@@ -22,7 +22,9 @@ var cameraP1 = new Camera();
 var cameraP2 = new Camera();
 
 var now = new Date();
-var time = 0;
+var lastFrameTime=now;
+var raceTimeElapsed=0
+var raceTimeDigits = [0,0,0,0,0,0];
 
 var vehicleList = [];
 var vehicleNames = ["Sir Puggington III", "McFirepants", "Sunbeam Tiger", "Luminous Thunder", "Max Mad", "Chris DeLorean", "Spectre", "JS Mach"];
@@ -173,49 +175,72 @@ function addVehicle(){
 }
 
 function moveEverything() {
-	if(titleScreen){
-		//colorRect(0,0,canvas.width,canvas.height, 'green');
-	} else if (enterPlayerName){
-		//Intentionally left empty - no movement
-	} else if (levelEditor) {
-		//Intentionally left empty - no movement
-	} else if (winScreen){
-		//winScreenTimer();
-	} else if (carUpgradeScreen){
-		//Intentionally left empty - no movement
-	} else {
-		if(!paused){
-			cameraP1.follow(canvas, vehicleList[0]);
-			if (!vehicleList[1].computerPlayer) {
-				cameraP2.follow(canvas2, vehicleList[1]);
-			}
-			if(raceHasStarted){
-				
-				handleJoystickControls(); // optionally
-				
-                //Move vehicles. Includes AI decisions on turning and gas.
-				for (var i = 0; i < vehicleList.length; i++) {
-					vehicleList[i].movement();
-				}
 
-                //Handle collisions between cars based on their new positions.
-				for (var i = 0; i < vehicleList.length; i++) {
-					for (var ii = i+1; ii < vehicleList.length; ii++) {
-						vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
-					}
-				}
+    updateTime();
+    
+    if(titleScreen || enterPlayerName || levelEditor || winScreen || carUpgradeScreen)
+    {
+        return;
+    }
+    
+    if(paused)
+    {
+        lastFrameTime=now;
+    }
+    else
+    {
+        cameraP1.follow(canvas, vehicleList[0]);
+		if (!vehicleList[1].computerPlayer) {
+			cameraP2.follow(canvas2, vehicleList[1]);
+		}
+		if(raceHasStarted){
 				
-				updateTime();
-				if(firstPlaceFilled){ //sound bite for the winner
-					soundDelayTimer++;
-					announceRaceCarNumber(40);
-                }
-                
-			} else {
-				prepareForRace();
+			handleJoystickControls(); // optionally
+				
+			raceTimeElapsed += now - lastFrameTime;
+			lastFrameTime=now;
+			getRaceTimeDigits();
+
+			//Move all vehicles. Includes AI decisions on turning and gas.
+			for (var i = 0; i < vehicleList.length; i++) {
+				vehicleList[i].movement();
 			}
+
+            //Handle collisions between cars based on their new positions.
+			for (var i = 0; i < vehicleList.length; i++) {
+				for (var ii = i+1; ii < vehicleList.length; ii++) {
+					vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
+				}
+			}
+				
+			if(firstPlaceFilled){ //sound bite for the winner
+				soundDelayTimer++;
+				announceRaceCarNumber(40);
+            }
+                
+		}
+		else
+		{
+		    prepareForRace();
+		    lastFrameTime=now;
+		    raceTimeElapsed=0;
 		}
 	}
+}
+
+function updateTime(){
+	now = new Date();
+}
+
+// 00:00:00  Minutes : Seconds : Hundredths of Seconds
+function getRaceTimeDigits()
+{
+    //Fill out the race time array in reverse order such that
+    //the 0 index holds tens of minutes, 1 index holds minutes, etc index 5 holds hundredths of seconds
+    for(var i=0; i<6; i++)
+    {
+        raceTimeDigits[i] = getDigit(raceTimeElapsed, i+2);
+    }
 }
 
 function prepareForRace() {
@@ -242,9 +267,6 @@ function prepareForRace() {
 	}
 }
 
-function updateTime(){
-	now = new Date();
-}
 
 function calculateMousePos(evt) {
 	var rect = canvas.getBoundingClientRect(), root = document.documentElement;
@@ -255,30 +277,31 @@ function calculateMousePos(evt) {
 function drawClock(ctx, x, imgY){
     const CLOCK_FONT_W = 14;
     const CLOCK_FONT_H = 27;
-    const CLOCK_FONT_X_SPACING = 4;
-    const CLOCK_FONT_Y_OFFSET = 4;
+    const CLOCK_FONT_WIDTH_INC_SPACERS = 15; //Includes transparent pixels not to be rendered. Prevents pixel bleed on resize.
+    const CLOCK_FONT_DISPLAY_X_SPACING = 4;
+    const CLOCK_FONT_DISPLAY_Y_OFFSET = 4;
     const CLOCK_COLON_INDEX = 10;
 
     var clockXStart = x-clockPic.width/2;
 	ctx.drawImage(clockPic, clockXStart, imgY);
 	var playerOne = vehicleList[0];
-	var timeDisplay = [playerOne.minuteTensSpot, playerOne.minute, CLOCK_COLON_INDEX,
-                       playerOne.secondTensSpot, playerOne.second, CLOCK_COLON_INDEX,
-                       playerOne.tenthSecond, playerOne.hundredthSecond];
+	var timeDisplay = [raceTimeDigits[5], raceTimeDigits[4], CLOCK_COLON_INDEX,
+                       raceTimeDigits[3], raceTimeDigits[2], CLOCK_COLON_INDEX,
+                       raceTimeDigits[1], raceTimeDigits[0]];
 
 	for(var pos=0; pos<timeDisplay.length; pos++)
 	{
 	    ctx.drawImage(clockFont,
-                      timeDisplay[pos]*CLOCK_FONT_W, 0,
-                      CLOCK_FONT_W, CLOCK_FONT_H,
-                      x-clockPic.width/2 + pos*(CLOCK_FONT_W+CLOCK_FONT_X_SPACING)+CLOCK_FONT_X_SPACING,
-                      imgY+CLOCK_FONT_Y_OFFSET,
-                      CLOCK_FONT_W, CLOCK_FONT_H);
+                      timeDisplay[pos]*CLOCK_FONT_WIDTH_INC_SPACERS, 0,    //Offset into clock font image to start drawing.
+                      CLOCK_FONT_W, CLOCK_FONT_H,                          //Width to render from the font image
+                      x-clockPic.width/2 + pos*(CLOCK_FONT_W+CLOCK_FONT_DISPLAY_X_SPACING)+CLOCK_FONT_DISPLAY_X_SPACING, //X location on screen.
+                      imgY+CLOCK_FONT_DISPLAY_Y_OFFSET,                                                                  //Y location on screen.
+                      CLOCK_FONT_W, CLOCK_FONT_H);                         //Stretch the image? No thanks, use same as render width.
 	}
 }
 
 function drawLapOneTime(canvasContext, player){	
-	colorText(player.lapMinuteTensSpot.toString() + player.lapMinute.toString() + ':' + player.lapSecondTensSpot.toString() + player.lapSecond.toString() +':'+player.lapTenthSecond.toString(), 
+    colorText(player.lapMinuteTensSpot.toString() + player.lapMinute.toString() + ':' + player.lapSecondTensSpot.toString() + player.lapSecond.toString() +':'+player.lapTenthSecond.toString() +player.lapHundredthSecond.toString(), 
 			  canvas.width/scaleWidth * 0.32, 
 			  canvas.height/scaleHeight * 0.025 + 15, 
 			  'white',

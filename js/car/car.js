@@ -57,7 +57,6 @@ function carClass() {
     this.keyHeld_TurnRight = false;
     this.keyHeld_Nitro = false;
     this.computerPlayer = false;
-    this.runTime = 0.0
     this.nitroBoostOn = false;
     this.wayPointNumber = 0;
     this.wayPointNumberPrev = 0;
@@ -135,13 +134,6 @@ function carClass() {
         this.startTime = now;
         this.xOffSet = this.x;
         this.yOffSet = this.y;
-        this.runTime = 0.0;
-        this.hundredthSecond = 0;
-        this.tenthSecond = 0;
-        this.second = 0;
-        this.secondTensSpot = 0;
-        this.minute = 0;
-        this.minuteTensSpot = 0;
         this.lapHundredthSecond = 0;
         this.lapTenthSecond = 0;
         this.lapSecond = 0;
@@ -450,7 +442,6 @@ function carClass() {
         this.updateCarSpeedAndTurnRate();
         this.updateCarPositionAndAngle();
         this.handleTileEffects();
-        this.trackTime();
         this.skidMarkHandling();
         this.updateDamageParticles();
     }
@@ -735,15 +726,20 @@ function carClass() {
                 }
                 break;
             case TRACK_FINISH:
-                if (this.checkPointC) {
+                if (this.checkPointC)
+                {
                     this.checkPointC = false;
+                    this.recordALap();
+
                     if (this.lapNumber < 3) {
                         if (this.lapNumber == 2 && !finalLappedCalled) {
                             finallapSound.play();
                             finalLappedCalled = true;
                         }
-                        this.recordALap();
-                    } else {
+                        
+                    }
+                    else
+                    {
                         whichPlace(this);
                         this.updateWayPoints();
                     }
@@ -931,24 +927,12 @@ function carClass() {
 
     this.recordALap = function() {
         this.lapNumber += 1;
-        this.lapHundredthSecond = this.hundredthSecond;
-        this.lapTenthSecond = this.tenthSecond;
-        this.lapSecond = this.second;
-        this.lapSecondTensSpot = this.secondTensSpot;
-        this.lapMinute = this.minute;
-        this.lapMinuteTensSpot = this.minuteTensSpot;
-    }
-
-    // 00:00:00  Minutes : Seconds : Hundredths of Seconds
-    this.trackTime = function() {
-        this.runTime = now - this.startTime; 
-
-        this.hundredthSecond = getDigit(this.runTime, 2);
-        this.tenthSecond = getDigit(this.runTime, 3);
-        this.second = getDigit(this.runTime, 4);
-        this.secondTensSpot = getDigit(this.runTime, 5);
-        this.minute = getDigit(this.runTime, 6);
-        this.minuteTensSpot = getDigit(this.runTime, 7);
+        this.lapMinuteTensSpot = raceTimeDigits[5];
+        this.lapMinute = raceTimeDigits[4];
+        this.lapSecondTensSpot = raceTimeDigits[3];
+        this.lapSecond = raceTimeDigits[2];
+        this.lapTenthSecond = raceTimeDigits[1];
+        this.lapHundredthSecond = raceTimeDigits[0];
     }
 
     this.isOverLappingPoint = function(testX, testY) {
