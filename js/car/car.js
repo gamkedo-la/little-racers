@@ -1083,12 +1083,18 @@ function carClass() {
         this.bodyStrength = setBodyStrengthAmount;
     }
 
+    //Taking damage has three stages.
+    //First, if there are shields, remove health from them.
+    //Then remove from health
+    //Then, if health has fallen below zero, explode the car and begin reset routine
     this.takeDamage = function(damageAmount) {
         if (isNaN(damageAmount) || damageAmount <= 0) {
             console.error("Invalid damage amount sent to takeDamage on car: " + this.myName);
             return;
         }
 
+        //The strength of shields reduces incoming damage before being applied to shields, but only if there are shields in place.
+        //A lower shieldStrength value indicates better shields (they are mitigating more damage)
         if (this.shieldsRemaining > 0) {
             damageAmount = damageAmount * this.shieldStrength;
             var shieldCheck = this.shieldsRemaining - damageAmount;
@@ -1097,23 +1103,31 @@ function carClass() {
                 this.shieldsRemaining = 0;
                 if (DEBUG_AI) console.log("Car '" + this.myName + "' has lost all shields!");
                 // TODO: Some sort of shields down sound or effect
-            } else if (shieldCheck >= 0 ) {
+            }
+            else if (shieldCheck >= 0 ) {
                 damageAmount = damageAmount - this.shieldsRemaining;
                 this.shieldsRemaining = shieldCheck;
             } // end of shieldCheck
         } // end of shieldsRemaining
 
+        //bodyStrength works in the same way as shieldStrength.
+        //A lower number represents damage mitigated by the body being very strong.
+        //A number above 1 would be more damage than actually inflicted! 
         if (damageAmount > 0) {
             damageAmount = damageAmount * this.bodyStrength;
             var healthCheck = this.healthRemaining - damageAmount;
             if (healthCheck <= 0) {
-                // TODO: Car aslpode! Game over!
+                //Create explosion particles.
+                //Set a respawn timer that will show a death message?
+                //Reset to starting line.
                 if (DEBUG_AI) console.log('Car: ' + this.myName + ' is a ghost!')
-            } else {
+            }
+            else {
                 this.healthRemaining = healthCheck;
                 if (DEBUG_AI) console.log("Car '" + this.myName + "' took " + damageAmount + " points damage!");
             } // end of healthCheck
-        } else {
+        }
+        else {
             if (DEBUG_AI) console.log("All damage absorbed by shields for car: " + this.myName + ", Shields: " + this.shieldsRemaining + ", Health: " + this.healthRemaining);
             return;
         } // end of damageAmount
