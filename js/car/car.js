@@ -24,7 +24,7 @@ const GRASS_ACCELERATION = 0.9; //Modifier to approach the maximum grass speed.
 const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
-const TURN_RATE_MULTIPLIER_OIL = 0.4;
+const TURN_RATE_MULTIPLIER_OIL = 0.0;
 const TURN_RATE_MULTIPLIER_GRASS = 0.75;
 const NITRO_FRAME_DURATION = 30; //Being measured in frames, so at 30fps this is 1/3 second.
 const NITRO_BOOST_BASE_AMOUNT = .5; //Speed increase per frame.
@@ -37,7 +37,7 @@ const AI_RANDOM_MOVEMENT_FRAMES = 30;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 const CAR_LOW_FUEL_LEVEL = 20; // Displays low fuel indicator when fuelInTank is lower than val
-const MAX_DAMAGE_PARTICLES_PER_FRAME = 30;
+const MAX_DAMAGE_PARTICLES_PER_FRAME = 20;
 
 var finalLappedCalled = false;
 
@@ -70,7 +70,7 @@ function carClass() {
     this.fuelCapacity = 100;
     this.fuelConsumptionRate = 0.15;
     this.fuelInTank = this.fuelCapacity;
-    this.oilslickRemaining = 0;
+    this.oilSlickRemaining = 0;
     this.stopCar = false;
     this.findPitStop = false;
     this.transmissionVersion = 0;
@@ -158,7 +158,7 @@ function carClass() {
         this.stuckTime = 0;
         this.randomMovementsTimer = 0;
         this.placedPosition = false;
-        this.oilslickRemaining = 0;
+        this.oilSlickRemaining = 0;
         this.damageParticles = [];
     }
 
@@ -324,7 +324,7 @@ function carClass() {
     }
 
     // tire track constants
-    const OILSLICK_FRAMECOUNT = 10; // leave dark oil track marks for n frames
+    const OILSLICK_FRAMECOUNT = 20; // leave dark oil track marks for n frames
     const OILSLICK_OPACITY = 0.15; // very dark when trailing oil
     const PEEL_OUT_SPEED = 2; // when slow, we leave accelerating tire tracks
     const PEEL_OUT_OPACITY = 0.025; // when starting, how dark are the tracks
@@ -350,7 +350,7 @@ function carClass() {
             if (this.speed < PEEL_OUT_SPEED) { rgb = [0.3,0.3,0.3]; }
             else if (this.speed > MAXSPD_FOR_TRAIL) { rgb = [0.01,0.01,0.01]; }
             else if (this.nitroBoostOn) { rgb = [0.5,0,0]; spdboost=2; }
-            else if (this.oilslickRemaining > 0) { rgb = [0.001,0.001,0.2]; spdboost=2; } // no black! [additive particles]
+            else if (this.oilSlickRemaining > 0) { rgb = [0.001,0.001,0.2]; spdboost=2; } // no black! [additive particles]
             else rgb = [0.15,0.15,0.15]; // how bright
 
             // FIXME: draw on both cameras if splitscreen?
@@ -404,8 +404,8 @@ function carClass() {
             tireTrackAlpha = TURNING_SKIDMARK_OPACITY;
         }
 
-        if (this.oilslickRemaining > 0) {
-            this.oilslickRemaining--;
+        if (this.oilSlickRemaining > 0) {
+            this.oilSlickRemaining--;
             tireTrackAlpha = OILSLICK_OPACITY; // very dark
         }
 
@@ -601,7 +601,7 @@ function carClass() {
         } else //On the ground; degrade rate by tile effects and if tires are oil-slicked.
         {
             this.turnRate *= this.turnRateTileMultiplier;
-            if (this.oilslickRemaining > 0) {
+            if (this.oilSlickRemaining > 0) {
                 this.turnRate *= TURN_RATE_MULTIPLIER_OIL;
             }
         }
@@ -748,8 +748,17 @@ function carClass() {
                 }
                 break;
             case TRACK_OIL_SLICK:
-                if (!this.airborne) {
-                    this.oilslickRemaining = OILSLICK_FRAMECOUNT; //No need to set the turnRateTileMultiplier; oil effects use oilSlickRemaining.
+                if (!this.airborne && this.oilSlickRemaining <= 0) {
+                    this.oilSlickRemaining = OILSLICK_FRAMECOUNT; //No need to set the turnRateTileMultiplier; oil effects use oilSlickRemaining.
+                    console.log("car to slip");
+                    /* if (this.oilSlickRemaining > 0) {
+                        var wobbleSpeed = 1;
+                        var wobbleSize = .3;
+                        this.ang += Math.sin (this.oilSlickRemaining  * wobbleSpeed) * wobbleSize * (this.oilSlickRemaining/OILSLICK_FRAMECOUNT);
+                    }
+                   */
+
+
                 }
                 break;
             case TRACK_GRASS:
@@ -805,7 +814,7 @@ function carClass() {
                 break;
             case TRACK_OIL_BARREL:
                 if (!this.airborne) {
-                    trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+                    trackGrid[driveIntoTileIndex] = TRACK_OIL_SLICK;
                     addTrackImageAtTileIndex(TRACK_OIL_SLICK, driveIntoTileIndex);
                     this.speed = -.5 * this.speed;
                     if(this.myName == vehicleList[0].myName){
@@ -993,13 +1002,17 @@ function carClass() {
     }
 
     this.drawCar = function(canvasContext) {
-        drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang, canvasContext);
+        var visualAngAdjust = 0;
+        if (this.oilSlickRemaining > 0) {
+            visualAngAdjust = Math.sin(this.oilSlickRemaining * 0.4) * Math.PI / 5;
+        }
+        drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang + visualAngAdjust, canvasContext);
         var xOffSet = this.x;
         var yOffSet = this.y;
         if (this.airborne) {
             yOffSet = yOffSet - 10;
         }
-        drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang, canvasContext);
+        drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang + visualAngAdjust, canvasContext);
         if (debugMode) {
             //Please leave this here but commented out so I don't have to remember how to set it up properly.
             //Draws the red rectangles around cars; use if you're needing some help with collision detection.
@@ -1135,8 +1148,9 @@ function carClass() {
 
     this.addDamageParticles = function() {
         if (this.healthRemaining < this.maxHealth ) {
-            for (var i = 0; i < MAX_DAMAGE_PARTICLES_PER_FRAME; i++) {
-                var newParticle = new simpleParticleClass(this.x, this.y);
+            var intensityFactor = (this.maxHealth - this.healthRemaining) * 0.01;
+            for (var i = 0; i < Math.floor(MAX_DAMAGE_PARTICLES_PER_FRAME * intensityFactor); i++) {
+                var newParticle = new fireParticleClass(this.x, this.y);
                 this.damageParticles.push(newParticle);
             }
         }

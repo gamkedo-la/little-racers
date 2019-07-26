@@ -88,38 +88,53 @@ function colorRGBALine(xStartingPoint, yStartingPoint, xFinishingPoint, yFinishi
 	ctx.stroke();
 }
 
-function simpleParticleClass(startingX, startingY, ctx = canvasContext) {
+function fireParticleClass(startingX, startingY, ctx = canvasContext) {
 	// Created using http://nibunan.com/articles/article/how-to-create-realistic-fire-effect-in-html5-canvas-using-javascript as reference
-	this.wind = 0;
-	this.speed = Math.round(Math.random() * 10);
-	this.radius = 10;
-	this.opacity = 255;
-	this.greenFactor = 255;
-	this.color = "rgb(255,255,0)";
-	this.location = { x: startingX + Math.round(Math.random() * 5), y: startingY };
+	this.speed = randomIntFromInterval(1,5);
+	this.radius = 5;
+	this.opacity = 0.1;
+	this.baseGreen = 50;
+	this.currentGreen = this.baseGreen;
+	this.color = "rgb(255," + this.baseGreen + ",0)";
+	this.location = { x: startingX + randomIntFromInterval(1,5), y: startingY};
 	this.readyToRemove = false;
 	this.startingX = this.location.x;
 	this.startingY = this.location.y;
-	this.maxHeight = 100;
+	this.maxHeight = 200;
 
 	this.move = function () {
-		if (this.location.y < this.startingY - this.maxHeight || this.radius <= 1) {
+		if (this.location.y < this.startingY - this.maxHeight || this.radius <= 1 || this.opacity == 0.0) {
             this.readyToRemove = true;
         }
-        this.radius += 20 / (300 / this.speed);
-        this.opacity += 255 / (300 / this.speed);
-        this.greenFactor += 255 / ((300*2) / this.speed);
-        this.color = "rgb(255," + (Math.floor(this.greenFactor)+1) + ",0)";
-        this.location.x += this.wind;
+
+		this.radius -= Math.random() * 0.1;
+
+		if (this.opacity > 0.0) {
+			this.opacity -= Math.random() * 0.01;
+		}
+
+		if (this.opacity < 0.0) {
+			this.opacity = 0.0;
+		}
+
+		if (this.currentGreen < 255) {
+			this.currentGreen += 10;
+		} else if (this.currentGreen > 255) {
+			this.currentGreen = 255;
+		}
+
+		this.color = "rgb(255,"+ this.currentGreen +",0)";
         this.location.y -= this.speed;
 	}
 
 	this.draw = function (ctx = canvasContext) {
+		ctx.save()
 		ctx.beginPath();
 		ctx.arc(this.location.x, this.location.y, this.radius, 0, 2 * Math.PI, false);
 		ctx.fillStyle = this.color;
-		ctx.globalAlpha = this.opacity / 255;
+		ctx.globalAlpha = this.opacity;
 		ctx.fill();
 		ctx.closePath();
+		ctx.restore();
 	}
 }
