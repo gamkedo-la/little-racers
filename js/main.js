@@ -182,6 +182,8 @@ function moveEverything() {
     {
         //Not racing, so reset all the race start info.
         raceStartTimer = 0;
+        raceTimeElapsed = 0;
+        raceTimeDigits = [0,0,0,0,0,0];
         drawStartLightsTimer = 0;
         displayRedLight = false;
         displayYellowLight = false;
