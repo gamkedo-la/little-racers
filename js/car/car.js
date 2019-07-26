@@ -835,6 +835,28 @@ function carClass() {
                 this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
                 this.y = this.oldY - 1;
                 break;
+            //For the wall corners, just bounce the car out enough the driver can hit one of the orthagonal walls instead.
+            case TRACK_BRICK_WALL_TOP_LEFT_END:
+            case TRACK_BRICK_WALL_TOP_LEFT_END_GRASS:
+                this.x = this.oldX + 1;
+                this.y = this.oldY + 1;
+                break;
+            case TRACK_BRICK_WALL_TOP_RIGHT_END:
+            case TRACK_BRICK_WALL_TOP_RIGHT_END_GRASS:
+                this.x = this.oldX - 1;
+                this.y = this.oldY + 1;
+                break;
+            case TRACK_BRICK_WALL_BOT_LEFT_END:
+            case TRACK_BRICK_WALL_BOT_LEFT_END_GRASS:
+                this.x = this.oldX + 1;
+                this.y = this.oldY - 1;
+                break;
+            case TRACK_BRICK_WALL_BOT_RIGHT_END:
+            case TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS:
+                this.x = this.oldX - 1;
+                this.y = this.oldY - 1;
+                break;
+            //For other things labelled TRACK_WALL, think it covers interior items.
             case TRACK_WALL:
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
                 this.y = this.oldY;
