@@ -334,10 +334,6 @@ function drawP1Screen() {
 		drawRain(canvasContext);
 	}
 
-	if (debugMode) {
-		drawFuelPercentage(canvasContext, vehicleList[0]);
-	}
-
 	if (paused){
 		colorText("PAUSED", 350, canvas.height/scaleHeight * 0.5 - 50, "white", "36px Arial Black", canvasContext);
 	}
@@ -360,10 +356,6 @@ function drawP2Screen() {
 		if (raining) {
 			//setInterval(function(){ addRainToArray(); }, 3000);
 			drawRain(canvasContext2);
-		}
-
-		if (debugMode) {
-			drawFuelPercentage(canvasContext2, vehicleList[1]);
 		}
 
 		if (paused){
