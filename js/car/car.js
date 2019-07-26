@@ -136,11 +136,13 @@ function carClass() {
         this.xOffSet = this.x;
         this.yOffSet = this.y;
         this.runTime = 0.0;
+        this.hundredthSecond = 0;
         this.tenthSecond = 0;
         this.second = 0;
         this.secondTensSpot = 0;
         this.minute = 0;
         this.minuteTensSpot = 0;
+        this.lapHundredthSecond = 0;
         this.lapTenthSecond = 0;
         this.lapSecond = 0;
         this.lapSecondTensSpot = 0;
@@ -929,6 +931,7 @@ function carClass() {
 
     this.recordALap = function() {
         this.lapNumber += 1;
+        this.lapHundredthSecond = this.hundredthSecond;
         this.lapTenthSecond = this.tenthSecond;
         this.lapSecond = this.second;
         this.lapSecondTensSpot = this.secondTensSpot;
@@ -936,28 +939,16 @@ function carClass() {
         this.lapMinuteTensSpot = this.minuteTensSpot;
     }
 
+    // 00:00:00  Minutes : Seconds : Hundredths of Seconds
     this.trackTime = function() {
-        this.runTime = now - this.startTime; // 00:00:0  Minutes : Seconds : MiliSeconds
-        if (this.runTime >= 1000) {
-            this.runTime = 0;
-            this.tenthSecond += 1;
-        }
-        if (this.tenthSecond >= 10) {
-            this.tenthSecond = 0;
-            this.second += 1;
-        }
-        if (this.second >= 10) {
-            this.second = 0;
-            this.secondTensSpot += 1;
-        }
-        if (this.secondTensSpot >= 6) {
-            this.secondTensSpot = 0;
-            this.minute += 1;
-        }
-        if (this.minute >= 10) {
-            this.minute = 0;
-            this.minuteTensSpot += 1;
-        }
+        this.runTime = now - this.startTime; 
+
+        this.hundredthSecond = getDigit(this.runTime, 2);
+        this.tenthSecond = getDigit(this.runTime, 3);
+        this.second = getDigit(this.runTime, 4);
+        this.secondTensSpot = getDigit(this.runTime, 5);
+        this.minute = getDigit(this.runTime, 6);
+        this.minuteTensSpot = getDigit(this.runTime, 7);
     }
 
     this.isOverLappingPoint = function(testX, testY) {

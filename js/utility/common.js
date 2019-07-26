@@ -71,6 +71,14 @@ function clamp(min, value, max)
     return Math.min(Math.max(min, value), max);
 }
 
+//Easy way to isolate specific digit.
+//n is the position from right, starting at 1
+//So to isolate 8 from 5872, getDigit(5872, 3)
+//Taken from https://stackoverflow.com/questions/13955738/javascript-get-the-second-digit-from-a-number
+function getDigit(number, n) {
+    return Math.floor((number / Math.pow(10, n - 1)) % 10);
+}
+
 function randomIntFromInterval(min,max) // min and max included
 {
     return Math.floor(Math.random()*(max-min+1)+min);

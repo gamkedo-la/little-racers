@@ -252,13 +252,29 @@ function calculateMousePos(evt) {
 	mouseY = evt.clientY - rect.top - root.scrollTop;
 }
 
-function drawClock(ctx, x, imgY, textY){
-	ctx.drawImage(clockPic, x-clockPic.width/2, imgY);
+function drawClock(ctx, x, imgY){
+    const CLOCK_FONT_W = 14;
+    const CLOCK_FONT_H = 27;
+    const CLOCK_FONT_X_SPACING = 4;
+    const CLOCK_FONT_Y_OFFSET = 4;
+    const CLOCK_COLON_INDEX = 10;
+
+    var clockXStart = x-clockPic.width/2;
+	ctx.drawImage(clockPic, clockXStart, imgY);
 	var playerOne = vehicleList[0];
-	var timeString = playerOne.minuteTensSpot.toString() +" "+ playerOne.minute.toString() + ' : ' +
-                     playerOne.secondTensSpot.toString() +" "+ playerOne.second.toString() + ' : ' +
-                     playerOne.tenthSecond.toString() + " 0";
-	colorTextCentered(timeString, x, textY, 'yellow', "20px Arial Black", ctx);
+	var timeDisplay = [playerOne.minuteTensSpot, playerOne.minute, CLOCK_COLON_INDEX,
+                       playerOne.secondTensSpot, playerOne.second, CLOCK_COLON_INDEX,
+                       playerOne.tenthSecond, playerOne.hundredthSecond];
+
+	for(var pos=0; pos<timeDisplay.length; pos++)
+	{
+	    ctx.drawImage(clockFont,
+                      timeDisplay[pos]*CLOCK_FONT_W, 0,
+                      CLOCK_FONT_W, CLOCK_FONT_H,
+                      x-clockPic.width/2 + pos*(CLOCK_FONT_W+CLOCK_FONT_X_SPACING)+CLOCK_FONT_X_SPACING,
+                      imgY+CLOCK_FONT_Y_OFFSET,
+                      CLOCK_FONT_W, CLOCK_FONT_H);
+	}
 }
 
 function drawLapOneTime(canvasContext, player){	
@@ -357,7 +373,7 @@ function drawCommonScreenElements()
 
     var xCenter = canvasOverlay.width/scaleWidth*0.5;
 
-    drawClock(canvasContextOverlay, xCenter, 10, 35);
+    drawClock(canvasContextOverlay, xCenter, 10);
 
     if (paused){
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
