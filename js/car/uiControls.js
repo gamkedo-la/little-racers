@@ -26,6 +26,7 @@ const KEY_P = 80;
 const KEY_O = 79;
 const KEY_1 = 49;
 
+
 let controlCameraForDebug = false;
 
 function initInput(){
