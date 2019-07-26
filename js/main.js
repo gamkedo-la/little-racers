@@ -235,12 +235,22 @@ function updateTime(){
 // 00:00:00  Minutes : Seconds : Hundredths of Seconds
 function getRaceTimeDigits()
 {
-    //Fill out the race time array in reverse order such that
-    //the 0 index holds tens of minutes, 1 index holds minutes, etc index 5 holds hundredths of seconds
-    for(var i=0; i<6; i++)
+    var minutes = Math.floor(raceTimeElapsed/60000);
+    var miliSeconds = raceTimeElapsed - minutes*60000;
+
+    //Fill out the race time array such that the 0 index holds hundredths of seconds,
+    //the 1 index holds tenths of seconds, etc...
+
+    //Handle seconds (up to 59:99)
+    for(var i=0; i<4; i++)
     {
-        raceTimeDigits[i] = getDigit(raceTimeElapsed, i+2);
-    }
+        raceTimeDigits[i] = getDigit(miliSeconds, i+2); //Add two to i: 1 because we don't need thousandths of a second and 1 because
+    }                                                   //getDigit specifies the nth digit from the right starting at 1.
+
+    //Handle minutes (up to 99)
+    raceTimeDigits[4] = getDigit(minutes, 1);
+    raceTimeDigits[5] = getDigit(minutes, 2);
+
 }
 
 function prepareForRace() {
