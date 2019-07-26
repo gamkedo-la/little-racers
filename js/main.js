@@ -180,6 +180,13 @@ function moveEverything() {
     
     if(titleScreen || enterPlayerName || levelEditor || winScreen || carUpgradeScreen)
     {
+        //Not racing, so reset all the race start info.
+        raceStartTimer = 0;
+        drawStartLightsTimer = 0;
+        displayRedLight = false;
+        displayYellowLight = false;
+        displayGreenLight = false;
+        raceHasStarted = false;
         return;
     }
     
