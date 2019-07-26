@@ -82,6 +82,37 @@ window.onload = function(){
 	}
 }
 
+function enableMainCanvasOnly()
+{
+    canvas2.width = 0;
+    canvasOverlay.width = 0;
+    resizeAndRepositionCanvas(canvas, canvasContext);
+}
+
+function enableP1P2CanvasesOverlayOption(drawOverlayCanvas)
+{
+    if(vehicleList[1].computerPlayer) //Computer player, so draw full screen.
+    {
+        resizeAndRepositionCanvas(canvas, canvasContext, false, true, CANVAS_GAP_TWO_PLAYERS);
+        canvas2.width=0;
+    }
+    else
+    {
+        resizeAndRepositionCanvas(canvas, canvasContext, true, true, CANVAS_GAP_TWO_PLAYERS);
+        resizeAndRepositionCanvas(canvas2, canvasContext2, true, false, CANVAS_GAP_TWO_PLAYERS);
+    }
+
+    if(drawOverlayCanvas)
+    {
+        resizeAndRepositionCanvas(canvasOverlay, canvasContextOverlay);
+    }
+    else
+    {
+        canvasOverlay.width = 0;
+    }
+
+}
+
 function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
     if (allowRescale) {
 		canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
@@ -372,62 +403,38 @@ function drawP2Screen() {
 function drawEverything() {
     if(titleScreen)
     {
-        //Hide the player 2 and overlay canvases; position the main canvas on the center
-        canvas2.width = 0;
-        canvasOverlay.width = 0;
-        resizeAndRepositionCanvas(canvas, canvasContext);
-        canvas.style.left = (window.innerWidth- canvas.width)/2 + 'px';
+        enableMainCanvasOnly();
 		drawTitleScreen();
-	} else if(enterPlayerName){
+    }
+    else if(enterPlayerName)
+    {
 		drawEnterPlayerNameScreen();
-	} else if (levelEditor) {
+    }
+    else if (levelEditor)
+    {
 		drawLevelEditor(canvas, canvasContext);
 	}
 	else if (winScreen)
 	{
-	    //Hide the player 2 and overlay canvases; position the main canvas on the center
-	    canvas2.width = 0;
-	    canvasOverlay.width = 0;
-	    resizeAndRepositionCanvas(canvas, canvasContext);
-	    canvas.style.left = (window.innerWidth- canvas.width)/2 + 'px';
+	    enableMainCanvasOnly();
+	    drawWinScreen(canvas, canvasContext);
 
-		drawWinScreen(canvas, canvasContext);
 		if((Date.now() - winScreenTime > OFFSCREEN_DRAW_DELAY) && (terrainChanged)) {
 			drawTracksByTile();
 		}
 	}
 	else if (carUpgradeScreen)
 	{
-	    canvasOverlay.width = 0;
-	    if(vehicleList[1].computerPlayer) //Computer player, so draw full screen.
-	    {
-	        resizeAndRepositionCanvas(canvas, canvasContext, false, true, CANVAS_GAP_TWO_PLAYERS);
-	        canvas2.width=0;
-	    }
-	    else
-	    {
-	        resizeAndRepositionCanvas(canvas, canvasContext, true, true, CANVAS_GAP_TWO_PLAYERS);
-	        resizeAndRepositionCanvas(canvas2, canvasContext2, true, false, CANVAS_GAP_TWO_PLAYERS);
-	    }
+	    enableP1P2CanvasesOverlayOption(false);
 
-		drawCarUpgradeScreen(canvas, canvasContext);
+	    drawCarUpgradeScreen(canvas, canvasContext);
 		if (!vehicleList[1].computerPlayer) {
 			drawCarUpgradeScreen(canvas2, canvasContext2);
 		}
 	}
 	else //Game is running, draw the main race screen.
 	{
-	    if(vehicleList[1].computerPlayer) //Computer player, so draw full screen.
-	    {
-	        resizeAndRepositionCanvas(canvas, canvasContext, false, true, CANVAS_GAP_TWO_PLAYERS);
-	        canvas2.width=0;
-	    }
-	    else
-	    {
-	        resizeAndRepositionCanvas(canvas, canvasContext, true, true, CANVAS_GAP_TWO_PLAYERS);
-	        resizeAndRepositionCanvas(canvas2, canvasContext2, true, false, CANVAS_GAP_TWO_PLAYERS);
-	    }
-	    resizeAndRepositionCanvas(canvasOverlay, canvasContextOverlay);
+	    enableP1P2CanvasesOverlayOption(true);
 
 	    drawP1Screen();
 		drawP2Screen();
