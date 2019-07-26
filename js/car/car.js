@@ -814,7 +814,7 @@ function carClass() {
                 break;
             case TRACK_OIL_BARREL:
                 if (!this.airborne) {
-                    trackGrid[driveIntoTileIndex] = TRACK_ROAD;
+                    trackGrid[driveIntoTileIndex] = TRACK_OIL_SLICK;
                     addTrackImageAtTileIndex(TRACK_OIL_SLICK, driveIntoTileIndex);
                     this.speed = -.5 * this.speed;
                     if(this.myName == vehicleList[0].myName){
