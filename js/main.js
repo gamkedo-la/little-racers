@@ -375,7 +375,6 @@ function drawP1Screen() {
 	drawCheckpointArrow(canvas, canvasContext, vehicleList[0]);
 
 	if (raining) {
-		//setInterval(function(){ addRainToArray(); }, 3000);
 		drawRain(canvasContext);
 	}
 }
@@ -393,7 +392,6 @@ function drawP2Screen() {
 		drawCheckpointArrow(canvas2, canvasContext2, vehicleList[1]);
 
 		if (raining) {
-			//setInterval(function(){ addRainToArray(); }, 3000);
 			drawRain(canvasContext2);
 		}
 

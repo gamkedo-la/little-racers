@@ -14,10 +14,15 @@ function titleScreenMouseClick(mousePosX, mousePosY) {
 		console.log('Debug Mode');
 		debugMode = !debugMode;
 	}
-	addRainToArray();
-	setInterval(function() {
-		addRainToArray();
-	}, 750)
+
+	if (titleScreen == false) //Player just clicked 1 or 2 players, time to add rain.
+	{
+	    addRainToArray();
+	    setInterval(function () {
+	        if (!titleScreen && !winScreen && !carUpgradeScreen && !paused) //There must be a better way to do this, but we don't have a "racing" bool.
+		    addRainToArray();
+	    }, 750)
+	}
 }
 
 function drawTitleScreen(){
