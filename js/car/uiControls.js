@@ -92,24 +92,18 @@ function keyPressed(evt) {
 		}
 
 		if(controlCameraForDebug) {
-			console.log("Trying to control the camera directly");
 			switch (evt.keyCode){
 				case KEY_UP_ARROW:
 					cameraP1.panY -= camJump;
-					console.log("CamPan Y: " + cameraP1.panY);
-//					camPanY -= camJump;
 					break;			
 				case KEY_DOWN_ARROW:
 					cameraP1.panY += camJump;
-//					camPanY += camJump;
 					break;
 				case KEY_LEFT_ARROW:
 					cameraP1.panX -= camJump;
-//					camPanX -= camJump;
 					break;
 				case KEY_RIGHT_ARROW:
 					cameraP1.panX += camJump;
-//					camPanX += camJump;
 					break;
 			}
 		} else {

@@ -554,12 +554,17 @@ function SmokeFXClass(smokeCanvas) {
 
 	}
 
+	const dataBuffer = gl.createBuffer();
+	const dataArray = new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]);
+	const indexBuffer = gl.createBuffer();
+	const indexArray = new Uint16Array([0, 1, 2, 0, 2, 3]);
+
 	const blit = (() => {
         if (!gl) return;
-		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
-		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
+		gl.bindBuffer(gl.ARRAY_BUFFER, dataBuffer);
+		gl.bufferData(gl.ARRAY_BUFFER, dataArray, gl.STATIC_DRAW);
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indexArray, gl.STATIC_DRAW);
 		gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
 		gl.enableVertexAttribArray(0);
 
@@ -584,7 +589,8 @@ function SmokeFXClass(smokeCanvas) {
         titlescreenTime += dt;
         titlescreenFrameCount++;
 
-        var animPercent = Math.min(1,titlescreenTime/titlescreenTimespan);
+//        var animPercent = Math.min(1,titlescreenTime/titlescreenTimespan);
+		var animPercent = titlescreenTime/titlescreenTimespan;
 
         if (animPercent==1 && !window.reportedFPS) {
             if (DEBUG_SMOKE) console.log("Tire track animation: " + titlescreenFrameCount + " frames in " + titlescreenTime.toFixed(1) + " sec = " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
@@ -602,9 +608,10 @@ function SmokeFXClass(smokeCanvas) {
 
         // fire near the logo
         // the canvas stretching makes the calulation wierd
-        for (var loop=0; loop<32; loop++) {
+        for (var loop=0; loop<4; loop++) {
+			if(animPercent > 4) {break;}
             add(
-                Math.random() * (smokeCanvas.width * animPercent),// /2 + smokeCanvas.width/4, 
+                (smokeCanvas.width * animPercent),// /2 + smokeCanvas.width/4, 
                 smokeCanvas.height * 0.4 + Math.random() * 20,
                 200 * (Math.random() - 0.5), 
                 -25 * (Math.random()),
@@ -612,7 +619,7 @@ function SmokeFXClass(smokeCanvas) {
                 Math.random()*0.002);
             // tire tracks: two lines =)
             add(
-                Math.random() * (smokeCanvas.width * animPercent), // /2 + smokeCanvas.width/4, 
+                (smokeCanvas.width * animPercent), // /2 + smokeCanvas.width/4, 
                 smokeCanvas.height * 0.225 + Math.random() * 20,
                 200 * (Math.random() - 0.5), 
                 -25 * (Math.random()),
@@ -622,30 +629,44 @@ function SmokeFXClass(smokeCanvas) {
 
         }
 
-        // huge puffs of smoke
-        add(
-            smokeCanvas.width,
-            smokeCanvas.height,
-            -50 * Math.random(), 
-            -50 * Math.random(), 
-            [0.1,0.1,0.1],
-            0.01);//Math.random()*0.05);
-        add(
-                0,
-                smokeCanvas.height,
-                50 * Math.random(), 
-                -50 * Math.random(), 
-                [0.1,0.1,0.1],
-                0.01);//Math.random()*0.05);
-
-
+		// huge puffs of smoke
+		if(smokeCanvas.width * animPercent - 300 < 4 * smokeCanvas.width) {
+			add(
+				(smokeCanvas.width * animPercent - 200),// /2 + smokeCanvas.width/4, 
+				 smokeCanvas.height * 0.4 + Math.random() * 20,
+				 -50 * Math.random(), 
+				 -50 * Math.random(), 
+				 [0.1,0.1,0.1],
+				 0.01);//Math.random()*0.05);
+			add(
+				(smokeCanvas.width * animPercent - 200), // /2 + smokeCanvas.width/4, 
+				smokeCanvas.height * 0.225 + Math.random() * 20,
+					50 * Math.random(), 
+					-50 * Math.random(), 
+					[0.1,0.1,0.1],
+					0.01);//Math.random()*0.05);
+			add(
+				(smokeCanvas.width * animPercent - 300),// /2 + smokeCanvas.width/4, 
+				 smokeCanvas.height * 0.4 + Math.random() * 20,
+				 -50 * Math.random(), 
+				 -50 * Math.random(), 
+				 [0.1,0.1,0.1],
+				 0.01);//Math.random()*0.05);
+			add(
+				(smokeCanvas.width * animPercent - 300), // /2 + smokeCanvas.width/4, 
+				 smokeCanvas.height * 0.225 + Math.random() * 20,
+				 50 * Math.random(), 
+				 -50 * Math.random(), 
+				 [0.1,0.1,0.1],
+				 0.01);//Math.random()*0.05);
+		}
     }
 
     function update() {
         
         if (!smokeCanvas) return;
-        if (!gl) return;
-    
+		if (!gl) return;
+		
         resizeCanvas();
         
 		const dt = Math.min((Date.now() - lastTime) / 1000, 0.016);
@@ -669,9 +690,9 @@ function SmokeFXClass(smokeCanvas) {
 		blit(density.write[1]);
 		density.swap();
 
-        // add all pending puffs to the simulation
-        for (let i = 0; i < puffs.length; i++) {
-			const puff = puffs[i];
+		// add all pending puffs to the simulation
+		for (let i = 0; i < puffs.length; i++) {
+				const puff = puffs[i];
 			if (puff.moved) {
 				splat(puff.x, puff.y, puff.dx, puff.dy, puff.color, puff.size);
 				puff.moved = false;
@@ -714,6 +735,7 @@ function SmokeFXClass(smokeCanvas) {
 		pressureTexId = pressure.read[2];
 		gl.uniform1i(pressureProgram.uniforms.uPressure, pressureTexId);
 		gl.activeTexture(gl.TEXTURE0 + pressureTexId);
+
 		for (let i = 0; i < config.PRESSURE_ITERATIONS; i++) {
 			gl.bindTexture(gl.TEXTURE_2D, pressure.read[0]);
 			blit(pressure.write[1]);
@@ -783,8 +805,8 @@ function SmokeFXClass(smokeCanvas) {
         if (!smokeCanvas) return;
         if (!gl) return;
         if (x==0 && y==0) return; // ignore during inits etc
-        if (x<0) x=0; if (x>smokeCanvas.width) x=smokeCanvas.width;
-        if (y<0) y=0; if (y>smokeCanvas.height) y=smokeCanvas.height;
+//        if (x<0) x=0; if (x>smokeCanvas.width) x=smokeCanvas.width;
+//        if (y<0) y=0; if (y>smokeCanvas.height) y=smokeCanvas.height;
 
         // cannot do - shader in wrong state
         //splat(x, y, dx, dy, color, size);
@@ -819,7 +841,6 @@ function SmokeFXClass(smokeCanvas) {
 
 // start animating the effect at 60fps
 function SmokeFXStartRendering() {
-
     // only update the simulation if enabled
     if ((titleScreen && SMOKE_FX_IN_MENU) ||
         (!titleScreen && SMOKE_FX_IN_GAME)) {
