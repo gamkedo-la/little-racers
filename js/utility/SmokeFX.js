@@ -609,7 +609,12 @@ function SmokeFXClass(smokeCanvas) {
         // fire near the logo
         // the canvas stretching makes the calulation wierd
         for (var loop=0; loop<2; loop++) {
-			if(animPercent > 4) {break;}
+			if(animPercent > 6) {
+				//reset counters so the animation can run again
+				animPercent = 0;
+				titlescreenTime = 0;
+		        titlescreenFrameCount = 0;
+			}
             add(
                 (smokeCanvas.width * animPercent),// /2 + smokeCanvas.width/4, 
                 smokeCanvas.height * 0.4 + Math.random() * 20,
