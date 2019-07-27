@@ -160,21 +160,29 @@ function carClass() {
     function getDriverQuirksForName(aName) {
         switch(aName) {
             case vehicleNames[0]:
-                return {wayPointX:0, wayPointY:0};    
+                return {wayPointX:0, wayPointY:0,
+                        turnLimit:10};    
             case vehicleNames[1]:
-                return {wayPointX:-10, wayPointY:-10};
+                return {wayPointX:-10, wayPointY:-10,
+                        turnLimit:15};
             case vehicleNames[2]:
-                return {wayPointX:+10, wayPointY:-10};
+                return {wayPointX:+10, wayPointY:-10,
+                        turnLimit:20};
             case vehicleNames[3]:
-                return {wayPointX:-10, wayPointY:+10};
+                return {wayPointX:-10, wayPointY:+10,
+                        turnLimit:25};
             case vehicleNames[4]:
-                return {wayPointX:+10, wayPointY:+10};
+                return {wayPointX:+10, wayPointY:+10,
+                        turnLimit:-25};
             case vehicleNames[5]:
-                return {wayPointX:-15, wayPointY:-15};
+                return {wayPointX:-15, wayPointY:-15,
+                        turnLimit:-20};
             case vehicleNames[6]:
-                return {wayPointX:+15, wayPointY:-15};
+                return {wayPointX:+15, wayPointY:-15,
+                        turnLimit:-15};
             case vehicleNames[7]:
-                return {wayPointX:-15, wayPointY:+15};
+                return {wayPointX:-15, wayPointY:+15,
+                        turnLimit:-10};;
         }
     }
 
@@ -252,7 +260,7 @@ function carClass() {
             if (dot < 0) {
                 this.keyHeld_TurnRight = true;
                 this.keyHeld_TurnLeft = false;
-                if (dot < - dotTurningLimit) {// if result of the dot is much bigger or much lesser than 0 that means car has to make a big turn and it has to slow down.
+                if (dot < -(dotTurningLimit + this.quirks.turnLimit)) {// if result of the dot is much bigger or much lesser than 0 that means car has to make a big turn and it has to slow down.
                   if (DEBUG_AI) console.log(this.myName + "is slowing down");
                   this.keyHeld_Gas = false;
                   //this.keyHeld_Reverse = true;
@@ -265,7 +273,7 @@ function carClass() {
             } else {
                 this.keyHeld_TurnRight = false;
                 this.keyHeld_TurnLeft = true;
-                if (dot > dotTurningLimit) {
+                if (dot > (dotTurningLimit + this.quirks.turnLimit)) {
                   this.keyHeld_Gas = false;
                   if (DEBUG_AI) console.log(this.myName + "is slowing down");
                   //this.keyHeld_Reverse = true;
