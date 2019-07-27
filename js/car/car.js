@@ -140,7 +140,7 @@ function carClass() {
         this.lapSecondTensSpot = 0;
         this.lapMinute = 0;
         this.lapMinuteTensSpot = 0;
-        this.lapNumber = 3;
+        this.lapNumber = 1;
         this.checkPointA = false;
         this.checkPointB = false;
         this.checkPointC = false;
@@ -154,6 +154,28 @@ function carClass() {
         this.placedPosition = false;
         this.oilSlickRemaining = 0;
         this.damageParticles = [];
+        this.quirks = getDriverQuirksForName(this.myName);
+    }
+
+    function getDriverQuirksForName(aName) {
+        switch(aName) {
+            case vehicleNames[0]:
+                return {wayPointX:0, wayPointY:0};    
+            case vehicleNames[1]:
+                return {wayPointX:-10, wayPointY:-10};
+            case vehicleNames[2]:
+                return {wayPointX:+10, wayPointY:-10};
+            case vehicleNames[3]:
+                return {wayPointX:-10, wayPointY:+10};
+            case vehicleNames[4]:
+                return {wayPointX:+10, wayPointY:+10};
+            case vehicleNames[5]:
+                return {wayPointX:-15, wayPointY:-15};
+            case vehicleNames[6]:
+                return {wayPointX:+15, wayPointY:-15};
+            case vehicleNames[7]:
+                return {wayPointX:-15, wayPointY:+15};
+        }
     }
 
     this.randomMovements = function() {
@@ -211,6 +233,12 @@ function carClass() {
     this.wayPointMovements = function(toX, toY, isComputerPlayer = this.computerPlayer) {
         var wayPointVectorX = toX - this.x;
         var wayPointVectorY = toY - this.y;
+        
+        if (!this.placedPosition) {
+            wayPointVectorX += this.quirks.wayPointX;
+            wayPointVectorY += this.quirks.wayPointY;
+        }
+        
 
         //When calculating the car's vector, subtract 90 degrees from it
         //to allow for dot product to give a -ve to +ve result, indicating if car
