@@ -42,8 +42,10 @@ function RainClass(column) {
     var camScrolledX = (this.x - cameraP1.panX);
     var camScrolledY = (this.y - cameraP1.panY);
     // attempting a mod workaround to better handle negative cases
-    camScrolledX = (camScrolledX%canvas.width + canvas.width)%canvas.width;
-    camScrolledY = (camScrolledY%canvas.height + canvas.height)%canvas.height;
+    var canvWidth = canvas.width/scaleWidth;
+    var canvHeight = canvas.height/scaleHeight;
+    camScrolledX = (camScrolledX%canvWidth + canvWidth)%canvWidth;
+    camScrolledY = (camScrolledY%canvHeight + canvHeight)%canvHeight;
     colorRGBALine(camScrolledX, camScrolledY, camScrolledX, camScrolledY + this.lineLength, this.lineWidth, this.rgbaString, ctx);
   }
 
