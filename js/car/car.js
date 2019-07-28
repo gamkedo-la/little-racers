@@ -1014,7 +1014,8 @@ function carClass() {
 
     this.drawCar = function(canvasContext) {
         var visualAngAdjust = 0;
-        if (this.oilSlickRemaining > 0) {
+        var minimumSlickSpeed = 2.5;
+        if (this.oilSlickRemaining > 0 && this.speed >= minimumSlickSpeed) {
             visualAngAdjust = Math.sin(this.oilSlickRemaining * 0.4) * Math.PI / 5;
         }
         drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang + visualAngAdjust, canvasContext);
