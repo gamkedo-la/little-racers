@@ -81,7 +81,7 @@ window.onload = function(){
 	initInput();
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset();
-	}
+	}	
 }
 
 function enableMainCanvasOnly()
@@ -389,8 +389,8 @@ function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
                     speedometerNitroOverlays[plr.nitroBoostQuantity]);
 }
 
-function drawCheckpointArrow(canvas, canvasContext, player, arrowRotateOffset = Math.PI) {
-	if (player.wrongDirection && player.second % 2 == 0) {
+function drawCheckpointArrow(canvas, canvasContext, player, arrowRotateOffset = Math.PI) {	
+	if (player.wrongDirection && Math.floor(raceTimeElapsed / 100) % 2 == 0) {
 		var toX = player.wayPointX[player.wayPointNumber];
 		var toY = player.wayPointY[player.wayPointNumber];
 		var angle = Math.atan2(toY - player.y, toX - player.x) - arrowRotateOffset;		
