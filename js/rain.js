@@ -37,7 +37,14 @@ function RainClass(column) {
 
   this.draw = function(ctx = canvasContext) {
     //console.log("hello individual rain class draw method");
-    colorRGBALine(this.x, this.y, this.x, this.y + this.lineLength, this.lineWidth, this.rgbaString, ctx);
+    
+    // note: cam scroll is not yet per-player
+    var camScrolledX = (this.x - cameraP1.panX);
+    var camScrolledY = (this.y - cameraP1.panY);
+    // attempting a mod workaround to better handle negative cases
+    camScrolledX = (camScrolledX%canvas.width + canvas.width)%canvas.width;
+    camScrolledY = (camScrolledY%canvas.height + canvas.height)%canvas.height;
+    colorRGBALine(camScrolledX, camScrolledY, camScrolledX, camScrolledY + this.lineLength, this.lineWidth, this.rgbaString, ctx);
   }
 
   this.update = function() {
