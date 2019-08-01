@@ -1,7 +1,7 @@
 
 const SMOKE_FX_ENABLED = true; // if true, we get a gpu powered particle system
 const SMOKE_FX_IN_MENU = true; // back to the future flaming tracks!
-const SMOKE_FX_IN_GAME = true; // work in progress
+const SMOKE_FX_IN_GAME = false; // work in progress
 var SmokeFX;
 
 const FPS = 30; // TODO: test running at 60fps
@@ -148,7 +148,8 @@ function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false,
 
 		}
 
-        if (SMOKE_FX_ENABLED) SmokeFX.resizeTo(canvas.width,canvas.height);
+        // works.. but not good to run every frame
+        // if (SMOKE_FX_ENABLED) SmokeFX.resizeTo(canvas.width,canvas.height);
 
 	}
 }

@@ -407,7 +407,7 @@ function carClass() {
                         this.y-cameraP1.panY + ((Math.random()-0.5)*10),
                         ((Math.random()-0.5)*800),
                         ((Math.random()-0.5)*500),
-                        [Math.random()*0.5+0.5,Math.random()*0.5+0.5,Math.random()*0.5+0.5], 0.001);
+                        [Math.random()*0.5+0.4,Math.random()*0.5+0.4,Math.random()*0.5+0.4], 0.001);
             }
         }
 
