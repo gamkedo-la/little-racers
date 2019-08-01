@@ -25,6 +25,8 @@ const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
 const TURN_RATE_MULTIPLIER_OIL = 0.0;
+const TURN_RATE_MULTIPLIER_OIL_SLOW = 0.2;
+const OIL_SLOW_TRACTION_THRESHOLD = 2;  //Below this speed, oil reduction will be TURN_RATE_MULTIPLIER_OIL_SLOW (allow some steering at low speed)
 const TURN_RATE_MULTIPLIER_GRASS = 0.75;
 const NITRO_FRAME_DURATION = 30; //Being measured in frames, so at 30fps this is 1/3 second.
 const NITRO_BOOST_BASE_AMOUNT = .5; //Speed increase per frame.
@@ -630,8 +632,12 @@ function carClass() {
         } else //On the ground; degrade rate by tile effects and if tires are oil-slicked.
         {
             this.turnRate *= this.turnRateTileMultiplier;
-            if (this.oilSlickRemaining > 0) {
-                this.turnRate *= TURN_RATE_MULTIPLIER_OIL;
+            if (this.oilSlickRemaining > 0)
+            {
+                if(Math.abs(this.speed) < OIL_SLOW_TRACTION_THRESHOLD)
+                    this.turnRate *= TURN_RATE_MULTIPLIER_OIL_SLOW;
+                else
+                    this.turnRate *= TURN_RATE_MULTIPLIER_OIL;  //Visual effect will be shown by the draw code.
             }
         }
 
@@ -784,15 +790,6 @@ function carClass() {
             case TRACK_OIL_SLICK:
                 if (!this.airborne && this.oilSlickRemaining <= 0) {
                     this.oilSlickRemaining = OILSLICK_FRAMECOUNT; //No need to set the turnRateTileMultiplier; oil effects use oilSlickRemaining.
-                    console.log("car to slip");
-                    /* if (this.oilSlickRemaining > 0) {
-                        var wobbleSpeed = 1;
-                        var wobbleSize = .3;
-                        this.ang += Math.sin (this.oilSlickRemaining  * wobbleSpeed) * wobbleSize * (this.oilSlickRemaining/OILSLICK_FRAMECOUNT);
-                    }
-                   */
-
-
                 }
                 break;
             case TRACK_GRASS:
@@ -1014,8 +1011,7 @@ function carClass() {
 
     this.drawCar = function(canvasContext) {
         var visualAngAdjust = 0;
-        var minimumSlickSpeed = 2.5;
-        if (this.oilSlickRemaining > 0 && this.speed >= minimumSlickSpeed) {
+        if (this.oilSlickRemaining > 0 && Math.abs(this.speed) >= OIL_SLOW_TRACTION_THRESHOLD) {
             visualAngAdjust = Math.sin(this.oilSlickRemaining * 0.4) * Math.PI / 5;
         }
         drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang + visualAngAdjust, canvasContext);
