@@ -74,6 +74,7 @@ function whichPlace(car){
 
 //reset race positions
 function clearRacePositions(){
+	soundDelayTimer = 0;
 	firstPlaceFilled = false;
 	secondPlaceFilled = false;
 	thirdPlaceFilled = false;
