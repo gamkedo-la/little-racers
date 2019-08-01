@@ -2,6 +2,7 @@ const TRACK_W = 40;
 const TRACK_H = 40;
 const TRACK_GAP = 2;
 
+
 const TRACK_CANVAS = document.createElement("canvas");
 const TRACK_CONTEXT = TRACK_CANVAS.getContext('2d');
 let terrainChanged = true;
@@ -367,3 +368,19 @@ function tileIndexToPixelPos(index) {
 
 	return trackCoordToPixelPos(tileCoords.col, tileCoords.row);
 }
+
+function getTileEdgeDistances(atX, atY)
+{
+    trackCoord = pixelCoordToTrackCoords(atX, atY);
+    trackPixelCoord = trackCoordToPixelPos(trackCoord.col, trackCoord.row);
+
+    var west, north;
+
+    west = atX - trackPixelCoord.x;
+    east = TRACK_W - west;
+    north = atY - trackPixelCoord.y;
+    south = TRACK_H - north;
+
+    return { north: north, south: south, west: west, east: east };
+}
+

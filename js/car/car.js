@@ -12,6 +12,7 @@ const CAR_MAX_SPEED_DISPLAY_NITRO_ON = 14;  //Used to scale the gauge. By puttin
 const REVERSE_POWER = 0.2;
 const MIN_TURN_SPEED = 0.5;
 const MIN_JUMP_START_SPEED = 4;
+const RAMP_LAUNCH_EDGE_DISTANCE = 20; //Don't launch the car until it's at least this close to the jumping edge. Distance chosen based on car max speed.
 const JUMP_START_ZSPEED = 5;
 const GRAVITY = -0.4;
 const CAR_COLLISION_RADIUS = 15;
@@ -800,24 +801,40 @@ function carClass() {
                 }
                 break;
             case TRACK_NORTH_RAMP:
-                if (this.speed < 0 ||
-                    (this.ang < -Math.PI && this.ang > -2 * Math.PI)) {
-                    this.x = this.oldX;
-                    this.y = this.oldY;
-                    this.speed = -.5 * this.speed;
+                //If the car was further north last frame, then it's entering from the wrong direction.
+                var trackCoord = pixelCoordToTrackCoords(this.x, this.y);
+                var oldTrackCoord = pixelCoordToTrackCoords(this.oldX, this.oldY);
+                if(oldTrackCoord.row < trackCoord.row)
+                {
+                    this.speed = -WALL_IMPACT_SPEED_MODIFIER * this.speed;
+                    this.y = this.oldY -1;
                 }
-                if (this.speed > MIN_JUMP_START_SPEED) {
+
+                //Don't jump the car until it's at the end of the jump tile.
+                //Don't jump unless it's driving forward and above a minimum speed.
+                //Don't jump unles its vector is in the forward direction of the ramp.
+                var edgeDistances = getTileEdgeDistances(this.x, this.y);
+                if(edgeDistances.north < RAMP_LAUNCH_EDGE_DISTANCE && this.speed > MIN_JUMP_START_SPEED && this.ang < 0 && this.ang > - Math.PI)
+                {
                     this.startJump();
                 }
                 break;
             case TRACK_SOUTH_RAMP:
-                if (this.speed < 0 ||
-                    (this.ang < -Math.PI && this.ang < -3 * Math.PI)) {
-                    this.x = this.oldX;
-                    this.y = this.oldY;
-                    this.speed = -.5 * this.speed;
+                //If the car was further south last frame, then it's entering from the wrong direction.
+                var trackCoord = pixelCoordToTrackCoords(this.x, this.y);
+                var oldTrackCoord = pixelCoordToTrackCoords(this.oldX, this.oldY);
+                if(oldTrackCoord.row > trackCoord.row)
+                {
+                    this.speed = -WALL_IMPACT_SPEED_MODIFIER * this.speed;
+                    this.y = this.oldY +1;
                 }
-                if (this.speed > MIN_JUMP_START_SPEED) {
+
+                //Don't jump the car until it's at the end of the jump tile.
+                //Don't jump unless it's driving forward and above a minimum speed.
+                //Don't jump unles its vector is in the forward direction of the ramp.
+                var edgeDistances = getTileEdgeDistances(this.x, this.y);
+                if(edgeDistances.south < RAMP_LAUNCH_EDGE_DISTANCE && this.speed > MIN_JUMP_START_SPEED && this.ang < -Math.PI && this.ang > - 2*Math.PI)
+                {
                     this.startJump();
                 }
                 break;
