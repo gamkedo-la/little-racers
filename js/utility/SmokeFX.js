@@ -43,7 +43,7 @@ function SmokeFXClass(smokeCanvas) {
 		VELOCITY_DISSIPATION: 0.85, // how fast it slows down (0.8=glue, 0.99=air)
 		PRESSURE_DISSIPATION: 0.999, // 0.7 will have things gradually slow (1=smoke lasts forever)
 		PRESSURE_ITERATIONS: 5, // 25 was the default simulation passes
-		CURL: 64, // how swirly the movements are, 30 is puffy 80 is spiky
+		CURL: 50, // how swirly the movements are, 30 is puffy 80 is spiky
 		SPLAT_RADIUS: 0.0005 // the default size of a puff (1=entire screen)
 	};
 
@@ -55,7 +55,8 @@ function SmokeFXClass(smokeCanvas) {
     if (!smokeCanvas) {
         if (DEBUG_SMOKE) console.log("SmokeFX creating overlay canvas");
         smokeCanvas = document.createElement('canvas');
-        smokeCanvas.style = "position:absolute; pointer-events:none; top:0px; left:0px; width:100%; height:100%; margin:0; z-index:1;";
+        smokeCanvas.style = "z-index:4; position:absolute; pointer-events:none;"+
+        "top:0px; left:0px; width:100%; height:100%; margin:0; background:none;";
         // full screen:
         document.body.appendChild(smokeCanvas);
         // 800x600 letterboxed w black bars: FIXME the div is full width
@@ -769,13 +770,14 @@ function SmokeFXClass(smokeCanvas) {
 
 	this.update = update;
 
-	function splat(x, y, dx, dy, color, size) {
+    // warning: do not call this many times per frame! <4x is good
+    function splat(x, y, dx, dy, color, size) {
 
         if (!gl) return; // make sure WebGL initialized ok
 
         if (!size) size = config.SPLAT_RADIUS; // default
 
-        //if (DEBUG_SMOKE) console.log("SmokeFX splat pos:" + x + "," + y + " spd:" + dx + "," + dy + " col:" + color);
+        //if (DEBUG_SMOKE && !titleScreen) console.log("SmokeFX splat pos:" + x + "," + y + " spd:" + dx + "," + dy + " col:" + color);
         
         // black does work but it is "invisible" and erases r,g,b density
         // so it is only good to define areas where smoke can't go
@@ -846,16 +848,36 @@ function SmokeFXClass(smokeCanvas) {
         if (DEBUG_SMOKE) console.log("Title screen: " + titlescreenFrameCount + " frames in " + titlescreenTime.toFixed(1) + " sec = " + (titlescreenFrameCount/titlescreenTime).toFixed(1)+" FPS");
     }
 
+    this.hide = function() {
+        if (DEBUG_SMOKE) console.log("SmokeFX canvas is now hidden");
+        smokeCanvas.style.display='none';
+    }
+
+    this.show = function() {
+        if (DEBUG_SMOKE) console.log("SmokeFX canvas is now visible");
+        smokeCanvas.style.display='block';
+    }
+
+    // fixme - this gets run >1 times per frame yuck
+    this.resizeTo = function(w,h) {
+        //if (DEBUG_SMOKE) console.log("SmokeFX resizeTo "+w+"x"+h);
+        smokeCanvas.style.display='block';
+        smokeCanvas.style.top = "0px";
+        smokeCanvas.style.left = Math.round((window.innerWidth / 2) - (w / 2)) + "px";
+        smokeCanvas.style.width = w+"px";
+        smokeCanvas.style.height = h+"px";
+        resizeCanvas();
+    }
 
 } // end SmokeFX class
 
 // start animating the effect at 60fps
 function SmokeFXStartRendering() {
     // only update the simulation if enabled
-    if ((titleScreen && SMOKE_FX_IN_MENU) ||
-        (!titleScreen && SMOKE_FX_IN_GAME)) {
+    //if ((titleScreen && SMOKE_FX_IN_MENU) ||
+    //    ((!titleScreen) && SMOKE_FX_IN_GAME)) {
         SmokeFX.update();
-    }
+    //}
 
     // hide the canvas if no longer being used
     if (!titleScreen && !SMOKE_FX_IN_GAME) {

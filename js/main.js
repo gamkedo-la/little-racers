@@ -1,7 +1,7 @@
 
 const SMOKE_FX_ENABLED = true; // if true, we get a gpu powered particle system
 const SMOKE_FX_IN_MENU = true; // back to the future flaming tracks!
-const SMOKE_FX_IN_GAME = false; // work in progress
+const SMOKE_FX_IN_GAME = true; // work in progress
 var SmokeFX;
 
 const FPS = 30; // TODO: test running at 60fps
@@ -89,6 +89,7 @@ function enableMainCanvasOnly()
     canvas2.width = 0;
     canvasOverlay.width = 0;
     resizeAndRepositionCanvas(canvas, canvasContext);
+    //if (SMOKE_FX_ENABLED) SmokeFX.hide();
 }
 
 function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
@@ -113,8 +114,11 @@ function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
         canvasOverlay.width = 0;
     }
 
+    //if (SMOKE_FX_ENABLED) SmokeFX.show();
+    //if (SMOKE_FX_ENABLED) SmokeFX.resizeToGameCanvas();
 }
 
+// FIXME: this is run multiple times every single frame!
 function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
     if (allowRescale) {
 		canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
@@ -143,6 +147,8 @@ function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false,
 		    canvas2.style.left = (window.innerWidth/2+gap/2) + 'px';
 
 		}
+
+        if (SMOKE_FX_ENABLED) SmokeFX.resizeTo(canvas.width,canvas.height);
 
 	}
 }

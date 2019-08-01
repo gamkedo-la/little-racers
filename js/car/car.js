@@ -373,7 +373,11 @@ function carClass() {
 
         if (SMOKE_FX_ENABLED) {
 
+            /*
             if (this.keyHeld_Gas) { // no smoke when gliding/braking?
+            // FIXME: draw on both cameras if splitscreen?
+            // FIXME: assumes aspect ratio of 800x600 canvas
+            // constant smoke from exhaust is too costly: too may puffs per frame
             // offset from center of sprite to near rear fender
             var ofsx = Math.cos(this.ang)*FENDERDISTANCE;
             var ofsy = Math.sin(this.ang)*FENDERDISTANCE;
@@ -384,28 +388,25 @@ function carClass() {
             else if (this.nitroBoostOn) { rgb = [0.5,0,0]; spdboost=2; }
             else if (this.oilSlickRemaining > 0) { rgb = [0.001,0.001,0.2]; spdboost=2; } // no black! [additive particles]
             else rgb = [0.15,0.15,0.15]; // how bright
-
-            // FIXME: draw on both cameras if splitscreen?
-            // FIXME: assumes aspect ratio of 800x600 canvas
-            SmokeFX.add(
+            if (Math.random()>0.99) {
+                SmokeFX.add(
                 this.x-cameraP1.panX+ofsx,
                 this.y-cameraP1.panY+ofsy,
                 (Math.cos(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
                 (Math.sin(this.ang)*this.speed*(-SMOKESPEED*spdboost)) + ((Math.random()-0.5)*RANDSPEED),
-                rgb, 16);
-            }
+                rgb, 0.001);
+                }
+            }*/
 
             // pending ground pound (landed from a ramp jump)
             if (justHitTheGround) {
                 justHitTheGround = false;
-                for (var loop=0; loop<16; loop++) {
                     SmokeFX.add(
                         this.x-cameraP1.panX + ((Math.random()-0.5)*10),
                         this.y-cameraP1.panY + ((Math.random()-0.5)*10),
                         ((Math.random()-0.5)*800),
                         ((Math.random()-0.5)*500),
-                        [Math.random()*0.5,Math.random()*0.5,Math.random()*0.5], 16);
-                }
+                        [Math.random()*0.5+0.5,Math.random()*0.5+0.5,Math.random()*0.5+0.5], 0.001);
             }
         }
 
