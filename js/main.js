@@ -21,6 +21,7 @@ var scaleHeight = 1;
 
 var cameraP1 = new Camera();
 var cameraP2 = new Camera();
+var trackMap = new miniMap();
 
 var now = new Date();
 var lastFrameTime=now;
@@ -432,6 +433,7 @@ function drawCommonScreenElements()
 
     drawClock(canvasContextOverlay, xCenter, 10);
 
+	trackMap.draw();
     if (paused){
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
     }
