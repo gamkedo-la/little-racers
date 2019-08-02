@@ -95,6 +95,34 @@ const TRACK_L_SHAPE_HOUSE_E = 171;
 const TRACK_TOWN_RESIDENTIAL_ONE_C = 175;
 const TRACK_TOWN_RESIDENTIAL_TWO_C = 176;
 
+//201 through 250 are dedicated for Lake tile set
+const LAKE_1 = 201;
+const LAKE_2 = 202;
+const LAKE_3 = 203;
+const LAKE_4 = 204;
+const LAKE_5 = 205;
+const LAKE_6 = 206;
+const LAKE_7 = 207;
+const LAKE_8 = 208;
+const LAKE_9 = 209;
+const LAKE_10 = 210;
+const LAKE_11 = 211;
+const LAKE_12 = 212;
+const LAKE_13 = 213;
+const LAKE_14 = 214;
+const LAKE_15 = 215;
+const LAKE_16 = 216;
+const LAKE_17 = 217;
+const LAKE_18 = 218;
+const LAKE_19 = 219;
+const LAKE_20 = 220;
+const LAKE_21 = 221;
+const LAKE_22 = 222;
+const LAKE_23 = 223;
+const LAKE_24 = 224;
+const LAKE_25 = 225;
+//226 through 250 are available
+
 function getCurrentTrackCols() {
 	return levelList[levelNow].cols;
 }
@@ -212,6 +240,9 @@ function findTrackType_YOffset_SpriteSheetForTileType(tileType) {
 	} else if (trackTypeHere >= 150 && trackTypeHere < 200){
 		spriteSheet = cityScapeSpriteSheet;
 		trackTypeHere -= 150;
+	} else if (trackTypeHere >= 200 && trackTypeHere < 250){
+		spriteSheet = lakeSpriteSheet;
+		trackTypeHere -= 200;
 	}
 
 	const resultType = trackTypeHere % 10;

@@ -6,7 +6,7 @@ var SmokeFX;
 
 const FPS = 30; // TODO: test running at 60fps
 var isWideScreen = false;
-var windowWasResized = false;
+var windowWasResized = true;
 const ASPECT_RATIO_WIDTH = isWideScreen ? 16 : 4;
 const ASPECT_RATIO_HEIGHT = isWideScreen ? 9 : 3;
 const CANVAS_WIDTH = 800;

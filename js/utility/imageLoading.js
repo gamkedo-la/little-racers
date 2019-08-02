@@ -27,6 +27,7 @@ var roadSpriteSheet =  document.createElement("img");
 var trackobstaclesSpriteSheet = document.createElement("img");
 var wallSpriteSheet = document.createElement("img");
 var cityScapeSpriteSheet = document.createElement("img");
+var lakeSpriteSheet = document.createElement("img");
 var clockPic = document.createElement("img");
 var clockFont = document.createElement("img");
 var trackPics = [];
@@ -98,6 +99,7 @@ function loadImages() {
 			{varName: trackobstaclesSpriteSheet, theFile: "spriteSheet/trackobstaclesSpriteSheet.png"},
 			{varName: wallSpriteSheet, theFile: "spriteSheet/wallSpriteSheet.png"},
 			{varName: cityScapeSpriteSheet, theFile: "spriteSheet/cityScapeSpriteSheet.png"},
+			{varName: lakeSpriteSheet, theFile: "spriteSheet/waterTileset.png"},
 			{varName: gaugeNeedlePic, theFile: "gauges/GaugeNeedle.png"},
 			{varName: fuelGaugePic, theFile: "gauges/FuelGauge.png"},
             {varName: speedometerNitroOffPic, theFile: "gauges/SystemsGaugeNitroInactive.png" },
