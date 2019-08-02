@@ -159,6 +159,7 @@ function loadLevel(whichLevel) {
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset(window['carPic'+(i+1)], 'Car '+(i+1), true);
 	}
+	trackMap.init();
 	//randomizeIfItWillRain();
 	//addRainToArray();
 }
