@@ -41,6 +41,7 @@ const CAR_WIDTH = 28; //These are determined from examination of the graphics. M
 const CAR_HEIGHT = 12;
 const CAR_LOW_FUEL_LEVEL = 20; // Displays low fuel indicator when fuelInTank is lower than val
 const MAX_DAMAGE_PARTICLES_PER_FRAME = 20;
+const CRACK_SPEED_REDUCTION = 0.87;
 
 var finalLappedCalled = false;
 
@@ -876,6 +877,7 @@ function carClass() {
             case TRACK_ROAD_V_CRACK1:
             case TRACK_ROAD_V_CRACK2:
                 if (!this.airborne) {
+                    this.speed = this.speed * CRACK_SPEED_REDUCTION;
                      if(this.myName == vehicleList[0].myName){
                     cameraP1.shakeCamera(5, 1);
                     } else if (this.myName == vehicleList[1].myName){
