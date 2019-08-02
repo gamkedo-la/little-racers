@@ -567,44 +567,36 @@ function carClass() {
         if (!this.airborne) //Handle changes in speed for vehicles on the ground.
         {
             this.speed *= GROUNDSPEED_DECAY_MULT;
-            if (this.keyHeld_Gas) {
-            	if (this.placedPosition) {
-            		if (this.speed > 3) {
-            			this.speed = 3;
-            		}
-            	}
-                if (this.fuelInTank > 0) {
+            if (this.fuelInTank > 0) {
+            	if (this.keyHeld_Gas) {
+            		if (this.placedPosition) {
+            			this.speed = 3.5;
+            		} else {
+		                //Add in basic speed boost every car gets.
+		                this.speed += DRIVE_POWER;
 
-                    //Add in basic speed boost every car gets.
-                    this.speed += DRIVE_POWER;
+		                //Add in engine effects.
+		                this.speed += this.engineVersion/ENGINE_BOOST_LEVEL_DIVISOR;
 
-                    //Add in engine effects.
-                    this.speed += this.engineVersion/ENGINE_BOOST_LEVEL_DIVISOR;
+		                //Add in transmission effects for extra increase when at lower speeds.
+		                //transmissionBoostScale will be large when car is slow/stopped, getting smaller and going to 0 when approachign cutoff speed.
+		                var transmissionBoostScale = TRANSMISSION_BOOST_CUTOFF_SPEED- clamp(0, this.speed, TRANSMISSION_BOOST_CUTOFF_SPEED);
+		                var transmissionBoostAmount = transmissionBoostScale*this.transmissionVersion/TRANSMISSION_BOOST_LEVEL_DIVISOR;
+		                this.speed += transmissionBoostAmount;
 
-                    //Add in transmission effects for extra increase when at lower speeds.
-                    //transmissionBoostScale will be large when car is slow/stopped, getting smaller and going to 0 when approachign cutoff speed.
-                    var transmissionBoostScale = TRANSMISSION_BOOST_CUTOFF_SPEED- clamp(0, this.speed, TRANSMISSION_BOOST_CUTOFF_SPEED);
-                    var transmissionBoostAmount = transmissionBoostScale*this.transmissionVersion/TRANSMISSION_BOOST_LEVEL_DIVISOR;
-                    this.speed += transmissionBoostAmount;
+		                this.fuelConsumption(DRIVE_POWER);
 
-                    if (!debugMode) { //don't remove fuel while in debug mode
-                        this.fuelInTank -= DRIVE_POWER * this.fuelConsumptionRate
-                    }
-                    this.checkForLowFuelLevel()
-                    this.checkForEmptyTank()
-                }
-                if (this.keyHeld_Nitro) { //Don't engage nitro if player is backing up!
-                    this.tryNitroBoost();
-                }
-            }
+		                if (this.keyHeld_Nitro) { //Don't engage nitro if player is backing up!
+		                this.tryNitroBoost();
+		            	}
+	            	}
+		        }         
 
-            if (this.keyHeld_Reverse) {
-                if (this.fuelInTank > 0) {
-                    this.speed -= REVERSE_POWER;
-                    this.fuelInTank -= REVERSE_POWER * this.fuelConsumptionRate
-                    this.checkForEmptyTank()
-                }
-            }
+	        	if (this.keyHeld_Reverse) {
+	                this.speed -= REVERSE_POWER;
+	                this.fuelConsumption(REVERSE_POWER);
+	            }
+        	}
 
             //As long as you're on the ground, nitro will push you forward even if you're trying to brake!
             //That's why this code is not in the above sections for forward/reverse.
@@ -645,8 +637,6 @@ function carClass() {
 
         this.updateNitro(); //Needs to be done after the above code so that speed is used for one frame before being "consumed".
         //Do it during the speed increase and you would miss the turn rate penalty!
-
-
     }
 
     this.updateCarPositionAndAngle = function() {
@@ -687,7 +677,14 @@ function carClass() {
                 this.ang = constrainAngleToNegativeRange(this.ang)
             }
         }
+    }
 
+    this.fuelConsumption = function (power) {
+    	if (!debugMode) { //don't remove fuel while in debug mode
+	        this.fuelInTank -= power * this.fuelConsumptionRate;
+	    }
+		this.checkForLowFuelLevel();
+		this.checkForEmptyTank();
     }
 
     this.checkIfWrongDirection = function () {

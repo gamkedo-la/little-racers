@@ -66,8 +66,14 @@ canvas.addEventListener('mousedown', winScreenMouseClick);
 
 function winScreenMouseClick(evt) {
 	if(winScreen) {
-		winScreen = false;
-		carUpgradeScreen = true;
+		const stateObj = {
+			titleScreen:false,
+			levelEditor:false,
+			winScreen:false,
+			carUpgradeScreen:true,
+			enterPlayerName:false
+		}
+		updateState(stateObj);
 		clearRacePositions();
 		tireTracks.clear();
 	}

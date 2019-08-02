@@ -203,7 +203,15 @@ function carUpgradeScreenMouseClick(mousePosX, mousePosY) {
 	//Exit the shop
 	} else if(	mousePosX > exitBoxX * scaleWidth && mousePosX < (exitBoxX + 100) * scaleWidth && 
 				mousePosY > exitBoxY * scaleHeight  && mousePosY < (exitBoxY + 50) * scaleHeight ){ 
-		carUpgradeScreen = false;
+				const stateObj = {
+					titleScreen:false,
+					levelEditor:false,
+					winScreen:false,
+					carUpgradeScreen:false,
+					enterPlayerName:false
+				}
+				updateState(stateObj);
+//		carUpgradeScreen = false;
 	//Option Box 1
 	} else if(	mousePosX > optionOneX * scaleWidth && mousePosX < (optionOneX + 100) * scaleWidth && 
 				mousePosY > optionOneY * scaleHeight && mousePosY < (optionOneY + 100) * scaleHeight){ 

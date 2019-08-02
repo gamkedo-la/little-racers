@@ -144,8 +144,14 @@ function nextLevel() {
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].updateWayPoints();
 	}
-	winScreen = true;
-
+	const stateObj = {
+		titleScreen:false,
+		levelEditor:false,
+		winScreen:true,
+		carUpgradeScreen:false,
+		enterPlayerName:false
+	}
+	updateState(stateObj);
 }
 
 function loadLevel(whichLevel) {

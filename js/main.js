@@ -63,7 +63,7 @@ var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525, CAR_LOW
 fuelMeterP2.meterPic = fuelGaugePic;
 
 //Debug Options
-var debugMode = true;
+var debugMode = false;
 var allowRescale = true;
 var byPassFadeOut = true; //disable if not using a local server
 
@@ -87,7 +87,7 @@ window.onload = function(){
 	}	
 }
 
-function reportWindowResize(evt) {
+function reportWindowResize() {
 	windowWasResized = true;
 }
 
@@ -95,7 +95,8 @@ function enableMainCanvasOnly()
 {
     canvas2.width = 0;
     canvasOverlay.width = 0;
-    resizeAndRepositionCanvas(canvas, canvasContext);
+	resizeAndRepositionCanvas(canvas, canvasContext);
+	windowWasResized = false;
     //if (SMOKE_FX_ENABLED) SmokeFX.hide();
 }
 
@@ -105,16 +106,19 @@ function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
     {
         resizeAndRepositionCanvas(canvas, canvasContext, false, true, CANVAS_GAP_TWO_PLAYERS);
         canvas2.width=0;
+		windowWasResized = false;
     }
     else
     {
         resizeAndRepositionCanvas(canvas, canvasContext, true, true, CANVAS_GAP_TWO_PLAYERS);
         resizeAndRepositionCanvas(canvas2, canvasContext2, true, false, CANVAS_GAP_TWO_PLAYERS);
+		windowWasResized = false;
     }
 
     if(drawOverlayCanvas)
     {
         resizeAndRepositionCanvas(canvasOverlay, canvasContextOverlay);
+		windowWasResized = false;
     }
     else
     {
@@ -126,37 +130,36 @@ function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
 }
 
 // FIXME: this is run multiple times every single frame!
-function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
-//    if (allowRescale && windowWasResized) {
+function resizeAndRepositionCanvas(aCanvas, aCanvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
 	if(allowRescale) {
-		windowWasResized = false;
-		canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
-		canvas.height = window.innerHeight;
-		if (isSplitScreen) {
-			canvas.width /= 2;			
-		}
-		scaleWidth = canvas.width/CANVAS_WIDTH;
-		if (isSplitScreen) {
-			scaleWidth *= 2;
-		}
-		scaleHeight = canvas.height/CANVAS_HEIGHT;
-		canvasContext.scale(scaleWidth,scaleHeight);
+		if(windowWasResized) {
+			aCanvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
+			aCanvas.height = window.innerHeight;	
+		
+			if (isSplitScreen) {
+				aCanvas.width /= 2;			
+			}
+			scaleWidth = aCanvas.width/CANVAS_WIDTH;
+			if (isSplitScreen) {
+				scaleWidth *= 2;
+			}
+			scaleHeight = aCanvas.height/CANVAS_HEIGHT;
+			aCanvasContext.scale(scaleWidth,scaleHeight);
 
-        //Reposition the canvas to be centered, or to the correct offset from center for split-screen play.
-		if(!isSplitScreen)
-		{
-		    canvas.style.left = (window.innerWidth/2 - canvas.width/2) + 'px';
+			//Reposition the canvas to be centered, or to the correct offset from center for split-screen play.
+			if(!isSplitScreen)
+			{
+				aCanvas.style.left = (window.innerWidth/2 - aCanvas.width/2) + 'px';
+			}
+			else if(isSplitScreen && isLeftSide)
+			{
+				aCanvas.style.left = (window.innerWidth/2 - aCanvas.width-gap/2) + 'px';
+			}
+			else
+			{
+				aCanvas.style.left = (window.innerWidth/2+gap/2) + 'px';
+			}
 		}
-		else if(isSplitScreen && isLeftSide)
-		{
-		    canvas.style.left = (window.innerWidth/2 - canvas.width-gap/2) + 'px';
-		}
-		else
-		{
-		    canvas2.style.left = (window.innerWidth/2+gap/2) + 'px';
-
-		}
-
         // works.. but not good to run every frame
         // if (SMOKE_FX_ENABLED) SmokeFX.resizeTo(canvas.width,canvas.height);
 
@@ -471,6 +474,16 @@ function drawP2Screen() {
 		}
 
 	}
+}
+
+function updateState(stateObj) {
+	titleScreen = stateObj.titleScreen;
+	enterPlayerName = stateObj.enterPlayerName;
+	levelEditor = stateObj.levelEditor;
+	winScreen = stateObj.winScreen;
+	carUpgradeScreen = stateObj.carUpgradeScreen;
+
+	reportWindowResize();
 }
 
 function drawEverything() {
