@@ -795,6 +795,10 @@ function carClass() {
                 }
                 break;
             case TRACK_GRASS:
+            case LAKE_GRASS_1:
+            case LAKE_GRASS_2:
+            case LAKE_GRASS_3:
+            case LAKE_GRASS_4:
                 if (!this.airborne) {
                     this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
                     if (this.speed > GRASS_SLOWDOWN_THRESHOLD)
@@ -875,53 +879,75 @@ function carClass() {
                 break;
             case TRACK_BRICK_WALL_LEFT:
             case TRACK_BRICK_WALL_LEFT_GRASS:
+            case LAKE_BANK_RIGHT:
                 this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
                 this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
                 break;
             case TRACK_BRICK_WALL_RIGHT:
             case TRACK_BRICK_WALL_RIGHT_GRASS:
+            case LAKE_BANK_LEFT:
                 this.handleWallImpact(RADIANS_270_DEGREES_NEGATIVE);
                 this.x = this.oldX - 1;
                 break;
             case TRACK_BRICK_WALL_TOP_MIDDLE:
             case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
+            case LAKE_BANK_BOTTOM:
                 this.handleWallImpact(RADIANS_0_DEGREES);
                 this.y = this.oldY + 1;
                 break;
             case TRACK_BRICK_WALL_BOT_MIDDLE:
             case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
+            case LAKE_BANK_TOP:
                 this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
                 this.y = this.oldY - 1;
                 break;
             //For the wall corners, just bounce the car out enough the driver can hit one of the orthagonal walls instead.
             case TRACK_BRICK_WALL_TOP_LEFT_END:
             case TRACK_BRICK_WALL_TOP_LEFT_END_GRASS:
+            case LAKE_TOP_LEFT_INNER:
+            case LAKE_BOT_RIGHT_OUTER_1:
+            case LAKE_BOT_RIGHT_OUTER_2:
                 this.x = this.oldX + 1;
                 this.y = this.oldY + 1;
                 break;
             case TRACK_BRICK_WALL_TOP_RIGHT_END:
             case TRACK_BRICK_WALL_TOP_RIGHT_END_GRASS:
+            case LAKE_TOP_RIGHT_INNER:
+            case LAKE_BOT_LEFT_OUTER_1:
+            case LAKE_BOT_LEFT_OUTER_2:
                 this.x = this.oldX - 1;
                 this.y = this.oldY + 1;
                 break;
             case TRACK_BRICK_WALL_BOT_LEFT_END:
             case TRACK_BRICK_WALL_BOT_LEFT_END_GRASS:
+            case LAKE_BOT_LEFT_INNER:
+            case LAKE_TOP_RIGHT_OUTER_1:
+            case LAKE_TOP_RIGHT_OUTER_2:
                 this.x = this.oldX + 1;
                 this.y = this.oldY - 1;
                 break;
             case TRACK_BRICK_WALL_BOT_RIGHT_END:
             case TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS:
+            case LAKE_BOT_RIGHT_INNER:
+            case LAKE_TOP_LEFT_OUTER_1:
+            case LAKE_TOP_LEFT_OUTER_2:
                 this.x = this.oldX - 1;
                 this.y = this.oldY - 1;
                 break;
             //For other things labelled TRACK_WALL, think it covers interior items.
             case TRACK_WALL:
+            case LAKE_WATER_1:
+            case LAKE_WATER_2:
+            case LAKE_WATER_3:
+            case LAKE_WATER_4:
+            case LAKE_WATER_5:
                 this.x = this.oldX; //Go back to just before the collision (to try to avoid getting stuck in the wall).
                 this.y = this.oldY;
                 this.speed = -.5 * this.speed;
                 //crashIntoConeSound.play();
                 break;
             default: //Handles collision with solid tiles. Really, this catch-all should generally be avoided.
+                console.log("In the default");
                 this.speed = -.5 * this.speed;
         }
     }

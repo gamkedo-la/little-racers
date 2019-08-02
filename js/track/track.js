@@ -96,31 +96,31 @@ const TRACK_TOWN_RESIDENTIAL_ONE_C = 175;
 const TRACK_TOWN_RESIDENTIAL_TWO_C = 176;
 
 //201 through 250 are dedicated for Lake tile set
-const LAKE_1 = 201;
-const LAKE_2 = 202;
-const LAKE_3 = 203;
-const LAKE_4 = 204;
-const LAKE_5 = 205;
-const LAKE_6 = 206;
-const LAKE_7 = 207;
-const LAKE_8 = 208;
-const LAKE_9 = 209;
-const LAKE_10 = 210;
-const LAKE_11 = 211;
-const LAKE_12 = 212;
-const LAKE_13 = 213;
-const LAKE_14 = 214;
-const LAKE_15 = 215;
-const LAKE_16 = 216;
-const LAKE_17 = 217;
-const LAKE_18 = 218;
-const LAKE_19 = 219;
-const LAKE_20 = 220;
-const LAKE_21 = 221;
-const LAKE_22 = 222;
-const LAKE_23 = 223;
-const LAKE_24 = 224;
-const LAKE_25 = 225;
+const LAKE_GRASS_1 = 200;
+const LAKE_TOP_LEFT_OUTER_1 = 201;
+const LAKE_BANK_TOP = 202;
+const LAKE_TOP_RIGHT_OUTER_1 = 203;
+const LAKE_GRASS_2 = 204;
+const LAKE_TOP_LEFT_OUTER_2 = 205;
+const LAKE_TOP_LEFT_INNER = 206;
+const LAKE_WATER_1 = 207;
+const LAKE_TOP_RIGHT_INNER = 208;
+const LAKE_TOP_RIGHT_OUTER_2 = 209;
+const LAKE_BANK_LEFT = 210;
+const LAKE_WATER_2 = 211;
+const LAKE_WATER_3 = 212;
+const LAKE_14WATER_4 = 213;
+const LAKE_BANK_RIGHT = 214;
+const LAKE_BOT_LEFT_OUTER_1 = 215;
+const LAKE_BOT_LEFT_INNER = 216;
+const LAKE_WATER_5 = 217;
+const LAKE_BOT_RIGHT_INNER = 218;
+const LAKE_BOT_RIGHT_OUTER_1 = 219;
+const LAKE_GRASS_3 = 220;
+const LAKE_BOT_LEFT_OUTER_2 = 221;
+const LAKE_BANK_BOTTOM = 222;
+const LAKE_BOT_RIGHT_OUTER_2 = 223;
+const LAKE_GRASS_4 = 224;
 //226 through 250 are available
 
 function getCurrentTrackCols() {
