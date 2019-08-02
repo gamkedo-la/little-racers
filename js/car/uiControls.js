@@ -122,7 +122,16 @@ function keyPressed(evt) {
 		console.log(paused);
 		paused = !paused;
 	} else if (levelEditorKey == evt.keyCode) {
-		levelEditor = !levelEditor;
+		const newEditorState = !levelEditor;
+		const stateObj = {
+			titleScreen:false,
+			levelEditor:newEditorState,
+			winScreen:false,
+			carUpgradeScreen:false,
+			enterPlayerName:false
+		}
+		updateState(stateObj);
+//		levelEditor = !levelEditor;
 	} else if (debugKey == evt.keyCode){
 		debugMode = !debugMode;
 	} else if (debugMode){		//Debug options
@@ -130,10 +139,14 @@ function keyPressed(evt) {
 			nextLevel();
 //			debugMode = false;
 		} else if (evt.keyCode == raceResultsPageKey){
-			titleScreen = false;
-			levelEditor = false;
-			winScreen = true;
-			carUpgradeScreen = false;
+			const stateObj = {
+				titleScreen:false,
+				levelEditor:false,
+				winScreen:true,
+				carUpgradeScreen:false,
+				enterPlayerName:false
+			}
+			updateState(stateObj);			
 		}
 	}
 }
