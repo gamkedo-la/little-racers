@@ -734,8 +734,8 @@ function carClass() {
             case TRACK_ROAD_LFT_ARROW:
             case TRACK_ROAD_RIT_ARROW:
             case TRACK_ROAD_OIL_SPOT:
-            case TRACK_ROAD_H_CRACK1:
-            case TRACK_ROAD_H_CRACK2:
+            //case TRACK_ROAD_H_CRACK1:
+            //case TRACK_ROAD_H_CRACK2:
             case TRACK_ROAD_LFT_TO_BOT:
             case TRACK_ROAD_V_CRACK1:
             case TRACK_ROAD_V_CRACK2:
@@ -746,6 +746,10 @@ function carClass() {
             case TRACK_ROAD_BOT_STUB:
             case TRACK_ROAD_RIT_STUB:
             case TRACK_ROAD_LFT_STUB:
+                break;
+            case TRACK_ROAD_H_CRACK1:
+            case TRACK_ROAD_H_CRACK2:
+                console.log("CAR HIT A CRACK!")
                 break;
             case TRACK_ROAD_PITSTOP:
                 this.setFuel(this.fuelInTank += 0.5);
