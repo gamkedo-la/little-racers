@@ -6,6 +6,7 @@ var SmokeFX;
 
 const FPS = 30; // TODO: test running at 60fps
 var isWideScreen = false;
+var windowWasResized = false;
 const ASPECT_RATIO_WIDTH = isWideScreen ? 16 : 4;
 const ASPECT_RATIO_HEIGHT = isWideScreen ? 9 : 3;
 const CANVAS_WIDTH = 800;
@@ -77,11 +78,16 @@ window.onload = function(){
 	window.addEventListener('blur', function () {
 		paused = true;
 	});
+	window.addEventListener('resize', reportWindowResize);
 	loadImages();
 	initInput();
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset();
 	}	
+}
+
+function reportWindowResize(evt) {
+	windowWasResized = true;
 }
 
 function enableMainCanvasOnly()
@@ -120,7 +126,8 @@ function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
 
 // FIXME: this is run multiple times every single frame!
 function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
-    if (allowRescale) {
+    if (allowRescale && windowWasResized) {
+		windowWasResized = false;
 		canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
 		canvas.height = window.innerHeight;
 		if (isSplitScreen) {
