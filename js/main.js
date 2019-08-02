@@ -126,7 +126,8 @@ function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
 
 // FIXME: this is run multiple times every single frame!
 function resizeAndRepositionCanvas(canvas, canvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
-    if (allowRescale && windowWasResized) {
+//    if (allowRescale && windowWasResized) {
+	if(allowRescale) {
 		windowWasResized = false;
 		canvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
 		canvas.height = window.innerHeight;
