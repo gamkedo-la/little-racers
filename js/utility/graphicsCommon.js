@@ -69,10 +69,10 @@ function colorTextCentered(showWords, textX, textY, fillColor, font = "14px Aria
 }
 
 
-function colorLine(x1, y1, x2, y2, color, ctx = canvasContext){
+function colorLine(x1, y1, x2, y2, color, ctx = canvasContext, lineThickness = 1){
 	ctx.beginPath();
 	ctx.strokeStyle = color;
-	ctx.lineWidth = 1;
+	ctx.lineWidth = lineThickness;
 	ctx.moveTo(x1, y1);
 	ctx.lineTo(x2, y2);
 	ctx.stroke();
