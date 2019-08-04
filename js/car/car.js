@@ -876,7 +876,7 @@ function carClass() {
             case TRACK_ROAD_H_CRACK2:
             case TRACK_ROAD_V_CRACK1:
             case TRACK_ROAD_V_CRACK2:
-                if (!this.airborne) {
+                if (!this.airborne && this.speed >= 1 ) {
                     this.speed = this.speed * CRACK_SPEED_REDUCTION;
                      if(this.myName == vehicleList[0].myName){
                     cameraP1.shakeCamera(5, 1);
