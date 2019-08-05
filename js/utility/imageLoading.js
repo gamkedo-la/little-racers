@@ -10,7 +10,7 @@ var carPic8 = document.createElement("img");
 var carShadowPic = document.createElement("img");
 //Backgrounds
 var resultScreenPic = document.createElement("img");
-//var titlepagePic = document.createElement("img");
+var titleScreenePic = document.createElement("img");
 var bodyShopPic = document.createElement("img");
 var bodyShopGaragePic = document.createElement("img");
 //upgrades
@@ -84,6 +84,7 @@ function loadImages() {
 			{varName: tireTrackPic, theFile: "vehicles/tireTracks.png"},
 			{varName: carShadowPic, theFile: "vehicles/car_shadow.png"},
 			{varName: bodyShopPic, theFile: "backdrops/bodyShop.png"},
+			{varName: titleScreenePic, theFile: "title_screen.png"},
 			{varName: bodyShopGaragePic, theFile: "backdrops/bodyShopGarage.png"},
 			{varName: resultScreenPic, theFile: "backdrops/resultScreenBackground.png"},
 			{varName: tireOptionOnePic, theFile: "upgrades/tireOptionOne.png"},
