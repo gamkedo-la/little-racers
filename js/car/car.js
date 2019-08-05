@@ -68,6 +68,9 @@ function carClass() {
     this.wrongDirectionTimer = 0;
     this.wrongDirectionTimerPrev = 0;
     this.wrongDirection = false;
+	this.raceDistance = 0;
+	this.inRacePosition = 0;
+	this.recordNewDistance = true;
     this.cash = 2000;
     this.placedPosition = false;
     this.fuelCapacity = 100;
@@ -87,6 +90,7 @@ function carClass() {
     this.maxHealth = 100;
     this.bodyStrength = 1; // Possibly upgradeable, damage reduction factor when hit without shieldStrength
     this.healthRemaining = this.maxHealth;
+
 
     this.setupControls = function(forwardKey, backKey, leftKey, rightKey, nitroKey) {
         this.controlKeyForGas = forwardKey;
@@ -124,6 +128,7 @@ function carClass() {
         this.wrongDirectionTimer = 0;
         this.wrongDirectionTimerPrev = 0;
         this.wayPointNumberPrev = 0;
+		this.raceDistance = 0;
     }
 
     this.carInit = function(whichGraphic, whichName, computer) {
@@ -148,6 +153,9 @@ function carClass() {
         this.checkPointA = false;
         this.checkPointB = false;
         this.checkPointC = false;
+		this.waitForA = true;
+		this.waitForB = false;
+		this.waitForC = false;
         this.aiRandomMovements = false;
         this.wayPoint = true;
         this.wayPointX = levelList[levelNow].wayPointsX.slice();
@@ -158,6 +166,8 @@ function carClass() {
         this.placedPosition = false;
         this.oilSlickRemaining = 0;
         this.damageParticles = [];
+		this.raceDistance = 0;
+		this.recordNewDistance = true;
         this.quirks = getDriverQuirksForName(this.myName);
     }
 
@@ -709,6 +719,22 @@ function carClass() {
             if (DEBUG_AI) console.log("wrongDirectionTimer: " + this.wrongDirectionTimer);
         }
     }
+	
+	 this.recordDistance = function(){ //used for determining which place the car is on during the race			 
+		if (this.checkPointA && !this.waitForB){
+			this.waitForB = true;
+			this.waitForA = false;
+			this.raceDistance++;
+		} else if (this.checkPointB && !this.waitForC){
+			this.waitForC = true;
+			this.waitForB = false;
+			this.raceDistance++;
+		} else if (this.checkPointC && !this.waitForA){
+			this.waitForA = true;
+			this.waitForC = false;
+			this.raceDistance++;
+		} 
+	 }
 
     //Determines what happens when cars drive into a tile, including collisions, jumps, tracking waypoints
     //to measure race progress, etc.
@@ -750,18 +776,21 @@ function carClass() {
                 break;
             case TRACK_ROAD_AAA:
                 this.checkPointA = true;
+				this.recordDistance();
                 //console.log(`Checkpoint A crossed by ${this.name}`);
                 break;
             case TRACK_ROAD_BBB:
                 if (this.checkPointA) {
                     this.checkPointB = true;
                     this.checkPointA = false;
+					this.recordDistance();
                 }
                 break;
             case TRACK_ROAD_CCC:
                 if (this.checkPointB) {
                     this.checkPointC = true;
                     this.checkPointB = false;
+					this.recordDistance();
                 }
                 break;
             case TRACK_FINISH:
@@ -783,6 +812,7 @@ function carClass() {
                         this.updateWayPoints();
                     }
                 }
+				this.recordDistance();
                 break;
             case TRACK_OIL_SLICK:
                 if (!this.airborne && this.oilSlickRemaining <= 0) {
