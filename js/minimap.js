@@ -1,21 +1,31 @@
 function miniMap() {
-    let miniMapX = 654;
+    let miniMapX = 624;
     let miniMapY = 36;
     let miniMapScale = 0.2;
 
     let interpX = 0;
     let interpY = 0;
-    this.interpPt = function(fromX,fromY,toX,toY, atT, beforeX, beforeY, afterX, afterY)
+    this.interpPt = function(beforeX,beforeY, fromX,fromY, toX,toY, afterX,afterY, atT)
     {
         var deltaBeforeX = fromX - beforeX;
         var deltaBeforeY = fromY - beforeY;
         var deltaAfterX = toX - afterX;
-        var deltaAfterY = toX - afterY;
+        var deltaAfterY = toY - afterY;
+        var lenBefore = Math.sqrt(deltaBeforeX*deltaBeforeX + deltaBeforeY*deltaBeforeY);
+        var lenAfter = Math.sqrt(deltaAfterX*deltaAfterX + deltaAfterY * deltaAfterY);
 
-        var anchorFrontX = fromX+deltaBeforeX *0.15;
-        var anchorFrontY = fromY+deltaBeforeY *0.15;
-        var anchorEndX = toX-deltaAfterX*0.15;
-        var anchorEndY = toY-deltaAfterY*0.15;
+        var curveLen = 30;
+        var anchorFrontX = fromX+(deltaBeforeX / lenBefore) *curveLen;
+        var anchorFrontY = fromY+(deltaBeforeY / lenBefore) *curveLen;
+        var anchorEndX = toX+(deltaAfterX / lenAfter) *curveLen;
+        var anchorEndY = toY+(deltaAfterY / lenAfter) *curveLen;
+
+         // to visualize curve weights
+        /*colorLine(fromX, fromY,
+                    anchorFrontX, anchorFrontY, 'cyan', canvasContext, 15);
+        colorLine(toX, toY,
+                    anchorEndX, anchorEndY, 'yellow', canvasContext, 5);*/
+
         var antiT = 1.0 - atT;
         var termAX = Math.pow(antiT, 3.0) * fromX;
         var termAY = Math.pow(antiT, 3.0) * fromY;
@@ -58,10 +68,11 @@ function miniMap() {
             var prevX = levelList[levelNow].wayPointsX[i];
             var prevY = levelList[levelNow].wayPointsY[i];
             for(var ii=0;ii<=10;ii++) {
-                this.interpPt(levelList[levelNow].wayPointsX[i], levelList[levelNow].wayPointsY[i],
-                    levelList[levelNow].wayPointsX[nextI] , levelList[levelNow].wayPointsY[nextI], ii/10.0,
-                    levelList[levelNow].wayPointsX[prevI], levelList[levelNow].wayPointsY[prevI],
-                    levelList[levelNow].wayPointsX[afterI], levelList[levelNow].wayPointsY[afterI]);
+                this.interpPt(levelList[levelNow].wayPointsX[prevI], levelList[levelNow].wayPointsY[prevI],
+                    levelList[levelNow].wayPointsX[i], levelList[levelNow].wayPointsY[i],
+                    levelList[levelNow].wayPointsX[nextI] , levelList[levelNow].wayPointsY[nextI],
+                    levelList[levelNow].wayPointsX[afterI], levelList[levelNow].wayPointsY[afterI],
+                    ii/10.0);
                 colorLine(prevX, prevY, interpX, interpY, 'white', canvasContext, 15);
                 prevX = interpX;
                 prevY = interpY;
