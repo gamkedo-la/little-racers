@@ -726,14 +726,17 @@ function carClass() {
 			this.waitForB = true;
 			this.waitForA = false;
 			this.raceDistance++;
+			checkForInRacePosition();
 		} else if (this.checkPointB && !this.waitForC){
 			this.waitForC = true;
 			this.waitForB = false;
 			this.raceDistance++;
+			checkForInRacePosition();
 		} else if (this.checkPointC && !this.waitForA){
 			this.waitForA = true;
 			this.waitForC = false;
 			this.raceDistance++;
+			checkForInRacePosition();
 		} 
 	 }
 
@@ -1304,3 +1307,5 @@ function carClass() {
         }
     }
 }
+
+
