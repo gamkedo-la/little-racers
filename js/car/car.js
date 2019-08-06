@@ -1220,7 +1220,7 @@ function carClass() {
 
     this.uiDamageCount = function () {
          if(this.myName == vehicleList[0].myName) {
-        console.log("Damage Left:" + this.healthRemaining);
+        console.log("Damage Left:" + Math.round (this.healthRemaining));
         }
     } 
 
