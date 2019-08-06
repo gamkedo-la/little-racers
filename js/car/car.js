@@ -1,3 +1,4 @@
+
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
 const DRIVE_POWER = 0.45                    //These values from https://docs.google.com/spreadsheets/d/1bj506aOmZ7FRwFtS2wdQl-u09G10rXYQIrxpWryp_gk/edit#gid=953347406
 const GROUNDSPEED_DECAY_MULT = 0.948;
@@ -736,6 +737,14 @@ function carClass() {
 		} 
 	 }
 
+     this.wallCollisionCamShake = function() {
+         if(this.myName == vehicleList[0].myName){
+            cameraP1.shakeCamera(5, 1);
+        } else if (this.myName == vehicleList[1].myName){
+             cameraP2.shakeCamera(5, 1);
+            }
+     }
+
     //Determines what happens when cars drive into a tile, including collisions, jumps, tracking waypoints
     //to measure race progress, etc.
     this.handleTileEffects = function() {
@@ -920,24 +929,28 @@ function carClass() {
             case LAKE_BANK_RIGHT:
                 this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
                 this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
+                this.wallCollisionCamShake();
                 break;
             case TRACK_BRICK_WALL_RIGHT:
             case TRACK_BRICK_WALL_RIGHT_GRASS:
             case LAKE_BANK_LEFT:
                 this.handleWallImpact(RADIANS_270_DEGREES_NEGATIVE);
                 this.x = this.oldX - 1;
+                this.wallCollisionCamShake();
                 break;
             case TRACK_BRICK_WALL_TOP_MIDDLE:
             case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
             case LAKE_BANK_BOTTOM:
                 this.handleWallImpact(RADIANS_0_DEGREES);
                 this.y = this.oldY + 1;
+                this.wallCollisionCamShake();
                 break;
             case TRACK_BRICK_WALL_BOT_MIDDLE:
             case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
             case LAKE_BANK_TOP:
                 this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
                 this.y = this.oldY - 1;
+                this.wallCollisionCamShake();
                 break;
             //For the wall corners, just bounce the car out enough the driver can hit one of the orthagonal walls instead.
             case TRACK_BRICK_WALL_TOP_LEFT_END:
