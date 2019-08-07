@@ -449,8 +449,7 @@ function drawP1Screen() {
 	drawStartLights(canvasContext);
 	drawMeters(canvasContext, vehicleList[0], fuelMeterP1, speedometerP1);
 	drawCheckpointArrow(canvas, canvasContext, vehicleList[0]);
-	colorText("100", canvas.width/scaleWidth * .875, canvas.height/scaleHeight * 0.05, "white", "20px Arial Black");
-
+	colorText(vehicleList[0].healthRemaining, canvas.width/scaleWidth * .875, canvas.height/scaleHeight * 0.05, "white", "20px Arial Black");
 
 	if (raining) {
 		drawRain(canvasContext);

@@ -901,7 +901,6 @@ function carClass() {
                      cameraP2.shakeCamera(5, 3);
                          }
                     this.carDamage(2);
-                    this.uiDamageCount();
                 }
                 break;
             case TRACK_OIL_BARREL:
@@ -915,7 +914,6 @@ function carClass() {
                      cameraP2.shakeCamera(5, 15);
                          }
                     this.carDamage(10);
-                    this.uiDamageCount();
                 }
                 break;
             case TRACK_ROAD_H_CRACK1:
@@ -930,7 +928,6 @@ function carClass() {
                      cameraP2.shakeCamera(5, 1);
                          }
                     this.carDamage(.2);
-                    this.uiDamageCount();
                 }
                 break;
             case TRACK_BRICK_WALL_LEFT:
@@ -940,7 +937,6 @@ function carClass() {
                 this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
                 this.wallCollisionCamShake();
                 this.carDamage(5);
-                this.uiDamageCount();
                 break;
             case TRACK_BRICK_WALL_RIGHT:
             case TRACK_BRICK_WALL_RIGHT_GRASS:
@@ -949,7 +945,6 @@ function carClass() {
                 this.x = this.oldX - 1;
                 this.wallCollisionCamShake();
                 this.carDamage(5);
-                this.uiDamageCount();
                 break;
             case TRACK_BRICK_WALL_TOP_MIDDLE:
             case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
@@ -958,7 +953,6 @@ function carClass() {
                 this.y = this.oldY + 1;
                 this.wallCollisionCamShake();
                 this.carDamage(5);
-                this.uiDamageCount();
                 break;
             case TRACK_BRICK_WALL_BOT_MIDDLE:
             case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
@@ -967,7 +961,6 @@ function carClass() {
                 this.y = this.oldY - 1;
                 this.wallCollisionCamShake();
                 this.carDamage(5);
-                this.uiDamageCount();
                 break;
             //For the wall corners, just bounce the car out enough the driver can hit one of the orthagonal walls instead.
             case TRACK_BRICK_WALL_TOP_LEFT_END:
@@ -1221,14 +1214,9 @@ function carClass() {
     //Then remove from health
     //Then, if health has fallen below zero, explode the car and begin reset routine
 
-    this.uiDamageCount = function () {
-         if(this.myName == vehicleList[0].myName) {
-        console.log("Damage Left:" + Math.round (this.healthRemaining));
-        }
-    } 
 
     this.carDamage = function (damage) {
-        this.healthRemaining = this.healthRemaining - damage;
+        this.healthRemaining = Math.round (this.healthRemaining - damage);
     }
 
     this.takeDamage = function(damageAmount) {
