@@ -57,6 +57,8 @@ const TRACK_OIL_BARREL = 56;
 const TRACK_KNOCKED_OVER_CONE = 60;
 const TRACK_SOUTH_RAMP = 63;
 const TRACK_WALL = 70;
+const TRACK_EAST_RAMP = 73;
+const TRACK_WEST_RAMP = 83;
 
 // 100 through 149 are dedicated for wallSpriteSheet
 const TRACK_BRICK_WALL_TOP_LEFT_END = 100;
@@ -297,6 +299,8 @@ function tileTypeHasRoadTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_FUEL  ||
 			transparencyCheckTypeHere == TRACK_NORTH_RAMP  ||
 			transparencyCheckTypeHere == TRACK_SOUTH_RAMP ||
+			transparencyCheckTypeHere == TRACK_EAST_RAMP  ||
+			transparencyCheckTypeHere == TRACK_WEST_RAMP ||
 			transparencyCheckTypeHere == TRACK_ROAD_PITSTOP ||
 			transparencyCheckTypeHere == TRACK_OIL_BARREL
 			);

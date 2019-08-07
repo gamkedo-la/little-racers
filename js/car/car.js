@@ -880,6 +880,44 @@ function carClass() {
                     this.startJump();
                 }
                 break;
+		    case TRACK_EAST_RAMP:
+                //If the car was further east last frame, then it's entering from the wrong direction.
+                var trackCoord = pixelCoordToTrackCoords(this.x, this.y);
+                var oldTrackCoord = pixelCoordToTrackCoords(this.oldX, this.oldY);
+                if(oldTrackCoord.col > trackCoord.col)
+                {
+                    this.speed = -WALL_IMPACT_SPEED_MODIFIER * this.speed;
+                    this.x = this.oldX +1;
+                }
+
+                //Don't jump the car until it's at the end of the jump tile.
+                //Don't jump unless it's driving forward and above a minimum speed.
+                //Don't jump unles its vector is in the forward direction of the ramp.
+                var edgeDistances = getTileEdgeDistances(this.x, this.y);
+                if(edgeDistances.east < RAMP_LAUNCH_EDGE_DISTANCE && this.speed > MIN_JUMP_START_SPEED && this.ang < -Math.PI && this.ang > - 2*Math.PI)
+                {
+                    this.startJump();
+                }
+                break;
+		    case TRACK_WEST_RAMP:
+                //If the car was further east last frame, then it's entering from the wrong direction.
+                var trackCoord = pixelCoordToTrackCoords(this.x, this.y);
+                var oldTrackCoord = pixelCoordToTrackCoords(this.oldX, this.oldY);
+                if(oldTrackCoord.col < trackCoord.col)
+                {
+                    this.speed = -WALL_IMPACT_SPEED_MODIFIER * this.speed;
+                    this.x = this.oldX - 1;
+                }
+
+                //Don't jump the car until it's at the end of the jump tile.
+                //Don't jump unless it's driving forward and above a minimum speed.
+                //Don't jump unles its vector is in the forward direction of the ramp.
+                var edgeDistances = getTileEdgeDistances(this.x, this.y);
+                if(edgeDistances.west < RAMP_LAUNCH_EDGE_DISTANCE && this.speed > MIN_JUMP_START_SPEED && this.ang < -Math.PI && this.ang > - 2*Math.PI)
+                {
+                    this.startJump();
+                }
+                break;
             case TRACK_CASH:
                 this.cash += 100;
                 trackGrid[driveIntoTileIndex] = TRACK_ROAD;
