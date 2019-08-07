@@ -3,6 +3,8 @@ const MAX_NEEDLE_ANGLE = 62;
 const NITRO_DISLAY_XOFFSET = 16;
 const NITRO_DISLAY_YOFFSET = 28;
 const DEGREES_TO_RADIANS = Math.PI / 180;
+const HEALTH_DISPLAY_XOFFSET = 100;
+const HEALTH_DISPLAY_YOFFSET = 28;
 
 function MeterClass(x = 0, 
                     y = 0, 
@@ -22,9 +24,12 @@ function MeterClass(x = 0,
                     alpha = 0.5,
                     needlePic = gaugeNeedlePic,
                     meterPic,
-                    meterOverlayPic=null,
-                    meterOverlayX=0,
-                    meterOverlayY=0) {
+                    meterOverlayPic = null,
+                    meterOverlayX = 0,
+                    meterOverlayY = 0,
+                    healthBarOverlayPic = null,
+                    healthBarOverlayX = 0,
+                    healthBarOverlayY = 0) {
 
     this.x = x;
     this.y = y;
@@ -47,6 +52,25 @@ function MeterClass(x = 0,
     this.meterOverlayPic = meterOverlayPic;
     this.meterOverlayX = meterOverlayX;
     this.meterOverlayY = meterOverlayY;
+    this.healthBarOverlayPic = healthBarOverlayPic;
+    this.healthBarOverlayX  = healthBarOverlayX;
+    this.healthBarOverlayY  = healthBarOverlayY;
+
+    this.healthGauge = function () {
+        if (this.healthRemaining > 66) {
+            //call out health100
+            canvasContext.drawImage(health100, this.x, this.y);
+        } else if (this.healthRemaining <= 66) {
+            //call out health66
+            canvasContext.drawImage(health66, this.x, this.y);
+        } else if (this.healthRemaining <= 33) {
+           // call out health33
+           canvasContext.drawImage(health33, this.x, this.y);
+        } else if (this.healthRemaining = 0) {
+            //call out health0
+            canvasContext.drawImage(health0, this.x, this.y);
+        }
+    }
 
     //Just returns the angle based on the % of max value based on the draw calls current value.
     this.calculateNeedleAngle = function() {
@@ -88,8 +112,12 @@ function MeterClass(x = 0,
             colorCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusInner, color, canvasContext);
             canvasContext.restore();
         }
-        if(meterOverlayPic)
+        if(meterOverlayPic) {
             canvasContext.drawImage(meterOverlayPic, this.x+overlayX, this.y+overlayY);
+        }
+        if(healthBarOverlayPic) {
+            canvasContext.drawImage(healthBarOverlayPic, healthBarOverlayX, healthBarOverlayY);
+        }
         if(this.currentValue < this.lowValueWarning){
             canvasContext.drawImage(lowFuelPic, this.x + this.needleX + lowFuelPic.width/2,this.y + this.needleY + lowFuelPic.height);
         }

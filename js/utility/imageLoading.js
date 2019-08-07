@@ -34,6 +34,10 @@ var trackPics = [];
 // Gauges
 var gaugeNeedlePic = document.createElement("img");
 var fuelGaugePic = document.createElement("img");
+var health100 = document.createElement("img");
+var health66 = document.createElement("img");
+var health33 = document.createElement("img");
+var health0 = document.createElement("img");
 var speedometerNitroOnPic = document.createElement("img");
 var speedometerNitroOffPic = document.createElement("img");
 var speedometerNitroOverlay0 = document.createElement("img");
@@ -111,6 +115,10 @@ function loadImages() {
 			{varName: speedometerNitroOverlay3, theFile: "gauges/NitroQuantity-3.png"},
 			{varName: speedometerNitroOverlay4, theFile: "gauges/NitroQuantity-4.png"},
 			{varName: speedometerNitroOverlay5, theFile: "gauges/NitroQuantity-5.png"},
+			{varName: health100, theFile: "gauges/Health-100.png"},
+			{varName: health66, theFile: "gauges/Health-66.png"},
+			{varName: health33, theFile: "gauges/Health-33.png"},
+			{varName: health0, theFile: "gauges/Health-0.png"},
 			{varName: firstPlaceTrophyPic, theFile: "trophy.png" },
 			{varName: lowFuelPic, theFile: "lowFuelLight.png"},
             //{varName: titlescreenPic, theFile: "background.jpg"},

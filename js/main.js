@@ -52,6 +52,9 @@ var speedometerP1 = new MeterClass(5, 450);
 speedometerP1.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP1.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP1.overlayY = NITRO_DISLAY_YOFFSET;
+speedometerP1.healthBarOverlayPic = clockPic;
+speedometerP1.healthBarOverlayX = HEALTH_DISPLAY_XOFFSET;
+speedometerP1.healthBarOverlayY = HEALTH_DISPLAY_YOFFSET;
 var fuelMeterP1 = new MeterClass(2, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP1.meterPic = fuelGaugePic;
 
