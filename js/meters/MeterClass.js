@@ -3,8 +3,8 @@ const MAX_NEEDLE_ANGLE = 62;
 const NITRO_DISLAY_XOFFSET = 16;
 const NITRO_DISLAY_YOFFSET = 28;
 const DEGREES_TO_RADIANS = Math.PI / 180;
-const HEALTH_DISPLAY_XOFFSET = 28;
-const HEALTH_DISPLAY_YOFFSET = 28;
+const HEALTH_DISPLAY_XOFFSET = 22;
+const HEALTH_DISPLAY_YOFFSET = 55;
 
 function MeterClass(x = 0,
                     y = 0,
@@ -55,22 +55,6 @@ function MeterClass(x = 0,
     this.healthBarOverlayPic = healthBarOverlayPic;
     this.healthBarOverlayX  = healthBarOverlayX;
     this.healthBarOverlayY  = healthBarOverlayY;
-
-    this.healthGauge = function () {
-        if (this.healthRemaining > 66) {
-            //call out health100
-            canvasContext.drawImage(health100, this.x, this.y);
-        } else if (this.healthRemaining <= 66) {
-            //call out health66
-            canvasContext.drawImage(health66, this.x, this.y);
-        } else if (this.healthRemaining <= 33) {
-           // call out health33
-           canvasContext.drawImage(health33, this.x, this.y);
-        } else if (this.healthRemaining = 0) {
-            //call out health0
-            canvasContext.drawImage(health0, this.x, this.y);
-        }
-    }
 
     //Just returns the angle based on the % of max value based on the draw calls current value.
     this.calculateNeedleAngle = function() {

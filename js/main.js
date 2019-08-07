@@ -404,8 +404,19 @@ function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
 	}
 	speedMeter.currentValue = Math.min(Math.abs(plr.speed), EXPECTED_CAR_MAX_SPEED_NO_NITRO) + extraGaugeIncrements;
 
-	// TODO: Logic for what health bar to draw
-	var healthBarPic = health100;
+	if (plr.healthRemaining > 66 ) {
+            //call out health100
+          var healthBarPic = health100;
+        } else if (plr.healthRemaining <= 66 && plr.healthRemaining > 33) {
+            //call out health66
+            var healthBarPic = health66;
+        } else if (plr.healthRemaining <= 33 && plr.healthRemaining > 0) {
+           // call out health33
+           var healthBarPic = health33;
+        } else if (plr.healthRemaining = 0) {
+            //call out health0
+           var healthBarPic = health0;
+        }
 
 	speedMeter.draw(canvasContext, speedMeter.needlePic, speedMeter.meterPic, speedMeter.color,
                     speedMeter.alpha, speedMeter.outlineWidth, speedMeter.outlineColor,
