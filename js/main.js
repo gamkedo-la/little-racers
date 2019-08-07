@@ -52,7 +52,6 @@ var speedometerP1 = new MeterClass(5, 450);
 speedometerP1.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP1.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP1.overlayY = NITRO_DISLAY_YOFFSET;
-speedometerP1.healthBarOverlayPic = health100;
 speedometerP1.healthBarOverlayX = HEALTH_DISPLAY_XOFFSET;
 speedometerP1.healthBarOverlayY = HEALTH_DISPLAY_YOFFSET;
 var fuelMeterP1 = new MeterClass(2, 525, CAR_LOW_FUEL_LEVEL);
@@ -62,6 +61,8 @@ var speedometerP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 7, 450);
 speedometerP2.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP2.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP2.overlayY = NITRO_DISLAY_YOFFSET;
+speedometerP2.healthBarOverlayX = HEALTH_DISPLAY_XOFFSET;
+speedometerP2.healthBarOverlayY = HEALTH_DISPLAY_YOFFSET;
 var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525, CAR_LOW_FUEL_LEVEL);
 fuelMeterP2.meterPic = fuelGaugePic;
 
@@ -405,18 +406,18 @@ function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
 	speedMeter.currentValue = Math.min(Math.abs(plr.speed), EXPECTED_CAR_MAX_SPEED_NO_NITRO) + extraGaugeIncrements;
 
 	if (plr.healthRemaining > 66 ) {
-            //call out health100
-          var healthBarPic = health100;
-        } else if (plr.healthRemaining <= 66 && plr.healthRemaining > 33) {
-            //call out health66
-            var healthBarPic = health66;
-        } else if (plr.healthRemaining <= 33 && plr.healthRemaining > 0) {
-           // call out health33
-           var healthBarPic = health33;
-        } else if (plr.healthRemaining = 0) {
-            //call out health0
-           var healthBarPic = health0;
-        }
+    //call out health100
+      var healthBarPic = health100;
+    } else if (plr.healthRemaining <= 66 && plr.healthRemaining > 33) {
+        //call out health66
+        var healthBarPic = health66;
+    } else if (plr.healthRemaining <= 33 && plr.healthRemaining > 0) {
+       // call out health33
+       var healthBarPic = health33;
+    } else if (plr.healthRemaining = 0) {
+        //call out health0
+       var healthBarPic = health0;
+    }
 
 	speedMeter.draw(canvasContext, speedMeter.needlePic, speedMeter.meterPic, speedMeter.color,
                     speedMeter.alpha, speedMeter.outlineWidth, speedMeter.outlineColor,
