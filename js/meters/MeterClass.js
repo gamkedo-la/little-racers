@@ -3,18 +3,18 @@ const MAX_NEEDLE_ANGLE = 62;
 const NITRO_DISLAY_XOFFSET = 16;
 const NITRO_DISLAY_YOFFSET = 28;
 const DEGREES_TO_RADIANS = Math.PI / 180;
-const HEALTH_DISPLAY_XOFFSET = 100;
+const HEALTH_DISPLAY_XOFFSET = 28;
 const HEALTH_DISPLAY_YOFFSET = 28;
 
-function MeterClass(x = 0, 
-                    y = 0, 
+function MeterClass(x = 0,
+                    y = 0,
                     lowValueWarning = -1,
                     maxValue = 0,
                     minValue = 0,
                     currentValue = 0,
-                    needleX = 4, 
-                    needleY = 35, 
-                    needleOffsetX = 36, 
+                    needleX = 4,
+                    needleY = 35,
+                    needleOffsetX = 36,
                     needleOffsetY = 50,
                     radiusInner = 30,
                     radiusOuter = 37,
@@ -89,19 +89,22 @@ function MeterClass(x = 0,
     	canvasContext.restore(); //undoes the translation movement and rotation since save()
     }
 
-    this.draw = function(canvasContext, 
+    this.draw = function(canvasContext,
                          needlePic = this.needlePic,
                          meterPic = this.meterPic,
                          color = this.color,
                          alpha = this.alpha,
-                         outlineWidth = this.outlineWidth, 
-                         outlineColor = this.outlineColor, 
+                         outlineWidth = this.outlineWidth,
+                         outlineColor = this.outlineColor,
                          needleOffsetX = this.needleOffsetX,
                          needleOffsetY = this.needleOffsetY,
                          meterOverlayPic = null,
                          overlayX = this.overlayX,
-                         overlayY = this.overlayY) {
-        
+                         overlayY = this.overlayY,
+                         healthBarOverlayPic = null,
+                         healthBarOverlayX = this.healthBarOverlayX,
+                         healthBarOverlayY = this.healthBarOverlayY) {
+
         if (meterPic) {
             canvasContext.drawImage(meterPic, this.x, this.y);
         }
@@ -116,7 +119,7 @@ function MeterClass(x = 0,
             canvasContext.drawImage(meterOverlayPic, this.x+overlayX, this.y+overlayY);
         }
         if(healthBarOverlayPic) {
-            canvasContext.drawImage(healthBarOverlayPic, healthBarOverlayX, healthBarOverlayY);
+            canvasContext.drawImage(healthBarOverlayPic, this.x+healthBarOverlayX, this.y+healthBarOverlayY);
         }
         if(this.currentValue < this.lowValueWarning){
             canvasContext.drawImage(lowFuelPic, this.x + this.needleX + lowFuelPic.width/2,this.y + this.needleY + lowFuelPic.height);

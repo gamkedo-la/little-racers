@@ -34,13 +34,13 @@ var twoPlayerGame = false;
 var computerPlayerOn = true;
 
 //Game States
-var titleScreen = true; 
+var titleScreen = true;
 var levelEditor = false;
 var winScreen = false;
 var carUpgradeScreen = false;
 var paused = false;
 var raceHasStarted = false;
-var enterPlayerName = false; 
+var enterPlayerName = false;
 
 var raceStartTimer = 0;
 var drawStartLightsTimer = 0;
@@ -52,7 +52,7 @@ var speedometerP1 = new MeterClass(5, 450);
 speedometerP1.maxValue = CAR_MAX_SPEED_DISPLAY_NITRO_ON;
 speedometerP1.overlayX = NITRO_DISLAY_XOFFSET;
 speedometerP1.overlayY = NITRO_DISLAY_YOFFSET;
-speedometerP1.healthBarOverlayPic = clockPic;
+speedometerP1.healthBarOverlayPic = health100;
 speedometerP1.healthBarOverlayX = HEALTH_DISPLAY_XOFFSET;
 speedometerP1.healthBarOverlayY = HEALTH_DISPLAY_YOFFSET;
 var fuelMeterP1 = new MeterClass(2, 525, CAR_LOW_FUEL_LEVEL);
@@ -87,7 +87,7 @@ window.onload = function(){
 	initInput();
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset();
-	}	
+	}
 }
 
 function reportWindowResize() {
@@ -100,7 +100,7 @@ function enableMainCanvasOnly()
 		canvas2.width = 0;
 		canvasOverlay.width = 0;
 		resizeAndRepositionCanvas(canvas, canvasContext);
-		windowWasResized = false;	
+		windowWasResized = false;
 	}
     //if (SMOKE_FX_ENABLED) SmokeFX.hide();
 }
@@ -135,11 +135,11 @@ function enableP1P2CanvasesWithOverlayOption(drawOverlayCanvas)
 // FIXME: this is run multiple times every single frame!
 function resizeAndRepositionCanvas(aCanvas, aCanvasContext, isSplitScreen = false, isLeftSide = true, gap=0) {
 	if(allowRescale && windowWasResized) {
-		aCanvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;		
-		aCanvas.height = window.innerHeight;	
-	
+		aCanvas.width = ASPECT_RATIO_WIDTH * window.innerHeight / ASPECT_RATIO_HEIGHT;
+		aCanvas.height = window.innerHeight;
+
 		if (isSplitScreen) {
-			aCanvas.width /= 2;			
+			aCanvas.width /= 2;
 		}
 		scaleWidth = aCanvas.width/CANVAS_WIDTH;
 		if (isSplitScreen) {
@@ -182,7 +182,7 @@ function imageLoadingDoneSoStartGame(){
 
     if (SMOKE_FX_ENABLED) {
         SmokeFX = new SmokeFXClass();
-        SmokeFXStartRendering(); 
+        SmokeFXStartRendering();
     }
 
     //	loadLevel(levelOne);
@@ -197,7 +197,7 @@ function addVehicle(){
 function moveEverything() {
 
     updateTime();
-    
+
     if(titleScreen || enterPlayerName || levelEditor || winScreen || carUpgradeScreen)
     {
         //Not racing, so reset all the race start info.
@@ -211,7 +211,7 @@ function moveEverything() {
         raceHasStarted = false;
         return;
     }
-    
+
     if(paused)
     {
         lastFrameTime=now;
@@ -223,9 +223,9 @@ function moveEverything() {
 			cameraP2.follow(canvas2, vehicleList[1]);
 		}
 		if(raceHasStarted){
-				
+
 			handleJoystickControls(); // optionally
-				
+
 			raceTimeElapsed += now - lastFrameTime;
 			lastFrameTime=now;
 			getRaceTimeDigits();
@@ -241,12 +241,12 @@ function moveEverything() {
 					vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
 				}
 			}
-				
+
 			if(firstPlaceFilled){ //sound bite for the winner
 				soundDelayTimer++;
 				announceRaceCarNumber(40);
             }
-                
+
 		}
 		else
 		{
@@ -339,21 +339,21 @@ function drawClock(ctx, x, imgY){
 	}
 }
 
-function drawLapOneTime(canvasContext, player){	
-    colorText(player.lapMinuteTensSpot.toString() + player.lapMinute.toString() + ':' + player.lapSecondTensSpot.toString() + player.lapSecond.toString() +':'+player.lapTenthSecond.toString() +player.lapHundredthSecond.toString(), 
-			  canvas.width/scaleWidth * 0.32, 
-			  canvas.height/scaleHeight * 0.025 + 15, 
+function drawLapOneTime(canvasContext, player){
+    colorText(player.lapMinuteTensSpot.toString() + player.lapMinute.toString() + ':' + player.lapSecondTensSpot.toString() + player.lapSecond.toString() +':'+player.lapTenthSecond.toString() +player.lapHundredthSecond.toString(),
+			  canvas.width/scaleWidth * 0.32,
+			  canvas.height/scaleHeight * 0.025 + 15,
 			  'white',
-			  "14px Arial Black", 
+			  "14px Arial Black",
 			  canvasContext);
 }
 
-function drawFuelPercentage(canvasContext, player){		
+function drawFuelPercentage(canvasContext, player){
 	var percentFuelLeft = Math.round(player.fuelInTank / player.fuelCapacity * 100);
-	colorText("Fuel: " + percentFuelLeft.toString()+ "%", 
-			  canvas.width/scaleWidth * 0.32, canvas.height/scaleHeight * 0.025, 
-			  'white', 
-			  "14px Arial Black", 
+	colorText("Fuel: " + percentFuelLeft.toString()+ "%",
+			  canvas.width/scaleWidth * 0.32, canvas.height/scaleHeight * 0.025,
+			  'white',
+			  "14px Arial Black",
 			  canvasContext);
 }
 
@@ -378,7 +378,7 @@ function drawStartLights(canvasContext){
 function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
 {
 	fuelMeter.maxValue = plr.fuelCapacity;
-	fuelMeter.currentValue = plr.fuelInTank;		
+	fuelMeter.currentValue = plr.fuelInTank;
 	fuelMeter.draw(canvasContext);
 
 	if(plr.nitroBoostOn)
@@ -403,27 +403,32 @@ function drawMeters(canvasContext, plr, fuelMeter, speedMeter)
 	    extraGaugeIncrements = extraGaugeNeedleIncrements*extraGaugeIncrementScale;                     //Actual extra needle increments to draw!
 	}
 	speedMeter.currentValue = Math.min(Math.abs(plr.speed), EXPECTED_CAR_MAX_SPEED_NO_NITRO) + extraGaugeIncrements;
+
+	// TODO: Logic for what health bar to draw
+	var healthBarPic = health100;
+
 	speedMeter.draw(canvasContext, speedMeter.needlePic, speedMeter.meterPic, speedMeter.color,
-                    speedMeter.alpha, speedMeter.outlineWidth, speedMeter.outlineColor, 
+                    speedMeter.alpha, speedMeter.outlineWidth, speedMeter.outlineColor,
                     speedMeter.needleOffsetX, speedMeter.needleOffsetY,
-                    speedometerNitroOverlays[plr.nitroBoostQuantity]);
+                    speedometerNitroOverlays[plr.nitroBoostQuantity], speedMeter.overlayX, speedMeter.overlayY,
+					healthBarPic, speedMeter.healthBarOverlayX, speedMeter.healthBarOverlayY);
 }
 
-function drawCheckpointArrow(canvas, canvasContext, player, arrowRotateOffset = Math.PI) {	
+function drawCheckpointArrow(canvas, canvasContext, player, arrowRotateOffset = Math.PI) {
 	if (player.wrongDirection && Math.floor(raceTimeElapsed / 100) % 2 == 0) {
 		var toX = player.wayPointX[player.wayPointNumber];
 		var toY = player.wayPointY[player.wayPointNumber];
-		var angle = Math.atan2(toY - player.y, toX - player.x) - arrowRotateOffset;		
+		var angle = Math.atan2(toY - player.y, toX - player.x) - arrowRotateOffset;
 		var arrowX = canvas.width / 2 / scaleWidth;
 		var arrowY = (canvas.height / 2 - 300) / scaleHeight;
-		drawBitmapCenteredAtLocationWithRotation(arrowPic, arrowX, arrowY, angle, canvasContext);		
+		drawBitmapCenteredAtLocationWithRotation(arrowPic, arrowX, arrowY, angle, canvasContext);
 	}
 }
 
 function drawTracksOnScreen(canvas, canvasContext) {
 	drawTracks(canvasContext);
 	tireTracks.draw(canvasContext);
-	
+
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].drawCar(canvasContext);
 	}
@@ -465,7 +470,7 @@ function drawP2Screen() {
 		cameraP2.startPan(canvasContext2);
 		drawTracksOnScreen(canvas2, canvasContext2);
 		cameraP2.endPan(canvasContext2);
-		
+
 		drawLapOneTime(canvasContext2, vehicleList[1]);
 		drawStartLights(canvasContext2);
 		drawMeters(canvasContext2, vehicleList[1], fuelMeterP2, speedometerP2);
@@ -528,7 +533,7 @@ function drawEverything() {
 		drawP2Screen();
 		drawCommonScreenElements();
 
-		
+
 		if (raining) {
 			updateRain();
 			deleteRainThatShouldBeInvisible();
@@ -536,6 +541,6 @@ function drawEverything() {
 
 		if(debugMode){
 			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white", "14px Arial Black");
-		}		
+		}
 	}
 }
