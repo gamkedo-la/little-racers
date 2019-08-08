@@ -38,6 +38,12 @@ var health100 = document.createElement("img");
 var health66 = document.createElement("img");
 var health33 = document.createElement("img");
 var health0 = document.createElement("img");
+var shields100 = document.createElement("img");
+var shields80 = document.createElement("img");
+var shields60 = document.createElement("img");
+var shields40 = document.createElement("img");
+var shields20 = document.createElement("img");
+var shields0 = document.createElement("img");
 var speedometerNitroOnPic = document.createElement("img");
 var speedometerNitroOffPic = document.createElement("img");
 var speedometerNitroOverlay0 = document.createElement("img");
@@ -119,6 +125,12 @@ function loadImages() {
 			{varName: health66, theFile: "gauges/Health-66.png"},
 			{varName: health33, theFile: "gauges/Health-33.png"},
 			{varName: health0, theFile: "gauges/Health-0.png"},
+            {varName: shields100, theFile: "gauges/Shields-100.png"},
+			{varName: shields80, theFile: "gauges/Shields-80.png"},
+			{varName: shields60, theFile: "gauges/Shields-60.png"},
+			{varName: shields40, theFile: "gauges/Shields-40.png"},
+            {varName: shields20, theFile: "gauges/Shields-20.png"},
+            {varName: shields0, theFile: "gauges/Shields-0.png"},
 			{varName: firstPlaceTrophyPic, theFile: "trophy.png" },
 			{varName: lowFuelPic, theFile: "lowFuelLight.png"},
             //{varName: titlescreenPic, theFile: "background.jpg"},

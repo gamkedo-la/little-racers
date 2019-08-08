@@ -4,7 +4,9 @@ const NITRO_DISLAY_XOFFSET = 16;
 const NITRO_DISLAY_YOFFSET = 28;
 const DEGREES_TO_RADIANS = Math.PI / 180;
 const HEALTH_DISPLAY_XOFFSET = 22;
-const HEALTH_DISPLAY_YOFFSET = 55;
+const HEALTH_DISPLAY_YOFFSET = 58;
+const SHIELDS_DISPLAY_XOFFSET = 21;
+const SHIELDS_DISPLAY_YOFFSET = 60;
 
 function MeterClass(x = 0,
                     y = 0,
@@ -23,13 +25,8 @@ function MeterClass(x = 0,
                     color = 'white',
                     alpha = 0.5,
                     needlePic = gaugeNeedlePic,
-                    meterPic,
-                    meterOverlayPic = null,
-                    meterOverlayX = 0,
-                    meterOverlayY = 0,
-                    healthBarOverlayPic = null,
-                    healthBarOverlayX = 0,
-                    healthBarOverlayY = 0) {
+                    meterPic
+                ) {
 
     this.x = x;
     this.y = y;
@@ -49,12 +46,6 @@ function MeterClass(x = 0,
     this.alpha = alpha;
     this.meterPic = meterPic;
     this.needlePic = needlePic;
-    this.meterOverlayPic = meterOverlayPic;
-    this.meterOverlayX = meterOverlayX;
-    this.meterOverlayY = meterOverlayY;
-    this.healthBarOverlayPic = healthBarOverlayPic;
-    this.healthBarOverlayX  = healthBarOverlayX;
-    this.healthBarOverlayY  = healthBarOverlayY;
 
     //Just returns the angle based on the % of max value based on the draw calls current value.
     this.calculateNeedleAngle = function() {
@@ -82,12 +73,8 @@ function MeterClass(x = 0,
                          outlineColor = this.outlineColor,
                          needleOffsetX = this.needleOffsetX,
                          needleOffsetY = this.needleOffsetY,
-                         meterOverlayPic = null,
-                         overlayX = this.overlayX,
-                         overlayY = this.overlayY,
-                         healthBarOverlayPic = null,
-                         healthBarOverlayX = this.healthBarOverlayX,
-                         healthBarOverlayY = this.healthBarOverlayY) {
+                         meterOverlayPics = [] // {overlayPic: imageVar, overlayX: imageXOffset, overlayY: imageYOffset}
+                     ) {
 
         if (meterPic) {
             canvasContext.drawImage(meterPic, this.x, this.y);
@@ -99,11 +86,11 @@ function MeterClass(x = 0,
             colorCircle(this.x + needleOffsetX , this.y + needleOffsetY, this.radiusInner, color, canvasContext);
             canvasContext.restore();
         }
-        if(meterOverlayPic) {
-            canvasContext.drawImage(meterOverlayPic, this.x+overlayX, this.y+overlayY);
-        }
-        if(healthBarOverlayPic) {
-            canvasContext.drawImage(healthBarOverlayPic, this.x+healthBarOverlayX, this.y+healthBarOverlayY);
+        // Draw overlay pics
+        if (meterOverlayPics.length > 0) {
+            for (var i = 0; i < meterOverlayPics.length; i++) {
+                canvasContext.drawImage(meterOverlayPics[i].overlayPic, this.x+meterOverlayPics[i].overlayX, this.y+meterOverlayPics[i].overlayY);
+            }
         }
         if(this.currentValue < this.lowValueWarning){
             canvasContext.drawImage(lowFuelPic, this.x + this.needleX + lowFuelPic.width/2,this.y + this.needleY + lowFuelPic.height);

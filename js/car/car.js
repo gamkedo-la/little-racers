@@ -176,7 +176,7 @@ function carClass() {
         switch(aName) {
             case vehicleNames[0]:
                 return {wayPointX:0, wayPointY:0,
-                        turnLimit:10};    
+                        turnLimit:10};
             case vehicleNames[1]:
                 return {wayPointX:-10, wayPointY:-10,
                         turnLimit:15};
@@ -256,12 +256,12 @@ function carClass() {
     this.wayPointMovements = function(toX, toY, isComputerPlayer = this.computerPlayer) {
         var wayPointVectorX = toX - this.x;
         var wayPointVectorY = toY - this.y;
-        
+
         if (!this.placedPosition) {
             wayPointVectorX += this.quirks.wayPointX;
             wayPointVectorY += this.quirks.wayPointY;
         }
-        
+
 
         //When calculating the car's vector, subtract 90 degrees from it
         //to allow for dot product to give a -ve to +ve result, indicating if car
@@ -602,7 +602,7 @@ function carClass() {
 		                this.tryNitroBoost();
 		            	}
 	            	}
-		        }         
+		        }
 
 	        	if (this.keyHeld_Reverse) {
 	                this.speed -= REVERSE_POWER;
@@ -720,8 +720,8 @@ function carClass() {
             if (DEBUG_AI) console.log("wrongDirectionTimer: " + this.wrongDirectionTimer);
         }
     }
-	
-	 this.recordDistance = function(){ //used for determining which place the car is on during the race			 
+
+	 this.recordDistance = function(){ //used for determining which place the car is on during the race
 		if (this.checkPointA && !this.waitForB){
 			this.waitForB = true;
 			this.waitForA = false;
@@ -737,7 +737,7 @@ function carClass() {
 			this.waitForC = false;
 			this.raceDistance++;
 			checkForInRacePosition();
-		} 
+		}
 	 }
 
      this.wallCollisionCamShake = function() {
@@ -782,7 +782,7 @@ function carClass() {
             case TRACK_ROAD_RIT_STUB:
             case TRACK_ROAD_LFT_STUB:
                 break;
-        
+
             case TRACK_ROAD_PITSTOP:
                 this.setFuel(this.fuelInTank += 0.5);
                 break;
@@ -816,7 +816,7 @@ function carClass() {
                             finallapSound.play();
                             finalLappedCalled = true;
                         }
-                        
+
                     }
                     else
                     {
@@ -938,7 +938,7 @@ function carClass() {
                     } else if (this.myName == vehicleList[1].myName){
                      cameraP2.shakeCamera(5, 3);
                          }
-                    this.carDamage(2);
+                    this.takeDamage(2);
                 }
                 break;
             case TRACK_OIL_BARREL:
@@ -951,7 +951,7 @@ function carClass() {
                     } else if (this.myName == vehicleList[1].myName){
                      cameraP2.shakeCamera(5, 15);
                          }
-                    this.carDamage(10);
+                    this.takeDamage(10);
                 }
                 break;
             case TRACK_ROAD_H_CRACK1:
@@ -965,7 +965,7 @@ function carClass() {
                     } else if (this.myName == vehicleList[1].myName){
                      cameraP2.shakeCamera(5, 1);
                          }
-                    this.carDamage(.2);
+                    this.takeDamage(.2);
                 }
                 break;
             case TRACK_BRICK_WALL_LEFT:
@@ -974,7 +974,7 @@ function carClass() {
                 this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
                 this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
                 this.wallCollisionCamShake();
-                this.carDamage(5);
+                this.takeDamage(5);
                 break;
             case TRACK_BRICK_WALL_RIGHT:
             case TRACK_BRICK_WALL_RIGHT_GRASS:
@@ -982,7 +982,7 @@ function carClass() {
                 this.handleWallImpact(RADIANS_270_DEGREES_NEGATIVE);
                 this.x = this.oldX - 1;
                 this.wallCollisionCamShake();
-                this.carDamage(5);
+                this.takeDamage(5);
                 break;
             case TRACK_BRICK_WALL_TOP_MIDDLE:
             case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
@@ -990,7 +990,7 @@ function carClass() {
                 this.handleWallImpact(RADIANS_0_DEGREES);
                 this.y = this.oldY + 1;
                 this.wallCollisionCamShake();
-                this.carDamage(5);
+                this.takeDamage(5);
                 break;
             case TRACK_BRICK_WALL_BOT_MIDDLE:
             case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
@@ -998,7 +998,7 @@ function carClass() {
                 this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
                 this.y = this.oldY - 1;
                 this.wallCollisionCamShake();
-                this.carDamage(5);
+                this.takeDamage(5);
                 break;
             //For the wall corners, just bounce the car out enough the driver can hit one of the orthagonal walls instead.
             case TRACK_BRICK_WALL_TOP_LEFT_END:
@@ -1251,12 +1251,6 @@ function carClass() {
     //First, if there are shields, remove health from them.
     //Then remove from health
     //Then, if health has fallen below zero, explode the car and begin reset routine
-
-
-    this.carDamage = function (damage) {
-        this.healthRemaining = Math.round (this.healthRemaining - damage);
-    }
-
     this.takeDamage = function(damageAmount) {
         if (isNaN(damageAmount) || damageAmount <= 0) {
             console.error("Invalid damage amount sent to takeDamage on car: " + this.myName);
@@ -1271,7 +1265,6 @@ function carClass() {
             if (shieldCheck < 0) {
                 damageAmount = damageAmount - this.shieldsRemaining;
                 this.shieldsRemaining = 0;
-                if (DEBUG_AI) console.log("Car '" + this.myName + "' has lost all shields!");
                 // TODO: Some sort of shields down sound or effect
             }
             else if (shieldCheck >= 0 ) {
@@ -1282,24 +1275,20 @@ function carClass() {
 
         //bodyStrength works in the same way as shieldStrength.
         //A lower number represents damage mitigated by the body being very strong.
-        //A number above 1 would be more damage than actually inflicted! 
-        if (damageAmount > 0) {
+        //A number above 1 would be more damage than actually inflicted!
+        if (damageAmount > 0) { // If damageAmount <= 0 then shields have absorbed damage and there is nothing left to do here
             damageAmount = damageAmount * this.bodyStrength;
             var healthCheck = this.healthRemaining - damageAmount;
             if (healthCheck <= 0) {
+                this.healthRemaining = healthCheck;
                 //Create explosion particles.
                 //Set a respawn timer that will show a death message?
                 //Reset to starting line.
-                if (DEBUG_AI) console.log('Car: ' + this.myName + ' is a ghost!')
+                if (debugMode && !this.computerPlayer) console.log("Car '" + this.myName + "' is a ghost!")
             }
             else {
                 this.healthRemaining = healthCheck;
-                if (DEBUG_AI) console.log("Car '" + this.myName + "' took " + damageAmount + " points damage!");
             } // end of healthCheck
-        }
-        else {
-            if (DEBUG_AI) console.log("All damage absorbed by shields for car: " + this.myName + ", Shields: " + this.shieldsRemaining + ", Health: " + this.healthRemaining);
-            return;
         } // end of damageAmount
     }
 
@@ -1333,5 +1322,3 @@ function carClass() {
         }
     }
 }
-
-
