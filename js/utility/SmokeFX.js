@@ -618,7 +618,7 @@ function SmokeFXClass(smokeCanvas) {
 			}
             add(
                 (smokeCanvas.width * animPercent),// /2 + smokeCanvas.width/4, 
-                smokeCanvas.height * 0.4 + Math.random() * 20,
+                smokeCanvas.height - (smokeCanvas.height * 0.25 + Math.random() * 20),
                 256 * (Math.random() - 0.5), 
                 -32 * (Math.random()),
                 [Math.random()*0.72 + 0.75,
@@ -628,7 +628,7 @@ function SmokeFXClass(smokeCanvas) {
             // tire tracks: two lines =)
             add(
                 (smokeCanvas.width * animPercent), // /2 + smokeCanvas.width/4, 
-                smokeCanvas.height * 0.225 + Math.random() * 20,
+                smokeCanvas.height - (smokeCanvas.height * 0.075 + Math.random() * 20),
                 256 * (Math.random() - 0.5), 
                 -32 * (Math.random()),
                 [Math.random()*0.72 + 0.75,

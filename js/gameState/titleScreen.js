@@ -51,7 +51,7 @@ function drawTitleScreen(){
     
     // logo
     //colorText("Little Racers", 310, 200, 'white', font = "24px Arial Black");
-    canvasContext.drawImage(titleScreenePic, 0, 0); // can't use canvas.width /2 due to scaling wierdness
+    canvasContext.drawImage(titleScreenePic, 0, 0, canvas.width / scaleWidth, canvas.height / scaleHeight); // can't use canvas.width /2 due to scaling wierdness
     // buttons
     colorRect(200,400,100,50, 'white');
 	colorRect(500,400,100,50, 'white');
