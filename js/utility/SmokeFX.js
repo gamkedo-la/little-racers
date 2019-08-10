@@ -633,6 +633,36 @@ function SmokeFXClass(smokeCanvas) {
                 [Math.random()*0.72+0.75,Math.random()*0.25+0.25,Math.random()*0.25],
                 puffscale * Math.random()*0.002 + 0.0001);
 
+            // occasional "sparkles" in places that match the logo image
+            if (Math.random()>0.98) {
+                add((Math.random()-0.5) * (smokeCanvas.width / 3) + (smokeCanvas.width / 2) + smokeCanvas.width*0.01,
+                smokeCanvas.height * 0.24 + (Math.random()*smokeCanvas.height*0.05),
+                256 * (Math.random() - 0.5), -32 * (Math.random()),
+                [1,1,1],
+                puffscale * Math.random()*0.0005);
+            }
+
+            // left explosion fire
+            if (Math.random()>0.85) {
+                add(
+                smokeCanvas.width * 0.3 + (Math.random()*smokeCanvas.width*0.075),
+                smokeCanvas.height * 0.47 + (Math.random()*smokeCanvas.height*0.01),
+                -300 + (256*(Math.random()-0.5)), // x speed
+                -250 + (25*(Math.random()-0.5)), // yspeed
+                [1,0.2,0.1],
+                puffscale * Math.random()*0.002);
+            }
+            // right explosion fire
+            if (Math.random()>0.85) {
+                add(
+                smokeCanvas.width * 0.6 + (Math.random()*smokeCanvas.width*0.075),
+                smokeCanvas.height * 0.47 + (Math.random()*smokeCanvas.height*0.01),
+                300 + (256*(Math.random()-0.5)), // x speed
+                -250 + (25*(Math.random()-0.5)), // yspeed
+                [1,0.2,0.1],
+                puffscale * Math.random()*0.003);
+            }
+
         }
 
     }
