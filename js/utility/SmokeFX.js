@@ -33,7 +33,7 @@ function SmokeFXClass(smokeCanvas) {
     const HIGH_DEFINITION = false; // if true, no downsampling
     var titlescreenTime = 0; // elapsed seconds
     var titlescreenFrameCount = 0; // to measure FPS
-    const titlescreenTimespan = 1.0; // tire track fire anim length in seconds
+    const titlescreenTimespan = 2.0; // tire track fire anim length in seconds
 
 	if (DEBUG_SMOKE) console.log("SmokeFX initializing");
 
@@ -590,7 +590,6 @@ function SmokeFXClass(smokeCanvas) {
         titlescreenTime += dt;
         titlescreenFrameCount++;
 
-//        var animPercent = Math.min(1,titlescreenTime/titlescreenTimespan);
 		var animPercent = titlescreenTime/titlescreenTimespan;
 
         if (animPercent>=1 && !window.reportedFPS) {
@@ -600,77 +599,42 @@ function SmokeFXClass(smokeCanvas) {
         
         // just for fun, spawn on the mouse cursor during the menus
         // FIXME this does not take canvas stretching into account
+        // works, but offset
         /*
-        this.add(mouseX,mouseY,
+        add(mouseX,mouseY,
             200 * (Math.random() - 0.5),-50 * (Math.random()),
             [Math.random()/2,Math.random()/2, Math.random()/2],
-            Math.random()*0.2);
+            Math.random()*0.001);
         */
 
         // fire near the logo
         // the canvas stretching makes the calulation wierd
         for (var loop=0; loop<2; loop++) {
+
 			if(animPercent > 6) {
 				//reset counters so the animation can run again
 				animPercent = 0;
 				titlescreenTime = 0;
 		        titlescreenFrameCount = 0;
-			}
-            add(
-                (smokeCanvas.width * animPercent),// /2 + smokeCanvas.width/4, 
-                smokeCanvas.height - (smokeCanvas.height * 0.25 + Math.random() * 20),
-                256 * (Math.random() - 0.5), 
-                -32 * (Math.random()),
-                [Math.random()*0.72 + 0.75,
-                    Math.random()*0.25 + 0.25,
-                    Math.random()*0.25],
-                Math.random()*0.002 + 0.001);
-            // tire tracks: two lines =)
-            add(
-                (smokeCanvas.width * animPercent), // /2 + smokeCanvas.width/4, 
+            }
+            
+            var puffscale = 0.25;
+
+
+            // ==== FLAMING TRACKS
+            add((smokeCanvas.width * animPercent),
+                smokeCanvas.height - (smokeCanvas.height * 0.18 + Math.random() * 20),
+                256 * (Math.random() - 0.5), -32 * (Math.random()),
+                [Math.random()*0.72+0.75,Math.random()*0.25+0.25,Math.random()*0.25],
+                puffscale * Math.random()*0.002 + 0.0001);
+            add((smokeCanvas.width * animPercent),
                 smokeCanvas.height - (smokeCanvas.height * 0.075 + Math.random() * 20),
-                256 * (Math.random() - 0.5), 
-                -32 * (Math.random()),
-                [Math.random()*0.72 + 0.75,
-                    Math.random()*0.25 + 0.25,
-                    Math.random()*0.25],
-                Math.random()*0.002 + 0.001);
+                256 * (Math.random() - 0.5), -32 * (Math.random()),
+                [Math.random()*0.72+0.75,Math.random()*0.25+0.25,Math.random()*0.25],
+                puffscale * Math.random()*0.002 + 0.0001);
 
         }
 
-        // huge puffs of smoke
-        /*
-		if(smokeCanvas.width * animPercent - 300 < 4 * smokeCanvas.width) {
-			add(
-				(smokeCanvas.width * animPercent - 200),// /2 + smokeCanvas.width/4, 
-				 smokeCanvas.height * 0.4 + Math.random() * 20,
-				 -50 * Math.random(), 
-				 -50 * Math.random(), 
-				 [0.1,0.1,0.1],
-				 0.01);//Math.random()*0.05);
-			add(
-				(smokeCanvas.width * animPercent - 200), // /2 + smokeCanvas.width/4, 
-				smokeCanvas.height * 0.225 + Math.random() * 20,
-					50 * Math.random(), 
-					-50 * Math.random(), 
-					[0.1,0.1,0.1],
-					0.01);//Math.random()*0.05);
-			add(
-				(smokeCanvas.width * animPercent - 300),// /2 + smokeCanvas.width/4, 
-				 smokeCanvas.height * 0.4 + Math.random() * 20,
-				 -50 * Math.random(), 
-				 -50 * Math.random(), 
-				 [0.1,0.1,0.1],
-				 0.01);//Math.random()*0.05);
-			add(
-				(smokeCanvas.width * animPercent - 300), // /2 + smokeCanvas.width/4, 
-				 smokeCanvas.height * 0.225 + Math.random() * 20,
-				 50 * Math.random(), 
-				 -50 * Math.random(), 
-				 [0.1,0.1,0.1],
-				 0.01);//Math.random()*0.05);
-        }
-        */
     }
 
     function update() {
@@ -880,6 +844,9 @@ function SmokeFXStartRendering() {
     //}
 
     // hide the canvas if no longer being used
+    // this also stops any CPU/GPU use:
+    // SmokeFX (WebGL) will no longer run
+    // at all during the game this way:
     if (!titleScreen && !SMOKE_FX_IN_GAME) {
         SmokeFX.stop();
     }
