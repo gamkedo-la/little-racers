@@ -5,11 +5,16 @@ var decalManager = function() {
 	
 	//var img.crossOrigin = "Anonymous";
 	this.clear = function() {
-		this.tireTrackCanvas = document.createElement("canvas");
-		this.tireTrackCanvas.width = canvas.width;
+        
+        if (!this.tireTrackCanvas)
+            this.tireTrackCanvas = document.createElement("canvas");
+            
+    	this.tireTrackCanvas.width = canvas.width;
 		this.tireTrackCanvas.height = canvas.height;
-		this.tireTrackCTX = this.tireTrackCanvas.getContext('2d'); 
-		this.decalCount = 0;
+        this.tireTrackCTX = this.tireTrackCanvas.getContext('2d'); 
+        this.tireTrackCanvas.width = canvas.width;
+        this.tireTrackCanvas.height = canvas.height;
+        this.decalCount = 0;
 	};
 
 	this.clear();

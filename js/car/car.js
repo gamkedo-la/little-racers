@@ -421,7 +421,7 @@ function carClass() {
                         ((Math.random()-0.5)*500),
                         [Math.random()*0.5+0.4,Math.random()*0.5+0.4,Math.random()*0.5+0.4], 0.001);
             }
-        }
+        } // if SMOKE_FX_ENABLED
 
         // never leave a trail when flying through the air
         if (this.airborne) return;
@@ -458,6 +458,9 @@ function carClass() {
         if (tireTrackAlpha < 0) tireTrackAlpha = 0;
         if (tireTrackAlpha > 1) tireTrackAlpha = 1;
 
+        // force something at all times!
+        tireTrackAlpha = Math.max(0.05,tireTrackAlpha);
+        
         if (tireTrackAlpha > 0.001) {
             tireTracks.add(this.x, this.y, this.ang, tireTrackAlpha);
         }

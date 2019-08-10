@@ -157,6 +157,10 @@ function resizeAndRepositionCanvas(aCanvas, aCanvasContext, isSplitScreen = fals
         // works.. but not good to run every frame
         // if (SMOKE_FX_ENABLED) SmokeFX.resizeTo(canvas.width,canvas.height);
 
+        // tiretracks canvas needs resizing as well
+        if (tireTracks)
+            tireTracks.clear();
+
 	}
 }
 
