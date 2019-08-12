@@ -577,5 +577,10 @@ function drawEverything() {
 		if(debugMode){
 			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white", "14px Arial Black");
 		}
+		function restartButton() {
+			colorRect(this.x, this.y, this.width, this.height, "orange");
+			colorRect(this.x+1, this.y+1, this.width+1, this.height+1, "black");
+			colorText("restart"  , 340, 330, 'black', font = "14px Arial Black");
+		  }
 	}
 }
