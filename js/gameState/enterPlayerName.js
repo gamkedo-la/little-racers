@@ -2,8 +2,8 @@ var nameScreenBoxHeight = 30;
 var nameScreenBoxWidth = 30;
 
 //row 1 variables
-var nameScreenBoxQ_X = 0;
-var nameScreenBoxQ_Y = 0;
+var nameScreenBoxQ_X = 752;
+var nameScreenBoxQ_Y = 629;
 var nameScreenBoxW_X = 0;
 var nameScreenBoxW_Y = 0;
 var nameScreenBoxE_X = 0;
@@ -85,5 +85,16 @@ function drawEnterPlayerNameScreen(canvas, canvasContext){
 	for(i = 0; i < rowThreeLetters.length; i++){
 		colorRect((i*nameScreenBoxWidth + 350),350,nameScreenBoxWidth - 10,nameScreenBoxHeight,"white");
 		colorText(rowThreeLetters[i], (i*nameScreenBoxWidth + 355), 370, "black", "14px Arial Black", ctx = canvasContext);
+	}
+}
+
+function EnterPlayerNameScreenMouseClick(mousePosX, mousePosY) {
+	console.log(mousePosX, mousePosY);
+	if(	mousePosX > nameScreenBoxQ_X && 
+		mousePosX < (nameScreenBoxQ_X + nameScreenBoxWidth - 10) && 
+		mousePosY > nameScreenBoxQ_Y && 
+		mousePosY < (nameScreenBoxQ_Y + nameScreenBoxHeight - 10))
+		{ 
+		console.log("Q");
 	}
 }

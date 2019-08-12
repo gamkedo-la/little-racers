@@ -46,7 +46,9 @@ function initInput(){
 		} else if(titleScreen){
 			titleScreenMouseClick(mouseX, mouseY);
 		} else if(carUpgradeScreen){
-			carUpgradeScreenMouseClick(mouseX, mouseY)
+			carUpgradeScreenMouseClick(mouseX, mouseY);
+		} else if(enterPlayerName) {
+			EnterPlayerNameScreenMouseClick(mouseX, mouseY);
 		}
 	} );
 	
