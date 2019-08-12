@@ -536,7 +536,7 @@ function drawEverything() {
     }
     else if(enterPlayerName)
     {
-		drawEnterPlayerNameScreen();
+		drawEnterPlayerNameScreen(canvas, canvasContext);
     }
     else if (levelEditor)
     {
@@ -575,7 +575,7 @@ function drawEverything() {
 		}
 
 		if(debugMode){
-			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white", "14px Arial Black");
+			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white",);
 		}
 		function restartButton() {
 			colorRect(this.x, this.y, this.width, this.height, "orange");

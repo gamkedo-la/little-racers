@@ -60,28 +60,30 @@ var rowOneLetters = new Array("Q","W","E","R","T","Y","U","I","O","P");
 var rowTwoLetters = new Array('A','S','D','G','H','J','K','L');
 var rowThreeLetters = new Array('Z','X','C','V','B','N','M');
 
-function drawEnterPlayerNameScreen(){
-	//stops canvas2 from being drawn
-	canvas2.width = 0;
+function drawEnterPlayerNameScreen(canvas, canvasContext){
 	
     //clear screen to black
-    canvasContext.clearRect(0,0,canvas.width/scaleWidth,canvas.height/scaleHeight,"black");
+    colorRect(0,0,canvas.width * scaleWidth, canvas.height * scaleHeight, 'black');
+	
+	// Players Name
+	colorText("Player's Name", 320, 200, "white", "28px Arial Black", ctx = canvasContext);
+	for(i = 0; i < 9; i++){
+		colorRect((i*50 + 200),130, 40, 40, "white");
+	}
 	
 	//row one
-	for(i = 0; i < 9; i++){
-		//canvasContext.clearRect((i*nameScreenBoxWidth + 10),50,canvas.width/scaleWidth,canvas.height/scaleHeight,"white");
-		colorText(rowOneLetters[i], (i*nameScreenBoxWidth + 30), 60, "white", "14px Arial Black", ctx = canvasContext);
+	for(i = 0; i < rowOneLetters.length; i++){
+		colorRect((i*nameScreenBoxWidth + 300),250,nameScreenBoxWidth - 10,nameScreenBoxHeight,"white");
+		colorText(rowOneLetters[i], (i*nameScreenBoxWidth + 305), 270, "black", "14px Arial Black", ctx = canvasContext);
 	}
 	//row two
-    for(i = 0; i < 7; i++){
-		//canvasContext.clearRect((i*nameScreenBoxWidth +50),150,canvas.width/scaleWidth,canvas.height/scaleHeight,"white");
-		colorText(rowTwoLetters[i], (i*nameScreenBoxWidth + 80), 160, "white", "14px Arial Black", ctx = canvasContext);
+    for(i = 0; i < rowTwoLetters.length; i++){
+		colorRect((i*nameScreenBoxWidth + 330),300,nameScreenBoxWidth - 10,nameScreenBoxHeight,"white");
+		colorText(rowTwoLetters[i], (i*nameScreenBoxWidth + 335), 320, "black", "14px Arial Black", ctx = canvasContext);
 	}
 	//row three
-	for(i = 0; i < 6; i++){
-		//canvasContext.clearRect((i*nameScreenBoxWidth +100),250,canvas.width/scaleWidth,canvas.height/scaleHeight,"white");
-		colorText(rowThreeLetters[i], (i*nameScreenBoxWidth + 130), 260, "white", "14px Arial Black", ctx = canvasContext);
+	for(i = 0; i < rowThreeLetters.length; i++){
+		colorRect((i*nameScreenBoxWidth + 350),350,nameScreenBoxWidth - 10,nameScreenBoxHeight,"white");
+		colorText(rowThreeLetters[i], (i*nameScreenBoxWidth + 355), 370, "black", "14px Arial Black", ctx = canvasContext);
 	}
-	
-	
 }

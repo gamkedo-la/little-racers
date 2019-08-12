@@ -25,6 +25,7 @@ const KEY_F2 = 113;
 const KEY_P = 80;
 const KEY_O = 79;
 const KEY_1 = 49;
+const KEY_2 = 50;
 
 
 let controlCameraForDebug = false;
@@ -66,6 +67,7 @@ function keyPressed(evt) {
 	var nextLevelKey = KEY_L;
 	var raceResultsPageKey = KEY_1;
 	var muteKey = KEY_O;
+	var enterPlayerNameKey = KEY_2;
 	
 	var camJump = 40;
 	if(levelEditor){
@@ -147,6 +149,15 @@ function keyPressed(evt) {
 				enterPlayerName:false
 			}
 			updateState(stateObj);			
+		} else if (evt.keyCode == enterPlayerNameKey){
+			const stateObj = {
+				titleScreen:false,
+				levelEditor:false,
+				winScreen:false,
+				carUpgradeScreen:false,
+				enterPlayerName:true
+			}
+			updateState(stateObj);
 		}
 	}
 }

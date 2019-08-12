@@ -69,7 +69,8 @@ canvas.addEventListener('mousedown', winScreenMouseClick);
 
 function winScreenMouseClick(evt) {
 	if(winScreen) {
-		const stateObj = {
+			//need a function to determine track records
+			const stateObj = {
 			titleScreen:false,
 			levelEditor:false,
 			winScreen:false,
