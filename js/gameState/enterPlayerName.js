@@ -1,87 +1,234 @@
 var nameScreenBoxHeight = 30;
 var nameScreenBoxWidth = 30;
+var nameScreenRowOneStartX = 300;
+var nameScreenRowTwoStartX = 330;
+var nameScreenRowThreeStartX = 350;
+var nameScreenRowOneStartY = 250;
+var nameScreenRowTwoStartY = 300;
+var nameScreenRowthreeStartY = 350;
+var position1 = " ";
+var position2 = " ";
+var position3 = " ";
+var position4 = " ";
+var position5 = " ";
+var position6 = " ";
+var position7 = " ";
+var position8 = " ";
+var position9 = " ";
+var position1NotFilled = true;
+var position2NotFilled = true;
+var position3NotFilled = true;
+var position4NotFilled = true;
+var position5NotFilled = true;
+var position6NotFilled = true;
+var position7NotFilled = true;
+var position8NotFilled = true;
+var position9NotFilled = true;
 
 //row 1 variables
-var nameScreenBoxQ_X = 0;
-var nameScreenBoxQ_Y = 0;
-var nameScreenBoxW_X = 0;
-var nameScreenBoxW_Y = 0;
-var nameScreenBoxE_X = 0;
-var nameScreenBoxE_Y = 0;
-var nameScreenBoxR_X = 0;
-var nameScreenBoxR_Y = 0;
-var nameScreenBoxT_X = 0;
-var nameScreenBoxT_Y = 0;
-var nameScreenBoxY_X = 0;
-var nameScreenBoxY_Y = 0;
-var nameScreenBoxU_X = 0;
-var nameScreenBoxU_Y = 0;
-var nameScreenBoxI_X = 0;
-var nameScreenBoxI_Y = 0;
-var nameScreenBoxO_X = 0;
-var nameScreenBoxO_Y = 0;
-var nameScreenBoxP_X = 0;
-var nameScreenBoxP_Y = 0;
+var nameScreenBoxQ_X = nameScreenRowOneStartX;
+var nameScreenBoxQ_Y = nameScreenRowOneStartY;
+var nameScreenBoxW_X = nameScreenRowOneStartX + nameScreenBoxWidth;
+var nameScreenBoxW_Y = nameScreenRowOneStartY;
+var nameScreenBoxE_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 2);
+var nameScreenBoxE_Y = nameScreenRowOneStartY;
+var nameScreenBoxR_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 3);
+var nameScreenBoxR_Y = nameScreenRowOneStartY;
+var nameScreenBoxT_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 4);
+var nameScreenBoxT_Y = nameScreenRowOneStartY;
+var nameScreenBoxY_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 5);
+var nameScreenBoxY_Y = nameScreenRowOneStartY;
+var nameScreenBoxU_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 6);
+var nameScreenBoxU_Y = nameScreenRowOneStartY;
+var nameScreenBoxI_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 7);
+var nameScreenBoxI_Y = nameScreenRowOneStartY;
+var nameScreenBoxO_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 8);
+var nameScreenBoxO_Y = nameScreenRowOneStartY;
+var nameScreenBoxP_X = nameScreenRowOneStartX + (nameScreenBoxWidth * 9);
+var nameScreenBoxP_Y = nameScreenRowOneStartY;
 //row 2 variables
-var nameScreenBoxA_X = 0;
-var nameScreenBoxA_Y = 0;
-var nameScreenBoxS_X = 0;
-var nameScreenBoxS_Y = 0;
-var nameScreenBoxD_X = 0;
-var nameScreenBoxD_Y = 0;
-var nameScreenBoxF_X = 0;
-var nameScreenBoxF_Y = 0;
-var nameScreenBoxG_X = 0;
-var nameScreenBoxG_Y = 0;
-var nameScreenBoxH_X = 0;
-var nameScreenBoxH_Y = 0;
-var nameScreenBoxJ_X = 0;
-var nameScreenBoxJ_Y = 0;
-var nameScreenBoxK_X = 0;
-var nameScreenBoxK_Y = 0;
-var nameScreenBoxL_X = 0;
-var nameScreenBoxL_Y = 0;
+var nameScreenBoxA_X = nameScreenRowTwoStartX;
+var nameScreenBoxA_Y = nameScreenRowTwoStartY;
+var nameScreenBoxS_X = nameScreenRowTwoStartX + nameScreenBoxWidth;
+var nameScreenBoxS_Y = nameScreenRowTwoStartY;
+var nameScreenBoxD_X = nameScreenRowTwoStartX + (nameScreenBoxWidth * 2);
+var nameScreenBoxD_Y = nameScreenRowTwoStartY;
+var nameScreenBoxF_X = nameScreenRowTwoStartX + (nameScreenBoxWidth * 3);
+var nameScreenBoxF_Y = nameScreenRowTwoStartY;
+var nameScreenBoxG_X = nameScreenRowTwoStartX + (nameScreenBoxWidth * 4);
+var nameScreenBoxG_Y = nameScreenRowTwoStartY;
+var nameScreenBoxH_X = nameScreenRowTwoStartX + (nameScreenBoxWidth * 5);
+var nameScreenBoxH_Y = nameScreenRowTwoStartY;
+var nameScreenBoxJ_X = nameScreenRowTwoStartX + (nameScreenBoxWidth * 6);
+var nameScreenBoxJ_Y = nameScreenRowTwoStartY;
+var nameScreenBoxK_X = nameScreenRowTwoStartX + (nameScreenBoxWidth * 7);
+var nameScreenBoxK_Y = nameScreenRowTwoStartY;
+var nameScreenBoxL_X = nameScreenRowTwoStartX + (nameScreenBoxWidth * 8);
+var nameScreenBoxL_Y = nameScreenRowTwoStartY;
 //row 3 variables
-var nameScreenBoxZ_X = 0;
-var nameScreenBoxZ_Y = 0;
-var nameScreenBoxX_X = 0;
-var nameScreenBoxX_Y = 0;
-var nameScreenBoxC_X = 0;
-var nameScreenBoxC_Y = 0;
-var nameScreenBoxV_X = 0;
-var nameScreenBoxV_Y = 0;
-var nameScreenBoxB_X = 0;
-var nameScreenBoxB_Y = 0;
-var nameScreenBoxN_X = 0;
-var nameScreenBoxN_Y = 0;
-var nameScreenBoxM_X = 0;
-var nameScreenBoxM_Y = 0;
+var nameScreenBoxZ_X = nameScreenRowThreeStartX;
+var nameScreenBoxZ_Y = nameScreenRowthreeStartY;
+var nameScreenBoxX_X = nameScreenRowThreeStartX + nameScreenBoxWidth;
+var nameScreenBoxX_Y = nameScreenRowthreeStartY;
+var nameScreenBoxC_X = nameScreenRowThreeStartX + (nameScreenBoxWidth * 2);
+var nameScreenBoxC_Y = nameScreenRowthreeStartY;
+var nameScreenBoxV_X = nameScreenRowThreeStartX + (nameScreenBoxWidth * 3);
+var nameScreenBoxV_Y = nameScreenRowthreeStartY;
+var nameScreenBoxB_X = nameScreenRowThreeStartX + (nameScreenBoxWidth * 4);
+var nameScreenBoxB_Y = nameScreenRowthreeStartY;
+var nameScreenBoxN_X = nameScreenRowThreeStartX + (nameScreenBoxWidth * 5);
+var nameScreenBoxN_Y = nameScreenRowthreeStartY;
+var nameScreenBoxM_X = nameScreenRowThreeStartX + (nameScreenBoxWidth * 6);
+var nameScreenBoxM_Y = nameScreenRowthreeStartY;
 var rowOneLetters = new Array("Q","W","E","R","T","Y","U","I","O","P");
-var rowTwoLetters = new Array('A','S','D','G','H','J','K','L');
+var rowTwoLetters = new Array('A','S','D', 'F','G','H','J','K','L');
 var rowThreeLetters = new Array('Z','X','C','V','B','N','M');
 
-function drawEnterPlayerNameScreen(){
-	//stops canvas2 from being drawn
-	canvas2.width = 0;
+function drawEnterPlayerNameScreen(canvas, canvasContext){
 	
     //clear screen to black
-    canvasContext.clearRect(0,0,canvas.width/scaleWidth,canvas.height/scaleHeight,"black");
+    colorRect(0,0,canvas.width * scaleWidth, canvas.height * scaleHeight, 'black');
+	
+	// Players Name
+	colorText("Player's Name", 320, 200, "white", "28px Arial Black", ctx = canvasContext);
+	for(i = 0; i < 9; i++){
+		colorRect((i*50 + 200),130, 40, 40, "white");
+	}
+	colorText(position1, 210, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position2, 260, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position3, 310, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position4, 360, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position5, 410, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position6, 460, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position7, 510, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position8, 560, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	colorText(position9, 610, 160,  "red", "28px Arial Black", ctx = canvasContext);
+	
 	
 	//row one
-	for(i = 0; i < 9; i++){
-		//canvasContext.clearRect((i*nameScreenBoxWidth + 10),50,canvas.width/scaleWidth,canvas.height/scaleHeight,"white");
-		colorText(rowOneLetters[i], (i*nameScreenBoxWidth + 30), 60, "white", "14px Arial Black", ctx = canvasContext);
+	for(i = 0; i < rowOneLetters.length; i++){
+		colorRect((i*nameScreenBoxWidth + nameScreenRowOneStartX),nameScreenRowOneStartY,nameScreenBoxWidth - 10,nameScreenBoxHeight,"white");
+		colorText(rowOneLetters[i], (i*nameScreenBoxWidth + nameScreenRowOneStartX + 5), (nameScreenRowOneStartY + 20), "black", "14px Arial Black", ctx = canvasContext);
 	}
 	//row two
-    for(i = 0; i < 7; i++){
-		//canvasContext.clearRect((i*nameScreenBoxWidth +50),150,canvas.width/scaleWidth,canvas.height/scaleHeight,"white");
-		colorText(rowTwoLetters[i], (i*nameScreenBoxWidth + 80), 160, "white", "14px Arial Black", ctx = canvasContext);
+    for(i = 0; i < rowTwoLetters.length; i++){
+		colorRect((i*nameScreenBoxWidth + nameScreenRowTwoStartX),nameScreenRowTwoStartY,nameScreenBoxWidth - 10,nameScreenBoxHeight,"white");
+		colorText(rowTwoLetters[i], (i*nameScreenBoxWidth + nameScreenRowTwoStartX + 5), (nameScreenRowTwoStartY + 20), "black", "14px Arial Black", ctx = canvasContext);
 	}
 	//row three
-	for(i = 0; i < 6; i++){
-		//canvasContext.clearRect((i*nameScreenBoxWidth +100),250,canvas.width/scaleWidth,canvas.height/scaleHeight,"white");
-		colorText(rowThreeLetters[i], (i*nameScreenBoxWidth + 130), 260, "white", "14px Arial Black", ctx = canvasContext);
+	for(i = 0; i < rowThreeLetters.length; i++){
+		colorRect((i*nameScreenBoxWidth + nameScreenRowThreeStartX),nameScreenRowthreeStartY,nameScreenBoxWidth - 10,nameScreenBoxHeight,"white");
+		colorText(rowThreeLetters[i], (i*nameScreenBoxWidth + nameScreenRowthreeStartY + 5), (nameScreenRowthreeStartY + 20), "black", "14px Arial Black", ctx = canvasContext);
 	}
+}
+
+function checkLetterBox(mousePosX, mousePosY, xPos, yPos) {
+	if(	mousePosX/scaleWidth > xPos && 
+		mousePosX/scaleWidth < (xPos + nameScreenBoxWidth - 10) && 
+		mousePosY/scaleHeight > yPos && 
+		mousePosY/scaleHeight < (yPos + nameScreenBoxHeight))
+		{
+			return true;
+		}
+}
+
+function EnterPlayerNameScreenMouseClick(mousePosX, mousePosY) {
+	//console.log("X: " + mouseX/scaleWidth);
+	//console.log("Y: " + mouseY/scaleHeight);
 	
+	checkLetterBox(nameScreenBoxQ_X, nameScreenBoxQ_Y)
+	if( checkLetterBox(mousePosX, mousePosY, nameScreenBoxQ_X, nameScreenBoxQ_Y) )
+		{ 
+		enterALetter("Q");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxW_X, nameScreenBoxW_Y) ) { 
+		enterALetter("W");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxE_X, nameScreenBoxE_Y) ) { 
+		enterALetter("E");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxR_X, nameScreenBoxR_Y) ) { 
+		enterALetter("R");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxT_X, nameScreenBoxT_Y) ) { 
+		enterALetter("T");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxY_X, nameScreenBoxY_Y) ) { 
+		enterALetter("Y");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxU_X, nameScreenBoxU_Y) ) { 
+		enterALetter("U");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxI_X, nameScreenBoxI_Y) ) { 
+		enterALetter("I");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxO_X, nameScreenBoxO_Y) ) { 
+		enterALetter("O");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxP_X, nameScreenBoxP_Y) ) { 
+		enterALetter("P");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxA_X, nameScreenBoxA_Y) ) { 
+		enterALetter("A");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxS_X, nameScreenBoxS_Y) ) { 
+		enterALetter("S");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxD_X, nameScreenBoxD_Y) ) { 
+		enterALetter("D");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxF_X, nameScreenBoxF_Y) ) { 
+		enterALetter("F");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxG_X, nameScreenBoxG_Y) ) { 
+		enterALetter("G");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxH_X, nameScreenBoxH_Y) ) { 
+		enterALetter("H");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxI_X, nameScreenBoxI_Y) ) { 
+		enterALetter("I");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxJ_X, nameScreenBoxJ_Y) ) { 
+		enterALetter("J");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxK_X, nameScreenBoxK_Y) ) { 
+		enterALetter("K");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxL_X, nameScreenBoxL_Y) ) { 
+		enterALetter("L");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxZ_X, nameScreenBoxZ_Y) ) { 
+		enterALetter("Z");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxX_X, nameScreenBoxX_Y) ) { 
+		enterALetter("X");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxC_X, nameScreenBoxC_Y) ) { 
+		enterALetter("C");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxV_X, nameScreenBoxV_Y) ) { 
+		enterALetter("V");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxB_X, nameScreenBoxB_Y) ) { 
+		enterALetter("B");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxN_X, nameScreenBoxN_Y) ) { 
+		enterALetter("N");
+	} else if ( checkLetterBox(mousePosX, mousePosY, nameScreenBoxM_X, nameScreenBoxM_Y) ) { 
+		enterALetter("M");
+	}
+}
+
+function enterALetter(letter){
+	if(position1NotFilled){
+		position1 = letter;
+		position1NotFilled = false;
+	} else if (position2NotFilled){
+		position2 = letter
+		position2NotFilled = false;
+	} else if (position3NotFilled){
+		position3 = letter
+		position3NotFilled = false;
+	} else if (position4NotFilled){
+		position4 = letter
+		position4NotFilled = false;
+	} else if (position5NotFilled){
+		position5 = letter	
+		position5NotFilled = false;	
+	} else if (position6NotFilled){
+		position6 = letter
+		position6NotFilled = false;		
+	} else if (position7NotFilled){
+		position7 = letter
+		position7NotFilled = false;
+	} else if (position8NotFilled){
+		position8 = letter
+		position8NotFilled	= false;	
+	} else if (position9NotFilled){
+		position9 = letter
+		position9NotFilled = false;
+	} else {
+		
+	}
+}
+
+
+function enterLetterInPosition1 (){
 	
 }

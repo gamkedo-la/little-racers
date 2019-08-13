@@ -358,15 +358,15 @@ function drawFuelPercentage(canvasContext, player){
 			  canvasContext);
 }
 
-function drawStartLights(canvasContext){
+function drawStartLights(canvasContext, x = 100, y = 100){
 	if(displayRedLight){
-		colorCircle(50, 50, 20, 'red', canvasContext)
+		colorCircle(x, y + 50, 20, 'red', canvasContext);
 	}
 	if(displayYellowLight){
-		colorCircle(50, 100, 20, 'yellow', canvasContext)
+		colorCircle(x, y + 100, 20, 'yellow', canvasContext);
 	}
 	if(displayGreenLight){
-		colorCircle(50, 159, 20, 'green', canvasContext)
+		colorCircle(x, y + 159, 20, 'green', canvasContext);
 		drawStartLightsTimer++;
 	}
 	if( drawStartLightsTimer == 10){
@@ -479,6 +479,9 @@ function drawCommonScreenElements()
     var xCenter = canvasOverlay.width/scaleWidth*0.5;
 
     drawClock(canvasContextOverlay, xCenter, 10);
+	if (!vehicleList[1].computerPlayer) {
+		drawStartLights(canvasContextOverlay, xCenter);
+	}
 
 	trackMap.draw();
     if (paused){
@@ -495,7 +498,9 @@ function drawP1Screen() {
 	cameraP1.endPan(canvasContext);
 
 	drawLapOneTime(canvasContext, vehicleList[0]);
-	drawStartLights(canvasContext);
+	if (vehicleList[1].computerPlayer) {
+		drawStartLights(canvasContext, canvas.width / scaleWidth * 0.5);
+	}
 	drawMeters(canvasContext, vehicleList[0], fuelMeterP1, speedometerP1);
 	drawCheckpointArrow(canvas, canvasContext, vehicleList[0]);
 
@@ -506,20 +511,17 @@ function drawP1Screen() {
 
 function drawP2Screen() {
 	if (!vehicleList[1].computerPlayer) {
-
 		cameraP2.startPan(canvasContext2);
 		drawTracksOnScreen(canvas2, canvasContext2);
 		cameraP2.endPan(canvasContext2);
 
-		drawLapOneTime(canvasContext2, vehicleList[1]);
-		drawStartLights(canvasContext2);
+		drawLapOneTime(canvasContext2, vehicleList[1]);		
 		drawMeters(canvasContext2, vehicleList[1], fuelMeterP2, speedometerP2);
 		drawCheckpointArrow(canvas2, canvasContext2, vehicleList[1]);
 
 		if (raining) {
 			drawRain(canvasContext2);
 		}
-
 	}
 }
 
@@ -541,7 +543,7 @@ function drawEverything() {
     }
     else if(enterPlayerName)
     {
-		drawEnterPlayerNameScreen();
+		drawEnterPlayerNameScreen(canvas, canvasContext);
     }
     else if (levelEditor)
     {
@@ -580,7 +582,12 @@ function drawEverything() {
 		}
 
 		if(debugMode){
-			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white", "14px Arial Black");
+			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white",);
 		}
+		function restartButton() {
+			colorRect(this.x, this.y, this.width, this.height, "orange");
+			colorRect(this.x+1, this.y+1, this.width+1, this.height+1, "black");
+			colorText("restart"  , 340, 330, 'black', font = "14px Arial Black");
+		  }
 	}
 }

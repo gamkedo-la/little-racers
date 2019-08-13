@@ -5,7 +5,15 @@ var inRaceFourth;
 var inRaceFifth;
 var inRaceSixth;
 var inRaceSeventh;
-var inRaceEight;
+var inRaceEigth;
+var inRaceFirstFilled = false;
+var inRaceSecondFilled = false;
+var inRaceThirdFilled = false;
+var inRaceFourthFilled = false;
+var inRaceFifthFilled = false;
+var inRaceSixthFilled = false;
+var inRaceSeventhFilled = false;
+var inRaceEightFilled = false;
 
 function checkForInRacePosition(){
 	// console.log("Position: " + vehicleList[0].inRacePosition);
@@ -15,6 +23,7 @@ function checkForInRacePosition(){
 		for (ii = i + 1; ii < vehicleList.length; ii++){			//nested loop to loop through all vehicles
 			if(vehicleList[i].raceDistance > vehicleList[ii].raceDistance){
 				vehicleList[i].inRacePosition--;  //if car under test is further, reduce it's position
+				checkForInRacePositionFilled(vehicleList[i]);
 			} else {
 				vehicleList[i].inRacePosition++;  //if car under test is NOT further, raise it's position
 			}
@@ -26,4 +35,8 @@ function checkForInRacePosition(){
 			}
 		}
 	}
+}
+
+function checkForInRacePositionFilled(whichVehicle){
+	
 }
