@@ -487,7 +487,7 @@ function drawCommonScreenElements()
     if (paused){
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
     }
-    if (isMuted) {
+    if (isMuted && isMutedByShortcut) {
     	canvasContext.drawImage(mutePic, 25, 25);
 	}
 }
