@@ -36,8 +36,10 @@ var soundDelayTimer = 0;
 //mark position as filled, show car as having a position, and award cash.
 function whichPlace(car){	
 	if(!firstPlaceFilled && !car.placedPosition){
+		console.log("Car:" + car.myName);
+		console.log("Pic: " + car.myBitmap);
 		firstPlace = car.myName;
-		firstPlaceCarPic = vehicleList[0].myBitmap;
+		firstPlaceCarPic = vehicleList[1].myCarPic;
 		firstPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 1000;
@@ -54,7 +56,7 @@ function whichPlace(car){
 		console.log("Second: " + car.myName + " " + car.cash);	
 	} else if(!thirdPlaceFilled && !car.placedPosition){
 		thirdPlace = car.myName;
-		thirdPlaceCarPic = car.myCarPic;
+		//thirdPlaceCarPic = car.myCarPic;
 		thirdPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 500;
@@ -62,7 +64,7 @@ function whichPlace(car){
 		console.log("Third: " + car.myName + " " + car.cash);
 	} else if(!fourthPlaceFilled && !car.placedPosition){
 		fourthPlace = car.myName;
-		fourthPlaceCarPic = car.myCarPic;
+		//fourthPlaceCarPic = car.myCarPic;
 		fourthPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 250;
@@ -70,7 +72,7 @@ function whichPlace(car){
 		console.log("Fourth: " + car.myName + " " + car.cash);
 	} else if(!fifthPlaceFilled && !car.placedPosition){
 		fifthPlace = car.myName;
-		fifthPlaceCarPic = car.myCarPic;
+		//fifthPlaceCarPic = car.myCarPic;
 		fifthPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 100;
@@ -78,7 +80,7 @@ function whichPlace(car){
 		console.log("Fifth: " + car.myName + " " + car.cash);
 	} else if(!sixthPlaceFilled && !car.placedPosition){
 		sixthPlace = car.myName;
-		sixthPlaceCarPic = car.myCarPic;
+		//sixthPlaceCarPic = car.myCarPic;
 		sixthPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 50;
@@ -86,7 +88,7 @@ function whichPlace(car){
 		console.log("Sixth: " + car.myName + " " + car.cash);
 	} else if(!seventhPlaceFilled && !car.placedPosition){
 		seventhPlace = car.myName;
-		seventhPlaceCarPic = car.myCarPic;
+		//seventhPlaceCarPic = car.myCarPic;
 		seventhPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 25;
@@ -94,7 +96,7 @@ function whichPlace(car){
 		console.log("Seventh: " + car.myName + " " + car.cash);
 	} else if(!eigthPlaceFilled && !car.placedPosition){
 		eigthPlace = car.myName;
-		eigthPlaceCarPic = car.myCarPic;
+		//eigthPlaceCarPic = car.myCarPic;
 		eigthPlaceFilled = true;
 		car.placedPosition = true;
 		car.cash += 10;

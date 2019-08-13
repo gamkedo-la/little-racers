@@ -53,6 +53,7 @@ function carClass() {
     this.oldY = this.y;
     this.z = 0;
     this.zVel = 0;
+	this.myBitmap;
 
     this.turnRate = TURN_RATE_STANDARD;
     this.turnRateTileMultiplier = 1;
