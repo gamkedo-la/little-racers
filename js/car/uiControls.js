@@ -28,6 +28,7 @@ const KEY_1 = 49;
 
 
 let controlCameraForDebug = false;
+var isMutedByShortcut = false;
 
 function initInput(){
 	canvas.addEventListener('mousemove', function(evt) {
@@ -115,12 +116,11 @@ function keyPressed(evt) {
 	
 	evt.preventDefault();
 	if (muteKey == evt.keyCode) {
-		console.log("mute key pressed");
-		isMuted = !isMuted;
-		alanZBackgroundMusic.startOrStopMusic();
+		isMuted = paused || !isMuted;
+		isMutedByShortcut = isMuted;
 	} else if(pausedKey == evt.keyCode){
-		console.log(paused);
 		paused = !paused;
+		isMuted = paused || isMutedByShortcut;
 	} else if (levelEditorKey == evt.keyCode) {
 		const newEditorState = !levelEditor;
 		const stateObj = {

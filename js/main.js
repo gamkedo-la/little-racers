@@ -71,9 +71,11 @@ window.onload = function(){
 	}
 	window.addEventListener('focus', function () {
 		paused = false;
+		isMuted = isMutedByShortcut && isMuted;
 	});
 	window.addEventListener('blur', function () {
 		paused = true;
+		isMuted = true;
 	});
 	window.addEventListener('resize', reportWindowResize);
 	loadImages();
@@ -252,6 +254,8 @@ function moveEverything() {
 		    raceTimeElapsed=0;
 		}
 	}
+
+    alanZBackgroundMusic.startOrStopMusic();
 }
 
 function updateTime(){
@@ -480,6 +484,9 @@ function drawCommonScreenElements()
     if (paused){
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
     }
+    if (isMuted) {
+    	canvasContext.drawImage(mutePic, 25, 25);
+	}
 }
 
 function drawP1Screen() {

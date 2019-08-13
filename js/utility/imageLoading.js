@@ -30,6 +30,7 @@ var cityScapeSpriteSheet = document.createElement("img");
 var lakeSpriteSheet = document.createElement("img");
 var clockPic = document.createElement("img");
 var clockFont = document.createElement("img");
+var mutePic = document.createElement("img");
 var trackPics = [];
 // Gauges
 var gaugeNeedlePic = document.createElement("img");
@@ -105,6 +106,7 @@ function loadImages() {
 			{varName: nitrosOptionTwoPic, theFile: "upgrades/nitrosOptionTwo.png"},
 			{varName: clockPic, theFile: "system_clock.png" },
             {varName: clockFont, theFile: "system_clock_font.png" },
+			{varName: mutePic, theFile: "muteMusic.png"},
 			{varName: arrowPic, theFile: "leftArrow.png"},
 			{varName: roadSpriteSheet, theFile: "spriteSheet/roadSpriteSheet.png"},
 			{varName: trackobstaclesSpriteSheet, theFile: "spriteSheet/trackobstaclesSpriteSheet.png"},
