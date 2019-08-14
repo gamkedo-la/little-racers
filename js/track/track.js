@@ -158,6 +158,8 @@ function nextLevel() {
 
 function loadLevel(whichLevel) {
 	trackGrid = whichLevel.data.slice();
+	//carPlaces = [];
+	
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset(window['carPic'+(i+1)], 'Car '+(i+1), true);
 	}

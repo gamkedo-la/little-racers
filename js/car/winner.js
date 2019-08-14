@@ -31,11 +31,39 @@ var sixthPlaceFilled = false;
 var seventhPlaceFilled = false;
 var eigthPlaceFilled = false;
 var soundDelayTimer = 0;
+var carPlaces = [];
+var cashPrizes = [
+		1000,
+		750,
+		500,
+		250,
+		200,
+		150,
+		100,
+		75
+	];
+var placeNames = [ 
+	"1st",
+	"2nd",
+	"3rd",
+	"4th",
+	"5th",
+	"6th",
+	"7th",
+	"8th"
+	]; 
 
 //check to see if position is filled, if not, fill place position with that care, 
 //mark position as filled, show car as having a position, and award cash.
 function whichPlace(car){	
-	if(!firstPlaceFilled && !car.placedPosition){
+	console.log("Car:" + car.myName);
+	car.cash += cashPrizes[carPlaces.length];
+	carPlaces.push(car);
+	console.log(carPlaces.length);
+	
+	
+	
+	/*if(!firstPlaceFilled && !car.placedPosition){
 		console.log("Car:" + car.myName);
 		console.log("Pic: " + car.myBitmap);
 		firstPlace = car.myName;
@@ -103,7 +131,7 @@ function whichPlace(car){
 		eigthPlaceCarCash = car.cash;
 		console.log("Eighth: " + car.myName + " " + car.cash);
 		nextLevel();
-	}
+	} */
 }
 
 //reset race positions
