@@ -104,7 +104,6 @@ function carClass() {
 
     this.carReset = function(whichGraphic, whichName, computer) {
         this.name = whichName;
-        this.myCarPic = whichGraphic;
         this.speed = 0;
         this.placedPosition = false;
         this.stopCar = false;

@@ -20,31 +20,31 @@ function drawWinScreen(canvas, canvasContext){
 	colorText("Cash: $" + firstPlaceCarCash, placePositionX + 500, placePositionY, 'white', font = "18px Arial Black");
 	
 	colorText("2nd: " + secondPlace, placePositionX, (placePositionY + increasePlacePositionY), 'white', font = "18px Arial Black");
-	//canvasContext.drawImage(secondPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY));
+	canvasContext.drawImage(secondPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY));
 	colorText("Cash: $" + secondPlaceCarCash, placePositionX + 500, (placePositionY + increasePlacePositionY), 'white', font = "18px Arial Black");
 	
 	colorText("3rd: " + thirdPlace, placePositionX, (placePositionY + increasePlacePositionY * 2), 'white', font = "18px Arial Black");
-	//canvasContext.drawImage(thirdPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 2));
+	canvasContext.drawImage(thirdPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 2));
 	colorText("Cash: $" + thirdPlaceCarCash, placePositionX + 500, (placePositionY + increasePlacePositionY * 2), 'white', font = "18px Arial Black");
 	
 	colorText("4th: " + fourthPlace, placePositionX, (placePositionY + increasePlacePositionY * 3), 'white', font = "18px Arial Black");
-	//canvasContext.drawImage(fourthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 3));
+	canvasContext.drawImage(fourthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 3));
 	colorText("Cash: $" + fourthPlaceCarCash, placePositionX + 500, (placePositionY + increasePlacePositionY * 3), 'white', font = "18px Arial Black");
 	
 	colorText("5th: " + fifthPlace, placePositionX, (placePositionY + increasePlacePositionY * 4), 'white', font = "18px Arial Black");
-	//canvasContext.drawImage(fifthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 4));
+	canvasContext.drawImage(fifthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 4));
 	colorText("Cash: $" + fifthPlaceCarCash, placePositionX + 500, (placePositionY + increasePlacePositionY * 4), 'white', font = "18px Arial Black");
 	
 	colorText("6th: " + sixthPlace, placePositionX, (placePositionY + increasePlacePositionY * 5), 'white', font = "18px Arial Black");
-	//canvasContext.drawImage(sixthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 5));
+	canvasContext.drawImage(sixthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 5));
 	colorText("Cash: $" + sixthPlaceCarCash, placePositionX + 500, (placePositionY + increasePlacePositionY * 5), 'white', font = "18px Arial Black");
 	
 	colorText("7th: " + seventhPlace, placePositionX, (placePositionY + increasePlacePositionY * 6), 'white', font = "18px Arial Black");
-	//canvasContext.drawImage(seventhPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 6));
+	canvasContext.drawImage(seventhPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 6));
 	colorText("Cash: $" + seventhPlaceCarCash, placePositionX + 500, (placePositionY + increasePlacePositionY * 6), 'white', font = "18px Arial Black");
 	
 	colorText("8th: " + eigthPlace, placePositionX, (placePositionY + increasePlacePositionY * 7), 'white', font = "18px Arial Black");
-	//canvasContext.drawImage(eigthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 7));
+	canvasContext.drawImage(eigthPlaceCarPic, (placePositionX + 225), (placePositionY + increasePlacePositionY * 7));
 	colorText("Cash: $" + eigthPlaceCarCash, placePositionX + 500, (placePositionY + increasePlacePositionY * 7), 'white', font = "18px Arial Black");
 	
 	//trophy
