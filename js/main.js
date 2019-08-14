@@ -226,11 +226,11 @@ function moveEverything() {
 		if(raceHasStarted){
 
 			handleJoystickControls(); // optionally
-
+	
 			raceTimeElapsed += now - lastFrameTime;
 			lastFrameTime=now;
 			getRaceTimeDigits();
-
+			
 			//Move all vehicles. Includes AI decisions on turning and gas.
 			for (var i = 0; i < vehicleList.length; i++) {
 				vehicleList[i].movement();
@@ -245,7 +245,6 @@ function moveEverything() {
 			
 			//sound bite for the winner
 			if(firstPlaceFilled){ 
-				console.log("play first place");
 				soundDelayTimer++;
 				announceRaceCarNumber(40);
 			}
