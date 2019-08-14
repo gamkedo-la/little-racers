@@ -54,6 +54,7 @@ function carClass() {
     this.z = 0;
     this.zVel = 0;
 	this.myBitmap;
+	this.myAnnc;
 
     this.turnRate = TURN_RATE_STANDARD;
     this.turnRateTileMultiplier = 1;
@@ -132,9 +133,10 @@ function carClass() {
 		this.raceDistance = 0;
     }
 
-    this.carInit = function(whichGraphic, whichName, computer) {
+    this.carInit = function(whichGraphic, whichName, whichAnnounce, computer) {
         this.myBitmap = whichGraphic;
         this.myName = whichName;
+		this.myAnnc = whichAnnounce;
         this.carReset(whichGraphic, whichName, computer);
         this.computerPlayer = computer;
         this.nitroBoostOn = false;

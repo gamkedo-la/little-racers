@@ -175,10 +175,12 @@ function imageLoadingDoneSoStartGame(){
         drawEverything();
 	}, 1000/framesPerSecond);
 
-    for (var i = 0; i < vehicleList.length; i++) {
-		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i], true);
-	}
+	createCarSoundList();
 
+    for (var i = 0; i < vehicleList.length; i++) {
+		vehicleList[i].carInit(window['carPic'+(i+1)], vehicleNames[i], carSoundList[i+1], true);
+	}
+	
     if (SMOKE_FX_ENABLED) {
         SmokeFX = new SmokeFXClass();
         SmokeFXStartRendering();
@@ -240,15 +242,14 @@ function moveEverything() {
 					vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
 				}
 			}
-
-			if(firstPlaceFilled){ //sound bite for the winner
+			
+			//sound bite for the winner
+			if(firstPlaceFilled){ 
+				console.log("play first place");
 				soundDelayTimer++;
 				announceRaceCarNumber(40);
-            }
-
-		}
-		else
-		{
+			}
+		} else {
 		    prepareForRace();
 		    lastFrameTime=now;
 		    raceTimeElapsed=0;

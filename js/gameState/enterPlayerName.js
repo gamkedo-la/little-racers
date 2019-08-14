@@ -25,7 +25,6 @@ var position7NotFilled = true;
 var position8NotFilled = true;
 var position9NotFilled = true;
 
-//row 1 variables
 var nameScreenBoxQ_X = nameScreenRowOneStartX;
 var nameScreenBoxQ_Y = nameScreenRowOneStartY;
 var nameScreenBoxW_X = nameScreenRowOneStartX + nameScreenBoxWidth;

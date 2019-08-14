@@ -6,14 +6,6 @@ var soundSetforMeetings = true; //make false to hear at normal level
 var crashIntoConeSound = new SoundOverlapsClass("crashCone");
 var engineSound = new SoundOverlapsClass("engine");
 var andTheWinnerIsSound = new SoundOverlapsClass("andTheWinnerIs_01");
-var carOneSound = new SoundOverlapsClass("annc_puggington_01"); //Green
-var carTwoSound = new SoundOverlapsClass("annc_mcfirepants_01"); //Yellow
-var carThreeSound = new SoundOverlapsClass("annc_sunbeamtiger_01"); //Orange
-var carFourSound = new SoundOverlapsClass("annc_luminousthunder_01"); //Purple
-var carFiveSound = new SoundOverlapsClass("annc_maxmad_01"); //Red
-var carSixSound = new SoundOverlapsClass("annc_chrisdelorean_01"); //Blue
-var carSevenSound = new SoundOverlapsClass("annc_spectre_01"); //Light Gray
-var carEightSound = new SoundOverlapsClass("annc_jsmach_01"); //Dark Gray
 var attentionDriversSound = new SoundOverlapsClass("attentiondrivers_01");
 var startYourEnginesSound = new SoundOverlapsClass("startyourengines_01");
 var readySetGoSound = new SoundOverlapsClass("readysetgo_01");
@@ -21,6 +13,16 @@ var finallapSound =  new SoundOverlapsClass("finallap_01");
 var exhilaratingSound = new SoundOverlapsClass("exhilarating_01");
 var puppyGoSound = new SoundOverlapsClass("annc_puppygo_01"); //easter egg if puggington wins
 var alanZBackgroundMusic = new BackgroundMusicClass();
+var carSoundList = [];
+
+function createCarSoundList() {
+	for (var i = 0; i < 8; i++){
+		carSoundList[i] = new SoundOverlapsClass("annc_car_0"+(i+1));
+	}
+}
+
+
+
 
 function setFormat() {
     var audio = new Audio();
