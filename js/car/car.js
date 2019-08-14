@@ -75,7 +75,7 @@ function carClass() {
 	this.inRacePosition = 0;
 	this.recordNewDistance = true;
     this.cash = 2000;
-    this.placedPosition = false;
+    this.finishRace = false;
     this.fuelCapacity = 100;
     this.fuelConsumptionRate = 0.15;
     this.fuelInTank = this.fuelCapacity;
@@ -106,7 +106,7 @@ function carClass() {
     this.carReset = function(whichGraphic, whichName, computer) {
         this.name = whichName;
         this.speed = 0;
-        this.placedPosition = false;
+        this.finishRace = false;
         this.stopCar = false;
         this.ang = -0.5 * Math.PI; //Angle is in radians; this rotates the car -90 degrees to point car up. (0 deg is to the right)
         //Graphics on the sheet are oriented pointing to the right, matching angle=0 degrees.`
@@ -166,7 +166,7 @@ function carClass() {
         this.level = 0;
         this.stuckTime = 0;
         this.randomMovementsTimer = 0;
-        this.placedPosition = false;
+        this.finishRace = false;
         this.oilSlickRemaining = 0;
         this.damageParticles = [];
 		this.raceDistance = 0;
@@ -234,7 +234,7 @@ function carClass() {
             this.wayPoint = true;
         }
     }
-
+	
     this.updateWayPoints = function() {
         this.wayPointNumber = 0;
         this.lapNumber = 0;
@@ -242,14 +242,14 @@ function carClass() {
         this.checkPointB = false;
         this.checkPointC = false;
             //use these way points while racing
-        if (!this.placedPosition) {
+        if (!this.finishRace) {
         	// do you boo
         } else { //use these way points when a place is determined
         	this.wayPointX = levelList[levelNow].placementWayPointsX.slice();
     		this.wayPointY = levelList[levelNow].placementWayPointsY.slice();
 			// this works for first place
             // every other place uses first place as a template
-            if (this.myName != firstPlace) {
+            if (this.myName != carPlaces[0].myName) {
             	this.findMyProperFinishSpot();
        		}
         }
@@ -259,7 +259,7 @@ function carClass() {
         var wayPointVectorX = toX - this.x;
         var wayPointVectorY = toY - this.y;
 
-        if (!this.placedPosition) {
+        if (!this.finishRace) {
             wayPointVectorX += this.quirks.wayPointX;
             wayPointVectorY += this.quirks.wayPointY;
         }
@@ -306,7 +306,7 @@ function carClass() {
         if (d <= hitWaypointDistance) {
             this.wayPointNumber++;
             if (this.wayPointNumber >= this.wayPointX.length) {
-                if (!this.placedPosition) {
+                if (!this.finishRace) {
                     this.wayPointNumber = 0;
                     this.wayPointNumberPrev = 0;
                     this.wrongDirection = false;
@@ -319,31 +319,23 @@ function carClass() {
 
     this.findMyProperFinishSpot = function() {
     	let lastIndex = this.wayPointX.length - 1;
-		switch (this.myName) {
-			case secondPlace:
-				this.wayPointX[lastIndex] += TRACK_W;
-				break;
-			case thirdPlace:
-				this.wayPointX[lastIndex] += TRACK_W * 2;
-				break;
-			case fourthPlace:
-				this.wayPointY[lastIndex] += TRACK_H;
-				break;
-			case fifthPlace:
-				this.wayPointX[lastIndex] += TRACK_W;
-				this.wayPointY[lastIndex] += TRACK_H;
-				break;
-			case sixthPlace:
-				this.wayPointX[lastIndex] += TRACK_W * 2;
-				this.wayPointY[lastIndex] += TRACK_H;
-				break;
-			case seventhPlace:
-				this.wayPointY[lastIndex] += TRACK_H * 2;
-				break;
-			case eigthPlace:
-				this.wayPointX[lastIndex] += TRACK_W;
-				this.wayPointY[lastIndex] += TRACK_H * 2;
-				break;
+		if(carPlaces[1].myName == this.myName){
+			this.wayPointX[lastIndex] += TRACK_W;
+		} else if (carPlaces[2].myName == this.myName){
+			this.wayPointX[lastIndex] += TRACK_W * 2;
+		} else if (carPlaces[3].myName == this.myName){
+			this.wayPointY[lastIndex] += TRACK_H;
+		} else if (carPlaces[4].myName == this.myName){
+			this.wayPointX[lastIndex] += TRACK_W;
+			this.wayPointY[lastIndex] += TRACK_H;
+		} else if (carPlaces[5].myName == this.myName){ 
+			this.wayPointX[lastIndex] += TRACK_W * 2;
+			this.wayPointY[lastIndex] += TRACK_H;
+		} else if (carPlaces[6].myName == this.myName){
+			this.wayPointY[lastIndex] += TRACK_H * 2;
+		} else if (carPlaces[7].myName == this.myName){
+			this.wayPointX[lastIndex] += TRACK_W;
+			this.wayPointY[lastIndex] += TRACK_H * 2;
 		}
     }
 
@@ -586,7 +578,7 @@ function carClass() {
             this.speed *= GROUNDSPEED_DECAY_MULT;
             if (this.fuelInTank > 0) {
             	if (this.keyHeld_Gas) {
-            		if (this.placedPosition) {
+            		if (this.finishRace) {
             			this.speed = 3.5;
             		} else {
 		                //Add in basic speed boost every car gets.
@@ -821,7 +813,6 @@ function carClass() {
                             finallapSound.play();
                             finalLappedCalled = true;
                         }
-
                     }
                     else
                     {
@@ -1129,7 +1120,7 @@ function carClass() {
     //front a slight speed boost while slowing the one behind.
     this.checkCarCollisionAgainst = function(otherCar) {
         if (otherCar.isOverLappingPoint(this.x, this.y)) {
-            if (this.airborne || otherCar.airborne || this.placedPosition || otherCar.placedPosition) {
+            if (this.airborne || otherCar.airborne || this.finishRace || otherCar.finishRace) {
                 return;
             }
 

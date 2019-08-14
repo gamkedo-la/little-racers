@@ -19,7 +19,7 @@ function drawWinScreen(canvas, canvasContext){
 		colorText("Cash: $" + carPlaces[i].cash, placePositionX + 500, (placePositionY + increasePlacePositionY * i), 'white', font = "18px Arial Black");
 	}
 	//trophy
-	colorText(firstPlace, 350, 190, 'black', font = "16px Arial Black"); // should center text
+	colorText(carPlaces[0].myName, 350, 188, 'black', font = "10px Arial Black"); // should center text
 }
 
 //function winScreenTimer(){

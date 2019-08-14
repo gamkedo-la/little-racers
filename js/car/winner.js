@@ -29,16 +29,22 @@ var placeNames = [
 function whichPlace(car){	
 	car.cash += cashPrizes[carPlaces.length];
 	carPlaces.push(car);
+	car.finishRace = true;
 	if(carPlaces.length == 1 && !firstPlaceFilled){
 		andTheWinnerIsSound.play();
 		firstPlaceFilled = true;
 	}
+	if(carPlaces.length == 8){
+		const stateObj = {
+			titleScreen:false,
+			levelEditor:false,
+			winScreen:true,
+			carUpgradeScreen:false,
+			enterPlayerName:false
+		};
+		updateState(stateObj);
+	}
 
-	
-	/*if(!firstPlaceFilled && !car.placedPosition){
-		firstPlaceFilled = true;									
-		car.placedPosition = true;
-	*/
 }	
 
 //reset race positions
