@@ -158,6 +158,7 @@ function nextLevel() {
 
 function loadLevel(whichLevel) {
 	trackGrid = whichLevel.data.slice();
+	console.log("Load Level");
 	//carPlaces = [];
 	
 	for (var i = 0; i < vehicleList.length; i++) {

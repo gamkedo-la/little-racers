@@ -130,7 +130,7 @@ function whichPlace(car){
 		car.cash += 10;
 		eigthPlaceCarCash = car.cash;
 		console.log("Eighth: " + car.myName + " " + car.cash);
-		nextLevel();
+		
 	} */
 }
 

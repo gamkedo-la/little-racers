@@ -54,6 +54,9 @@ function initInput(){
 	} );
 	
 	canvas.addEventListener('mousedown',function(evt){
+		if(winScreen){
+			winScreenMouseClick();
+		}
 		isMouseDragging = true;
 	} );
 	

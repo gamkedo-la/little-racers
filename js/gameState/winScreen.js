@@ -36,20 +36,19 @@ function drawWinScreen(canvas, canvasContext){
 //	}	
 //}
 
-canvas.addEventListener('mousedown', winScreenMouseClick);
-
-function winScreenMouseClick(evt) {
-	if(winScreen) {
+function winScreenMouseClick() {
+	console.log("Win Screen Mouse Click Called");
 			//need a function to determine track records
-			const stateObj = {
+		const stateObj = {
 			titleScreen:false,
 			levelEditor:false,
 			winScreen:false,
 			carUpgradeScreen:true,
 			enterPlayerName:false
-		}
+		};
+		nextLevel();
 		updateState(stateObj);
 		clearRacePositions();
 		tireTracks.clear();
-	}
+		
 }	
