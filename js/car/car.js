@@ -55,6 +55,7 @@ function carClass() {
     this.zVel = 0;
 	this.myBitmap;
 	this.myAnnc;
+	this.finishTime;
 
     this.turnRate = TURN_RATE_STANDARD;
     this.turnRateTileMultiplier = 1;
@@ -172,6 +173,7 @@ function carClass() {
 		this.raceDistance = 0;
 		this.recordNewDistance = true;
         this.quirks = getDriverQuirksForName(this.myName);
+		this.finishTime = 0;
     }
 
     function getDriverQuirksForName(aName) {
@@ -816,6 +818,7 @@ function carClass() {
                     }
                     else
                     {
+						this.finishTime = raceTimeElapsed;
                         whichPlace(this);
                         this.updateWayPoints();
                     }
