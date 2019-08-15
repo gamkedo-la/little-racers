@@ -52,6 +52,12 @@ function drawWinScreen(canvas, canvasContext){
 		canvasContext.drawImage(carPlaces[i].myBitmap, (placePositionX + 225), (placePositionY + increasePlacePositionY * i)-40);
 		colorText("Cash: $" + carPlaces[i].cash, placePositionX + 500, (placePositionY + increasePlacePositionY * i), 'white', font = "18px Arial Black");
 		colorText("Time: " + getFinishTimeDigits(carPlaces[i].finishTime), placePositionX + 325, (placePositionY + increasePlacePositionY * i), 'white', font = "18px Arial Black");
+		if(levelNow == 0){
+			track_01.displayRecords();
+		} else if (levelNow == 1){
+			track_02.displayRecords();
+		}
+	
 	}
 	//trophy
 	colorText(carPlaces[0].myName, 350, 188, 'black', font = "10px Arial Black"); // should center text

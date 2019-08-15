@@ -30,6 +30,7 @@ function whichPlace(car){
 	car.cash += cashPrizes[carPlaces.length];
 	carPlaces.push(car);
 	car.finishRace = true;
+	checkForTrackRecord(car.finishTime);
 	if(carPlaces.length == 1 && !firstPlaceFilled){
 		andTheWinnerIsSound.play();
 		firstPlaceFilled = true;
@@ -60,3 +61,68 @@ function announceRaceCarNumber(delay){
 		carPlaces[0].myAnnc.play();
 	}
 }
+
+function checkForTrackRecord(finishTime){
+	if(levelNow == 0){
+		console.log("Level: " + levelNow + " Should be 0" );
+		
+		
+		
+	} else if(levelNow == 1){
+		console.log("Level: " + levelNow + " Should be 1");
+	}
+}
+
+function convertfinishTime(time){
+	var minutes = Math.floor(time/60000);
+	var miliSeconds = time - minutes*60000;
+	var timeDigits = [0, 0, 0, 0, 0, 0, 0];
+
+	//Fill out the race time array such that the 0 index holds hundredths of seconds,
+	//the 1 index holds tenths of seconds, etc...
+
+	//Handle seconds (up to 59:99)
+	for(var i=0; i<4; i++){
+		timeDigits[i] = getDigit(miliSeconds, i+2); //Add two to i: 1 because we don't need thousandths of a second and 1 because
+	}                                                   //getDigit specifies the nth digit from the right starting at 1.
+
+	//Handle minutes (up to 99)
+	timeDigits[4] = getDigit(minutes, 1);
+	timeDigits[5] = getDigit(minutes, 2);
+	
+	var finishTimeString = timeDigits[5] + timeDigits [4] + ":" +
+						timeDigits[3] + timeDigits[2] + ":" +
+						timeDigits[1] + timeDigits[0];
+						
+	return finishTimeString;
+}
+
+var track_01 = new timeRecordClass(21600, "Jeff", 49800, "Vince", 51000, "Chris");
+var track_02 = new timeRecordClass(30600, "Vince", 40800, "Chris", 41800, "Jeremy");
+var track_03 = new timeRecordClass(32600, "Jeremy", 40900, "Vince", 41800, "Jeff");
+var track_04 = new timeRecordClass(36600, "Chris", 39800, "Jeremy", 42800, "Vince");
+
+function timeRecordClass(first, firstPlaceName, second, secondPlaceName, third, thirdPlaceName) {
+	this.firstPlace = first;
+	this.firstRecordHolderName = firstPlaceName;
+	this.secondPlace = second;
+	this.secondRecordHolderName = secondPlaceName;
+	this.thirdPlace = third;
+	this.thirdRecordHolderName = thirdPlaceName;
+	
+	this.displayRecords = function() {
+		var time1 = convertfinishTime(this.firstPlace);
+		var time2 = convertfinishTime(this.secondPlace);
+		var time3 = convertfinishTime(this.thirdPlace);
+		
+		colorText("Records", 150, 70, "white", font = "16px Arial Black", ctx = canvasContext);
+		colorText("1st: " + this.firstRecordHolderName , 100, 100, "white", font = "10px Arial Black", ctx = canvasContext);
+		colorText("Time: " + time1, 200, 100, "white", font = "10px Arial Black", ctx = canvasContext);
+		colorText("2nd: " + this.secondRecordHolderName, 100, 120, "white", font = "10px Arial Black", ctx = canvasContext);
+		colorText("Time: " + time2, 200, 120, "white", font = "10px Arial Black", ctx = canvasContext);
+		colorText("3rd: " + this.thirdRecordHolderName, 100, 140, "white", font = "10px Arial Black", ctx = canvasContext);
+		colorText("Time: " + time3, 200, 140, "white", font = "10px Arial Black", ctx = canvasContext);
+	}
+	
+}
+
