@@ -39,6 +39,7 @@ function drawWinScreen(canvas, canvasContext){
 		var finishTimeString = finishTimeDigits[5] + finishTimeDigits [4] + ":" +
 							finishTimeDigits[3] + finishTimeDigits[2] + ":" +
 							finishTimeDigits[1] + finishTimeDigits[0];
+							
 		return finishTimeString;
 	}
 						
@@ -47,44 +48,26 @@ function drawWinScreen(canvas, canvasContext){
 		var seconds = Math.floor(carPlaces[i].finishTime / 1000)
 		var minutes = Math.floor(carPlaces[i].finishTime)
 		
-		getFinishTimeDigits(carPlaces[i].finishTime);
-
 		colorText((placeNames[i])+": " + carPlaces[i].myName, placePositionX, (placePositionY + increasePlacePositionY * i), 'white', font = "18px Arial Black");
 		canvasContext.drawImage(carPlaces[i].myBitmap, (placePositionX + 225), (placePositionY + increasePlacePositionY * i)-40);
 		colorText("Cash: $" + carPlaces[i].cash, placePositionX + 500, (placePositionY + increasePlacePositionY * i), 'white', font = "18px Arial Black");
-		colorText("Time: " + getFinishTimeDigits(), placePositionX + 300, (placePositionY + increasePlacePositionY * i), 'white', font = "18px Arial Black");
+		colorText("Time: " + getFinishTimeDigits(carPlaces[i].finishTime), placePositionX + 325, (placePositionY + increasePlacePositionY * i), 'white', font = "18px Arial Black");
 	}
 	//trophy
 	colorText(carPlaces[0].myName, 350, 188, 'black', font = "10px Arial Black"); // should center text
 }
 
-//function winScreenTimer(){
-//	if(winScreenTime == 0) {
-//		winScreenTime = Date.now();
-//	} 
-
-//	if(Date.now() - winScreenTime >= SHOW_WINSCREEN_TIME) {
-//		winScreenTime = 0;
-//		winScreen = false;
-//		carUpgradeScreen = true;
-//		clearRacePositions();
-//		tireTracks.clear();
-//	}	
-//}
-
 function winScreenMouseClick() {
-	console.log("Win Screen Mouse Click Called");
-			//need a function to determine track records
-		const stateObj = {
-			titleScreen:false,
-			levelEditor:false,
-			winScreen:false,
-			carUpgradeScreen:true,
-			enterPlayerName:false
-		};
-		nextLevel();
-		updateState(stateObj);
-		clearRacePositions();
-		tireTracks.clear();
-		
+
+	const stateObj = {
+		titleScreen:false,
+		levelEditor:false,
+		winScreen:false,
+		carUpgradeScreen:true,
+		enterPlayerName:false
+	};
+	nextLevel();
+	updateState(stateObj);
+	clearRacePositions();
+	tireTracks.clear();
 }	
