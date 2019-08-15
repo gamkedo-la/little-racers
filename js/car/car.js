@@ -827,6 +827,8 @@ function carClass() {
                     this.oilSlickRemaining = OILSLICK_FRAMECOUNT; //No need to set the turnRateTileMultiplier; oil effects use oilSlickRemaining.
                 }
                 break;
+            case TRACK_ICE_SLICK:
+                break;
             case TRACK_GRASS:
             case LAKE_GRASS_1:
             case LAKE_GRASS_2:

@@ -54,6 +54,7 @@ const TRACK_NORTH_RAMP = 53;
 const TRACK_CASH = 54;
 const TRACK_FUEL = 55;
 const TRACK_OIL_BARREL = 56;
+const TRACK_ICE_SLICK = 57;
 const TRACK_KNOCKED_OVER_CONE = 60;
 const TRACK_SOUTH_RAMP = 63;
 const TRACK_WALL = 70;
@@ -288,6 +289,7 @@ function drawTracksByTile() {
 function tileTypeHasRoadTransparency(transparencyCheckTypeHere){
 	 return (
 			transparencyCheckTypeHere == TRACK_OIL_SLICK ||
+			transparencyCheckTypeHere == TRACK_ICE_SLICK ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_TOP_LEFT_END ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_TOP_MIDDLE ||
 			transparencyCheckTypeHere == TRACK_BRICK_WALL_TOP_RIGHT_END ||
