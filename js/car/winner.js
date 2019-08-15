@@ -2,6 +2,7 @@ var firstPlaceFilled = false; //keep
 
 var soundDelayTimer = 0;
 var carPlaces = [];
+var newRecord = false;
 
 var cashPrizes = [
 		1000,
@@ -30,22 +31,34 @@ function whichPlace(car){
 	car.cash += cashPrizes[carPlaces.length];
 	carPlaces.push(car);
 	car.finishRace = true;
-	checkForTrackRecord(car.finishTime);
+
 	if(carPlaces.length == 1 && !firstPlaceFilled){
 		andTheWinnerIsSound.play();
 		firstPlaceFilled = true;
 	}
 	if(carPlaces.length == 8){
-		const stateObj = {
-			titleScreen:false,
-			levelEditor:false,
-			winScreen:true,
-			carUpgradeScreen:false,
-			enterPlayerName:false
-		};
-		updateState(stateObj);
+		//checkForTrackRecord(vehicleList[0].finishTime);
+	
+		if(!newRecord){
+			const stateObj = {
+				titleScreen:false,
+				levelEditor:false,
+				winScreen:true,
+				carUpgradeScreen:false,
+				enterPlayerName:false
+			};
+			updateState(stateObj);
+		} else {
+			const stateObj = {
+				titleScreen:false,
+				levelEditor:false,
+				winScreen:false,
+				carUpgradeScreen:false,
+				enterPlayerName:true
+			};
+			updateState(stateObj);
+		}
 	}
-
 }	
 
 //reset race positions
@@ -62,14 +75,14 @@ function announceRaceCarNumber(delay){
 	}
 }
 
-function checkForTrackRecord(finishTime){
-	if(levelNow == 0){
-		console.log("Level: " + levelNow + " Should be 0" );
-		
-		
-		
-	} else if(levelNow == 1){
-		console.log("Level: " + levelNow + " Should be 1");
+function checkForTrackRecord(finishTime){ //this will require refactoring
+	console.log("checking");
+	if(levelNow == 1){
+		("level 1")
+		if(finishTime < recordList[0].firstPlace){
+			newRecord = true;
+			console.log("NR: " + newRecord);
+		}
 	}
 }
 
@@ -97,18 +110,25 @@ function convertfinishTime(time){
 	return finishTimeString;
 }
 
-var track_01 = new timeRecordClass(21600, "Jeff", 49800, "Vince", 51000, "Chris");
-var track_02 = new timeRecordClass(30600, "Vince", 40800, "Chris", 41800, "Jeremy");
-var track_03 = new timeRecordClass(32600, "Jeremy", 40900, "Vince", 41800, "Jeff");
-var track_04 = new timeRecordClass(36600, "Chris", 39800, "Jeremy", 42800, "Vince");
+var recordList = [];
 
-function timeRecordClass(first, firstPlaceName, second, secondPlaceName, third, thirdPlaceName) {
-	this.firstPlace = first;
-	this.firstRecordHolderName = firstPlaceName;
-	this.secondPlace = second;
-	this.secondRecordHolderName = secondPlaceName;
-	this.thirdPlace = third;
-	this.thirdRecordHolderName = thirdPlaceName;
+function createTrackRecords(){
+	for(i = 0; i < levelList.length; i++){
+		var	tempRecord = new timeRecordClass();
+		recordList.push(tempRecord);
+	}
+}
+
+function timeRecordClass() {
+
+	this.init = function (first, firstPlaceName, second, secondPlaceName, third, thirdPlaceName) {
+		this.firstPlace = first;
+		this.firstRecordHolderName = firstPlaceName;
+		this.secondPlace = second;
+		this.secondRecordHolderName = secondPlaceName;
+		this.thirdPlace = third;
+		this.thirdRecordHolderName = thirdPlaceName;
+	}
 	
 	this.displayRecords = function() {
 		var time1 = convertfinishTime(this.firstPlace);
@@ -123,6 +143,5 @@ function timeRecordClass(first, firstPlaceName, second, secondPlaceName, third, 
 		colorText("3rd: " + this.thirdRecordHolderName, 100, 140, "white", font = "10px Arial Black", ctx = canvasContext);
 		colorText("Time: " + time3, 200, 140, "white", font = "10px Arial Black", ctx = canvasContext);
 	}
-	
 }
 

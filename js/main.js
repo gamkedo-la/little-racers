@@ -188,6 +188,12 @@ function imageLoadingDoneSoStartGame(){
 
     //	loadLevel(levelOne);
     loadLevel(levelList[0]);
+	createTrackRecords();
+	for(i = 0; i < recordList.length; i++){
+		recordList[i].init(30600, "Jeff", 35800, "Vince", 51000, "Chris");
+		recordList[i].init(32600, "Jeremy", 40900, "Vince", 41800, "Jeff");
+		recordList[i].init(36600, "Chris", 39800, "Jeremy", 42800, "Vince");
+	}
 }
 
 function resetGame(mousePosX, mousePosY) {
@@ -496,7 +502,7 @@ function drawCommonScreenElements()
 
 	trackMap.draw();
     if (paused){
-		resetGame();
+		//resetGame();  //Causing errors after paused
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
     }
     if (isMuted && isMutedByShortcut) {
