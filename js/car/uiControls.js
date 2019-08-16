@@ -33,11 +33,14 @@ var isMutedByShortcut = false;
 
 function initInput(){
 	canvas.addEventListener('mousemove', function(evt) {
-	
 	calculateMousePos(evt);
 	document.getElementById("debugText").innerHTML = "(" +mouseX/scaleWidth+ ", " +mouseY/scaleHeight+ ")";
 	});
-	
+
+	canvasOverlay.addEventListener('mousemove', function(evt) {
+		calculateMousePos(evt);
+		});
+
 	document.addEventListener("keydown", keyPressed);
 	document.addEventListener("keyup", keyReleased);
 	
@@ -50,9 +53,11 @@ function initInput(){
 			carUpgradeScreenMouseClick(mouseX, mouseY);
 		} else if(enterPlayerName) {
 			EnterPlayerNameScreenMouseClick(mouseX, mouseY);
+		} else {
+			resetGame(mouseX, mouseY);
 		}
 	} );
-	
+
 	canvas.addEventListener('mousedown',function(evt){
 		if(winScreen){
 			winScreenMouseClick();
