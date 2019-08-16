@@ -190,11 +190,11 @@ function imageLoadingDoneSoStartGame(){
     loadLevel(levelList[0]);
 }
 
-function resetGame() {
+function resetGame(mousePosX, mousePosY) {
 	colorRect(320,310,150,40, 'black');
 	colorRect(320,310,50,40, 'white');
 	colorText("RESTART!"  , 335, 340, 'orange', font = "24px Arial Black");
-	if(mouseX){
+	if(mousePosX > 320 * scaleWidth && mousePosX < 310 * scaleWidth && mousePosY > 400 * scaleHeight && mousePosY < 450 * scaleHeight){
 		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].carReset();
 		}
