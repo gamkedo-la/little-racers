@@ -36,23 +36,24 @@
 					padding: 0;
 					font-family: 'Allerta';font-size: 22px;
 				}
+                #gameCanvas { position:absolute; left:0px; z-index:3 }
+                #gameCanvas2 { position:absolute; left:0px; z-index:3 }
+                #canvasOverlay { position:absolute; left:0px; z-index:4; 
+                pointer-events: none; }
 			</style>
 	</head>
 	<body>		
 		<script>
 			var canvas = document.createElement('canvas');
 			canvas.id = 'gameCanvas';
-			canvas.style = 'position:absolute; left:0px; z-index:3';
 			var canvasContext = canvas.getContext('2d');
 			
 			var canvas2 = document.createElement('canvas');
 			canvas2.id = 'gameCanvas2';
-			canvas2.style = 'position:absolute; left:0px; z-index:3';
 			var canvasContext2 = canvas2.getContext('2d');
 
 			var canvasOverlay = document.createElement('canvas');
 			canvasOverlay.id = 'gameCanvasOverlay';
-			canvasOverlay.style = 'position:absolute; left:0px; z-index:4';
 			var canvasContextOverlay = canvasOverlay.getContext('2d');
 
 			var div = document.createElement('div');

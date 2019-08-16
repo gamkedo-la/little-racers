@@ -39,9 +39,10 @@ function initInput(){
 	});
 	
 	
-	canvasOverlay.addEventListener('mousemove', function(evt) {	
-		calculateMousePos(evt);
-	}); 
+    // canvasOverlay does not get mouse events due to css of pointer-events:none;
+    //canvasOverlay.addEventListener('mousemove', function(evt) {	
+	//	calculateMousePos(evt);
+	//}); 
 
 	document.addEventListener("keydown", keyPressed);
 	document.addEventListener("keyup", keyReleased);
