@@ -54,18 +54,16 @@ function initInput(){
 		} else if(carUpgradeScreen){
 			carUpgradeScreenMouseClick(mouseX, mouseY);
 		} else if(enterPlayerName) {
-			EnterPlayerNameScreenMouseClick(mouseX, mouseY);
-		} /*else if(paused){
+			console.log("This should execute");
+			enterPlayerNameScreenMouseClick(mouseX, mouseY);
+		} else if(winScreen){
+			winScreenMouseClick();
+		} else if(paused){
 			resetGame(mouseX, mouseY);
-		} */
+		} 
 	} );
 	
-	canvas.addEventListener('mousedown',function(evt){
-		if(winScreen){
-			winScreenMouseClick();
-		}
-		isMouseDragging = true;
-	} );
+	
 	
 	if(computerPlayerOn) {
 		vehicleList[1].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER);

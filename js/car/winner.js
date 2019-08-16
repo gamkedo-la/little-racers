@@ -59,7 +59,7 @@ function whichPlace(car){
 				winScreen:false,
 				carUpgradeScreen:false,
 				enterPlayerName:true
-			};
+			}
 			updateState(stateObj);
 		}
 	}
