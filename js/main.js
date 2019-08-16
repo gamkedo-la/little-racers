@@ -196,11 +196,15 @@ function imageLoadingDoneSoStartGame(){
 	}
 }
 
-function resetGame(mousePosX, mousePosY) {
+function resetDraw(mousePosX, mousePosY) {
+	//console.log(mousePosX, mousePosY);
 	colorRect(320,310,150,40, 'black');
 	colorRect(320,310,50,40, 'white');
 	colorText("RESTART!"  , 335, 340, 'orange', font = "24px Arial Black");
-	if(mousePosX > 320 * scaleWidth && mousePosX < 310 * scaleWidth && mousePosY > 400 * scaleHeight && mousePosY < 450 * scaleHeight){
+}
+
+function resetGame(mousePosX, mousePosY) {
+	if(mousePosX > 320 * scaleWidth && mousePosX < (320+150) * scaleWidth && mousePosY > 310 * scaleHeight && mousePosY < (310+400) * scaleHeight){
 		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].carReset();
 		}
@@ -502,7 +506,7 @@ function drawCommonScreenElements()
 
 	trackMap.draw();
     if (paused){
-		//resetGame();  //Causing errors after paused
+		resetDraw(mouseX, mouseY);  //Causing errors after paused
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
     }
     if (isMuted && isMutedByShortcut) {
