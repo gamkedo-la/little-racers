@@ -36,9 +36,13 @@ function whichPlace(car){
 		andTheWinnerIsSound.play();
 		firstPlaceFilled = true;
 	}
-	if(carPlaces.length == 8){
-		//checkForTrackRecord(vehicleList[0].finishTime);
+
+	if(car.myName == vehicleList[0].myName){
+		console.log("FT:  " + vehicleList[0].finishTime);
+		checkForTrackRecord(vehicleList[0].finishTime);
+	}
 	
+	if(carPlaces.length == 8){
 		if(!newRecord){
 			const stateObj = {
 				titleScreen:false,
@@ -76,10 +80,18 @@ function announceRaceCarNumber(delay){
 }
 
 function checkForTrackRecord(finishTime){ //this will require refactoring
-	console.log("checking");
-	if(levelNow == 1){
-		("level 1")
+
+	if(levelNow == 0){
+		console.log("level 0");
+		console.log("FT: " + finishTime);
+		console.log("RL: " + recordList[0].firstPlace);
 		if(finishTime < recordList[0].firstPlace){
+			newRecord = true;
+			console.log("NR: " + newRecord);
+		}
+	} else if (levelNow == 1){
+		console.log("level 1");
+		if(finishTime < recordList[1].firstPlace){
 			newRecord = true;
 			console.log("NR: " + newRecord);
 		}

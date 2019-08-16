@@ -132,8 +132,8 @@ function checkLetterBox(mousePosX, mousePosY, xPos, yPos) {
 }
 
 function EnterPlayerNameScreenMouseClick(mousePosX, mousePosY) {
-	//console.log("X: " + mouseX/scaleWidth);
-	//console.log("Y: " + mouseY/scaleHeight);
+	console.log("X: " + mouseX/scaleWidth);
+	console.log("Y: " + mouseY/scaleHeight);
 	
 	checkLetterBox(nameScreenBoxQ_X, nameScreenBoxQ_Y)
 	if( checkLetterBox(mousePosX, mousePosY, nameScreenBoxQ_X, nameScreenBoxQ_Y) )
