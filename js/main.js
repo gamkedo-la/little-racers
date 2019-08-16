@@ -190,6 +190,17 @@ function imageLoadingDoneSoStartGame(){
     loadLevel(levelList[0]);
 }
 
+function resetGame() {
+	colorRect(320,310,150,40, 'black');
+	colorRect(320,310,50,40, 'white');
+	colorText("RESTART!"  , 335, 340, 'orange', font = "24px Arial Black");
+	if(mouseX){
+		for (var i = 0; i < vehicleList.length; i++) {
+			vehicleList[i].carReset();
+		}
+	}
+  }
+
 function addVehicle(){
 	var tempVehicle = new carClass();
 	vehicleList.push(tempVehicle);
@@ -485,6 +496,7 @@ function drawCommonScreenElements()
 
 	trackMap.draw();
     if (paused){
+		resetGame();
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
     }
     if (isMuted && isMutedByShortcut) {
@@ -584,10 +596,7 @@ function drawEverything() {
 		if(debugMode){
 			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white",);
 		}
-		function restartButton() {
-			colorRect(this.x, this.y, this.width, this.height, "orange");
-			colorRect(this.x+1, this.y+1, this.width+1, this.height+1, "black");
-			colorText("restart"  , 340, 330, 'black', font = "14px Arial Black");
-		  }
+		
 	}
+
 }
