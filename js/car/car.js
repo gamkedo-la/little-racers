@@ -971,6 +971,16 @@ function carClass() {
                 break;
             case TRACK_BRICK_WALL_LEFT:
             case TRACK_BRICK_WALL_LEFT_GRASS:
+			case TRACK_TOWN_TREE_ONE:
+			case TRACK_TOWN_TREE_TWO:
+			case TRACK_TOWN_TREE_THREE:
+			case TRACK_TOWN_TREE_FOUR:
+			case TRACK_TOWN_TREE_FIVE:
+			case TRACK_TOWN_TREE_SIX:
+			case TRACK_TOWN_TREE_SEVEN:
+			case TRACK_TOWN_TREE_EIGHT:
+			case TRACK_TOWN_TREE_NINE:
+			case TRACK_TOWN_TREE_TEN:
             case LAKE_BANK_RIGHT:
                 this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
                 this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.

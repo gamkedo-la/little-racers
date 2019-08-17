@@ -97,6 +97,16 @@ const TRACK_TOWN_RESIDENTIAL_TWO_B = 166;
 const TRACK_L_SHAPE_HOUSE_E = 171;
 const TRACK_TOWN_RESIDENTIAL_ONE_C = 175;
 const TRACK_TOWN_RESIDENTIAL_TWO_C = 176;
+const TRACK_TOWN_TREE_ONE = 190;
+const TRACK_TOWN_TREE_TWO = 191;
+const TRACK_TOWN_TREE_THREE = 192;
+const TRACK_TOWN_TREE_FOUR = 193;
+const TRACK_TOWN_TREE_FIVE = 194;
+const TRACK_TOWN_TREE_SIX = 195;
+const TRACK_TOWN_TREE_SEVEN = 196;
+const TRACK_TOWN_TREE_EIGHT = 197;
+const TRACK_TOWN_TREE_NINE = 198;
+const TRACK_TOWN_TREE_TEN = 199;
 
 //201 through 250 are dedicated for Lake tile set
 const LAKE_GRASS_1 = 200;
@@ -335,8 +345,17 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_ONE_C  ||
 			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_TWO_A  ||
 			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_TWO_B  ||
-			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_TWO_C  
- 
+			transparencyCheckTypeHere == TRACK_TOWN_RESIDENTIAL_TWO_C  ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_ONE ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_TWO ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_THREE ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_FOUR ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_FIVE ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_SIX ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_SEVEN ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_EIGHT ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_NINE ||
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_TEN 
 			);
 }
 
