@@ -87,6 +87,9 @@ const TRACK_LONG_HOUSE_A = 153;
 const TRACK_LONG_HOUSE_B = 154;
 const TRACK_TOWN_RESIDENTIAL_ONE_A = 155;
 const TRACK_TOWN_RESIDENTIAL_TWO_A = 156;
+const TRACK_TOWN_OFFICE_BUILDING_ONE_A = 157;
+const TRACK_TOWN_OFFICE_BUILDING_ONE_B = 158;
+
 //155 TO 160 are available
 const TRACK_L_SHAPE_HOUSE_C = 161;
 const TRACK_L_SHAPE_HOUSE_D = 162;
@@ -94,9 +97,14 @@ const TRACK_LONG_HOUSE_C = 163;
 const TRACK_LONG_HOUSE_D = 164;
 const TRACK_TOWN_RESIDENTIAL_ONE_B = 165;
 const TRACK_TOWN_RESIDENTIAL_TWO_B = 166;
-const TRACK_L_SHAPE_HOUSE_E = 171;
+const TRACK_TOWN_OFFICE_BUILDING_ONE_C = 167;
+const TRACK_TOWN_OFFICE_BUILDING_ONE_D = 168;
+const TRACK_L_SHAPE_HOUSE_E = 170;
+const TRACK_SIDEWALK = 173;
 const TRACK_TOWN_RESIDENTIAL_ONE_C = 175;
 const TRACK_TOWN_RESIDENTIAL_TWO_C = 176;
+const TRACK_TOWN_OFFICE_BUILDING_ONE_E = 177;
+const TRACK_TOWN_OFFICE_BUILDING_ONE_F = 178;
 const TRACK_TOWN_TREE_ONE = 190;
 const TRACK_TOWN_TREE_TWO = 191;
 const TRACK_TOWN_TREE_THREE = 192;
@@ -355,7 +363,14 @@ function tileTypeHasgGrassTransparency(transparencyCheckTypeHere){
 			transparencyCheckTypeHere == TRACK_TOWN_TREE_SEVEN ||
 			transparencyCheckTypeHere == TRACK_TOWN_TREE_EIGHT ||
 			transparencyCheckTypeHere == TRACK_TOWN_TREE_NINE ||
-			transparencyCheckTypeHere == TRACK_TOWN_TREE_TEN 
+			transparencyCheckTypeHere == TRACK_TOWN_TREE_TEN ||
+			transparencyCheckTypeHere == TRACK_SIDEWALK ||
+			transparencyCheckTypeHere == TRACK_TOWN_OFFICE_BUILDING_ONE_A ||
+			transparencyCheckTypeHere == TRACK_TOWN_OFFICE_BUILDING_ONE_B ||
+			transparencyCheckTypeHere == TRACK_TOWN_OFFICE_BUILDING_ONE_C ||
+			transparencyCheckTypeHere == TRACK_TOWN_OFFICE_BUILDING_ONE_D ||
+			transparencyCheckTypeHere == TRACK_TOWN_OFFICE_BUILDING_ONE_E ||
+			transparencyCheckTypeHere == TRACK_TOWN_OFFICE_BUILDING_ONE_F 
 			);
 }
 

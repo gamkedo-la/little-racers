@@ -495,7 +495,8 @@ function drawTracksOnScreen(canvas, canvasContext) {
 
 function drawCommonScreenElements()
 {
-    canvasContextOverlay.clearRect(0, 0, canvasOverlay.width, canvasOverlay.height);
+	/////// canvasOverlay no longer works.  Need to rework this code ///////////////////
+    /*canvasContextOverlay.clearRect(0, 0, canvasOverlay.width, canvasOverlay.height);
 
     var xCenter = canvasOverlay.width/scaleWidth*0.5;
 
@@ -503,7 +504,10 @@ function drawCommonScreenElements()
 	if (!vehicleList[1].computerPlayer) {
 		drawStartLights(canvasContextOverlay, xCenter);
 	}
-
+	*/
+	
+	drawClock(canvasContext, 375, 0);
+	
 	trackMap.draw();
     if (paused){
 		resetDraw(mouseX, mouseY);  //Causing errors after paused
