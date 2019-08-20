@@ -276,7 +276,8 @@ function moveEverything() {
 		}
 	}
 
-    alanZBackgroundMusic.startOrStopMusic();
+    // BUGFIX: call only once elsewhere, not here which is run every frame
+    //alanZBackgroundMusic.startOrStopMusic(); 
 }
 
 function updateTime(){

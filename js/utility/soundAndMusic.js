@@ -79,6 +79,10 @@ function BackgroundMusicClass() {
     }
 
     this.startOrStopMusic = function() {
+        if (!musicSound) {
+            console.error("ERROR: musicSound not initialized before startOrStopMusic was run!");
+            return; 
+        }
 		if (isMuted == false) {
 			musicSound.play();
 		} else {
