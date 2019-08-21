@@ -1,4 +1,7 @@
-var firstPlaceFilled = false; //keep
+var firstPlaceFilled = false; 
+var secondPlaceFilled = false;
+var thirdPlaceFilled = false;
+var lastPlaceFilled = false;
 
 var soundDelayTimer = 0;
 var carPlaces = [];
@@ -32,9 +35,24 @@ function whichPlace(car){
 	carPlaces.push(car);
 	car.finishRace = true;
 
-	if(carPlaces.length == 1 && !firstPlaceFilled){
+	if(carPlaces.length == 0 && !firstPlaceFilled){
 		andTheWinnerIsSound.play();
 		firstPlaceFilled = true;
+	}
+	
+	if(carPlaces.length == 1 && !secondPlaceFilled){
+		comingInSecondSound.play();
+		secondPlaceFilled = true;
+	}
+	
+	if(carPlaces.length == 2 && !thirdPlaceFilled){
+		comingInSecondSound.play();
+		thirdPlaceFilled = true;
+	}
+	
+	if(carPlaces.length == 7 && !lastPlaceFilled){
+		comingInLastSound.play();
+		lastPlaceFilled = true;
 	}
 
 	if(car.myName == vehicleList[0].myName){
