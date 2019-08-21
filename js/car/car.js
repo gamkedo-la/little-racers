@@ -940,6 +940,7 @@ function carClass() {
                      cameraP2.shakeCamera(5, 3);
                          }
                     this.takeDamage(2);
+					crashIntoConeSound.play();
                 }
                 break;
             case TRACK_OIL_BARREL:
