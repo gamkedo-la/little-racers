@@ -208,6 +208,14 @@ function resetGame(mousePosX, mousePosY) {
 		for (var i = 0; i < vehicleList.length; i++) {
 			vehicleList[i].carReset();
 		}
+		raceStartTimer = 0;
+        raceTimeElapsed = 0;
+        raceTimeDigits = [0,0,0,0,0,0];
+        drawStartLightsTimer = 0;
+        displayRedLight = false;
+        displayYellowLight = false;
+        displayGreenLight = false;
+        raceHasStarted = false;
 	}
   }
 
