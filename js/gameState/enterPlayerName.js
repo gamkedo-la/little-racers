@@ -107,17 +107,17 @@ function drawEnterPlayerNameScreen(canvas, canvasContext) {
 
     //row one
     for (i = 0; i < rowOneLetters.length; i++) {
-        colorRect((i * nameScreenBoxWidth + nameScreenRowOneStartX), nameScreenRowOneStartY, nameScreenBoxWidth - 10, nameScreenBoxHeight, "white");
-        colorText(rowOneLetters[i], (i * nameScreenBoxWidth + nameScreenRowOneStartX + 5), (nameScreenRowOneStartY + 20), "black", "14px Arial Black", ctx = canvasContext);
+		canvasContext.drawImage(keyPic, (i * nameScreenBoxWidth + nameScreenRowOneStartX), nameScreenRowOneStartY);
+		colorText(rowOneLetters[i], (i * nameScreenBoxWidth + nameScreenRowOneStartX + 5), (nameScreenRowOneStartY + 20), "black", "14px Arial Black", ctx = canvasContext);
     }
     //row two
     for (i = 0; i < rowTwoLetters.length; i++) {
-        colorRect((i * nameScreenBoxWidth + nameScreenRowTwoStartX), nameScreenRowTwoStartY, nameScreenBoxWidth - 10, nameScreenBoxHeight, "white");
+        canvasContext.drawImage(keyPic, (i * nameScreenBoxWidth + nameScreenRowTwoStartX), nameScreenRowTwoStartY);
         colorText(rowTwoLetters[i], (i * nameScreenBoxWidth + nameScreenRowTwoStartX + 5), (nameScreenRowTwoStartY + 20), "black", "14px Arial Black", ctx = canvasContext);
     }
     //row three
     for (i = 0; i < rowThreeLetters.length; i++) {
-        colorRect((i * nameScreenBoxWidth + nameScreenRowThreeStartX), nameScreenRowthreeStartY, nameScreenBoxWidth - 10, nameScreenBoxHeight, "white");
+        canvasContext.drawImage(keyPic,(i * nameScreenBoxWidth + nameScreenRowThreeStartX), nameScreenRowthreeStartY);
         colorText(rowThreeLetters[i], (i * nameScreenBoxWidth + nameScreenRowthreeStartY + 5), (nameScreenRowthreeStartY + 20), "black", "14px Arial Black", ctx = canvasContext);
     }
     //delete 
@@ -198,7 +198,19 @@ function enterPlayerNameScreenMouseClick(mousePosX, mousePosY) {
         enterALetter("M");
     } else if (checkLetterBox(mousePosX, mousePosY, 250, nameScreenRowthreeStartY)) { //delete
         deleteALetter()
+	} else if (checkLetterBox(mousePosX, mousePosY, 300, nameScreenRowthreeStartY)) { //delete
+        deleteALetter()
     } else if (checkLetterBox(mousePosX, mousePosY, 600, nameScreenRowthreeStartY)) { //enter
+        playersName = position1.concat(position2, position3, position4, position5, position6, position7, position8, position9);
+        const stateObj = {
+            titleScreen: false,
+            levelEditor: false,
+            winScreen: true,
+            carUpgradeScreen: false,
+            enterPlayerName: false
+        };
+        updateState(stateObj);
+    } else if (checkLetterBox(mousePosX, mousePosY, 650, nameScreenRowthreeStartY)) { //enter
         playersName = position1.concat(position2, position3, position4, position5, position6, position7, position8, position9);
         const stateObj = {
             titleScreen: false,

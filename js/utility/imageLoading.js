@@ -14,6 +14,7 @@ var titleScreenePic = document.createElement("img");
 var bodyShopPic = document.createElement("img");
 var bodyShopGaragePic = document.createElement("img");
 var characterSelectionPic = document.createElement("img");
+var keyPic = document.createElement("img");
 //upgrades
 var tireTrackPic = document.createElement("img");
 var tireOptionOnePic = document.createElement("img");
@@ -99,6 +100,7 @@ function loadImages() {
 			{varName: titleScreenePic, theFile: "title_screen.png"},
 			{varName: bodyShopGaragePic, theFile: "backdrops/bodyShopGarage.png"},
 			{varName: characterSelectionPic, theFile: "backdrops/characterSelection.png"},
+			{varName: keyPic, theFile: "backdrops/key.png"},
 			{varName: resultScreenPic, theFile: "backdrops/resultScreenBackground.png"},
 			{varName: tireOptionOnePic, theFile: "upgrades/tireOptionOne.png"},
 			{varName: tireOptionTwoPic, theFile: "upgrades/tireOptionTwo.png"},
