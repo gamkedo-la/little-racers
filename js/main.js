@@ -214,8 +214,10 @@ function resetGame(mousePosX, mousePosY) {
         drawStartLightsTimer = 0;
         displayRedLight = false;
         displayYellowLight = false;
-        displayGreenLight = false;
-        raceHasStarted = false;
+		displayGreenLight = false;
+		raceHasStarted = false;
+		tireTracks.clear();
+		SmokeFX.stop()
 	}
   }
 
@@ -519,7 +521,7 @@ function drawCommonScreenElements()
 	
 	trackMap.draw();
     if (paused){
-		resetDraw(mouseX, mouseY);  //Causing errors after paused
+		resetDraw(mouseX, mouseY); 
         colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
     }
     if (isMuted && isMutedByShortcut) {
