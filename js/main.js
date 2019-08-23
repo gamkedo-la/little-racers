@@ -196,7 +196,7 @@ function imageLoadingDoneSoStartGame(){
 	}
 }
 
-function resetDraw(mousePosX, mousePosY) {
+function resetDraw() {
 	//console.log(mousePosX, mousePosY);
 	colorRect(320,310,150,40, 'black');
 	colorRect(320,310,50,40, 'white');
@@ -205,19 +205,7 @@ function resetDraw(mousePosX, mousePosY) {
 
 function resetGame(mousePosX, mousePosY) {
 	if(mousePosX > 320 * scaleWidth && mousePosX < (320+150) * scaleWidth && mousePosY > 310 * scaleHeight && mousePosY < (310+400) * scaleHeight){
-		for (var i = 0; i < vehicleList.length; i++) {
-			vehicleList[i].carReset();
-		}
-		raceStartTimer = 0;
-        raceTimeElapsed = 0;
-        raceTimeDigits = [0,0,0,0,0,0];
-        drawStartLightsTimer = 0;
-        displayRedLight = false;
-        displayYellowLight = false;
-		displayGreenLight = false;
-		raceHasStarted = false;
-		tireTracks.clear();
-		SmokeFX.stop()
+		location.reload();	
 	}
   }
 
@@ -521,8 +509,8 @@ function drawCommonScreenElements()
 	
 	trackMap.draw();
     if (paused){
-		resetDraw(mouseX, mouseY); 
-        colorTextCentered("PAUSED", canvasOverlay.width/scaleWidth*0.5, canvasOverlay.height/scaleHeight*0.5, "white", "36px Arial Black", canvasContextOverlay);
+		resetDraw();
+		colorText("PAUSED", canvas.width/scaleWidth*0.4, canvas.height/scaleHeight*0.5, "white", "36px Arial Black", );
     }
     if (isMuted && isMutedByShortcut) {
     	canvasContext.drawImage(mutePic, 25, 25);
