@@ -23,6 +23,7 @@ const WALL_BOUNCE_SPEED_MODIFIER = 0.85; //Low-angle impact speed reduction.
 const WALL_IMPACT_SPEED_MODIFIER = 0.7; //Head-on collion speed reduction.
 const GRASS_SLOWDOWN_THRESHOLD = 0.6;
 const GRASS_ACCELERATION = 0.9; //Modifier to approach the maximum grass speed.
+const ICE_ACCELERATION = 1.05;
 const TURN_RATE_NITRO = 0.01;
 const TURN_RATE_STANDARD = 0.03;
 const TURN_RATE_MULTIPLIER_AIRBORNE = 0.25;
@@ -30,6 +31,7 @@ const TURN_RATE_MULTIPLIER_OIL = 0.0;
 const TURN_RATE_MULTIPLIER_OIL_SLOW = 0.2;
 const OIL_SLOW_TRACTION_THRESHOLD = 2;  //Below this speed, oil reduction will be TURN_RATE_MULTIPLIER_OIL_SLOW (allow some steering at low speed)
 const TURN_RATE_MULTIPLIER_GRASS = 0.75;
+const TURN_RATE_MULTIPLIER_ICE = 1.10;
 const NITRO_FRAME_DURATION = 30; //Being measured in frames, so at 30fps this is 1/3 second.
 const NITRO_BOOST_BASE_AMOUNT = .5; //Speed increase per frame.
 const NITRO_START_QUANTITY = 5;
@@ -831,6 +833,10 @@ function carClass() {
                 }
                 break;
             case TRACK_ICE_SLICK:
+                if (!this.airborne) {
+                    this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_ICE;
+                    this.speed *= ICE_ACCELERATION;
+                }
                 break;
             case TRACK_GRASS:
             case LAKE_GRASS_1:
