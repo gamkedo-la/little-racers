@@ -520,10 +520,7 @@ function drawCommonScreenElements()
 	drawClock(canvasContext, 375, 0);
 	
 	trackMap.draw();
-    if (gameState == STATE_PAUSED){
-		resetDraw();
-		colorText("PAUSED", canvas.width/scaleWidth*0.4, canvas.height/scaleHeight*0.5, "white", "36px Arial Black", );
-    }
+
     if (isMuted && isMutedByShortcut) {
     	canvasContext.drawImage(mutePic, 25, 25);
 	}
@@ -622,6 +619,12 @@ function drawEverything() {
 	else if (gameState == STATE_WRECKED)
 	{
 	    drawWreckedScreen();
+	}
+	
+	else if (gameState == STATE_PAUSED)
+	{
+		//resetDraw();
+		colorText("PAUSED", canvas.width/scaleWidth*0.4, canvas.height/scaleHeight*0.5, "white", "36px Arial Black", );
 	}
 
 }
