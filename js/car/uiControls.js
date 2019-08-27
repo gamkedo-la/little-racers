@@ -48,18 +48,18 @@ function initInput(){
 	document.addEventListener("keyup", keyReleased);
 	
 	canvas.addEventListener('click',function(evt){
-		if(levelEditor){
+		if(gameState == STATE_LEVEL_EDITOR){
 			mouseClick(mouseX, mouseY);
-		} else if(titleScreen){
+		} else if(gameState == STATE_TITLE_SCREEN) {
 			titleScreenMouseClick(mouseX, mouseY);
-		} else if(carUpgradeScreen){
+		} else if(gameState == STATE_CAR_UPGRADE_SCREEN){
 			carUpgradeScreenMouseClick(mouseX, mouseY);
-		} else if(enterPlayerName) {
+		} else if(gameState == STATE_ENTER_PLAYER_NAME) {
 			console.log("This should execute");
 			enterPlayerNameScreenMouseClick(mouseX, mouseY);
-		} else if(winScreen){
+		} else if(gameState == STATE_WIN_SCREEN){
 			winScreenMouseClick();
-		} else if(paused){
+		} else if(gameState == STATE_PAUSED){
 			resetGame(mouseX, mouseY);
 		} 
 	} );
@@ -82,7 +82,7 @@ function keyPressed(evt) {
 	var enterPlayerNameKey = KEY_2;
 	
 	var camJump = 40;
-	if(levelEditor){
+	if(gameState == STATE_LEVEL_EDITOR){
 		switch (evt.keyCode){
 			case KEY_UP_ARROW:
 				camPanY -= camJump;
@@ -129,19 +129,21 @@ function keyPressed(evt) {
 	
 	evt.preventDefault();
 	if (muteKey == evt.keyCode) {
-		isMuted = paused || !isMuted;
+		isMuted = (gameState == STATE_PAUSED) || !isMuted;
 		isMutedByShortcut = isMuted;
 	} else if(pausedKey == evt.keyCode){
-		paused = !paused;
-		isMuted = paused || isMutedByShortcut;
+		if (gameState != STATE_PAUSED) {
+			updateState(STATE_PAUSED);
+		} else {
+			updateState(STATE_PLAY);
+		}	
+		isMuted = (gameState == STATE_PAUSED) || isMutedByShortcut;
 	} else if (levelEditorKey == evt.keyCode) {
-		const newEditorState = !levelEditor;
-		if (newEditorState) {
+		if (gameState != STATE_LEVEL_EDITOR) {
 			updateState(STATE_LEVEL_EDITOR);
 		} else {
 			updateState(STATE_PLAY);
 		}	
-//		levelEditor = !levelEditor;
 	} else if (debugKey == evt.keyCode){
 		debugMode = !debugMode;
 	} else if (debugMode){		//Debug options

@@ -34,14 +34,6 @@ var twoPlayerGame = false;
 var computerPlayerOn = true;
 
 //Game States
-var titleScreen = true;
-var levelEditor = false;
-var winScreen = false;
-var carUpgradeScreen = false;
-var paused = false;
-var raceHasStarted = false;
-var enterPlayerName = false;
-
 const STATE_TITLE_SCREEN = 0;
 const STATE_LEVEL_EDITOR = 1;
 const STATE_WIN_SCREEN = 2;
@@ -80,11 +72,15 @@ window.onload = function(){
 		addVehicle();
 	}
 	window.addEventListener('focus', function () {
-		paused = false;
+		if (gameState == STATE_PAUSED) {
+			updateState (STATE_PLAY);
+		}
 		isMuted = isMutedByShortcut && isMuted;
 	});
 	window.addEventListener('blur', function () {
-		paused = true;
+		if (gameState == STATE_PLAY) {
+			updateState (STATE_PAUSED);
+		}
 		isMuted = true;
 	});
 	window.addEventListener('resize', reportWindowResize);
@@ -228,7 +224,7 @@ function moveEverything() {
 
     updateTime();
 
-    if(titleScreen || enterPlayerName || levelEditor || winScreen || carUpgradeScreen)
+    if(gameState != STATE_PLAY)
     {
         //Not racing, so reset all the race start info.
         raceStartTimer = 0;
@@ -242,7 +238,7 @@ function moveEverything() {
         return;
     }
 
-    if(paused)
+    if(gameState == STATE_PAUSED)
     {
         lastFrameTime=now;
     }
@@ -518,7 +514,7 @@ function drawCommonScreenElements()
 	drawClock(canvasContext, 375, 0);
 	
 	trackMap.draw();
-    if (paused){
+    if (gameState == STATE_PAUSED){
 		resetDraw();
 		colorText("PAUSED", canvas.width/scaleWidth*0.4, canvas.height/scaleHeight*0.5, "white", "36px Arial Black", );
     }
@@ -562,31 +558,24 @@ function drawP2Screen() {
 
 function updateState(newState) {
 	gameState = newState;
-
-	titleScreen = (gameState == STATE_TITLE_SCREEN);
-	enterPlayerName = (gameState == STATE_ENTER_PLAYER_NAME);
-	levelEditor = (gameState == STATE_LEVEL_EDITOR);
-	winScreen = (gameState == STATE_WIN_SCREEN);
-	carUpgradeScreen = (gameState == STATE_CAR_UPGRADE_SCREEN);
-
 	reportWindowResize();
 }
 
 function drawEverything() {
-    if(titleScreen)
+    if(gameState == STATE_TITLE_SCREEN)
     {
         enableMainCanvasOnly();
 		drawTitleScreen();
     }
-    else if(enterPlayerName)
+    else if(gameState == STATE_ENTER_PLAYER_NAME)
     {
 		drawEnterPlayerNameScreen(canvas, canvasContext);
     }
-    else if (levelEditor)
+    else if (gameState == STATE_LEVEL_EDITOR)
     {
 		drawLevelEditor(canvas, canvasContext);
 	}
-	else if (winScreen)
+	else if (gameState == STATE_WIN_SCREEN)
 	{
 	    enableMainCanvasOnly();
 	    drawWinScreen(canvas, canvasContext);
@@ -595,7 +584,7 @@ function drawEverything() {
 			drawTracksByTile();
 		}
 	}
-	else if (carUpgradeScreen)
+	else if (gameState == STATE_CAR_UPGRADE_SCREEN)
 	{
 	    enableMainCanvasOnly();
 

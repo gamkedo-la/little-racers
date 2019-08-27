@@ -676,8 +676,9 @@ function SmokeFXClass(smokeCanvas) {
         
 		const dt = Math.min((Date.now() - lastTime) / 1000, 0.016);
 
-        if (window.titleScreen) titlescreenFX(dt);
-
+        if (gameState == STATE_TITLE_SCREEN) {
+        	titlescreenFX(dt);
+        }
         lastTime = Date.now();
 		gl.viewport(0, 0, textureWidth, textureHeight);
 		advectionProgram.bind();
@@ -877,7 +878,7 @@ function SmokeFXStartRendering() {
     // this also stops any CPU/GPU use:
     // SmokeFX (WebGL) will no longer run
     // at all during the game this way:
-    if (!titleScreen && !SMOKE_FX_IN_GAME) {
+    if (gameState != STATE_TITLE_SCREEN && !SMOKE_FX_IN_GAME) {
         SmokeFX.stop();
     }
     else {
