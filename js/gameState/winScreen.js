@@ -70,15 +70,8 @@ function drawWinScreen(canvas, canvasContext){
 
 function winScreenMouseClick() {
 
-	const stateObj = {
-		titleScreen:false,
-		levelEditor:false,
-		winScreen:false,
-		carUpgradeScreen:true,
-		enterPlayerName:false
-	};
 	nextLevel();
-	updateState(stateObj);
+	updateState(STATE_CAR_UPGRADE_SCREEN);
 	clearRacePositions();
 	tireTracks.clear();
 }	

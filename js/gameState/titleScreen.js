@@ -3,26 +3,12 @@ function titleScreenMouseClick(mousePosX, mousePosY) {
 	if(mousePosX > 200 * scaleWidth && mousePosX < 300 * scaleWidth && mousePosY > 400 * scaleHeight && mousePosY < 450 * scaleHeight){
 		vehicleList[0].computerPlayer = false;
 		vehicleList[1].computerPlayer = true;
-		const stateObj = {
-			titleScreen:false,
-			levelEditor:false,
-			winScreen:false,
-			carUpgradeScreen:false,
-			enterPlayerName:false
-		}
-		updateState(stateObj);
+		updateState(STATE_PLAY);
 	} else if(mousePosX > 500 * scaleWidth && mousePosX < 600 * scaleWidth && mousePosY > 400 * scaleHeight && mousePosY < 450 * scaleHeight){
 		console.log('2 Players');
 		vehicleList[0].computerPlayer = false;
 		vehicleList[1].computerPlayer = false;
-		const stateObj = {
-			titleScreen:false,
-			levelEditor:false,
-			winScreen:false,
-			carUpgradeScreen:false,
-			enterPlayerName:false
-		}
-		updateState(stateObj);
+		updateState(STATE_PLAY);
 		windowWasResized = true;
 	}
 	else if(mousePosX > 350 * scaleWidth && mousePosX < 500 * scaleWidth && mousePosY > 300 * scaleHeight && mousePosY < 350 * scaleHeight){

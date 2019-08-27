@@ -42,6 +42,16 @@ var paused = false;
 var raceHasStarted = false;
 var enterPlayerName = false;
 
+const STATE_TITLE_SCREEN = 0;
+const STATE_LEVEL_EDITOR = 1;
+const STATE_WIN_SCREEN = 2;
+const STATE_CAR_UPGRADE_SCREEN = 3;
+const STATE_PAUSED = 4;
+const STATE_RACE_HAS_STARTED = 5;
+const STATE_ENTER_PLAYER_NAME = 6;
+const STATE_PLAY = 7;
+var gameState = STATE_TITLE_SCREEN;
+
 var raceStartTimer = 0;
 var drawStartLightsTimer = 0;
 var displayRedLight = false;
@@ -550,12 +560,14 @@ function drawP2Screen() {
 	}
 }
 
-function updateState(stateObj) {
-	titleScreen = stateObj.titleScreen;
-	enterPlayerName = stateObj.enterPlayerName;
-	levelEditor = stateObj.levelEditor;
-	winScreen = stateObj.winScreen;
-	carUpgradeScreen = stateObj.carUpgradeScreen;
+function updateState(newState) {
+	gameState = newState;
+
+	titleScreen = (gameState == STATE_TITLE_SCREEN);
+	enterPlayerName = (gameState == STATE_ENTER_PLAYER_NAME);
+	levelEditor = (gameState == STATE_LEVEL_EDITOR);
+	winScreen = (gameState == STATE_WIN_SCREEN);
+	carUpgradeScreen = (gameState == STATE_CAR_UPGRADE_SCREEN);
 
 	reportWindowResize();
 }

@@ -202,24 +202,10 @@ function enterPlayerNameScreenMouseClick(mousePosX, mousePosY) {
         deleteALetter()
     } else if (checkLetterBox(mousePosX, mousePosY, 600, nameScreenRowthreeStartY)) { //enter
         playersName = position1.concat(position2, position3, position4, position5, position6, position7, position8, position9);
-        const stateObj = {
-            titleScreen: false,
-            levelEditor: false,
-            winScreen: true,
-            carUpgradeScreen: false,
-            enterPlayerName: false
-        };
-        updateState(stateObj);
+        updateState(STATE_WIN_SCREEN);
     } else if (checkLetterBox(mousePosX, mousePosY, 650, nameScreenRowthreeStartY)) { //enter
         playersName = position1.concat(position2, position3, position4, position5, position6, position7, position8, position9);
-        const stateObj = {
-            titleScreen: false,
-            levelEditor: false,
-            winScreen: true,
-            carUpgradeScreen: false,
-            enterPlayerName: false
-        };
-        updateState(stateObj);
+        updateState(STATE_WIN_SCREEN);
     }
 }
 

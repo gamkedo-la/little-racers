@@ -62,23 +62,9 @@ function whichPlace(car){
 	
 	if(carPlaces.length == 8){
 		if(!newRecord){
-			const stateObj = {
-				titleScreen:false,
-				levelEditor:false,
-				winScreen:true,
-				carUpgradeScreen:false,
-				enterPlayerName:false
-			};
-			updateState(stateObj);
+			updateState(STATE_WIN_SCREEN);
 		} else {
-			const stateObj = {
-				titleScreen:false,
-				levelEditor:false,
-				winScreen:false,
-				carUpgradeScreen:false,
-				enterPlayerName:true
-			}
-			updateState(stateObj);
+			updateState(STATE_ENTER_PLAYER_NAME);
 		}
 	}
 }	
