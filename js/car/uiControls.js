@@ -5,6 +5,7 @@ const KEY_D = 68;
 const KEY_F = 70;
 const KEY_L = 76;
 const KEY_C = 67;
+const KEY_Q = 81;
 
 const KEY_INSERT = 45;
 const KEY_HOME = 36;
@@ -13,6 +14,7 @@ const KEY_DELETE = 46;
 const KEY_END = 35;
 const KEY_PAGE_DOWN = 34; //not all keyboards have a KEY_PAGE_DOWN
 const KEY_ENTER = 13;
+const KEY_SHIFT = 16;
 
 const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38;
@@ -69,9 +71,9 @@ function initInput(){
 	
 	
 	if(computerPlayerOn) {
-		vehicleList[1].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER);
+		vehicleList[1].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER, KEY_SHIFT);
 	}
-	vehicleList[0].setupControls(KEY_W, KEY_S, KEY_A, KEY_D, KEY_F);
+	vehicleList[0].setupControls(KEY_W, KEY_S, KEY_A, KEY_D, KEY_F, KEY_Q);
 }
 
 function keyPressed(evt) {
@@ -125,8 +127,14 @@ function keyPressed(evt) {
 		} else {
 			setKeyHoldState(evt.keyCode, vehicleList[0], true);
 			setKeyHoldState(evt.keyCode, vehicleList[1], true);	
-		}
 
+			if(evt.keyCode == vehicleList[0].controlKeyForRocketFire){
+				vehicleList[0].rocketFire();
+			}
+			if(evt.keyCode == vehicleList[1].controlKeyForRocketFire){
+				vehicleList[1].rocketFire();
+			}
+		}
 	}
 	
 	evt.preventDefault();

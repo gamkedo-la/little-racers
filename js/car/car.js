@@ -49,6 +49,7 @@ const CRACK_SPEED_REDUCTION = 0.87;
 var finalLappedCalled = false;
 
 function carClass() {
+	this.myRocket = new rocketClass();
     this.x = 60;
     this.y = 60;
     this.oldX = this.x;
@@ -98,12 +99,13 @@ function carClass() {
     this.healthRemaining = this.maxHealth;
 
 
-    this.setupControls = function(forwardKey, backKey, leftKey, rightKey, nitroKey) {
+    this.setupControls = function(forwardKey, backKey, leftKey, rightKey, nitroKey, shotKey) {
         this.controlKeyForGas = forwardKey;
         this.controlKeyForReverse = backKey;
         this.controlKeyForTurnLeft = leftKey;
         this.controlKeyForTurnRight = rightKey;
         this.controlKeyForNitro = nitroKey;
+		this.controlKeyForRocketFire = shotKey;
     }
 
     this.carReset = function(whichGraphic, whichName, computer) {
@@ -497,7 +499,15 @@ function carClass() {
         this.handleTileEffects();
         this.skidMarkHandling();
         this.updateDamageParticles();
+		this.myRocket.movement();
     }
+	
+	this.rocketFire = function(){
+		//if(this.myRocket.isShotReadyToFire()){
+			this.myRocket.shootFrom(this); 
+			console.log("Fired");
+		//}
+	}
 
     //Handle AI steering and throttle
     this.doComputerPlayerDriving = function() {
@@ -1169,6 +1179,15 @@ function carClass() {
             otherCar.speed *= 0.75;
         }
     }
+	
+		
+	this.checkMyRocketCollisionAgainst = function(thisEnemy){
+		if(this.myShot.hitTest(thisEnemy)){
+			//damage
+			this.myShot.reset();
+			document.getElementById("debugText").innerHTML = "Enemy car hit";
+		}
+	}
 
     this.drawCar = function(canvasContext) {
         var visualAngAdjust = 0;
@@ -1182,7 +1201,8 @@ function carClass() {
             yOffSet = yOffSet - 10;
         }
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang + visualAngAdjust, canvasContext);
-        if (debugMode) {
+        this.myRocket.draw();
+		if (debugMode) {
             //Please leave this here but commented out so I don't have to remember how to set it up properly.
             //Draws the red rectangles around cars; use if you're needing some help with collision detection.
             //drawRotatedRectWithLines(this.x - (this.z / 4), this.y - (this.z / 2), CAR_WIDTH + 8, CAR_HEIGHT + 8, this.ang);
