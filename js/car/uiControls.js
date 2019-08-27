@@ -61,6 +61,8 @@ function initInput(){
 			winScreenMouseClick();
 		} else if(gameState == STATE_PAUSED){
 			resetGame(mouseX, mouseY);
+		} else if(gameState == STATE_WRECKED){
+			wreckedScreenMouseClick(mouseX, mouseY);
 		} 
 	} );
 	

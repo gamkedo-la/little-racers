@@ -42,6 +42,7 @@ const STATE_PAUSED = 4;
 const STATE_RACE_HAS_STARTED = 5;
 const STATE_ENTER_PLAYER_NAME = 6;
 const STATE_PLAY = 7;
+const STATE_WRECKED = 8;
 var gameState = STATE_TITLE_SCREEN;
 
 var raceStartTimer = 0;
@@ -259,6 +260,11 @@ function moveEverything() {
 			//Move all vehicles. Includes AI decisions on turning and gas.
 			for (var i = 0; i < vehicleList.length; i++) {
 				vehicleList[i].movement();
+			}
+
+			if (vehicleList[0].healthRemaining <= 0) {
+				updateState (STATE_WRECKED);
+				console.log ("player 1 wrecked -- does not handle two player mode, yet");
 			}
 
             //Handle collisions between cars based on their new positions.
@@ -557,6 +563,7 @@ function drawP2Screen() {
 }
 
 function updateState(newState) {
+	console.log (newState);
 	gameState = newState;
 	reportWindowResize();
 }
@@ -593,7 +600,7 @@ function drawEverything() {
 	    //TODO: code to manage which player is being presented upgrade options.
         //Currently only player one can upgrade.
 	}
-	else //Game is running, draw the main race screen.
+	else if (gameState == STATE_PLAY)
 	{
 	    enableP1P2CanvasesWithOverlayOption(true);
 
@@ -611,6 +618,10 @@ function drawEverything() {
 			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white",);
 		}
 		
+	}
+	else if (gameState == STATE_WRECKED)
+	{
+	    drawWreckedScreen();
 	}
 
 }
