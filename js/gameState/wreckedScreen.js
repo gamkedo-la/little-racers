@@ -6,5 +6,5 @@ function drawWreckedScreen(){
 
     canvasContext.clearRect(0,0,canvas.width,canvas.height);
  
-    canvasContext.drawImage(wreckedScreenGreenPic, 0, 0, canvas.width / scaleWidth, canvas.height / scaleHeight); // can't use canvas.width /2 due to scaling wierdness
+    canvasContext.drawImage(wreckedScreenYellowPic, 0, 0, canvas.width / scaleWidth, canvas.height / scaleHeight); // can't use canvas.width /2 due to scaling wierdness
 }

@@ -17,6 +17,13 @@ var bodyShopGaragePic = document.createElement("img");
 var characterSelectionPic = document.createElement("img");
 var keyPic = document.createElement("img");
 var wreckedScreenGreenPic = document.createElement("img");
+var wreckedScreenYellowPic = document.createElement("img");
+var wreckedScreenOrangePic = document.createElement("img");
+var wreckedScreenPurplePic = document.createElement("img");
+var wreckedScreenRedPic = document.createElement("img");
+var wreckedScreenBluePic = document.createElement("img");
+var wreckedScreenLightgrayPic = document.createElement("img");
+var wreckedScreenDarkgrayPic = document.createElement("img");
 //upgrades
 var tireTrackPic = document.createElement("img");
 var tireOptionOnePic = document.createElement("img");
@@ -106,6 +113,13 @@ function loadImages() {
 			{varName: keyPic, theFile: "backdrops/key.png"},
 			{varName: resultScreenPic, theFile: "backdrops/resultScreenBackground.png"},
 			{varName: wreckedScreenGreenPic, theFile: "backdrops/wreckedScreen_1_green.png"},
+			{varName: wreckedScreenYellowPic, theFile: "backdrops/wreckedScreen_2_yellow.png"},
+			{varName: wreckedScreenOrangePic, theFile: "backdrops/wreckedScreen_3_orange.png"},
+			{varName: wreckedScreenPurplePic, theFile: "backdrops/wreckedScreen_4_purple.png"},
+			{varName: wreckedScreenRedPic, theFile: "backdrops/wreckedScreen_5_red.png"},
+			{varName: wreckedScreenBluePic, theFile: "backdrops/wreckedScreen_6_blue.png"},
+			{varName: wreckedScreenLightgrayPic, theFile: "backdrops/wreckedScreen_7_lightgray.png"},
+			{varName: wreckedScreenDarkgrayPic, theFile: "backdrops/wreckedScreen_8_darkgray.png"},
 			{varName: tireOptionOnePic, theFile: "upgrades/tireOptionOne.png"},
 			{varName: tireOptionTwoPic, theFile: "upgrades/tireOptionTwo.png"},
 			{varName: tireOptionThreePic, theFile: "upgrades/tireOptionThree.png"},
