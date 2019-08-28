@@ -71,6 +71,7 @@ function carClass() {
     this.nitroBoostOn = false;
     this.wayPointNumber = 0;
     this.wayPointNumberPrev = 0;
+	this.computerReloadingWait = 0;
     this.wrongDirectionTimerInterval = 150;
     this.wrongDirectionTimer = 0;
     this.wrongDirectionTimerPrev = 0;
@@ -178,6 +179,7 @@ function carClass() {
 		this.recordNewDistance = true;
         this.quirks = getDriverQuirksForName(this.myName);
 		this.finishTime = 0;
+		this.computerRandomizedShotWait();
     }
 
     function getDriverQuirksForName(aName) {
@@ -503,15 +505,24 @@ function carClass() {
     }
 	
 	this.rocketFire = function(){
-		//if(this.myRocket.isShotReadyToFire()){
+		if(this.myRocket.isShotReadyToFire()){
 			this.myRocket.shootFrom(this); 
 			console.log("Fired");
-		//}
+		}
 	}
-
+	
+	this.computerRandomizedShotWait = function() {
+		var minSec = 2;
+		var randExtraSec = 3;
+		this.computerReloadingWait = (minSec * FPS) + Math.random() * (randExtraSec * FPS);
+	}
     //Handle AI steering and throttle
     this.doComputerPlayerDriving = function() {
-
+		
+		if(this.computerReloadingWait-- < 0){
+			this.rocketFire();
+			this.computerRandomizedShotWait();
+		}
         if (this.stopCar) { //Car stopped due to things like being done the race and parked.
             this.keyHeld_Gas = false;
             this.speed = 0;

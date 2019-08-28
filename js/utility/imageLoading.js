@@ -8,6 +8,7 @@ var carPic6 = document.createElement("img");
 var carPic7 = document.createElement("img");
 var carPic8 = document.createElement("img");
 var carShadowPic = document.createElement("img");
+var rocketPic = document.createElement("img");
 //Backgrounds
 var resultScreenPic = document.createElement("img");
 var titleScreenePic = document.createElement("img");
@@ -95,6 +96,7 @@ function loadImages() {
 			{varName: carPic6, theFile: "vehicles/player6.png"},
 			{varName: carPic7, theFile: "vehicles/player7.png"},
 			{varName: carPic8, theFile: "vehicles/player8.png"},
+			{varName: rocketPic, theFile: "vehicles/rocket.png"},
 			{varName: tireTrackPic, theFile: "vehicles/tireTracks.png"},
 			{varName: carShadowPic, theFile: "vehicles/car_shadow.png"},
 			{varName: bodyShopPic, theFile: "backdrops/bodyShop.png"},
