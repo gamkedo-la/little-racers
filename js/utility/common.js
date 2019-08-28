@@ -5,7 +5,8 @@ const RADIANS_180_DEGREES_NEGATIVE = -Math.PI;
 const RADIANS_120_DEGREES_NEGATIVE = -Math.PI * 2 / 3;
 const RADIANS_90_DEGREES_NEGATIVE = -Math.PI / 2;
 const RADIANS_45_DEGREES_POSITIVE = Math.PI / 4;
-const RADIANS_0_DEGREES = 0;
+const RADIANS_0_DEGREES = 0
+const VISION_CONE_DOTPRODUCT = 0.707; // Plus/Minus 45 degrees for a 90 degree slice
 
 //Calculates a point in world space from a center when rotated by an angle.
 function getRotatedPoint(centerX, centerY, pX, pY, angle) {
@@ -25,6 +26,19 @@ function getRotatedPoint(centerX, centerY, pX, pY, angle) {
 function dotProduct(x1, y1, x2, y2)
 {
     return (x1 * x2 + y1 * y2);
+}
+
+function isInFrontOf(x1, y1, ang1, x2, y2)
+{
+	var obj1VectorX = Math.cos(ang1);
+	var obj1VectorY = Math.sin(ang1);
+
+	var vecToObj2X = x2 - x1;
+	var vecToObj2Y = y2 - y1;
+	var vecToObj2 = normalizeVector(vecToObj2X, vecToObj2Y);
+
+	var dot = dotProduct(obj1VectorX, obj1VectorY, vecToObj2X, vecToObj2Y);
+	return (dot > VISION_CONE_DOTPRODUCT);
 }
 
 function normalizeVector(x1, y1)

@@ -36,10 +36,9 @@ const NITRO_FRAME_DURATION = 30; //Being measured in frames, so at 30fps this is
 const NITRO_BOOST_BASE_AMOUNT = .5; //Speed increase per frame.
 const NITRO_START_QUANTITY = 5;
 const AI_BRAKING_DISTANCE = 50;   //Measured from car center.
-const AI_BRAKING_OBSERVATION_ANGLE_90 = 0.707;
-const AI_BRAKING_OBSERVATION_ANGLE_110 = 0.5743;
 const AI_STUCK_TIME_FRAMES = 10;
 const AI_RANDOM_MOVEMENT_FRAMES = 30;
+const AI_SHOOT_DISTANCE = 300;
 const CAR_WIDTH = 28; //These are determined from examination of the graphics. May be used for collisions (WIP).
 const CAR_HEIGHT = 12;
 const CAR_LOW_FUEL_LEVEL = 20; // Displays low fuel indicator when fuelInTank is lower than val
@@ -180,6 +179,7 @@ function carClass() {
         this.quirks = getDriverQuirksForName(this.myName);
 		this.finishTime = 0;
 		this.computerRandomizedShotWait();
+		this.rocketQuantity = 5;
     }
 
     function getDriverQuirksForName(aName) {
@@ -520,8 +520,12 @@ function carClass() {
     this.doComputerPlayerDriving = function() {
 		
 		if(this.computerReloadingWait-- < 0){
-			this.rocketFire();
-			this.computerRandomizedShotWait();
+			if(this.rocketQuantity > 0){
+				if (this.isAnotherCarNearAndInFront(AI_SHOOT_DISTANCE)){
+					this.rocketFire();
+					this.computerRandomizedShotWait();
+				}
+			}
 		}
         if (this.stopCar) { //Car stopped due to things like being done the race and parked.
             this.keyHeld_Gas = false;
@@ -531,7 +535,7 @@ function carClass() {
         }
         else
         {
-            if (this.isAnotherCarNearAndInFront())
+            if (this.isAnotherCarNearAndInFront(AI_BRAKING_DISTANCE))
             {
                 this.keyHeld_Gas = false; //This requires adjustment based on AI characteristics for aggressiveness, mood, etc.
             }
@@ -561,35 +565,20 @@ function carClass() {
     //This is pretty inefficient. Ideally, we could check all interactions and record the state, then make the decision later.
     //But since we're doing this as part of the movement for each car, we'll need to check it every time.
     //To save some overhead, return as soon as a close car in front is found.
-    this.isAnotherCarNearAndInFront = function()
+    this.isAnotherCarNearAndInFront = function(howClose)
     {
         for (var i = 0; i < vehicleList.length; i++) {
             if (this != vehicleList[i])
             {
                 var distance = dist(this.x, this.y, vehicleList[i].x, vehicleList[i].y);
 
-                if(distance < AI_BRAKING_DISTANCE)
-                {
-                    //Get this car's driving vector (unit vector).
-                    var carVectorX = Math.cos(this.ang);
-                    var carVectorY = Math.sin(this.ang);
-
-                    //Get the unit vector to the other car.
-                    var vecToOtherCar = {}
-                    vecToOtherCar.x = vehicleList[i].x - this.x;
-                    vecToOtherCar.y = vehicleList[i].y - this.y;
-                    vecToOtherCar = normalizeVector(vecToOtherCar.x, vecToOtherCar.y);
-
-                    var dot = dotProduct(carVectorX, carVectorY, vecToOtherCar.x, vecToOtherCar.y);
-
-                    //This check tests two things:
-                    // 1) Dot product greater than 0 means the other car is in front of this car. (Vectors are in the same direction)
-                    // 2) Since they were both unit vectors the result will always be from -1..1. A 45 degree angle between the vectors
-                    //    gives a result of 0.707. So checking for > 0.707 means the other car is within a 90 degree window of this car.
-                    if (dot > AI_BRAKING_OBSERVATION_ANGLE_90)
-                    {
-                        return true;
-                    }
+                if(distance < howClose)
+                {	
+					var frontTest = isInFrontOf(this.x, this.y, this.ang, vehicleList[i].x, vehicleList[i].y);
+					
+					if(frontTest){
+						return true; // bailing, no need to check other cars
+					}
                 }
             }
         }
