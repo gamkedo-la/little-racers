@@ -43,6 +43,7 @@ const STATE_RACE_HAS_STARTED = 5;
 const STATE_ENTER_PLAYER_NAME = 6;
 const STATE_PLAY = 7;
 const STATE_WRECKED = 8;
+const STATE_WRECKED_P2 = 9;
 var gameState = STATE_TITLE_SCREEN;
 
 var raceStartTimer = 0;
@@ -265,6 +266,11 @@ function moveEverything() {
 			if (vehicleList[0].healthRemaining <= 0) {
 				updateState (STATE_WRECKED);
 				console.log ("player 1 wrecked -- does not handle two player mode, yet");
+			}
+
+			if (vehicleList[1].healthRemaining <= 0) {
+				updateState (STATE_WRECKED_P2);
+				console.log ("player 2 wrecked -- does not handle two player mode, yet");
 			}
 
             //Handle collisions between cars based on their new positions.
@@ -621,7 +627,14 @@ function drawEverything() {
 	}
 	else if (gameState == STATE_WRECKED)
 	{
-	    drawWreckedScreen();
+	    drawWreckedScreenP1();
+
+	}
+
+	else if (gameState == STATE_WRECKED_P2)
+	{
+	    drawWreckedScreenP2();
+
 	}
 	
 	else if (gameState == STATE_PAUSED)
