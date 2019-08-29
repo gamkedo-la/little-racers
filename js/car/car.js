@@ -1181,10 +1181,10 @@ function carClass() {
     }
 	
 		
-	this.checkMyRocketCollisionAgainst = function(thisEnemy){
-		if(this.myShot.hitTest(thisEnemy)){
-			//damage
-			this.myShot.reset();
+	this.checkMyRocketCollisionAgainst = function(otherCar){
+		if(this.myRocket.hitTest(otherCar)){
+			otherCar.takeDamage(5)
+			this.myRocket.reset();
 			document.getElementById("debugText").innerHTML = "Enemy car hit";
 		}
 	}

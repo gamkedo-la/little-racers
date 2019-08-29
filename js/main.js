@@ -277,6 +277,7 @@ function moveEverything() {
 			for (var i = 0; i < vehicleList.length; i++) {
 				for (var ii = i+1; ii < vehicleList.length; ii++) {
 					vehicleList[i].checkCarCollisionAgainst(vehicleList[ii]);
+					vehicleList[i].checkMyRocketCollisionAgainst(vehicleList[ii]);
 				}
 			}
 			

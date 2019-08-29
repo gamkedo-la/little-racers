@@ -39,26 +39,22 @@ function rocketClass(){
 	this.movement = function() { 
 		this.x += this.xv; // NaN - Need to Troubleshoot
 		this.y += this.yv; // NaN - Need to Troubleshoot
-		console.log("Text XV: " + this.xv + " YV: " + this.yv);
-		//this.y = 100;
-		//console.log("Rocket X: " + this.x + " Y: " + this.y);
- 
+		
 		if(this.rocketLife > 0){
 			this.rocketLife--;
 		}
 	}	
 	
-	this.hitTest = function(thisEnemy) {
+	this.hitTest = function(otherCar) {
 		if(this.rocketLife <= 0) {
 			return false;
 		}
-		return thisEnemy.isOverlappingPoint(this.x,this.y);
+		return otherCar.isOverlappingPoint(this.x,this.y);
 	}
 	
 	this.draw = function(){
-		//if(this.rocketLife > 0){
-			console.log("Rocket Draw X: " + this.x + " Y: " + this.y);
+		if(this.rocketLife > 0){
 			drawBitmapCenteredAtLocationWithRotation(rocketPic, this.x, this.y, this.ang, canvasContext);
-		//}
+		}
 	}
 }

@@ -24,9 +24,6 @@ function createCarSoundList() {
 	}
 }
 
-
-
-
 function setFormat() {
     var audio = new Audio();
     if (audio.canPlayType("audio/mp3")) {
