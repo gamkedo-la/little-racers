@@ -213,7 +213,7 @@ function resetDraw() {
 
 function resetGame(mousePosX, mousePosY) {
 	if(mousePosX > 320 * scaleWidth && mousePosX < (320+150) * scaleWidth && mousePosY > 310 * scaleHeight && mousePosY < (310+400) * scaleHeight){
-		location.reload();	
+		loadLevel(levelList[0]);
 	}
   }
 

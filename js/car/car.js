@@ -561,6 +561,9 @@ function carClass() {
         }
     }
 
+   this.isOverlappingPoint = function(atX, atY){
+        return dist(this.x, this.y, atX, atY)<20;
+   }
     //Check if there is at least one car in front and the AI may want to brake.
     //This is pretty inefficient. Ideally, we could check all interactions and record the state, then make the decision later.
     //But since we're doing this as part of the movement for each car, we'll need to check it every time.
