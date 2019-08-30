@@ -152,6 +152,15 @@ function getCurrentTrackRows() {
 	return levelList[levelNow].rows;
 }
 
+function resetLevel(){
+ 	terrainChanged = true;
+	loadLevel(levelList[levelNow]);
+	for (var i = 0; i < vehicleList.length; i++) {
+		vehicleList[i].updateWayPoints();
+	}
+	updateState(STATE_PLAY);
+}
+
 function nextLevel() {
 	terrainChanged = true;
 	levelNow++;
