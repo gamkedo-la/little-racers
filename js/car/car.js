@@ -111,6 +111,7 @@ function carClass() {
 
     this.carReset = function(whichGraphic, whichName, computer) {
         this.name = whichName;
+        this.healthRemaining = this.maxHealth;
         this.speed = 0;
         this.finishRace = false;
         this.stopCar = false;

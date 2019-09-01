@@ -88,6 +88,10 @@ window.onload = function(){
 	window.addEventListener('resize', reportWindowResize);
 	loadImages();
 	initInput();
+	resetCars();
+}
+
+function resetCars() {
 	for (var i = 0; i < vehicleList.length; i++) {
 		vehicleList[i].carReset();
 	}
