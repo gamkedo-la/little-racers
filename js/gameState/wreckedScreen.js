@@ -1,4 +1,5 @@
 function wreckedScreenMouseClick(mousePosX, mousePosY) {
+    resetLevel();
     updateState (STATE_TITLE_SCREEN);
     resetCars();
 }
