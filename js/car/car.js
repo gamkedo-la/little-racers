@@ -856,6 +856,9 @@ function carClass() {
             case LAKE_GRASS_2:
             case LAKE_GRASS_3:
             case LAKE_GRASS_4:
+			case TRACK_SIDEWALK:
+			case TRACK_L_SHAPE_HOUSE_E:
+			case TRACK_LONG_HOUSE_D:
                 if (!this.airborne) {
                     this.turnRateTileMultiplier = TURN_RATE_MULTIPLIER_GRASS;
                     if (this.speed > GRASS_SLOWDOWN_THRESHOLD)
