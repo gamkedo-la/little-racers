@@ -1,5 +1,6 @@
 
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
+const USE_HEADLIGHTS = true; // if true draw headlight beams and glows
 const DRIVE_POWER = 0.45                    //These values from https://docs.google.com/spreadsheets/d/1bj506aOmZ7FRwFtS2wdQl-u09G10rXYQIrxpWryp_gk/edit#gid=953347406
 const GROUNDSPEED_DECAY_MULT = 0.948;
 const ENGINE_BOOST_LEVEL_DIVISOR = 60;
@@ -1200,12 +1201,21 @@ function carClass() {
         if (this.oilSlickRemaining > 0 && Math.abs(this.speed) >= OIL_SLOW_TRACTION_THRESHOLD) {
             visualAngAdjust = Math.sin(this.oilSlickRemaining * 0.4) * Math.PI / 5;
         }
+        
+        // headlight beam
+        if (USE_HEADLIGHTS) {
+            drawBitmapCenteredAtLocationWithRotation(headlightsPic, this.x - (this.z / 4), this.y - (this.z / 2), this.ang + visualAngAdjust, canvasContext);
+        }
+        
+        // shadow
         drawBitmapCenteredAtLocationWithRotation(carShadowPic, this.x, this.y, this.ang + visualAngAdjust, canvasContext);
         var xOffSet = this.x;
         var yOffSet = this.y;
         if (this.airborne) {
             yOffSet = yOffSet - 10;
         }
+        
+        // car sprite
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang + visualAngAdjust, canvasContext);
         this.myRocket.draw();
 		if (debugMode) {

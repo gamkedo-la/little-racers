@@ -71,6 +71,7 @@ var lowFuelPic = document.createElement("img");
 var firstPlaceTrophyPic = document.createElement("img");
 var logoPic = document.createElement("img");
 //var titlescreenPic = document.createElement("img");
+var headlightsPic = document.createElement("img");
 
 var picsToLoad = 0;
 
@@ -158,7 +159,8 @@ function loadImages() {
 			{varName: firstPlaceTrophyPic, theFile: "trophy.png" },
 			{varName: lowFuelPic, theFile: "lowFuelLight.png"},
             //{varName: titlescreenPic, theFile: "background.jpg"},
-            {varName: logoPic, theFile: "logo.png"}
+            {varName: logoPic, theFile: "logo.png"},
+            {varName: headlightsPic, theFile: "vehicles/headlights.png"},
 		];
 
 	picsToLoad = imageList.length;
