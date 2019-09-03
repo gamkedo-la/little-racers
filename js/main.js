@@ -208,19 +208,6 @@ function imageLoadingDoneSoStartGame(){
 	}
 }
 
-function resetDraw() {
-	//console.log(mousePosX, mousePosY);
-	colorRect(320,310,160,40, 'black');
-	colorRect(320,310,50,40, 'white');
-	colorText("RESTART!"  , 335, 340, 'orange', font = "24px Arial Black");
-}
-
-function resetGame(mousePosX, mousePosY) {
-	if(mousePosX > 320 * scaleWidth && mousePosX < (320+160) * scaleWidth && mousePosY > 310 * scaleHeight && mousePosY < (310+400) * scaleHeight){
-		resetLevel();
-	}
-  }
-
 function addVehicle(){
 	var tempVehicle = new carClass();
 	vehicleList.push(tempVehicle);
@@ -532,7 +519,8 @@ function drawCommonScreenElements()
 
 	trackMap.draw();
     if (gameState == STATE_PAUSED){
-		resetDraw();
+		drawPauseMenu();
+		colorText("PAUSED", canvas.width/scaleWidth*0.4+2, canvas.height/scaleHeight*0.5+2, "black", "36px Arial Black", );
 		colorText("PAUSED", canvas.width/scaleWidth*0.4, canvas.height/scaleHeight*0.5, "white", "36px Arial Black", );
     }
     if (isMuted && isMutedByShortcut) {

@@ -62,7 +62,7 @@ function initInput(){
 		} else if(gameState == STATE_WIN_SCREEN){
 			winScreenMouseClick();
 		} else if(gameState == STATE_PAUSED){
-			resetGame(mouseX, mouseY);
+			pauseMenuOnClick(mouseX, mouseY);
 		} else if(gameState == STATE_WRECKED){
 			wreckedScreenMouseClick(mouseX, mouseY);
 		} else if(gameState == STATE_WRECKED_P2){
@@ -77,6 +77,70 @@ function initInput(){
 	}
 	vehicleList[0].setupControls(KEY_W, KEY_S, KEY_A, KEY_D, KEY_F, KEY_Q);
 }
+
+const PAUSEMENU_X = 320;
+const PAUSEMENU_Y = 310;
+const PAUSEMENU_BUTTONW = 288;
+const PAUSEMENU_BUTTONH = 40;
+const PAUSEMENU_SPACING = 50;
+const PAUSEMENU_TXT_X = PAUSEMENU_X + 15;
+const PAUSEMENU_TXT_Y = PAUSEMENU_Y + 30;
+
+function isHoveringRestartButton() {
+    return (mouseX > PAUSEMENU_X * scaleWidth 
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
+        && mouseY > PAUSEMENU_Y * scaleHeight 
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_BUTTONH) * scaleHeight);
+}
+function isHoveringRespawnButton() {
+    return (mouseX > PAUSEMENU_X * scaleWidth 
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
+        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING) * scaleHeight 
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight);
+}
+function isHoveringContinueButton() {
+    return (mouseX > PAUSEMENU_X * scaleWidth 
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
+        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING) * scaleHeight 
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight);
+}
+
+// the pause screen menu
+function drawPauseMenu() {
+	//console.log(mousePosX, mousePosY);
+    colorRect(PAUSEMENU_X,PAUSEMENU_Y,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
+    colorRect(PAUSEMENU_X,PAUSEMENU_Y,50,PAUSEMENU_BUTTONH, 'white');
+    if (isHoveringRestartButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
+	colorText("RESTART RACE"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y, 'orange', font = "24px Arial Black");
+
+	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
+	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING,50,PAUSEMENU_BUTTONH, 'white');
+    if (isHoveringRespawnButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
+	colorText("LAST CHECKPOINT"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y+PAUSEMENU_SPACING, 'orange', font = "24px Arial Black");
+
+	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
+	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,50,PAUSEMENU_BUTTONH, 'white');
+    if (isHoveringContinueButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
+	colorText("CONTINUE"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING, 'orange', font = "24px Arial Black");
+}
+
+function pauseMenuOnClick(mousePosX, mousePosY) {
+    
+    if (isHoveringRestartButton()) {
+        console.log("Clicked the restart button");
+        resetLevel();
+        return;
+    }
+    
+    if (isHoveringContinueButton()) {
+        console.log("Clicked the continue button");
+    }
+
+    if (isHoveringRespawnButton()) {
+        console.log("Clicked the respawn button");
+    }
+
+  }
 
 function keyPressed(evt) {
 	var levelEditorKey = KEY_F1;
