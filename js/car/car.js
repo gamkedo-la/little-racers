@@ -1,6 +1,6 @@
 
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
-const USE_HEADLIGHTS = true; // if true draw headlight beams and glows
+const USE_HEADLIGHTS = true;                // if true draw headlight beams and glows
 const DRIVE_POWER = 0.45                    //These values from https://docs.google.com/spreadsheets/d/1bj506aOmZ7FRwFtS2wdQl-u09G10rXYQIrxpWryp_gk/edit#gid=953347406
 const GROUNDSPEED_DECAY_MULT = 0.948;
 const ENGINE_BOOST_LEVEL_DIVISOR = 60;
@@ -58,7 +58,9 @@ function carClass() {
     this.zVel = 0;
 	this.myBitmap;
 	this.myAnnc;
-	this.finishTime;
+    this.finishTime;
+    
+    this.respawnPosition = { x:0, y:0, ang:0 }; // last known checkpoint
 
     this.turnRate = TURN_RATE_STANDARD;
     this.turnRateTileMultiplier = 1;
@@ -130,8 +132,12 @@ function carClass() {
         }
         this.wayPointX = levelList[levelNow].wayPointsX.slice();
         this.wayPointY = levelList[levelNow].wayPointsY.slice();
+
         this.x = this.homeX;
         this.y = this.homeY;
+        this.respawnPosition.x = this.x;
+        this.respawnPosition.y = this.y;
+        this.respawnPosition.ang = this.ang;
 
         this.wrongDirection = false;
         this.wrongDirectionTimer = 0;
@@ -557,6 +563,7 @@ function carClass() {
             this.checkIfStuck();
             //if low on fuel and past checkPoint C.  Pit stops must come after checkPoint C
             if (this.findPitStop) { //&& this.checkPointC){
+                // FIXME: remove hardcoded values and put into level data
                 this.wayPointX = 150; //test Pitstop for first level
                 this.wayPointY = 460;
             }
@@ -737,8 +744,16 @@ function carClass() {
         }
     }
 
-	 this.recordDistance = function(){ //used for determining which place the car is on during the race
-		if (this.checkPointA && !this.waitForB){
+    //used for determining which place the car is on during the race
+    //remembers this position to respawn during pause or after blowing up 
+    this.recordDistance = function(){ 
+        
+        this.respawnPosition.x = this.x;
+        this.respawnPosition.y = this.y;
+        this.respawnPosition.ang = this.ang;
+        //console.log("New spawnpoint: " + this.respawnPosition.x+','+this.respawnPosition.y+','+this.respawnPosition.ang);
+
+        if (this.checkPointA && !this.waitForB){
 			this.waitForB = true;
 			this.waitForA = false;
 			this.raceDistance++;
@@ -1082,7 +1097,7 @@ function carClass() {
                 //crashIntoConeSound.play();
                 break;
             default: //Handles collision with solid tiles. Really, this catch-all should generally be avoided.
-                console.log("In the default");
+                //console.log("In the default");
                 this.speed = -.5 * this.speed;
         }
     }
