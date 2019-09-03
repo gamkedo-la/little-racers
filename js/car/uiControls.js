@@ -132,12 +132,23 @@ function pauseMenuOnClick(mousePosX, mousePosY) {
         return;
     }
     
-    if (isHoveringContinueButton()) {
-        console.log("Clicked the continue button");
-    }
-
     if (isHoveringRespawnButton()) {
         console.log("Clicked the respawn button");
+        if (vehicleList && vehicleList[0] && vehicleList[0].respawnPosition) {
+            console.log("Moving car 0 to respawn location!");
+            vehicleList[0].x = vehicleList[0].respawnPosition.x;
+            vehicleList[0].y = vehicleList[0].respawnPosition.y;
+            vehicleList[0].ang = vehicleList[0].respawnPosition.ang;
+            vehicleList[0].speed = 0;
+            updateState(STATE_PLAY);
+            isMuted = (gameState == STATE_PAUSED) || isMutedByShortcut;        
+        }
+    }
+
+    if (isHoveringContinueButton()) {
+        console.log("Clicked the continue button");
+		updateState(STATE_PLAY);
+		isMuted = (gameState == STATE_PAUSED) || isMutedByShortcut;        
     }
 
   }
