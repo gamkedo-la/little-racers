@@ -636,4 +636,9 @@ function drawEverything() {
 		drawCommonScreenElements();	
 	}
 
+	else if (gameState == STATE_HELP)
+	{
+		drawHelpScreen();
+	}
+
 }

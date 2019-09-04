@@ -167,7 +167,7 @@ function pauseMenuOnClick(mousePosX, mousePosY) {
 
     if (isHoveringHelpButton()) {
     	console.log("Clicked the help button");
-    	drawHelpScreen();
+    	updateState(STATE_HELP);
     }
 
   }
