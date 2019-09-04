@@ -44,6 +44,7 @@ const STATE_ENTER_PLAYER_NAME = 6;
 const STATE_PLAY = 7;
 const STATE_WRECKED = 8;
 const STATE_WRECKED_P2 = 9;
+const STATE_HELP = 10;
 var gameState = STATE_TITLE_SCREEN;
 
 var raceStartTimer = 0;

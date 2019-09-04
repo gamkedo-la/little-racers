@@ -67,7 +67,9 @@ function initInput(){
 			wreckedScreenMouseClick(mouseX, mouseY);
 		} else if(gameState == STATE_WRECKED_P2){
 			wreckedScreenMouseClick(mouseX, mouseY);
-		} 
+		} else if(gameState == STATE_HELP) {
+			helpScreenMouseClick(mouseX, mouseY);
+		}
 	} );
 	
 	
@@ -161,6 +163,11 @@ function pauseMenuOnClick(mousePosX, mousePosY) {
         console.log("Clicked the continue button");
 		updateState(STATE_PLAY);
 		isMuted = (gameState == STATE_PAUSED) || isMutedByShortcut;        
+    }
+
+    if (isHoveringHelpButton()) {
+    	console.log("Clicked the help button");
+    	drawHelpScreen();
     }
 
   }
