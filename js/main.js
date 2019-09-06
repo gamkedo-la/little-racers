@@ -569,6 +569,7 @@ function updateState(newState) {
 }
 
 function drawEverything() {
+
     if(gameState == STATE_TITLE_SCREEN)
     {
         enableMainCanvasOnly();
@@ -586,7 +587,6 @@ function drawEverything() {
 	{
 	    enableMainCanvasOnly();
 	    drawWinScreen(canvas, canvasContext);
-
 		if((Date.now() - winScreenTime > OFFSCREEN_DRAW_DELAY) && (terrainChanged)) {
 			drawTracksByTile();
 		}
@@ -594,20 +594,27 @@ function drawEverything() {
 	else if (gameState == STATE_CAR_UPGRADE_SCREEN)
 	{
 	    enableMainCanvasOnly();
-
 	    drawCarUpgradeScreen(canvas, canvasContext);
-
 	    //TODO: code to manage which player is being presented upgrade options.
         //Currently only player one can upgrade.
 	}
-	else if (gameState == STATE_PLAY)
+	else if (gameState == STATE_WRECKED)
+	{
+	    drawWreckedScreenP1();
+	}
+	else if (gameState == STATE_WRECKED_P2)
+	{
+	    drawWreckedScreenP2();
+	}
+    // regular in-game world rendering goes here
+    // game is also drawn underneath pause GUIs
+    else // if (gameState == STATE_PLAY || gameState == STATE_HELP || gameState == STATE_PAUSED)
 	{
 	    enableP1P2CanvasesWithOverlayOption(true);
 
 	    drawP1Screen();
 		drawP2Screen();
 		drawCommonScreenElements();
-
 
 		if (raining) {
 			updateRain();
@@ -619,26 +626,15 @@ function drawEverything() {
 		}
 		
 	}
-	else if (gameState == STATE_WRECKED)
-	{
-	    drawWreckedScreenP1();
-
-	}
-
-	else if (gameState == STATE_WRECKED_P2)
-	{
-	    drawWreckedScreenP2();
-
-	}
 	
-	else if (gameState == STATE_PAUSED)
+    // now that the world is drawn, we may want pause GUIs on top
+    if (gameState == STATE_PAUSED)
 	{
 		drawCommonScreenElements();	
 	}
-
 	else if (gameState == STATE_HELP)
 	{
-		drawHelpScreen();
+        drawHelpScreen();
 	}
 
 }
