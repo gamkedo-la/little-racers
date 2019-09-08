@@ -55,15 +55,8 @@ function drawWinScreen(canvas, canvasContext){
 	}
 	
 	//records 
-	if (levelNow == 1){
-		recordList[0].displayRecords();
-	} else if (levelNow == 2){
-		recordList[1].displayRecords();
-	} else if (levelNow == 3){
-		recordList[2].displayRecords();
-	}
-	
-	
+    recordList[levelNow-1].displayRecords();
+
 	//trophy
 	colorText(carPlaces[0].myName, 350, 188, 'black', font = "10px Arial Black"); // should center text
 }
