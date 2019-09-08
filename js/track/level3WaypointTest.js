@@ -7,7 +7,7 @@
  }
  if(typeof module === 'object' && module && module.exports) {
   module.exports = data;
- }})("level2WaypointTest",
+ }})("level3WaypointTest",
 { "height":30,
  "infinite":false,
  "layers":[
