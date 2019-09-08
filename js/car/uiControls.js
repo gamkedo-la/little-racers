@@ -67,7 +67,9 @@ function initInput(){
 			wreckedScreenMouseClick(mouseX, mouseY);
 		} else if(gameState == STATE_WRECKED_P2){
 			wreckedScreenMouseClick(mouseX, mouseY);
-		} 
+		} else if(gameState == STATE_HELP) {
+			helpScreenMouseClick(mouseX, mouseY);
+		}
 	} );
 	
 	
@@ -105,6 +107,13 @@ function isHoveringContinueButton() {
         && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight);
 }
 
+function isHoveringHelpButton() {
+	return (mouseX > PAUSEMENU_X * scaleWidth 
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
+        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING) * scaleHeight 
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight);
+}
+
 // the pause screen menu
 function drawPauseMenu() {
 	//console.log(mousePosX, mousePosY);
@@ -122,6 +131,11 @@ function drawPauseMenu() {
 	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,50,PAUSEMENU_BUTTONH, 'white');
     if (isHoveringContinueButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
 	colorText("CONTINUE"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING, 'orange', font = "24px Arial Black");
+
+	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
+	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING,50,PAUSEMENU_BUTTONH, 'white');
+	if (isHoveringHelpButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
+	colorText("HELP"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING, 'orange', font = "24px Arial Black");
 }
 
 function pauseMenuOnClick(mousePosX, mousePosY) {
@@ -149,6 +163,11 @@ function pauseMenuOnClick(mousePosX, mousePosY) {
         console.log("Clicked the continue button");
 		updateState(STATE_PLAY);
 		isMuted = (gameState == STATE_PAUSED) || isMutedByShortcut;        
+    }
+
+    if (isHoveringHelpButton()) {
+    	console.log("Clicked the help button");
+    	updateState(STATE_HELP);
     }
 
   }
