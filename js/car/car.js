@@ -130,6 +130,8 @@ function carClass() {
                 break;
             }
         }
+        
+        console.log("Car is processing waypoints");
         this.wayPointX = levelList[levelNow].wayPointsX.slice();
         this.wayPointY = levelList[levelNow].wayPointsY.slice();
 

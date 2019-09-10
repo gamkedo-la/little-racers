@@ -85,7 +85,7 @@ function announceRaceCarNumber(delay){
 
 function checkForTrackRecord(finishTime){ //this will require refactoring
 
-	if(levelNow == 0){
+    if(levelNow == 0){
 		console.log("level 0");
 		console.log("FT: " + finishTime);
 		console.log("RL: " + recordList[0].firstPlace);
