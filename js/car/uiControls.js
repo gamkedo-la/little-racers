@@ -52,6 +52,8 @@ function initInput(){
 	canvas.addEventListener('click',function(evt){
 		if(gameState == STATE_LEVEL_EDITOR){
 			mouseClick(mouseX, mouseY);
+		} else if(gameState == STATE_CREDITS) {
+			clickCredits();
 		} else if(gameState == STATE_TITLE_SCREEN) {
 			titleScreenMouseClick(mouseX, mouseY);
 		} else if(gameState == STATE_CAR_UPGRADE_SCREEN){

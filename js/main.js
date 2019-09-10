@@ -45,6 +45,7 @@ const STATE_PLAY = 7;
 const STATE_WRECKED = 8;
 const STATE_WRECKED_P2 = 9;
 const STATE_HELP = 10;
+const STATE_CREDITS = 11;
 var gameState = STATE_TITLE_SCREEN;
 
 var raceStartTimer = 0;
@@ -577,6 +578,10 @@ function drawEverything() {
     {
         enableMainCanvasOnly();
 		drawTitleScreen();
+    }
+    else if(gameState == STATE_CREDITS)
+    {
+        drawCredits();
     }
     else if(gameState == STATE_ENTER_PLAYER_NAME)
     {
