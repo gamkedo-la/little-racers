@@ -127,10 +127,19 @@ function carClass() {
                 this.homeX = tileCol * TRACK_W + 0.5 * TRACK_W;
                 this.homeY = tileRow * TRACK_H + 0.5 * TRACK_H;
                 trackGrid[i] = TRACK_ROAD;
+                console.log("Car home spawnpoint set to " +this.homeX+","+this.homeY);
                 break;
             }
         }
         
+        // what if track data is missing TRACK_PLAYER?
+        if (!this.homeX) { 
+            console.log("ERROR: no TRACK_PLAYER tiles found. Car has no home spawnpoint."); 
+            // lol stuff in some fake valid data
+            this.homeX = Math.round(Math.random()*500);
+            this.homeY = Math.round(Math.random()*500);
+        }
+
         console.log("Car is processing waypoints");
         this.wayPointX = levelList[levelNow].wayPointsX.slice();
         this.wayPointY = levelList[levelNow].wayPointsY.slice();

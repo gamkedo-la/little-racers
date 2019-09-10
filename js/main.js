@@ -315,6 +315,9 @@ function getRaceTimeDigits()
 }
 
 function prepareForRace() {
+    
+    console.log("Prepare for race!");
+    
     raceStartTimer++;
 
     if (debugMode)
