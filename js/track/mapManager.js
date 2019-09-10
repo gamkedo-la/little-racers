@@ -1,8 +1,8 @@
 const MAPS_TO_LOAD = [
     
+    'guerrillaLevel', // Simon's epic level
     'level1WaypointTest',
 	'level2WaypointTest',
-    'guerrillaLevel', // Simon's epic level
     
 	
 	//'level3WaypointTest'
