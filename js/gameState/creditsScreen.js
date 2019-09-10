@@ -12,7 +12,7 @@ function drawCredits() {
 	var textTopY = 30;
 	var lineSkip = 15;
 	for(var i=0;i<creditsText.length;i++) {
-		colorText(creditsText[i],textLeftX,textTopY+lineSkip*i,"white", "13px Arial"); 
+		colorText(creditsText[i],textLeftX,textTopY+lineSkip*i,"white", "14px Arial"); 
 	}
 }
 
@@ -42,24 +42,26 @@ var creditsText =
 "Osama \"Dorgam\" Alsalman: Premium nitro",
 "Ricardo Velez: Car slide on ice",
 "Chris DeLeon: Compiled credits, minimap smoothing, rain pans",
-"Game made in HomeTeam GameDev - find out more or apply to join at HomeTeamGameDev.com",
+"                       Game made in HomeTeam GameDev, find out more or apply to join at HomeTeamGameDev.com",
 " ",
-"                                   -- CLICK ANYWHERE TO RETURN --"
+"                                                                    -- CLICK ANYWHERE TO RETURN --"
 ];
 
 function lineWrapCredits() {
 	var newCut = [];
-	var maxLineChar = 120;
+	var maxLineChar = 119;
 	var findEnd;
 	for(var i=0;i<creditsText.length;i++) {
 		while(creditsText[i].length > 0) {
-			findEnd = 0;
-			/*var chopString = creditsText[i]; // WIP scanning for spaces for nicer wrap, will fix soonish :D
-			while(findEnd < maxLineChar && chopString.length > 0) {
-				findEnd += chopString.search(" ");
-				chopString = chopString.substring(findEnd,chopString.length);
-			}*/
 			findEnd = maxLineChar;
+			if(creditsText[i].length > maxLineChar) {
+				for(var ii=findEnd;ii>0;ii--) {
+					if(creditsText[i].charAt(ii) == " ") {
+						findEnd=ii;
+						break;
+					}
+				}
+			}
 			newCut.push(creditsText[i].substring(0, findEnd));
 			creditsText[i] = creditsText[i].substring(findEnd, creditsText[i].length);
 		}

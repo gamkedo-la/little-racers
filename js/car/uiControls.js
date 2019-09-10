@@ -37,7 +37,7 @@ function initInput(){
 	canvas.addEventListener('mousemove', function(evt) {
 	
 	calculateMousePos(evt);
-	document.getElementById("debugText").innerHTML = "(" +mouseX/scaleWidth+ ", " +mouseY/scaleHeight+ ")";
+	// document.getElementById("debugText").innerHTML = "(" +mouseX/scaleWidth+ ", " +mouseY/scaleHeight+ ")";
 	});
 	
 	
