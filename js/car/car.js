@@ -131,7 +131,6 @@ function carClass() {
                 this.homeX = tileCol * TRACK_W + 0.5 * TRACK_W;
                 this.homeY = tileRow * TRACK_H + 0.5 * TRACK_H;
                 trackGrid[i] = TRACK_ROAD;
-                console.log("Car home spawnpoint set to " +this.homeX+","+this.homeY);
                 break;
             }
         }
@@ -144,7 +143,9 @@ function carClass() {
             this.homeY = Math.round(Math.random()*500);
         }
 
-        console.log("Car is processing waypoints");
+        console.log(whichName+"'s spawnpoint set to " +this.homeX+","+this.homeY);
+
+        //console.log("Car is processing waypoints");
         this.wayPointX = levelList[levelNow].wayPointsX.slice();
         this.wayPointY = levelList[levelNow].wayPointsY.slice();
 
@@ -1398,7 +1399,7 @@ function carClass() {
                     var newParticle = new fireParticleClass(this.x, this.y);
                     this.damageParticles.push(newParticle);
                 } else { // delete the oldest one instead!
-                    console.log("Car has too many particles! " + this.damageParticles.length);
+                    //console.log("Car has too many particles! " + this.damageParticles.length);
                 }
             }
         }

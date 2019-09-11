@@ -320,7 +320,7 @@ function getRaceTimeDigits()
 
 function prepareForRace() {
     
-    console.log("Prepare for race!");
+    //console.log("Prepare for race!"); // gets called many times at start
     
     raceStartTimer++;
 	
