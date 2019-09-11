@@ -146,6 +146,9 @@ function carClass() {
         this.wayPointX = levelList[levelNow].wayPointsX.slice();
         this.wayPointY = levelList[levelNow].wayPointsY.slice();
 
+        // point at the first waypoint so we start facing the right direction
+        this.ang = Math.atan2(this.wayPointY[0]-this.homeY,this.wayPointX[0]-this.homeX);
+
         this.x = this.homeX;
         this.y = this.homeY;
         this.respawnPosition.x = this.x;
