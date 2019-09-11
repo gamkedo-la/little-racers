@@ -261,9 +261,10 @@ function moveEverything() {
 				console.log ("player 1 wrecked -- does not handle two player mode, yet");
 			}
 
-			if (vehicleList[1].healthRemaining <= 0) {
-				updateState (STATE_WRECKED_P2);
-				console.log ("player 2 wrecked -- does not handle two player mode, yet");
+            if (vehicleList[1].healthRemaining <= 0) {
+                // FIXME: this crashes the game but needs to be implemented:
+                // updateState (STATE_WRECKED_P2);
+                console.log ("player 2 wrecked -- does not handle two player mode, yet - IGNORING!!!!!");
 			}
 
             //Handle collisions between cars based on their new positions.
