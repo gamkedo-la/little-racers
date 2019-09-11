@@ -1,5 +1,6 @@
 
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
+const WAYPOINT_DISTANCE_THRESHOLD = 64;     // was 27 but it was easy to miss
 const MAX_PARTICLES_PER_CAR = 50;           // avoid perf issues with spammy fx
 const CHANCE_OF_A_NEW_PARTICLE = 0.25;      // avoid adding particles every single frame
 const USE_HEADLIGHTS = true;                // if true draw headlight beams and glows
@@ -333,7 +334,8 @@ function carClass() {
                 }
             }
         }
-        var hitWaypointDistance = 27;
+
+        var hitWaypointDistance = WAYPOINT_DISTANCE_THRESHOLD;
         var d = dist(this.x, this.y, toX, toY);
         if (d <= hitWaypointDistance) {
             this.wayPointNumber++;
