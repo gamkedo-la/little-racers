@@ -103,6 +103,7 @@ function carClass() {
     this.maxHealth = 100;
     this.bodyStrength = 1; // Possibly upgradeable, damage reduction factor when hit without shieldStrength
     this.healthRemaining = this.maxHealth;
+	this.highlight = false;
 
 
     this.setupControls = function(forwardKey, backKey, leftKey, rightKey, nitroKey, shotKey) {
@@ -1251,6 +1252,11 @@ function carClass() {
         
         // car sprite
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x - (this.z / 4), this.y - (this.z / 2), this.ang + visualAngAdjust, canvasContext);
+		if(this.highlight){
+			drawBitmapCenteredAtLocationWithRotation(highlightPic, this.x - (this.z / 4), this.y - (this.z / 2), this.ang + visualAngAdjust, canvasContext);
+			this.highlight = false;
+		}
+		
         this.myRocket.draw();
 		if (debugMode) {
             //Please leave this here but commented out so I don't have to remember how to set it up properly.

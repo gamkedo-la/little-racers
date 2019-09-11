@@ -322,11 +322,16 @@ function prepareForRace() {
     console.log("Prepare for race!");
     
     raceStartTimer++;
+	
+	if(raceStartTimer%2 == 0){
+		vehicleList[0].highlight = true;
+	} 
 
     if (debugMode)
     {
         raceStartTimer = 195;
     }
+		
 
 	if(raceStartTimer == 10){
 		attentionDriversSound.play();
