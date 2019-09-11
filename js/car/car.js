@@ -1,5 +1,7 @@
 
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
+const MAX_PARTICLES_PER_CAR = 50;           // avoid perf issues with spammy fx
+const CHANCE_OF_A_NEW_PARTICLE = 0.25;      // avoid adding particles every single frame
 const USE_HEADLIGHTS = true;                // if true draw headlight beams and glows
 const DRIVE_POWER = 0.45                    //These values from https://docs.google.com/spreadsheets/d/1bj506aOmZ7FRwFtS2wdQl-u09G10rXYQIrxpWryp_gk/edit#gid=953347406
 const GROUNDSPEED_DECAY_MULT = 0.948;
@@ -1374,11 +1376,19 @@ function carClass() {
     }
 
     this.addDamageParticles = function() {
+
+        // skip frames so we only spawn particles occasionally
+        if (Math.random()>=CHANCE_OF_A_NEW_PARTICLE) return;
+
         if (this.healthRemaining < this.maxHealth ) {
             var intensityFactor = (this.maxHealth - this.healthRemaining) * 0.01;
             for (var i = 0; i < Math.floor(MAX_DAMAGE_PARTICLES_PER_FRAME * intensityFactor); i++) {
-                var newParticle = new fireParticleClass(this.x, this.y);
-                this.damageParticles.push(newParticle);
+                if (this.damageParticles.length<MAX_PARTICLES_PER_CAR) {
+                    var newParticle = new fireParticleClass(this.x, this.y);
+                    this.damageParticles.push(newParticle);
+                } else { // delete the oldest one instead!
+                    console.log("Car has too many particles! " + this.damageParticles.length);
+                }
             }
         }
     }

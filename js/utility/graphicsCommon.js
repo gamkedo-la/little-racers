@@ -89,7 +89,8 @@ function colorRGBALine(xStartingPoint, yStartingPoint, xFinishingPoint, yFinishi
 }
 
 function fireParticleClass(startingX, startingY, ctx = canvasContext) {
-	// Created using http://nibunan.com/articles/article/how-to-create-realistic-fire-effect-in-html5-canvas-using-javascript as reference
+    const PARTICLE_MAX_AGE = 200; // max number of updates before assumed too old
+    // Created using http://nibunan.com/articles/article/how-to-create-realistic-fire-effect-in-html5-canvas-using-javascript as reference
 	this.speed = randomIntFromInterval(1,5);
 	this.radius = 5;
 	this.opacity = 0.1;
@@ -100,10 +101,14 @@ function fireParticleClass(startingX, startingY, ctx = canvasContext) {
 	this.readyToRemove = false;
 	this.startingX = this.location.x;
 	this.startingY = this.location.y;
-	this.maxHeight = 200;
+    this.maxHeight = 200;
+    this.moveCount = 0;
 
 	this.move = function () {
-		if (this.location.y < this.startingY - this.maxHeight || this.radius <= 1 || this.opacity == 0.0) {
+
+        this.moveCount++;
+
+		if (this.moveCount>PARTICLE_MAX_AGE || this.location.y < this.startingY - this.maxHeight || this.radius <= 1 || this.opacity == 0.0) {
             this.readyToRemove = true;
         }
 

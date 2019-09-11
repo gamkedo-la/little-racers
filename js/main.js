@@ -290,8 +290,10 @@ function moveEverything() {
     //alanZBackgroundMusic.startOrStopMusic(); 
 }
 
-function updateTime(){
-	now = new Date();
+var frameCounter = 0;
+function updateTime() { // run once per frame
+    now = new Date();
+    frameCounter++;
 }
 
 // 00:00:00  Minutes : Seconds : Hundredths of Seconds
