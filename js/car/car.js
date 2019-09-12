@@ -1162,7 +1162,7 @@ function carClass() {
     const DEG_TO_RAD = Math.PI/180; // handy math constant
     const WALL_BOUNCE_ANG_RANGE = 10 * DEG_TO_RAD; // range in radians
     const WALL_BOUNCE_POS_RANGE = 0; // pixel jitter range
-    const WALL_BOUNCE_REFLECT_DIST = 4; // pixels to the left or right of car ang
+    const WALL_BOUNCE_REFLECT_DIST = 2; // pixels to the left or right of car ang
     this.wallBounce = function() { 
         //console.log("WALL BOUNCE!");
         // return to last known "good" pos
