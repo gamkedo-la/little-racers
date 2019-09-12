@@ -1,6 +1,7 @@
 
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
 const BOUNCE_OFF_WALLS = true;              // if false, use old method w hardcoded angles per tile
+const WALL_DAMAGE_PER_FRAME = 1;            // adds up fast, was 5
 const WAYPOINT_DISTANCE_THRESHOLD = 64;     // was 27 but it was easy to miss
 const MAX_PARTICLES_PER_CAR = 50;           // avoid perf issues with spammy fx
 const CHANCE_OF_A_NEW_PARTICLE = 0.25;      // avoid adding particles every single frame
@@ -1050,7 +1051,7 @@ function carClass() {
                     this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
                 }
                 this.wallCollisionCamShake();
-                this.takeDamage(5);
+                this.takeDamage(WALL_DAMAGE_PER_FRAME);
                 break;
             case TRACK_BRICK_WALL_RIGHT:
             case TRACK_BRICK_WALL_RIGHT_GRASS:
@@ -1062,7 +1063,7 @@ function carClass() {
                     this.x = this.oldX - 1;
                 }
                 this.wallCollisionCamShake();
-                this.takeDamage(5);
+                this.takeDamage(WALL_DAMAGE_PER_FRAME);
                 break;
             case TRACK_BRICK_WALL_TOP_MIDDLE:
             case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
@@ -1074,7 +1075,7 @@ function carClass() {
                     this.y = this.oldY + 1;
                 }
                 this.wallCollisionCamShake();
-                this.takeDamage(5);
+                this.takeDamage(WALL_DAMAGE_PER_FRAME);
                 break;
             case TRACK_BRICK_WALL_BOT_MIDDLE:
             case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
@@ -1086,7 +1087,7 @@ function carClass() {
                     this.y = this.oldY - 1;
                 }
                 this.wallCollisionCamShake();
-                this.takeDamage(5);
+                this.takeDamage(WALL_DAMAGE_PER_FRAME);
                 break;
             //For the wall corners, just bounce the car out enough the driver can hit one of the orthagonal walls instead.
             case TRACK_BRICK_WALL_TOP_LEFT_END:
@@ -1149,7 +1150,7 @@ function carClass() {
                 }
                 break;
             default: //Handles collision with solid tiles. Really, this catch-all should generally be avoided.
-                //console.log("In the default");
+                console.log("Collided with an unknown tile!");
                 this.speed = -.5 * this.speed;
                 if (BOUNCE_OFF_WALLS) {
                     this.wallBounce();
