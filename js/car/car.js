@@ -1162,11 +1162,20 @@ function carClass() {
     const DEG_TO_RAD = Math.PI/180; // handy math constant
     const WALL_BOUNCE_ANG_RANGE = 10 * DEG_TO_RAD; // range in radians
     const WALL_BOUNCE_POS_RANGE = 0; // pixel jitter range
+    const WALL_BOUNCE_REFLECT_DIST = 4; // pixels to the left or right of car ang
     this.wallBounce = function() { 
-        //console.log("WALL BOUNCE HACK!");
+        //console.log("WALL BOUNCE!");
         // return to last known "good" pos
         this.x = this.oldX;
         this.y = this.oldY;
+        // nudge the car directly left or right of the car ang
+        // if we are trying to turn: this is generally what the player wants to happen
+        if (this.keyHeld_TurnLeft || this.keyHeld_TurnRight) { // player trying to turn?
+            var REFLECTOFS = -90 * DEG_TO_RAD;
+            if (this.keyHeld_TurnRight) REFLECTOFS *= -1; // other way
+            this.x += Math.cos(this.ang+REFLECTOFS)*WALL_BOUNCE_REFLECT_DIST;
+            this.y += Math.sin(this.ang+REFLECTOFS)*WALL_BOUNCE_REFLECT_DIST;
+        }
         // randomly jitter the steering wheel
         this.ang += Math.random()*WALL_BOUNCE_ANG_RANGE-WALL_BOUNCE_ANG_RANGE/2;
         // randomly bounce around
