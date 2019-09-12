@@ -109,7 +109,8 @@ function enableMainCanvasOnly()
 		canvas2.width = 0;
 		canvasOverlay.width = 0;
 		resizeAndRepositionCanvas(canvas, canvasContext);
-		windowWasResized = false;
+        windowWasResized = false;
+        if (tireTracks) tireTracks.reset(); // and resize        
 	}
     //if (SMOKE_FX_ENABLED) SmokeFX.hide();
 }
@@ -174,8 +175,9 @@ function resizeAndRepositionCanvas(aCanvas, aCanvasContext, isSplitScreen = fals
         // if (SMOKE_FX_ENABLED) SmokeFX.resizeTo(canvas.width,canvas.height);
 
         // tiretracks canvas needs resizing as well
-        if (tireTracks)
-            tireTracks.clear();
+        if (tireTracks) {
+            tireTracks.reset(); // and resize
+        }
 
 	}
 }
@@ -577,7 +579,8 @@ function drawP2Screen() {
 function updateState(newState) {
 	console.log (newState);
 	gameState = newState;
-	reportWindowResize();
+    reportWindowResize();
+    if (tireTracks) tireTracks.reset(); // and resize
 }
 
 function drawEverything() {

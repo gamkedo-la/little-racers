@@ -72,12 +72,20 @@ var decalManager = function() {
 	};
 
 	this.resize = function() {
-		this.tireTrackCanvas.width = canvas.width;
-		this.tireTrackCanvas.height = canvas.height;
+        
+        // bugfix: needs to be the size of the WORLD not the camera region
+        // this.tireTrackCanvas.width = canvas.width;
+        // this.tireTrackCanvas.height = canvas.height;
+
+        this.tireTrackCanvas.width = TRACK_W * getCurrentTrackCols();
+        this.tireTrackCanvas.height = TRACK_H * getCurrentTrackRows();
+
+        console.log("TireTracks canvas resized to "+this.tireTrackCanvas.width+"x"+this.tireTrackCanvas.height);
 	};
 
 	this.reset = function() {
-    this.tireTrackCTX.clearRect(0, 0, this.tireTrackCanvas.width, this.tireTrackCanvas.height);
+        this.resize();
+        this.tireTrackCTX.clearRect(0, 0, this.tireTrackCanvas.width, this.tireTrackCanvas.height);
 	};
   
 };
