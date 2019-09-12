@@ -7,7 +7,7 @@
  }
  if(typeof module === 'object' && module && module.exports) {
   module.exports = data;
- }})("guerrillaLevel",
+ }})("deathArena",
 { "height":31,
  "infinite":false,
  "layers":[
