@@ -551,9 +551,11 @@ function carClass() {
 		
 		if(this.computerReloadingWait-- < 0){
 			if(this.rocketQuantity > 0){
-				if (this.isAnotherCarNearAndInFront(AI_SHOOT_DISTANCE)){
-					this.rocketFire();
-					this.computerRandomizedShotWait();
+				if(this.finishTime == 0){
+					if (this.isAnotherCarNearAndInFront(AI_SHOOT_DISTANCE)){
+						this.rocketFire();
+						this.computerRandomizedShotWait();
+					}
 				}
 			}
 		}
