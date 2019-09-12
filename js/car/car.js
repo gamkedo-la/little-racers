@@ -1,5 +1,6 @@
 
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
+const BOUNCE_OFF_WALLS = true;              // if false, use old method w hardcoded angles per tile
 const WAYPOINT_DISTANCE_THRESHOLD = 64;     // was 27 but it was easy to miss
 const MAX_PARTICLES_PER_CAR = 50;           // avoid perf issues with spammy fx
 const CHANCE_OF_A_NEW_PARTICLE = 0.25;      // avoid adding particles every single frame
@@ -1042,32 +1043,48 @@ function carClass() {
 			case TRACK_TOWN_TREE_NINE:
 			case TRACK_TOWN_TREE_TEN:
             case LAKE_BANK_RIGHT:
-                this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
-                this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                } else { // old way
+                    this.handleWallImpact(RADIANS_90_DEGREES_NEGATIVE);
+                    this.x = this.oldX + 1; //Keep pushing car out of wall in the event its gotten stuck deep.
+                }
                 this.wallCollisionCamShake();
                 this.takeDamage(5);
                 break;
             case TRACK_BRICK_WALL_RIGHT:
             case TRACK_BRICK_WALL_RIGHT_GRASS:
             case LAKE_BANK_LEFT:
-                this.handleWallImpact(RADIANS_270_DEGREES_NEGATIVE);
-                this.x = this.oldX - 1;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                } else { // old way
+                    this.handleWallImpact(RADIANS_270_DEGREES_NEGATIVE);
+                    this.x = this.oldX - 1;
+                }
                 this.wallCollisionCamShake();
                 this.takeDamage(5);
                 break;
             case TRACK_BRICK_WALL_TOP_MIDDLE:
             case TRACK_BRICK_WALL_TOP_MIDDLE_GRASS:
             case LAKE_BANK_BOTTOM:
-                this.handleWallImpact(RADIANS_0_DEGREES);
-                this.y = this.oldY + 1;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                } else { // old way
+                    this.handleWallImpact(RADIANS_0_DEGREES);
+                    this.y = this.oldY + 1;
+                }
                 this.wallCollisionCamShake();
                 this.takeDamage(5);
                 break;
             case TRACK_BRICK_WALL_BOT_MIDDLE:
             case TRACK_BRICK_WALL_BOT_MIDDLE_GRASS:
             case LAKE_BANK_TOP:
-                this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
-                this.y = this.oldY - 1;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                } else { // old way
+                    this.handleWallImpact(RADIANS_180_DEGREES_NEGATIVE);
+                    this.y = this.oldY - 1;
+                }
                 this.wallCollisionCamShake();
                 this.takeDamage(5);
                 break;
@@ -1079,6 +1096,9 @@ function carClass() {
             case LAKE_BOT_RIGHT_OUTER_2:
                 this.x = this.oldX + 1;
                 this.y = this.oldY + 1;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                }
                 break;
             case TRACK_BRICK_WALL_TOP_RIGHT_END:
             case TRACK_BRICK_WALL_TOP_RIGHT_END_GRASS:
@@ -1087,6 +1107,9 @@ function carClass() {
             case LAKE_BOT_LEFT_OUTER_2:
                 this.x = this.oldX - 1;
                 this.y = this.oldY + 1;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                }
                 break;
             case TRACK_BRICK_WALL_BOT_LEFT_END:
             case TRACK_BRICK_WALL_BOT_LEFT_END_GRASS:
@@ -1095,6 +1118,9 @@ function carClass() {
             case LAKE_TOP_RIGHT_OUTER_2:
                 this.x = this.oldX + 1;
                 this.y = this.oldY - 1;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                }
                 break;
             case TRACK_BRICK_WALL_BOT_RIGHT_END:
             case TRACK_BRICK_WALL_BOT_RIGHT_END_GRASS:
@@ -1103,6 +1129,9 @@ function carClass() {
             case LAKE_TOP_LEFT_OUTER_2:
                 this.x = this.oldX - 1;
                 this.y = this.oldY - 1;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                }
                 break;
             //For other things labelled TRACK_WALL, think it covers interior items.
             case TRACK_WALL:
@@ -1115,11 +1144,33 @@ function carClass() {
                 this.y = this.oldY;
                 this.speed = -.5 * this.speed;
                 //crashIntoConeSound.play();
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                }
                 break;
             default: //Handles collision with solid tiles. Really, this catch-all should generally be avoided.
                 //console.log("In the default");
                 this.speed = -.5 * this.speed;
+                if (BOUNCE_OFF_WALLS) {
+                    this.wallBounce();
+                }
         }
+    }
+
+    // an alternative to handleWallImpact and hardcoded tile angles
+    const DEG_TO_RAD = Math.PI/180; // handy math constant
+    const WALL_BOUNCE_ANG_RANGE = 10 * DEG_TO_RAD; // range in radians
+    const WALL_BOUNCE_POS_RANGE = 0; // pixel jitter range
+    this.wallBounce = function() { 
+        //console.log("WALL BOUNCE HACK!");
+        // return to last known "good" pos
+        this.x = this.oldX;
+        this.y = this.oldY;
+        // randomly jitter the steering wheel
+        this.ang += Math.random()*WALL_BOUNCE_ANG_RANGE-WALL_BOUNCE_ANG_RANGE/2;
+        // randomly bounce around
+        this.x += Math.random()*WALL_BOUNCE_POS_RANGE-WALL_BOUNCE_POS_RANGE/2;
+        this.y += Math.random()*WALL_BOUNCE_POS_RANGE-WALL_BOUNCE_POS_RANGE/2;
     }
 
     //checkAngle is the angle around which to constrain forward travel.
