@@ -14,6 +14,7 @@ var highlightPic = document.createElement("img");
 var resultScreenPic = document.createElement("img");
 var titleScreenePic = document.createElement("img");
 var bodyShopPic = document.createElement("img");
+var bodyShopOverLayPic = document.createElement("img");
 var bodyShopGaragePic = document.createElement("img");
 var characterSelectionPic = document.createElement("img");
 var keyPic = document.createElement("img");
@@ -108,10 +109,11 @@ function loadImages() {
 			{varName: highlightPic, theFile: "vehicles/highlight.png"},
 			{varName: rocketPic, theFile: "vehicles/rocket.png"},
 			{varName: tireTrackPic, theFile: "vehicles/tireTracks.png"},
-			{varName: carShadowPic, theFile: "vehicles/car_shadow.png"},
-			{varName: bodyShopPic, theFile: "backdrops/bodyShop.png"},
+			{varName: carShadowPic, theFile: "vehicles/car_shadow.png"},  
+			{varName: bodyShopPic, theFile: "backdrops/garageScreenMagWindow.png"},
+			{varName: bodyShopOverLayPic, theFile: "backdrops/garageScreenMagWindowOverlay.png"},
 			{varName: titleScreenePic, theFile: "title_screen.png"},
-			{varName: bodyShopGaragePic, theFile: "backdrops/bodyShopGarage.png"},
+			{varName: bodyShopGaragePic, theFile: "backdrops/garageScreenBG.png"},
 			{varName: characterSelectionPic, theFile: "backdrops/characterSelection.png"},
 			{varName: keyPic, theFile: "backdrops/key.png"},
 			{varName: resultScreenPic, theFile: "backdrops/resultScreenBackground.png"},
