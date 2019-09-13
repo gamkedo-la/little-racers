@@ -548,7 +548,7 @@ function drawP1Screen() {
 	drawTracksOnScreen(canvas, canvasContext);
 	cameraP1.endPan(canvasContext);
 
-	drawLapOneTime(canvasContext, vehicleList[0]);
+	//drawLapOneTime(canvasContext, vehicleList[0]);
 	if (vehicleList[1].computerPlayer) {
 		drawStartLights(canvasContext, canvas.width / scaleWidth * 0.5);
 	}
