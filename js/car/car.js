@@ -877,6 +877,7 @@ function carClass() {
 						this.finishTime = raceTimeElapsed;
                         whichPlace(this);
                         this.updateWayPoints();
+						console.log("Car Place Length: " +carPlaces.length);
                     }
                 }
 				this.recordDistance();

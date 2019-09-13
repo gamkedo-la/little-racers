@@ -35,22 +35,22 @@ function whichPlace(car){
 	carPlaces.push(car);
 	car.finishRace = true;
 
-	if(carPlaces.length == 0 && !firstPlaceFilled){
+	if(carPlaces.length == 1 && !firstPlaceFilled){
 		andTheWinnerIsSound.play();
 		firstPlaceFilled = true;
 	}
 	
-	if(carPlaces.length == 1 && !secondPlaceFilled){
+	if(carPlaces.length == 2 && !secondPlaceFilled){
 		comingInSecondSound.play();
 		secondPlaceFilled = true;
 	}
 	
-	if(carPlaces.length == 2 && !thirdPlaceFilled){
-		comingInSecondSound.play();
+	if(carPlaces.length == 3 && !thirdPlaceFilled){
+		comingInThirdSound.play();
 		thirdPlaceFilled = true;
 	}
 	
-	if(carPlaces.length == 7 && !lastPlaceFilled){
+	if(carPlaces.length == 8 && !lastPlaceFilled){
 		comingInLastSound.play();
 		lastPlaceFilled = true;
 	}
