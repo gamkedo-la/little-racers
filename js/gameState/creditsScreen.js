@@ -23,10 +23,10 @@ function clickCredits() {
 var creditsText =
 [
 "Vince McKeown: Project lead, core gameplay code, debug cheats, body shop functionality and related art, assorted asset integration, camera scrolling, AI waypoint following, internal editor before Tiled integration, race results screne, cash pickup, city sprite sheet, AI collision avoidance, trees and map buildings art, character selection screen, race time and related tracking, name entry, assorted bug fixes, rockets attack support, track 2 design",
-"Jeff \"Axphin\" Hanlon: Airborne collision fixes, announcer voice over (ex. \"start your engines\" - many phrases), car sprites, car names support, trophy art for win screen, system clock font, title screen setup, results screen images, explosion and engine sound effects",
-"Simon J Hoffiz: \"Guerrilla\" level design, mute key, screen shake, oil slip functionality, crack effect code, damage calculation, health display, game state refactoring (bools to enum), wrecked game state hookup, help screen option on pause",
+"Jeff \"Axphin\" Hanlon: Airborne collision fixes, announcer voice over (ex. \"start your engines\" - many phrases), car sprites, car names support, trophy art for win screen, system clock font, title screen setup, results screen images, explosion and engine sound effects, garage screen art",
+"Simon J Hoffiz: \"Guerrilla\" level design, mute key, screen shake, oil slip functionality, crack effect code, damage calculation, health display, game state refactoring (bools to enum), wrecked game state hookup, help screen option",
 "Mike LeSauvage: Race completion fix, collision handling improvements, jump speed threshold, nitro feature, arena wall graphics updated, grass and cone improvements, AI braking refactor, gauge system, tuning balance, boundary enforcement, two player upgrades, font integration, clock fix",
-"Christer \"McFunkypants\" Kaitila: Fading decal support (tracks, skids), gamepad support, smoke effects, title screen flames and other decoration effects (sparkles!), effects optimizations, title screen background image, crack detection, mouse fix, headlights support, checkpoints, hover state support, assorted bug fixes",
+"Christer \"McFunkypants\" Kaitila: Fading decal support (tracks, skids), gamepad support, smoke effects, title screen flames and other decoration effects (sparkles!), effects optimizations, title screen background image, crack detection, mouse fix, headlights support, checkpoints, hover state support, assorted bug fixes, death arena map",
 "Randy Tan Shaoxian: Linux support fixes, proportion corrections, CSS improvements, debug draw code, speedometer display, gauges refacor, split screen support plus related fixes, wrong direction test, waypoint error, wreck screen improvement",
 "H Trayford: Performance optimization (cached tile rendering), camera fix, Tiled map editor format integration, crack and oil tiles, pond tile set, title screen improvements, AI spread out, assorted bug fixes",
 "Terrence McDonnell: Canvas rescaling, airborne collision fix, cars parking at end of race, editor waypoint integration, input improvements, assorted bug fixes",
@@ -42,12 +42,13 @@ var creditsText =
 "Osama \"Dorgam\" Alsalman: Premium nitro",
 "Ricardo Velez: Car slide on ice",
 "Chris DeLeon: Compiled credits, minimap smoothing, rain pans",
+" ",
 "                       Game made in HomeTeam GameDev, find out more or apply to join at HomeTeamGameDev.com",
 " ",
 "                                                                    -- CLICK ANYWHERE TO RETURN --"
 ];
 
-function lineWrapCredits() {
+function lineWrapCredits() { // note: gets calling immediately after definition!
 	var newCut = [];
 	var maxLineChar = 119;
 	var findEnd;
