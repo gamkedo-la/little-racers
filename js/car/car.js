@@ -153,6 +153,8 @@ function carClass() {
 
         // point at the first waypoint so we start facing the right direction
         this.ang = Math.atan2(this.wayPointY[0]-this.homeY,this.wayPointX[0]-this.homeX);
+        var halfPI = Math.PI / 2.0;
+        this.ang = Math.round(this.ang / halfPI) * halfPI;
 
         this.x = this.homeX;
         this.y = this.homeY;
