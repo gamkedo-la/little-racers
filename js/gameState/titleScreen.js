@@ -15,7 +15,6 @@ function toggleDebug() {
 var mainMenuButtonList = [
 {leftX: 200, topY: 400, width: 100, height: 50, word: "1 Player", action: start1P},
 {leftX: 500, topY: 400, width: 100, height: 50, word: "2 Players", action: start2P},
-{leftX: 325, topY: 300, width: 150, height: 50, word: "Debug Mode :", action: toggleDebug},
 {leftX: 350, topY: 500, width: 100, height: 50, word: "Credits", action: showCredits}
 ];
 
@@ -66,7 +65,7 @@ function drawTitleScreen(){
 							'black', "14px Arial Black");
 	}
 	var debugButtonIndex = 2;
-	colorText(((debugMode == true) ? "on" : "off"), 
-			mainMenuButtonList[debugButtonIndex].leftX+120,
-			mainMenuButtonList[debugButtonIndex].topY+buttonMarginTextY, 'black', "14px Arial Black");
+	//colorText(((debugMode == true) ? "on" : "off"), 
+	//		mainMenuButtonList[debugButtonIndex].leftX+120,
+	//		mainMenuButtonList[debugButtonIndex].topY+buttonMarginTextY, 'black', "14px Arial Black");
 }
