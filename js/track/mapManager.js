@@ -1,10 +1,11 @@
 const MAPS_TO_LOAD = [
     
-    'deathArena', // a big open battle area
-    'guerrillaLevel', // Simon's epic level
-    'level1WaypointTest',
-	'level2WaypointTest',
-    
+	'level1WaypointTest',
+    'level2WaypointTest',
+	'deathArena', // a big open battle area
+	'guerrillaLevel', // Simon's epic level
+	
+	    
 	
 	//'level3WaypointTest'
 	// 'level1Test',
