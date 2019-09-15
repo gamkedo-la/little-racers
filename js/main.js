@@ -43,9 +43,8 @@ const STATE_RACE_HAS_STARTED = 5;
 const STATE_ENTER_PLAYER_NAME = 6;
 const STATE_PLAY = 7;
 const STATE_WRECKED = 8;
-const STATE_WRECKED_P2 = 9;
-const STATE_HELP = 10;
-const STATE_CREDITS = 11;
+const STATE_HELP = 9;
+const STATE_CREDITS = 10;
 var gameState = STATE_TITLE_SCREEN;
 
 var raceStartTimer = 0;
@@ -258,15 +257,14 @@ function moveEverything() {
 				vehicleList[i].movement();
 			}
 
-			if (vehicleList[0].healthRemaining <= 0) {
-				updateState (STATE_WRECKED);
+			var isP1Wrecked = vehicleList[0].healthRemaining <= 0;
+			var isP2Wrecked = vehicleList[1].healthRemaining <= 0;
+			var is2Pmode = !vehicleList[1].computerPlayer;
+			
+			if ((!is2Pmode && isP1Wrecked) || (is2Pmode && isP1Wrecked && isP2Wrecked)) {
+				updateState(STATE_WRECKED);
 				console.log ("player 1 wrecked -- does not handle two player mode, yet");
-			}
-
-            if (vehicleList[1].healthRemaining <= 0) {
-                // FIXME: this crashes the game but needs to be implemented:
-                // updateState (STATE_WRECKED_P2);
-                console.log ("player 2 wrecked -- does not handle two player mode, yet - IGNORING!!!!!");
+				console.log ("player 2 wrecked -- does not handle two player mode, yet - IGNORING!!!!!");
 			}
 
             //Handle collisions between cars based on their new positions.
@@ -620,14 +618,6 @@ function drawEverything() {
 	    //TODO: code to manage which player is being presented upgrade options.
         //Currently only player one can upgrade.
 	}
-	else if (gameState == STATE_WRECKED)
-	{
-	    drawWreckedScreenP1();
-	}
-	else if (gameState == STATE_WRECKED_P2)
-	{
-	    drawWreckedScreenP2();
-	}
     // regular in-game world rendering goes here
     // game is also drawn underneath pause GUIs
     else // if (gameState == STATE_PLAY || gameState == STATE_HELP || gameState == STATE_PAUSED)
@@ -646,7 +636,14 @@ function drawEverything() {
 		if(debugMode){
 			colorText("Debug Mode", 5, canvas.height/scaleHeight * 0.025, "white",);
 		}
-		
+	}
+
+	if (vehicleList[0].healthRemaining <= 0) {
+		drawWreckedScreenP1();
+	}
+
+	if (vehicleList[1].healthRemaining <= 0) {
+		drawWreckedScreenP2();
 	}
 	
     // now that the world is drawn, we may want pause GUIs on top

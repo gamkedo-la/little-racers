@@ -67,14 +67,16 @@ function initInput(){
 			pauseMenuOnClick(mouseX, mouseY);
 		} else if(gameState == STATE_WRECKED){
 			wreckedScreenMouseClick(mouseX, mouseY);
-		} else if(gameState == STATE_WRECKED_P2){
-			wreckedScreenMouseClick(mouseX, mouseY);
 		} else if(gameState == STATE_HELP) {
 			helpScreenMouseClick(mouseX, mouseY);
 		}
 	} );
-	
-	
+
+	canvas2.addEventListener('click',function(evt){
+		if(gameState == STATE_WRECKED){
+			wreckedScreenMouseClick(mouseX, mouseY);
+		}
+	});
 	
 	if(computerPlayerOn) {
 		vehicleList[1].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER, KEY_SHIFT);

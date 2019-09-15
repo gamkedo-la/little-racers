@@ -522,18 +522,19 @@ function carClass() {
 
     //The primary movement function; everything a car does starts here.
     this.movement = function() {
-
-        if (this.computerPlayer) {
-            this.doComputerPlayerDriving(); //Determines their steering and throttle.
-        } else {
-            this.checkIfWrongDirection();
+        if (this.healthRemaining > 0) {
+            if (this.computerPlayer) {
+                this.doComputerPlayerDriving(); //Determines their steering and throttle.
+            } else {
+                this.checkIfWrongDirection();
+            }
+            this.updateCarSpeedAndTurnRate();
+            this.updateCarPositionAndAngle();
+            this.handleTileEffects();
+            this.skidMarkHandling();
+            this.updateDamageParticles();
+            this.myRocket.movement();
         }
-        this.updateCarSpeedAndTurnRate();
-        this.updateCarPositionAndAngle();
-        this.handleTileEffects();
-        this.skidMarkHandling();
-        this.updateDamageParticles();
-		this.myRocket.movement();
     }
 	
 	this.rocketFire = function(){
