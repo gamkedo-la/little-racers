@@ -1,7 +1,7 @@
 function miniMap() {
     let miniMapX = 624;
     let miniMapY = 36;
-    let miniMapScale = 0.2;
+    let miniMapScale = 0.1;
 
     let interpX = 0;
     let interpY = 0;
