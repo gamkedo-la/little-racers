@@ -16,6 +16,16 @@ var titleScreenePic = document.createElement("img");
 var bodyShopPic = document.createElement("img");
 var bodyShopOverLayPic = document.createElement("img");
 var bodyShopGaragePic = document.createElement("img");
+var tirePic = document.createElement("img");
+var nitroPic = document.createElement("img");
+var enginePic = document.createElement("img");
+//var transmissionPic = document.createElement("img");
+var bodyShopGarageLevel0Pic = document.createElement("img");
+var bodyShopGarageLevel1Pic = document.createElement("img");
+var bodyShopGarageLevel2Pic = document.createElement("img");
+var bodyShopGarageLevel3Pic = document.createElement("img");
+var bodyShopGarageLevel4Pic = document.createElement("img");
+var bodyShopGaragePriceBoxPic = document.createElement("img");
 var characterSelectionPic = document.createElement("img");
 var keyPic = document.createElement("img");
 var wreckedScreenGreenPic = document.createElement("img");
@@ -111,6 +121,18 @@ function loadImages() {
 			{varName: tireTrackPic, theFile: "vehicles/tireTracks.png"},
 			{varName: carShadowPic, theFile: "vehicles/car_shadow.png"},  
 			{varName: bodyShopPic, theFile: "backdrops/garageScreenMagWindow.png"},
+			//{varName: bodyShop, theFile: "backdrops/garageScreenMagWindowOverlay.png"},
+			
+			{varName: tirePic, theFile: "backdrops/upgrade-wheel.png"},
+			{varName: nitroPic, theFile: "backdrops/upgrade-nitro.png"},
+			{varName: enginePic, theFile: "backdrops/upgrade-engine.png"},
+			{varName: bodyShopGarageLevel0Pic, theFile: "backdrops/power-level-zero.png"},
+			{varName: bodyShopGarageLevel1Pic, theFile: "backdrops/power-level-one.png"},
+			{varName: bodyShopGarageLevel2Pic, theFile: "backdrops/power-level-two.png"},
+			{varName: bodyShopGarageLevel3Pic, theFile: "backdrops/power-level-three.png"},
+			{varName: bodyShopGarageLevel4Pic, theFile: "backdrops/power-level-four.png"},
+			{varName: bodyShopGaragePriceBoxPic, theFile: "backdrops/upgrade-pricebox.png"},
+			
 			{varName: bodyShopOverLayPic, theFile: "backdrops/garageScreenMagWindowOverlay.png"},
 			{varName: titleScreenePic, theFile: "title_screen.png"},
 			{varName: bodyShopGaragePic, theFile: "backdrops/garageScreenBG.png"},
