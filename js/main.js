@@ -64,7 +64,7 @@ var fuelMeterP2 = new MeterClass(canvas.width/scaleWidth * 1.1 - 4, 525, CAR_LOW
 fuelMeterP2.meterPic = fuelGaugePic;
 
 //Debug Options
-var debugMode = false;
+var debugMode = true;
 var allowRescale = true;
 var byPassFadeOut = true; //disable if not using a local server
 
