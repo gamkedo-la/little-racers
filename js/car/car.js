@@ -40,7 +40,7 @@ const TURN_RATE_MULTIPLIER_GRASS = 0.75;
 const TURN_RATE_MULTIPLIER_ICE = 1.10;
 const NITRO_FRAME_DURATION = 30; //Being measured in frames, so at 30fps this is 1/3 second.
 const NITRO_BOOST_BASE_AMOUNT = .5; //Speed increase per frame.
-const NITRO_START_QUANTITY = 5;
+const NITRO_START_QUANTITY = 1;
 const AI_BRAKING_DISTANCE = 50;   //Measured from car center.
 const AI_STUCK_TIME_FRAMES = 10;
 const AI_RANDOM_MOVEMENT_FRAMES = 30;
@@ -75,7 +75,7 @@ function carClass() {
     this.keyHeld_TurnRight = false;
     this.keyHeld_Nitro = false;
     this.computerPlayer = false;
-    this.nitroBoostOn = false;
+	this.nitroBoostOn = false;
     this.wayPointNumber = 0;
     this.wayPointNumberPrev = 0;
 	this.computerReloadingWait = 0;
@@ -86,7 +86,7 @@ function carClass() {
 	this.raceDistance = 0;
 	this.inRacePosition = 0;
 	this.recordNewDistance = true;
-    this.cash = 2000;
+    this.cash = 38000;
     this.finishRace = false;
     this.fuelCapacity = 100;
     this.fuelConsumptionRate = 0.15;

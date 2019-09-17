@@ -16,6 +16,8 @@ var titleScreenePic = document.createElement("img");
 var bodyShopPic = document.createElement("img");
 var bodyShopOverLayPic = document.createElement("img");
 var bodyShopGaragePic = document.createElement("img");
+//upgrades
+var priceBoxPic = document.createElement("img"); 
 var tirePic = document.createElement("img");
 var nitroPic = document.createElement("img");
 var enginePic = document.createElement("img");
@@ -37,7 +39,8 @@ var wreckedScreenRedPic = document.createElement("img");
 var wreckedScreenBluePic = document.createElement("img");
 var wreckedScreenLightgrayPic = document.createElement("img");
 var wreckedScreenDarkgrayPic = document.createElement("img");
-//upgrades
+
+
 var tireTrackPic = document.createElement("img");
 var tireOptionOnePic = document.createElement("img");
 var tireOptionTwoPic = document.createElement("img");
@@ -45,6 +48,7 @@ var tireOptionThreePic = document.createElement("img");
 var tireOptionFourPic = document.createElement("img");
 var nitrosOptionOnePic = document.createElement("img");
 var nitrosOptionTwoPic = document.createElement("img");
+
 //misc
 var arrowPic = document.createElement("img");
 var roadSpriteSheet =  document.createElement("img");
@@ -122,6 +126,7 @@ function loadImages() {
 			{varName: tireTrackPic, theFile: "vehicles/tireTracks.png"},
 			{varName: carShadowPic, theFile: "vehicles/car_shadow.png"},  
 			{varName: bodyShopPic, theFile: "backdrops/garageScreenMagWindow.png"},
+			{varName: priceBoxPic, theFile: "backdrops/upgrade-pricebox.png"},
 			{varName: transmissionPic, theFile: "backdrops/upgrade-transmission.png"},
 			{varName: exhaustPic, theFile: "backdrops/upgrade-exhaust.png"},
 			{varName: tirePic, theFile: "backdrops/upgrade-wheel.png"},
