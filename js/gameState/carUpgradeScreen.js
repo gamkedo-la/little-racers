@@ -38,17 +38,11 @@ function drawCarUpgradeScreen(cnv, ctx){
 	canvasContext.drawImage(bodyShopGaragePic, 0, 0, canvas.width / scaleWidth, canvas.height / scaleHeight); // can't use canvas.width /2 due to scaling wierdness
 	canvasContext.drawImage(bodyShopPic,220, 0, 366, 289);
 	canvasContext.drawImage(bodyShopOverLayPic,232,93, 342, 186);
-	//colorRect(transmissionBoxX, transmissionBoxY,110,110, 'blue'); //transmission	
+	canvasContext.drawImage(exhaustPic,exhaustBoxX,exhaustBoxY, 110, 110);
+	canvasContext.drawImage(transmissionPic, transmissionBoxX, transmissionBoxY, 110, 110);
 	canvasContext.drawImage(tirePic, tireBoxX, tireBoxY, 110, 110);
 	canvasContext.drawImage(enginePic, engineBoxX, engineBoxY, 110, 110);
-	//colorRect(engineBoxX, engineBoxY,110,110, 'blue');	//engine
 	canvasContext.drawImage(nitroPic, nitroBoxX, nitroBoxY, 110, 110);
-	//colorRect(nitroBoxX, nitroBoxY,110,110, 'blue');	//nitro
-	//colorRect(exhaustBoxX, exhaustBoxY,110,110, 'blue');	//exhaust 
-	//colorText("Transmission", 62, 390, 'white', font = "12px Arial Black");
-	//colorText("Engine", engineBoxX + 20, engineBoxY + 30, 'white', font = "14px Arial Black");
-	//colorText("Nitro", nitroBoxX + 28, nitroBoxY + 30, 'white', font = "14px Arial Black");
-	//colorText("Exhaust", exhaustBoxX + 15, exhaustBoxY + 30, 'white', font = "14px Arial Black");
 	
 	
 	if(optionsSelected){
