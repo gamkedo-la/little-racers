@@ -3,6 +3,8 @@ var tireOptions = false;
 var engineOptions = false;
 var nitroOptions = false;
 var exhaustOptions = false;
+var exitBoxX = 650;
+var exitBoxY = 530;
 //Transmission
 var transmissionBoxX = 155;
 var transmissionBoxY = 325;

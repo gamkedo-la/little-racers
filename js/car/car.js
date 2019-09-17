@@ -86,7 +86,7 @@ function carClass() {
 	this.raceDistance = 0;
 	this.inRacePosition = 0;
 	this.recordNewDistance = true;
-    this.cash = 38000;
+    this.cash = 0;
     this.finishRace = false;
     this.fuelCapacity = 100;
     this.fuelConsumptionRate = 0.15;
