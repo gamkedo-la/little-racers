@@ -4,15 +4,8 @@ const MAPS_TO_LOAD = [
     'level2WaypointTest',
 	'deathArena', // a big open battle area
 	'guerrillaLevel', // Simon's epic level
-	'level3WaypointTest'
-	
-	    
-	
-	//'level3WaypointTest'
-	// 'level1Test',
-	// 'OneBigTrack',
-	// 'level2Test',
-	// 'level3Test'
+	'level3WaypointTest',
+	'level4WaypointTest'
 ];
 
 //MapManager
