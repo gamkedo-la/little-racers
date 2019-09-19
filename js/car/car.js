@@ -167,6 +167,7 @@ function carClass() {
         this.wrongDirectionTimerPrev = 0;
         this.wayPointNumberPrev = 0;
 		this.raceDistance = 0;
+		this.fuelInTank = this.fuelCapacity;
     }
 
     this.carInit = function(whichGraphic, whichName, whichAnnounce, computer) {
@@ -211,6 +212,7 @@ function carClass() {
 		this.finishTime = 0;
 		this.computerRandomizedShotWait();
 		this.rocketQuantity = 5;
+		this.fuelInTank = this.fuelCapacity;
     }
 
     function getDriverQuirksForName(aName) {
