@@ -2,7 +2,7 @@
 const DEBUG_AI = false;                     // verbose console log used for AI debugging
 const BOUNCE_OFF_WALLS = true;              // if false, use old method w hardcoded angles per tile
 const WALL_DAMAGE_PER_FRAME = 1;            // adds up fast, was 5
-const WAYPOINT_DISTANCE_THRESHOLD = 64;     // was 27 but it was easy to miss
+const WAYPOINT_DISTANCE_THRESHOLD = 128;     // was 27 but it was easy to miss
 const MAX_PARTICLES_PER_CAR = 50;           // avoid perf issues with spammy fx
 const CHANCE_OF_A_NEW_PARTICLE = 0.25;      // avoid adding particles every single frame
 const USE_HEADLIGHTS = true;                // if true draw headlight beams and glows
