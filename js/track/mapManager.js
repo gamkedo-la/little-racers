@@ -3,7 +3,8 @@ const MAPS_TO_LOAD = [
 	'level1WaypointTest',
     'level2WaypointTest',
 	'deathArena', // a big open battle area
-	'guerrillaLevel', // Simon's epic level
+    'guerrillaLevel', // Simon's epic level
+    'zigzag', // a very super sprint style back and forth
 	'level3WaypointTest',
 	'level4WaypointTest'
 ];
