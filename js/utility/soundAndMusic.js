@@ -4,6 +4,8 @@ var soundSetforMeetings = false; //make false to hear at normal level
 
 //sounds
 var crashIntoConeSound = new SoundOverlapsClass("crashCone");
+var blewUpSound = new SoundOverlapsClass("blew_up");
+var explosionSound = new SoundOverlapsClass("explosion");
 var engineSound = new SoundOverlapsClass("engine");
 var andTheWinnerIsSound = new SoundOverlapsClass("andTheWinnerIs_01");
 var comingInSecondSound = new SoundOverlapsClass("coming_in_second");

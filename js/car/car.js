@@ -1163,6 +1163,7 @@ function carClass() {
                 if (BOUNCE_OFF_WALLS) {
                     this.wallBounce();
                 }
+				explosionSound.play();
         }
     }
 
