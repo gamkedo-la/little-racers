@@ -531,7 +531,10 @@ function drawCommonScreenElements()
 	}
 	*/
 	
-	drawClock(canvasContext, 375, 0);
+	drawClock(canvasContext, 400, 0);
+	if (!vehicleList[1].computerPlayer) {
+		drawClock(canvasContext2, 0, 0);
+	}
 
 	trackMap.draw();
     if (gameState == STATE_PAUSED){
