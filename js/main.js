@@ -534,12 +534,12 @@ function drawCommonScreenElements()
 	if (!vehicleList[1].computerPlayer) {
 		if (vehicleList[0].healthRemaining <= 0) {
 			drawClock(canvasContext2, 200, 0);
-		} else {
+		} else if (vehicleList[1].healthRemaining > 0) {
 			drawClock(canvasContext2, 0, 0);
 		}
 		if (vehicleList[1].healthRemaining <= 0) {
 			drawClock(canvasContext, 200, 0);
-		} else {
+		} else if (vehicleList[0].healthRemaining > 0) {
 			drawClock(canvasContext, 400, 0);
 		}
 	} else {
@@ -570,7 +570,8 @@ function drawCommonScreenElements()
 						  PAUSEMENU_BUTTONW, PAUSEMENU_BUTTONH,
 						  PAUSEMENU_SPACING);
 		}
-    }
+	}
+	
     if (isMuted && isMutedByShortcut) {
     	canvasContext.drawImage(mutePic, 25, 25);
 	}
