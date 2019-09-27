@@ -531,9 +531,19 @@ function drawCommonScreenElements()
 	}
 	*/
 	
-	drawClock(canvasContext, 400, 0);
 	if (!vehicleList[1].computerPlayer) {
-		drawClock(canvasContext2, 0, 0);
+		if (vehicleList[0].healthRemaining <= 0) {
+			drawClock(canvasContext2, 200, 0);
+		} else {
+			drawClock(canvasContext2, 0, 0);
+		}
+		if (vehicleList[1].healthRemaining <= 0) {
+			drawClock(canvasContext, 200, 0);
+		} else {
+			drawClock(canvasContext, 400, 0);
+		}
+	} else {
+		drawClock(canvasContext, 400, 0);
 	}
 
 	trackMap.draw();
