@@ -546,7 +546,20 @@ function drawCommonScreenElements()
 		drawClock(canvasContext, 400, 0);
 	}
 
-	trackMap.draw();
+	if (!vehicleList[1].computerPlayer) {
+		if(vehicleList[0].healthRemaining > 0 && vehicleList[1].healthRemaining > 0) {
+			trackMap.draw(canvasContext, canvas.width / scaleWidth * 0.8, canvas.height / scaleHeight * 0.2);
+			trackMap.draw(canvasContext2, -110 / scaleWidth, canvas2.height / scaleHeight * 0.2);
+		} else if (vehicleList[0].healthRemaining > 0 && vehicleList[1].healthRemaining <= 0)
+		{
+			trackMap.draw(canvasContext, canvas.width / scaleWidth * 0.32, canvas.height / scaleHeight * 0.2);
+		} else if (vehicleList[1].healthRemaining > 0 && vehicleList[0].healthRemaining <= 0) {
+			trackMap.draw(canvasContext2, canvas2.width / scaleWidth * 0.32, canvas2.height / scaleHeight * 0.2);
+		}
+	} else {
+		trackMap.draw(canvasContext, canvas.width / scaleWidth * 0.75, canvas.height / scaleHeight * 0.2);
+	}
+
     if (gameState == STATE_PAUSED){
 		drawPauseMenu(canvasContext, 320, canvas.height/scaleHeight*0.35);
 		if (!vehicleList[1].computerPlayer) {

@@ -44,14 +44,14 @@ function miniMap() {
         console.log("mapScale can recalculate if needed");
     }
 
-    this.draw = function() {
-        canvasContext.save();
-        canvasContext.globalAlpha = 0.7;
-        canvasContext.translate(miniMapX, miniMapY);
-        canvasContext.scale(miniMapScale, miniMapScale);
-        canvasContext.beginPath();
-        canvasContext.strokeStyle = '#999999';
-        canvasContext.lineWidth = 115;
+    this.draw = function(ctx = canvasContext, x = miniMapX, y = miniMapY) {
+        ctx.save();
+        ctx.globalAlpha = 0.7;
+        ctx.translate(x, y);
+        ctx.scale(miniMapScale, miniMapScale);
+        ctx.beginPath();
+        ctx.strokeStyle = '#999999';
+        ctx.lineWidth = 115;
         // the +1 overdraw covers a gap at the track start/end loop connection
         var wayPointCount = levelList[levelNow].wayPointsX.length;
         for (var i = 0; i < wayPointCount+1; i++){
@@ -75,9 +75,9 @@ function miniMap() {
             var segmentSplit = 10;
 
             if(i==0) {
-                canvasContext.moveTo(prevX, prevY);
+                ctx.moveTo(prevX, prevY);
             } else {
-                canvasContext.lineTo(prevX, prevY);
+                ctx.lineTo(prevX, prevY);
             }
             for(var ii=0;ii<=segmentSplit;ii++) {
                 this.interpPt(levelList[levelNow].wayPointsX[prevI], levelList[levelNow].wayPointsY[prevI],
@@ -85,26 +85,26 @@ function miniMap() {
                     levelList[levelNow].wayPointsX[nextI] , levelList[levelNow].wayPointsY[nextI],
                     levelList[levelNow].wayPointsX[afterI], levelList[levelNow].wayPointsY[afterI],
                     ii/segmentSplit);
-                canvasContext.lineTo(interpX, interpY);
+                    ctx.lineTo(interpX, interpY);
 
-                //colorLine(prevX, prevY, interpX, interpY, '#cccccc', canvasContext, 45);
+                //colorLine(prevX, prevY, interpX, interpY, '#cccccc', ctx, 45);
                 prevX = interpX;
                 prevY = interpY;
             }
         }
-        canvasContext.stroke();
+        ctx.stroke();
 
         // draw little cars
 
-        canvasContext.translate(cameraP1.panX * miniMapScale, 
+        ctx.translate(cameraP1.panX * miniMapScale, 
                                 cameraP1.panY * miniMapScale);
 
         for (var i = 0; i < vehicleList.length; i++) {
-            vehicleList[i].drawCar(canvasContext);
+            vehicleList[i].drawCar(ctx);
         }
 
         // undo all the scaling and offsets        
-        canvasContext.restore();
+        ctx.restore();
     }
 
 }
