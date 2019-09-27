@@ -4,23 +4,15 @@ function wreckedScreenMouseClick(mousePosX, mousePosY) {
     resetCars();
 }
 
-function drawWreckedScreen(cvs, ctx){
-	var wreckedScreenCarColor;
+function drawWreckedScreen(car, cvs, ctx){	
     ctx.clearRect(0,0,cvs.width,cvs.height);
 
-    if (!vehicleList[1].computerPlayer) {
-        for (var i = 0; i < vehicleList.length; i++) {
-            if (vehicleList[i].healthRemaining <= 0) {
-                wreckedScreenCarColor = wreckedScreenHalfPics[i];
-            }
-        }
-    } else {
-        for (var i = 0; i < vehicleList.length; i++) {
-            if (vehicleList[i].healthRemaining <= 0) {
-                wreckedScreenCarColor = wreckedScreenPics[i];
-            }
+    for (var i = 0; i < vehicleList.length; i++) {
+        if (car == vehicleList[i]) {
+            ctx.drawImage(!vehicleList[1].computerPlayer ? wreckedScreenHalfPics[i] : wreckedScreenPics[0], 
+                0, 0, 
+                canvas.width / scaleWidth, 
+                canvas.height / scaleHeight);            
         }
     }
- 
-    ctx.drawImage(wreckedScreenCarColor, 0, 0, canvas.width / scaleWidth, canvas.height / scaleHeight); // can't use canvas.width /2 due to scaling wierdness
 }
