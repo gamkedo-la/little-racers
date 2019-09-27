@@ -570,7 +570,7 @@ function drawP2Screen() {
 		drawTracksOnScreen(canvas2, canvasContext2);
 		cameraP2.endPan(canvasContext2);
 
-		drawLapOneTime(canvasContext2, vehicleList[1]);		
+		// drawLapOneTime(canvasContext2, vehicleList[1]);
 		drawMeters(canvasContext2, vehicleList[1], fuelMeterP2, speedometerP2);
 		drawCheckpointArrow(canvas2, canvasContext2, vehicleList[1]);
 
