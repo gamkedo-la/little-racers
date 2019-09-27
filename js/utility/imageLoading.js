@@ -31,15 +31,45 @@ var bodyShopGarageLevel4Pic = document.createElement("img");
 var bodyShopGaragePriceBoxPic = document.createElement("img");
 var characterSelectionPic = document.createElement("img");
 var keyPic = document.createElement("img");
-var wreckedScreenGreenPic = document.createElement("img");
-var wreckedScreenYellowPic = document.createElement("img");
-var wreckedScreenOrangePic = document.createElement("img");
-var wreckedScreenPurplePic = document.createElement("img");
-var wreckedScreenRedPic = document.createElement("img");
-var wreckedScreenBluePic = document.createElement("img");
-var wreckedScreenLightgrayPic = document.createElement("img");
-var wreckedScreenDarkgrayPic = document.createElement("img");
 
+var wreckedScreenGreenPic = document.createElement("img");
+var wreckedScreenGreenHalfPic = document.createElement("img");
+var wreckedScreenYellowPic = document.createElement("img");
+var wreckedScreenYellowHalfPic = document.createElement("img");
+var wreckedScreenOrangePic = document.createElement("img");
+var wreckedScreenOrangeHalfPic = document.createElement("img");
+var wreckedScreenPurplePic = document.createElement("img");
+var wreckedScreenPurpleHalfPic = document.createElement("img");
+var wreckedScreenRedPic = document.createElement("img");
+var wreckedScreenRedHalfPic = document.createElement("img");
+var wreckedScreenBluePic = document.createElement("img");
+var wreckedScreenBlueHalfPic = document.createElement("img");
+var wreckedScreenLightgrayPic = document.createElement("img");
+var wreckedScreenLightgrayHalfPic = document.createElement("img");
+var wreckedScreenDarkgrayPic = document.createElement("img");
+var wreckedScreenDarkgrayHalfPic = document.createElement("img");
+
+var wreckedScreenPics = [ 
+	wreckedScreenGreenPic,
+	wreckedScreenYellowPic,
+	wreckedScreenOrangePic,
+	wreckedScreenPurplePic,
+	wreckedScreenRedPic,
+	wreckedScreenBluePic,
+	wreckedScreenLightgrayPic,
+	wreckedScreenDarkgrayPic
+]
+
+var wreckedScreenHalfPics = [
+	wreckedScreenGreenHalfPic,
+	wreckedScreenYellowHalfPic,
+	wreckedScreenOrangeHalfPic,
+	wreckedScreenPurpleHalfPic,
+	wreckedScreenRedHalfPic,
+	wreckedScreenBlueHalfPic,
+	wreckedScreenLightgrayHalfPic,
+	wreckedScreenDarkgrayHalfPic
+]
 
 var tireTrackPic = document.createElement("img");
 var tireOptionOnePic = document.createElement("img");
@@ -145,13 +175,22 @@ function loadImages() {
 			{varName: keyPic, theFile: "backdrops/key.png"},
 			{varName: resultScreenPic, theFile: "backdrops/resultScreenBackground.png"},
 			{varName: wreckedScreenGreenPic, theFile: "backdrops/wreckedScreen_1_green.png"},
+			{varName: wreckedScreenGreenHalfPic, theFile: "backdrops/wreckedScreen_1_green-half.png"},
 			{varName: wreckedScreenYellowPic, theFile: "backdrops/wreckedScreen_2_yellow.png"},
+			{varName: wreckedScreenYellowHalfPic, theFile: "backdrops/wreckedScreen_2_yellow-half.png"},
 			{varName: wreckedScreenOrangePic, theFile: "backdrops/wreckedScreen_3_orange.png"},
+			{varName: wreckedScreenOrangeHalfPic, theFile: "backdrops/wreckedScreen_3_orange-half.png"},
 			{varName: wreckedScreenPurplePic, theFile: "backdrops/wreckedScreen_4_purple.png"},
+			{varName: wreckedScreenPurpleHalfPic, theFile: "backdrops/wreckedScreen_4_purple-half.png"},
 			{varName: wreckedScreenRedPic, theFile: "backdrops/wreckedScreen_5_red.png"},
+			{varName: wreckedScreenRedHalfPic, theFile: "backdrops/wreckedScreen_5_red-half.png"},
 			{varName: wreckedScreenBluePic, theFile: "backdrops/wreckedScreen_6_blue.png"},
+			{varName: wreckedScreenBlueHalfPic, theFile: "backdrops/wreckedScreen_6_blue-half.png"},
 			{varName: wreckedScreenLightgrayPic, theFile: "backdrops/wreckedScreen_7_lightgray.png"},
+			{varName: wreckedScreenLightgrayHalfPic, theFile: "backdrops/wreckedScreen_7_lightgray-half.png"},
 			{varName: wreckedScreenDarkgrayPic, theFile: "backdrops/wreckedScreen_8_darkgray.png"},
+			{varName: wreckedScreenDarkgrayHalfPic, theFile: "backdrops/wreckedScreen_8_darkgray-half.png"},
+
 			{varName: tireOptionOnePic, theFile: "upgrades/tireOptionOne.png"},
 			{varName: tireOptionTwoPic, theFile: "upgrades/tireOptionTwo.png"},
 			{varName: tireOptionThreePic, theFile: "upgrades/tireOptionThree.png"},

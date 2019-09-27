@@ -648,11 +648,11 @@ function drawEverything() {
 	}
 
 	if (vehicleList[0].healthRemaining <= 0) {
-		drawWreckedScreenP1();
+		drawWreckedScreen(canvas, canvasContext);
 	}
 
 	if (vehicleList[1].healthRemaining <= 0) {
-		drawWreckedScreenP2();
+		drawWreckedScreen(canvas2, canvasContext2);
 	}
 	
     // now that the world is drawn, we may want pause GUIs on top
@@ -664,5 +664,4 @@ function drawEverything() {
 	{
         drawHelpScreen();
 	}
-
 }
