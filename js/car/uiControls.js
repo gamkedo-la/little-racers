@@ -119,27 +119,36 @@ function isHoveringHelpButton() {
 }
 
 // the pause screen menu
-function drawPauseMenu() {
+function drawPauseMenu(ctx,
+					   pauseX = 200, pauseY = 200,
+					   pmX = PAUSEMENU_X, pmY = PAUSEMENU_Y,
+					   pmtxtX = PAUSEMENU_TXT_X, pmtxtY = PAUSEMENU_TXT_Y,
+					   pmbW = PAUSEMENU_BUTTONW, pmbH = PAUSEMENU_BUTTONH,
+					   pmSpacing = PAUSEMENU_SPACING) {
+	
+	colorText("PAUSED", pauseX+2, pauseY+2, "black", "36px Arial Black", ctx);
+	colorText("PAUSED", pauseX, pauseY, "white", "36px Arial Black", ctx);
+
 	//console.log(mousePosX, mousePosY);
-    colorRect(PAUSEMENU_X,PAUSEMENU_Y,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
-    colorRect(PAUSEMENU_X,PAUSEMENU_Y,50,PAUSEMENU_BUTTONH, 'white');
-    if (isHoveringRestartButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
-	colorText("RESTART RACE"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y, 'orange', font = "24px Arial Black");
+    colorRect(pmX,pmY,pmbW,pmbH, 'black', ctx);
+    colorRect(pmX,pmY,50,pmbH, 'white');
+    if (isHoveringRestartButton()) colorRect(pmX,pmY,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+	colorText("RESTART RACE", pmtxtX, pmtxtY, 'orange', font = "24px Arial Black", ctx);
 
-	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
-	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING,50,PAUSEMENU_BUTTONH, 'white');
-    if (isHoveringRespawnButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
-	colorText("LAST CHECKPOINT"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y+PAUSEMENU_SPACING, 'orange', font = "24px Arial Black");
+	colorRect(pmX,pmY+pmSpacing,pmbW,pmbH, 'black', ctx);
+	colorRect(pmX,pmY+pmSpacing,50,pmbH, 'white', ctx);
+    if (isHoveringRespawnButton()) colorRect(pmX,pmY+pmSpacing,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+	colorText("LAST CHECKPOINT"  , pmtxtX, pmtxtY+pmSpacing, 'orange', font = "24px Arial Black", ctx);
 
-	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
-	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,50,PAUSEMENU_BUTTONH, 'white');
-    if (isHoveringContinueButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
-	colorText("CONTINUE"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING, 'orange', font = "24px Arial Black");
+	colorRect(pmX,pmY+pmSpacing*2,pmbW,pmbH, 'black', ctx);
+	colorRect(pmX,pmY+pmSpacing*2,50,pmbH, 'white', ctx);
+    if (isHoveringContinueButton()) colorRect(pmX,pmY+pmSpacing*2,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+	colorText("CONTINUE"  , pmtxtX, pmtxtY+pmSpacing*2, 'orange', font = "24px Arial Black", ctx);
 
-	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'black');
-	colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING,50,PAUSEMENU_BUTTONH, 'white');
-	if (isHoveringHelpButton()) colorRect(PAUSEMENU_X,PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING,PAUSEMENU_BUTTONW,PAUSEMENU_BUTTONH, 'rgba(255,255,0,0.5)');
-	colorText("HELP"  , PAUSEMENU_TXT_X, PAUSEMENU_TXT_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING, 'orange', font = "24px Arial Black");
+	colorRect(pmX,pmY+pmSpacing*3,pmbW,pmbH, 'black', ctx);
+	colorRect(pmX,pmY+pmSpacing*3,50,pmbH, 'white', ctx);
+	if (isHoveringHelpButton()) colorRect(pmX,pmY+pmSpacing*3,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+	colorText("HELP"  , pmtxtX, pmtxtY+pmSpacing*3, 'orange', font = "24px Arial Black", ctx);
 }
 
 function pauseMenuOnClick(mousePosX, mousePosY) {

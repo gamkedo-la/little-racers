@@ -538,9 +538,15 @@ function drawCommonScreenElements()
 
 	trackMap.draw();
     if (gameState == STATE_PAUSED){
-		drawPauseMenu();
-		colorText("PAUSED", canvas.width/scaleWidth*0.4+2, canvas.height/scaleHeight*0.5+2, "black", "36px Arial Black", );
-		colorText("PAUSED", canvas.width/scaleWidth*0.4, canvas.height/scaleHeight*0.5, "white", "36px Arial Black", );
+		drawPauseMenu(canvasContext, 320, canvas.height/scaleHeight*0.35);
+		if (!vehicleList[1].computerPlayer) {
+			drawPauseMenu(canvasContext2,
+						  -80, canvas.height/scaleHeight*0.35,
+						  -PAUSEMENU_X*.20, PAUSEMENU_Y,
+						  -PAUSEMENU_TXT_X*.20, PAUSEMENU_TXT_Y,
+						  PAUSEMENU_BUTTONW, PAUSEMENU_BUTTONH,
+						  PAUSEMENU_SPACING);
+		}
     }
     if (isMuted && isMutedByShortcut) {
     	canvasContext.drawImage(mutePic, 25, 25);
