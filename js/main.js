@@ -220,7 +220,7 @@ function moveEverything() {
 
     updateTime();
 
-    if(gameState != STATE_PLAY)
+    if(gameState != STATE_PLAY && gameState != STATE_PAUSED)
     {
         //Not racing, so reset all the race start info.
         raceStartTimer = 0;
