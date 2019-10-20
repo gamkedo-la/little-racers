@@ -29,26 +29,21 @@ const KEY_O = 79;
 const KEY_1 = 49;
 const KEY_2 = 50;
 
+var mouseX = 0;
+var mouseY = 0;
 
 let controlCameraForDebug = false;
 var isMutedByShortcut = false;
 
 function initInput(){
 	canvas.addEventListener('mousemove', function(evt) {
-	
-	calculateMousePos(evt);
-	// document.getElementById("debugText").innerHTML = "(" +mouseX/scaleWidth+ ", " +mouseY/scaleHeight+ ")";
+	  mouseX = calculateMousePos(evt).x;
+    mouseY = calculateMousePos(evt).y;
 	});
-	
-	
-    // canvasOverlay does not get mouse events due to css of pointer-events:none;
-    //canvasOverlay.addEventListener('mousemove', function(evt) {	
-	//	calculateMousePos(evt);
-	//}); 
 
 	document.addEventListener("keydown", keyPressed);
 	document.addEventListener("keyup", keyReleased);
-	
+
 	canvas.addEventListener('click',function(evt){
 		if(gameState == STATE_LEVEL_EDITOR){
 			mouseClick(mouseX, mouseY);
@@ -72,12 +67,17 @@ function initInput(){
 		}
 	} );
 
+  canvas2.addEventListener('mousemove', function(evt){
+    mouseX = calculateMousePos(evt, canvas2).x;
+    mouseY = calculateMousePos(evt, canvas2).y;
+  });
+
 	canvas2.addEventListener('click',function(evt){
 		if(gameState == STATE_WRECKED){
 			wreckedScreenMouseClick(mouseX, mouseY);
 		}
 	});
-	
+
 	if(computerPlayerOn) {
 		vehicleList[1].setupControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_ENTER, KEY_SHIFT);
 	}
@@ -92,30 +92,30 @@ const PAUSEMENU_SPACING = 50;
 const PAUSEMENU_TXT_X = PAUSEMENU_X + 15;
 const PAUSEMENU_TXT_Y = PAUSEMENU_Y + 30;
 
-function isHoveringRestartButton() {
-    return (mouseX > PAUSEMENU_X * scaleWidth 
-        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
-        && mouseY > PAUSEMENU_Y * scaleHeight 
-        && mouseY < (PAUSEMENU_Y+PAUSEMENU_BUTTONH) * scaleHeight);
+function isHoveringRestartButton(offsetX = 0, offsetY = 0) {
+    return (mouseX > PAUSEMENU_X * scaleWidth + offsetX * scaleWidth
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth + offsetX * scaleWidth
+        && mouseY > PAUSEMENU_Y * scaleHeight + offsetY * scaleHeight
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_BUTTONH) * scaleHeight + offsetY * scaleHeight);
 }
-function isHoveringRespawnButton() {
-    return (mouseX > PAUSEMENU_X * scaleWidth 
-        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
-        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING) * scaleHeight 
-        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight);
+function isHoveringRespawnButton(offsetX = 0, offsetY = 0) {
+    return (mouseX > PAUSEMENU_X * scaleWidth + offsetX * scaleWidth
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth + offsetX * scaleWidth
+        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING) * scaleHeight + offsetY * scaleHeight
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight + offsetY * scaleHeight);
 }
-function isHoveringContinueButton() {
-    return (mouseX > PAUSEMENU_X * scaleWidth 
-        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
-        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING) * scaleHeight 
-        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight);
+function isHoveringContinueButton(offsetX = 0, offsetY = 0) {
+    return (mouseX > PAUSEMENU_X * scaleWidth + offsetX * scaleWidth
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth + offsetX * scaleWidth
+        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING) * scaleHeight + offsetY * scaleHeight
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight + offsetY * scaleHeight);
 }
 
-function isHoveringHelpButton() {
-	return (mouseX > PAUSEMENU_X * scaleWidth 
-        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth 
-        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING) * scaleHeight 
-        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight);
+function isHoveringHelpButton(offsetX = 0, offsetY = 0) {
+	return (mouseX > PAUSEMENU_X * scaleWidth + offsetX * scaleWidth
+        && mouseX < (PAUSEMENU_X+PAUSEMENU_BUTTONW) * scaleWidth + offsetX * scaleWidth
+        && mouseY > (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING) * scaleHeight + offsetY * scaleHeight
+        && mouseY < (PAUSEMENU_Y+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_SPACING+PAUSEMENU_BUTTONH) * scaleHeight + offsetY * scaleHeight);
 }
 
 // the pause screen menu
@@ -130,24 +130,25 @@ function drawPauseMenu(ctx,
 	colorText("PAUSED", pauseX, pauseY, "white", "36px Arial Black", ctx);
 
 	//console.log(mousePosX, mousePosY);
-    colorRect(pmX,pmY,pmbW,pmbH, 'black', ctx);
-    colorRect(pmX,pmY,50,pmbH, 'white');
-    if (isHoveringRestartButton()) colorRect(pmX,pmY,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
-	colorText("RESTART RACE", pmtxtX, pmtxtY, 'orange', font = "24px Arial Black", ctx);
+  colorRect(pmX,pmY,pmbW,pmbH, 'black', ctx);
+  colorRect(pmX,pmY,50,pmbH, 'white');
+  var hoveroffsetX = pmX == PAUSEMENU_X ? 0 : -384;
+  if (isHoveringRestartButton(hoveroffsetX)) colorRect(pmX,pmY,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+  colorText("RESTART RACE", pmtxtX, pmtxtY, 'orange', font = "24px Arial Black", ctx);
 
-	colorRect(pmX,pmY+pmSpacing,pmbW,pmbH, 'black', ctx);
+  colorRect(pmX,pmY+pmSpacing,pmbW,pmbH, 'black', ctx);
 	colorRect(pmX,pmY+pmSpacing,50,pmbH, 'white', ctx);
-    if (isHoveringRespawnButton()) colorRect(pmX,pmY+pmSpacing,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+  if (isHoveringRespawnButton(hoveroffsetX)) colorRect(pmX,pmY+pmSpacing,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
 	colorText("LAST CHECKPOINT"  , pmtxtX, pmtxtY+pmSpacing, 'orange', font = "24px Arial Black", ctx);
 
 	colorRect(pmX,pmY+pmSpacing*2,pmbW,pmbH, 'black', ctx);
 	colorRect(pmX,pmY+pmSpacing*2,50,pmbH, 'white', ctx);
-    if (isHoveringContinueButton()) colorRect(pmX,pmY+pmSpacing*2,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+  if (isHoveringContinueButton(hoveroffsetX)) colorRect(pmX,pmY+pmSpacing*2,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
 	colorText("CONTINUE"  , pmtxtX, pmtxtY+pmSpacing*2, 'orange', font = "24px Arial Black", ctx);
 
 	colorRect(pmX,pmY+pmSpacing*3,pmbW,pmbH, 'black', ctx);
 	colorRect(pmX,pmY+pmSpacing*3,50,pmbH, 'white', ctx);
-	if (isHoveringHelpButton()) colorRect(pmX,pmY+pmSpacing*3,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
+	if (isHoveringHelpButton(hoveroffsetX)) colorRect(pmX,pmY+pmSpacing*3,pmbW,pmbH, 'rgba(255,255,0,0.5)', ctx);
 	colorText("HELP"  , pmtxtX, pmtxtY+pmSpacing*3, 'orange', font = "24px Arial Black", ctx);
 }
 
@@ -307,16 +308,15 @@ function setKeyHoldState(thisKey, thisCar, setTo) {
 }
 
 
-function calculateMousePos(evt) {
-	var rect = canvas.getBoundingClientRect(), root = document.documentElement;
+function calculateMousePos(evt, cvs = canvas) {
+	var rect = cvs.getBoundingClientRect(), root = document.documentElement;
 	
-	var mouseX = evt.clientX - rect.left - root.scrollLeft;
-	var mouseY = evt.clientY - rect.top - root.scrollTop;
-	return {
-		x: mouseX,
-		y: mouseY
-	};
+  x = evt.clientX - rect.left - root.scrollLeft;
+	y = evt.clientY - rect.top - root.scrollTop;
+
+  return {
+    'x': x,
+    'y': y
+  }
 }
-
-
 

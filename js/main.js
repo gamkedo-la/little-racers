@@ -14,8 +14,6 @@ const CANVAS_HEIGHT = 600;
 const CANVAS_GAP_TWO_PLAYERS = 10;
 const OFFSCREEN_DRAW_DELAY = 10;//ensures the win screen is displayed before starting to load next level image
 
-var mouseX = 0;
-var mouseY = 0;
 var scaleWidth = 1;
 var scaleHeight = 1;
 
@@ -351,13 +349,6 @@ function prepareForRace() {
 		displayGreenLight = true;
 		alanZBackgroundMusic.loopSong("backgroundMusicV1");
 	}
-}
-
-
-function calculateMousePos(evt) {
-	var rect = canvas.getBoundingClientRect(), root = document.documentElement;
-	mouseX = evt.clientX - rect.left - root.scrollLeft;
-	mouseY = evt.clientY - rect.top - root.scrollTop;
 }
 
 function drawClock(ctx, x, imgY){
